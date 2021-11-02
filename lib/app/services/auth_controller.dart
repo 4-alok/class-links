@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthController extends GetxController {
+class AuthService extends GetxService {
   late FirebaseAuth _auth;
   Rx<User?> _user = Rx<User?>(null);
   User? get user => _user.value;
