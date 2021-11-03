@@ -1,3 +1,4 @@
+import 'package:class_link/views/servers/server_page.dart';
 import 'package:get/get.dart';
 
 import 'package:class_link/app/modules/home/bindings/home_binding.dart';
@@ -13,7 +14,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => HomeView(),
+      page: () => ServerPage(),
       binding: HomeBinding(),
     ),
   ];
