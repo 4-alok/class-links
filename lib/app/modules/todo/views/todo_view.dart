@@ -1,4 +1,4 @@
-import 'package:class_link/widgets/todo_widget/TodoFormWidget.dart';
+import '../components/TodoFormWidget.dart';
 import 'package:flutter/material.dart';
 
 class AddingPage extends StatefulWidget {

@@ -1,11 +1,11 @@
-import 'package:class_link/views/todo/addingPage.dart';
-import 'package:class_link/widgets/todo_widget/TodoFormWidget.dart';
+import 'package:class_link/app/modules/todo/views/todo_view.dart';
+import '../../todo/views/todo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
-class rutineWidget extends StatelessWidget {
-  const rutineWidget({Key? key}) : super(key: key);
+class RoutineWidget extends StatelessWidget {
+  const RoutineWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

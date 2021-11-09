@@ -1,16 +1,16 @@
-import 'package:class_link/widgets/rutine_widget/AddingRutineFormWidget.dart';
-import 'package:class_link/widgets/rutine_widget/CategoriesScroller.dart';
-import 'package:class_link/widgets/rutine_widget/rutine.dart';
+import '../components/AddingRutineFormWidget.dart';
+import '../components/CategoriesScroller.dart';
+import '../components/routine.dart';
 import 'package:flutter/material.dart';
 
-class rutinePage extends StatefulWidget {
-  const rutinePage({Key? key}) : super(key: key);
+class RoutinePage extends StatefulWidget {
+  const RoutinePage({Key? key}) : super(key: key);
 
   @override
-  _rutinePageState createState() => _rutinePageState();
+  _RoutinePageState createState() => _RoutinePageState();
 }
 
-class _rutinePageState extends State<rutinePage> {
+class _RoutinePageState extends State<RoutinePage> {
   String title = '';
   String description = '';
   @override
@@ -66,9 +66,9 @@ class _rutinePageState extends State<rutinePage> {
       body: ListView(
         children: [
           CategoriesScroller(),
-          rutineWidget(),
-          rutineWidget(),
-          rutineWidget(),
+          RoutineWidget(),
+          RoutineWidget(),
+          RoutineWidget(),
         ],
       ),
     );

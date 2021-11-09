@@ -1,6 +1,6 @@
 import 'package:class_link/theme/theme.dart';
-import 'package:class_link/views/servers/server_page.dart';
 import 'package:flutter/material.dart';
+import './app/modules/servers/views/servers_view.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() {

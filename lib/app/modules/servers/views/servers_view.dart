@@ -1,4 +1,4 @@
-import 'package:class_link/widgets/server_widget/server_package.dart';
+import '../components/server_package.dart';
 import 'package:flutter/material.dart';
 
 

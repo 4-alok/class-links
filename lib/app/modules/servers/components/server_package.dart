@@ -1,4 +1,6 @@
-import 'package:class_link/views/rutine/rutine_page.dart';
+import 'package:class_link/app/modules/routine/views/routine_view.dart';
+
+import '../views/servers_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -60,7 +62,7 @@ class serverWidget extends StatelessWidget {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          Get.to(rutinePage());
+                          Get.to(RoutinePage());
                         },
                         child: Text('Join'),
                         style: ButtonStyle(
@@ -71,7 +73,7 @@ class serverWidget extends StatelessWidget {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          Get.to(rutinePage());
+                          Get.to(RoutinePage());
                         },
                         child: Text('View'),
                         style: ButtonStyle(
