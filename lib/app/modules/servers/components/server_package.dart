@@ -1,4 +1,5 @@
 import 'package:class_link/app/modules/routine/views/routine_view.dart';
+import 'package:class_link/app/routes/app_pages.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -72,7 +73,7 @@ class serverWidget extends StatelessWidget {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          Get.to(RoutinePage());
+                          Get.toNamed(Routes.ROUTINE);
                         },
                         child: Text('View'),
                         style: ButtonStyle(

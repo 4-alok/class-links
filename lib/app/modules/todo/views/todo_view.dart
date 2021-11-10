@@ -17,27 +17,29 @@ class AddingPage extends GetView<TodoController> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xff8829C2),
-        unselectedItemColor: Colors.white.withOpacity(0.7),
-        selectedItemColor: Colors.white,
-        currentIndex: controller.selectedIndex.value,
-        onTap: controller.setSelectedIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.fact_check_outlined,
+      bottomNavigationBar: Obx(
+          () => BottomNavigationBar(
+          backgroundColor: Color(0xff8829C2),
+          unselectedItemColor: Colors.white.withOpacity(0.7),
+          selectedItemColor: Colors.white,
+          currentIndex: controller.selectedIndex.value,
+          onTap: controller.setSelectedIndex,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.fact_check_outlined,
+              ),
+              label: 'Todos',
             ),
-            label: 'Todos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.done,
-              size: 28,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.done,
+                size: 28,
+              ),
+              label: 'Completed',
             ),
-            label: 'Completed',
-          ),
-        ],
+          ],
+        ),
       ),
       body: ListView(
         children: [
