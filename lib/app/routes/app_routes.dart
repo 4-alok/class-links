@@ -8,6 +8,8 @@ abstract class Routes {
   static const ROUTINE = _Paths.ROUTINE;
   static const SERVERS = _Paths.SERVERS;
   static const TODO = _Paths.TODO;
+  static const LOGIN = _Paths.LOGIN;
+  static const SECTION_SELECTION = _Paths.SECTION_SELECTION;
 }
 
 abstract class _Paths {
@@ -15,4 +17,6 @@ abstract class _Paths {
   static const ROUTINE = '/routine';
   static const SERVERS = '/servers';
   static const TODO = '/todo';
+  static const LOGIN = '/login';
+  static const SECTION_SELECTION = '/section-selection';
 }
