@@ -1,4 +1,5 @@
 import 'package:class_link/app/modules/section_selection/views/section_selection_view.dart';
+import 'package:class_link/app/routes/app_pages.dart';
 import 'package:class_link/app/services/auth_controller.dart';
 import 'package:class_link/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class LoginView extends GetView<LoginController> {
                     'images/bgimg.svg',
                     width: 600,
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () async {
                       final service = Get.find<AuthService>();
                       try {
@@ -53,7 +54,7 @@ class LoginView extends GetView<LoginController> {
                         )));
                         return;
                       }
-                      Get.to(SectionSelectionView());
+                      Get.toNamed(Routes.SECTION_SELECTION);
                     },
                     child: Container(
                       height: 50,
