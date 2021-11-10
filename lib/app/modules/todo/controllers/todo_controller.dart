@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
+class TodoController extends GetxController {
+  //TODO: Implement TodoController
+
+  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -13,4 +16,5 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {}
+  void increment() => count.value++;
 }
