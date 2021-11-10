@@ -1,3 +1,4 @@
+import 'package:class_link/app/routes/app_pages.dart';
 import 'package:class_link/theme/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -137,9 +138,9 @@ class SectionSelectionView extends GetView<SectionSelectionController> {
                       ],
                     ),
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () {
-                      Get.to(SectionSelectionView());
+                      Get.toNamed(Routes.SERVERS);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(top: 75),

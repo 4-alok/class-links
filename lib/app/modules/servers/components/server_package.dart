@@ -1,6 +1,5 @@
 import 'package:class_link/app/modules/routine/views/routine_view.dart';
 
-import '../views/servers_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';

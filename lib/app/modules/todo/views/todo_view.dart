@@ -1,20 +1,12 @@
+import 'package:class_link/app/modules/todo/controllers/todo_controller.dart';
+import 'package:get/get.dart';
+
 import '../components/TodoFormWidget.dart';
 import 'package:flutter/material.dart';
 
-class AddingPage extends StatefulWidget {
-  @override
-  State<AddingPage> createState() => _AddingPageState();
-}
-
-class _AddingPageState extends State<AddingPage> {
-  int selectedIndex = 0;
-  String title = '';
-  String description = '';
-  get builder => null;
-
+class AddingPage extends GetView<TodoController> {
   @override
   Widget build(BuildContext context) {
-    final tabs = [Container(), Container()];
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -29,10 +21,8 @@ class _AddingPageState extends State<AddingPage> {
         backgroundColor: Color(0xff8829C2),
         unselectedItemColor: Colors.white.withOpacity(0.7),
         selectedItemColor: Colors.white,
-        currentIndex: selectedIndex,
-        onTap: (index) => setState(() {
-          selectedIndex = index;
-        }),
+        currentIndex: controller.selectedIndex.value,
+        onTap: controller.setSelectedIndex,
         items: [
           BottomNavigationBarItem(
             icon: Icon(
@@ -171,12 +161,8 @@ class _AddingPageState extends State<AddingPage> {
                   height: 8,
                 ),
                 TodoFormWidget(
-                  onChangedTitle: (title) => setState(() {
-                    this.title = title;
-                  }),
-                  onChangedDescription: (description) => setState(() {
-                    this.description = description;
-                  }),
+                  onChangedTitle: controller.setTitle,
+                  onChangedDescription: controller.setDescription,
                   onSavedTodo: () {},
                 ),
               ],

@@ -1,6 +1,5 @@
-import 'package:class_link/app/modules/section_selection/views/section_selection_view.dart';
 import 'package:class_link/app/routes/app_pages.dart';
-import 'package:class_link/app/services/auth_controller.dart';
+import 'package:class_link/app/services/auth_service.dart';
 import 'package:class_link/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
