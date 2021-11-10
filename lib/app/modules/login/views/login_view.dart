@@ -1,4 +1,5 @@
 import 'package:class_link/app/modules/section_selection/views/section_selection_view.dart';
+import 'package:class_link/app/services/auth_controller.dart';
 import 'package:class_link/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,7 +42,9 @@ class LoginView extends GetView<LoginController> {
                       width: 600,
                     ),
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        final service = Get.find<AuthService>();
+                        await service.login();
                         Get.to(SectionSelectionView());
                       },
                       child: Container(
