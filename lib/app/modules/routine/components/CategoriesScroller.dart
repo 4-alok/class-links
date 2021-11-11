@@ -4,12 +4,7 @@ class CategoriesScroller extends StatelessWidget {
   const CategoriesScroller({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    bool day = true;
     String s = "Thur";
-    List<Widget> itemsData = [];
-    final double categoryHeight =
-        MediaQuery.of(context).size.height * 0.30 - 50;
-
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,

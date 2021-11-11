@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 
 class TodoController extends GetxController {
-  //TODO: Implement TodoController
+  final selectedIndex = 0.obs;
+  final title = ''.obs;
+  final description = ''.obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -16,5 +17,16 @@ class TodoController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
+  void setSelectedIndex(int i) {
+    selectedIndex.value = i;
+  }
+
+  void setTitle(String title) {
+    this.title.value = title;
+  }
+
+  void setDescription(String desc) {
+    description.value = desc;
+  }
 }

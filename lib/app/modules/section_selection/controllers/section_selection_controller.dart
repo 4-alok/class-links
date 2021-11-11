@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
 
 class SectionSelectionController extends GetxController {
-  //TODO: Implement SectionSelectionController
-
-  final count = 0.obs;
+  final sectionIndex = 0.obs;
+  final sectionIndexNumber = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -16,5 +15,11 @@ class SectionSelectionController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
+  void setSectionIndex(int i) {
+    sectionIndex.value = i;
+  }
+ void setSectionIndexNumber(int i) {
+    sectionIndexNumber.value = i;
+  }
 }

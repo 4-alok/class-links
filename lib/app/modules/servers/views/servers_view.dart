@@ -1,17 +1,13 @@
+import 'package:class_link/app/modules/servers/controllers/servers_controller.dart';
+import 'package:class_link/app/services/auth_service.dart';
+import 'package:get/get.dart';
 import '../components/server_package.dart';
 import 'package:flutter/material.dart';
 
-
-class ServerPage extends StatefulWidget {
-  const ServerPage({Key? key}) : super(key: key);
-
-  @override
-  _ServerPageState createState() => _ServerPageState();
-}
-
-class _ServerPageState extends State<ServerPage> {
+class ServerPage extends GetView<ServersController> {
   @override
   Widget build(BuildContext context) {
+    final authService = Get.find<AuthService>();
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -70,14 +66,15 @@ class _ServerPageState extends State<ServerPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: Container(
-                        width: 100.0,
-                        height: 100.0,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                        ),
-                      ),
+                      child: authService.user?.photoURL == null
+                          ? Container()
+                          : ClipRRect(
+                              child: Image.network(
+                                  authService.user?.photoURL ?? ""),
+                              borderRadius:
+                                  BorderRadius.circular(100),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                            ),
                     ),
                     SizedBox(
                       width: 18,
@@ -86,7 +83,7 @@ class _ServerPageState extends State<ServerPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Name',
+                        Text('Name: ${authService.user?.displayName ?? ""}',
                             style: Theme.of(context)
                                 .primaryTextTheme
                                 .subtitle1!
@@ -94,7 +91,7 @@ class _ServerPageState extends State<ServerPage> {
                         SizedBox(
                           height: 18,
                         ),
-                        Text('Email',
+                        Text('Email: ${authService.user?.email ?? ""}',
                             style: Theme.of(context)
                                 .primaryTextTheme
                                 .subtitle1!
