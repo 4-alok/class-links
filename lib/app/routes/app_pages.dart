@@ -1,27 +1,21 @@
 import 'package:get/get.dart';
-
+import 'package:class_link/app/modules/auth/bindings/auth_binding.dart';
+import 'package:class_link/app/modules/auth/views/auth_view.dart';
 import 'package:class_link/app/modules/home/bindings/home_binding.dart';
 import 'package:class_link/app/modules/home/views/home_view.dart';
-import 'package:class_link/app/modules/login/bindings/login_binding.dart';
-import 'package:class_link/app/modules/login/views/login_view.dart';
-import 'package:class_link/app/modules/routine/bindings/routine_binding.dart';
-import 'package:class_link/app/modules/routine/views/routine_view.dart';
-import 'package:class_link/app/modules/section_selection/bindings/section_selection_binding.dart';
-import 'package:class_link/app/modules/section_selection/views/section_selection_view.dart';
-import 'package:class_link/app/modules/servers/bindings/servers_binding.dart';
-import 'package:class_link/app/modules/servers/views/servers_view.dart';
-import 'package:class_link/app/modules/todo/bindings/todo_binding.dart';
-import 'package:class_link/app/modules/todo/views/todo_view.dart';
-
-import '../modules/servers/views/servers_view.dart';
-import '../modules/todo/views/todo_view.dart';
+import 'package:class_link/app/modules/user_info/bindings/user_info_binding.dart';
+import 'package:class_link/app/modules/user_info/views/user_info_view.dart';
+import 'package:class_link/app/services/auth_service.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static final INITIAL =
+  Get.find<AuthService>().user == null ? Routes.AUTH : Routes.HOME;
+
+  // static final INITIAL = Routes.USER_INFO;
 
   static final routes = [
     GetPage(
@@ -30,29 +24,14 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.ROUTINE,
-      page: () => RoutinePage(),
-      binding: RoutineBinding(),
+      name: _Paths.AUTH,
+      page: () => AuthView(),
+      binding: AuthBinding(),
     ),
     GetPage(
-      name: _Paths.SERVERS,
-      page: () => ServerPage(),
-      binding: ServersBinding(),
-    ),
-    GetPage(
-      name: _Paths.TODO,
-      page: () => AddingPage(),
-      binding: TodoBinding(),
-    ),
-    GetPage(
-      name: _Paths.LOGIN,
-      page: () => LoginView(),
-      binding: LoginBinding(),
-    ),
-    GetPage(
-      name: _Paths.SECTION_SELECTION,
-      page: () => SectionSelectionView(),
-      binding: SectionSelectionBinding(),
+      name: _Paths.USER_INFO,
+      page: () => UserInfoView(),
+      binding: UserInfoBinding(),
     ),
   ];
 }

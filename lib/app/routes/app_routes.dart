@@ -5,18 +5,12 @@ abstract class Routes {
   Routes._();
 
   static const HOME = _Paths.HOME;
-  static const ROUTINE = _Paths.ROUTINE;
-  static const SERVERS = _Paths.SERVERS;
-  static const TODO = _Paths.TODO;
-  static const LOGIN = _Paths.LOGIN;
-  static const SECTION_SELECTION = _Paths.SECTION_SELECTION;
+  static const AUTH = _Paths.AUTH;
+  static const USER_INFO = _Paths.USER_INFO;
 }
 
 abstract class _Paths {
   static const HOME = '/home';
-  static const ROUTINE = '/routine';
-  static const SERVERS = '/servers';
-  static const TODO = '/todo';
-  static const LOGIN = '/login';
-  static const SECTION_SELECTION = '/section-selection';
+  static const AUTH = '/auth';
+  static const USER_INFO = '/user-info';
 }

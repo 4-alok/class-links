@@ -13,9 +13,14 @@ dependencies:
   firebase_core: ^1.8.0
   firebase_auth: ^3.1.4
   google_sign_in: ^5.2.1
+  cloud_firestore: ^2.5.3
   freezed_annotation: ^0.15.0
   json_annotation: ^4.3.0
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
   meta: ^1.7.0
+  cached_network_image: ^3.1.0+1
+  font_awesome_flutter: ^9.2.0
   flutter:
     sdk: flutter
 
