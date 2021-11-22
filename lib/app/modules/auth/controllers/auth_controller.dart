@@ -9,8 +9,7 @@ class AuthController extends GetxController {
 
   void login() async {
     await _authService.login();
-    final userInfo =
-        await _firestoreService.checkUserExists(_authService.user!.email!);
+    final userInfo = await _firestoreService.getUserInfo();
 
     if (userInfo == null) {
       Get.offNamed(Routes.USER_INFO);

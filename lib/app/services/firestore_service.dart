@@ -2,19 +2,18 @@ import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:class_link/app/utils/get_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-
 import 'auth_service.dart';
 
 class FirestoreService extends GetxService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // -----------------userInfo----------------------//
-  Future<UserInfo?> checkUserExists(String userEmail) async {
+  Future<UserInfo?> getUserInfo() async {
     try {
       final result = await _firestore
           .collection("user")
           .limit(1)
-          .where("id", isEqualTo: userEmail)
+          .where("id", isEqualTo: Get.find<AuthService>().user!.email)
           .get();
 
       if (result.docs.isEmpty) {

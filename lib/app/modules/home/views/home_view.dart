@@ -26,8 +26,7 @@ class HomeView extends GetView<HomeController> {
         future: controller.getUserInfo(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            // return user();
-            return Container();
+            return user();
           } else if (snapshot.hasError) {
             return errorPage(snapshot);
           } else if (snapshot.connectionState == ConnectionState.waiting) {
@@ -44,10 +43,6 @@ class HomeView extends GetView<HomeController> {
     return Column(
       children: [
         Text(snapshot.error.toString()),
-        ElevatedButton(
-          child: Text("hello"),
-          onPressed: () => controller.test(),
-        )
       ],
     );
   }
