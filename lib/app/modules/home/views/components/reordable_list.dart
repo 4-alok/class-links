@@ -55,7 +55,18 @@ class MyReordableLIst extends StatelessWidget {
               : Padding(
                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                   child: ElevatedButton(
-                    onPressed: () => homeController.addSubject(currentDay),
+                    onPressed: () {
+
+                      // TODO: add bottom sheet here
+                      
+                      final subjectT = Subject(
+                        subjectName: 'Subject Name',
+                        startTime: DateTime.now(),
+                        remark: "",
+                      );
+
+                      homeController.addSubject(currentDay, subjectT);
+                    },
                     child: Text('Add Subject'),
                   ),
                 ),

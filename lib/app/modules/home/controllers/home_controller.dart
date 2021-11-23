@@ -45,11 +45,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     return null;
   }
 
-  void addSubject(Day day) {
-    final _subject = Subject(
-        subjectName: 'Subject Name',
-        startTime: DateTime.now(),
-        remark: day.subjects.length.toString());
+  void addSubject(Day day, Subject _subject) {
     week.update((val) =>
         week.value.firstWhere((e) => e.day == day.day).subjects.add(_subject));
   }

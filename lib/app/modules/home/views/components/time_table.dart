@@ -4,7 +4,7 @@ import 'package:class_link/app/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 
 import 'app_bar.dart';
-import 'list_view.dart';
+import 'reordable_list.dart';
 
 class TimeTablePage extends StatelessWidget {
   final HomeController homeController;
