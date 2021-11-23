@@ -60,9 +60,13 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).cardColor,
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 12.0),
-          child: UserIcon(radius: 20),
-        ),
+            padding: const EdgeInsets.only(right: 12.0),
+            child: GestureDetector(child: UserIcon(radius: 20),onTap:() {
+              // TODO:Adding a Profile page
+              
+            },),
+
+          ),
       ],
     );
   }

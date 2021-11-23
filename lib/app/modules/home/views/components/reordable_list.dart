@@ -56,16 +56,61 @@ class MyReordableLIst extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                   child: ElevatedButton(
                     onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) {
+                          return FractionallySizedBox(
+                            heightFactor: 0.7,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Fill Details ',
+                                      style: TextStyle(fontSize: 24),
+                                    ),
+                                    SizedBox(height: 10),
+                                    TextFormField(
+                                        decoration: const InputDecoration(
+                                          icon: Icon(Icons.book),
+                                          hintText: "Subject Name",
+                                          labelText: "Subject",
+                                        ),
+                                        onSaved: (String? value) {
+                                          
+                                        }),
+                                    SizedBox(
+                                      height: 18,
+                                    ),
+                                    TextFormField(
+                                        decoration: const InputDecoration(
+                                          icon: Icon(Icons.lock_clock),
+                                          hintText: "Hr:Sec",
+                                          labelText: "Time",
+                                        ),
+                                        onSaved: (String? value) {}),
+                                    SizedBox(
+                                      height: 18,
+                                    ),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          final subjectT = Subject(
+                                            subjectName: 'Subject Name',
+                                            startTime: DateTime.now(),
+                                            remark: "",
+                                          );
 
-                      // TODO: add bottom sheet here
-                      
-                      final subjectT = Subject(
-                        subjectName: 'Subject Name',
-                        startTime: DateTime.now(),
-                        remark: "",
+                                          homeController.addSubject(
+                                              currentDay, subjectT);
+                                        },
+                                        child: Text('Add Subject')),
+                                  ]),
+                            ),
+                          );
+                        },
                       );
-
-                      homeController.addSubject(currentDay, subjectT);
                     },
                     child: Text('Add Subject'),
                   ),
