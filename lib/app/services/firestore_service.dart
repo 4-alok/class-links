@@ -1,3 +1,4 @@
+import 'package:class_link/app/global/const/const.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:class_link/app/utils/get_snackbar.dart';
@@ -12,7 +13,7 @@ class FirestoreService extends GetxService {
 
   // ---------------timeTable-----------------------//
 
-  Stream<TimeTable> timeTableStream() {
+  Stream<List<Day>> timeTableStream() {
     if (hiveDatabase.userInfo!.year == 1) {
       final _ref = _firestore
           .collection("time_table")
@@ -20,14 +21,20 @@ class FirestoreService extends GetxService {
           .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
           .where("batch", isEqualTo: hiveDatabase.userInfo!.batch)
           .snapshots();
-      return _ref.map((event) => TimeTable.fromJson(event.docs.first.data()));
+      return _ref.map((event) => event.docs.isEmpty
+          ? _defaultDays
+          : TimeTable.fromJson(event.docs.first.data()).week);
     } else {
       final _ref = _firestore
           .collection("time_table")
           .where("year", isEqualTo: hiveDatabase.userInfo!.year)
           .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
           .snapshots();
-      return _ref.map((event) => TimeTable.fromJson(event.docs.first.data()));
+      return _ref.map(
+        (event) => event.docs.isEmpty
+            ? _defaultDays
+            : TimeTable.fromJson(event.docs.first.data()).week,
+      );
     }
   }
 
@@ -48,7 +55,7 @@ class FirestoreService extends GetxService {
     } else {
       final result = await _firestore
           .collection("time_table")
-          .where("year", isEqualTo: 1)
+          .where("year", isEqualTo: hiveDatabase.userInfo!.year)
           .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
           .get();
 
@@ -100,4 +107,10 @@ class FirestoreService extends GetxService {
       return false;
     }
   }
+
+  // -----------------utils----------------------//
+  List<Day> get _defaultDays => List.generate(
+        7,
+        (index) => Day(day: Days.days[index], subjects: []),
+      );
 }

@@ -26,12 +26,14 @@ class _$TimeTableTearOff {
       required String creatorId,
       required String batch,
       required int year,
+      required int slot,
       required DateTime date}) {
     return _TimeTable(
       week: week,
       creatorId: creatorId,
       batch: batch,
       year: year,
+      slot: slot,
       date: date,
     );
   }
@@ -50,6 +52,7 @@ mixin _$TimeTable {
   String get creatorId => throw _privateConstructorUsedError;
   String get batch => throw _privateConstructorUsedError;
   int get year => throw _privateConstructorUsedError;
+  int get slot => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -67,6 +70,7 @@ abstract class $TimeTableCopyWith<$Res> {
       String creatorId,
       String batch,
       int year,
+      int slot,
       DateTime date});
 }
 
@@ -84,6 +88,7 @@ class _$TimeTableCopyWithImpl<$Res> implements $TimeTableCopyWith<$Res> {
     Object? creatorId = freezed,
     Object? batch = freezed,
     Object? year = freezed,
+    Object? slot = freezed,
     Object? date = freezed,
   }) {
     return _then(_value.copyWith(
@@ -102,6 +107,10 @@ class _$TimeTableCopyWithImpl<$Res> implements $TimeTableCopyWith<$Res> {
       year: year == freezed
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
+              as int,
+      slot: slot == freezed
+          ? _value.slot
+          : slot // ignore: cast_nullable_to_non_nullable
               as int,
       date: date == freezed
           ? _value.date
@@ -122,6 +131,7 @@ abstract class _$TimeTableCopyWith<$Res> implements $TimeTableCopyWith<$Res> {
       String creatorId,
       String batch,
       int year,
+      int slot,
       DateTime date});
 }
 
@@ -140,6 +150,7 @@ class __$TimeTableCopyWithImpl<$Res> extends _$TimeTableCopyWithImpl<$Res>
     Object? creatorId = freezed,
     Object? batch = freezed,
     Object? year = freezed,
+    Object? slot = freezed,
     Object? date = freezed,
   }) {
     return _then(_TimeTable(
@@ -159,6 +170,10 @@ class __$TimeTableCopyWithImpl<$Res> extends _$TimeTableCopyWithImpl<$Res>
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
               as int,
+      slot: slot == freezed
+          ? _value.slot
+          : slot // ignore: cast_nullable_to_non_nullable
+              as int,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -175,6 +190,7 @@ class _$_TimeTable implements _TimeTable {
       required this.creatorId,
       required this.batch,
       required this.year,
+      required this.slot,
       required this.date});
 
   factory _$_TimeTable.fromJson(Map<String, dynamic> json) =>
@@ -189,11 +205,13 @@ class _$_TimeTable implements _TimeTable {
   @override
   final int year;
   @override
+  final int slot;
+  @override
   final DateTime date;
 
   @override
   String toString() {
-    return 'TimeTable(week: $week, creatorId: $creatorId, batch: $batch, year: $year, date: $date)';
+    return 'TimeTable(week: $week, creatorId: $creatorId, batch: $batch, year: $year, slot: $slot, date: $date)';
   }
 
   @override
@@ -206,12 +224,19 @@ class _$_TimeTable implements _TimeTable {
                 other.creatorId == creatorId) &&
             (identical(other.batch, batch) || other.batch == batch) &&
             (identical(other.year, year) || other.year == year) &&
+            (identical(other.slot, slot) || other.slot == slot) &&
             (identical(other.date, date) || other.date == date));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(week), creatorId, batch, year, date);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(week),
+      creatorId,
+      batch,
+      year,
+      slot,
+      date);
 
   @JsonKey(ignore: true)
   @override
@@ -230,6 +255,7 @@ abstract class _TimeTable implements TimeTable {
       required String creatorId,
       required String batch,
       required int year,
+      required int slot,
       required DateTime date}) = _$_TimeTable;
 
   factory _TimeTable.fromJson(Map<String, dynamic> json) =
@@ -243,6 +269,8 @@ abstract class _TimeTable implements TimeTable {
   String get batch;
   @override
   int get year;
+  @override
+  int get slot;
   @override
   DateTime get date;
   @override

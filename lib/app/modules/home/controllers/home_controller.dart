@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:class_link/app/global/const/const.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/models/user_info/user_info.dart';
@@ -13,10 +14,16 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   late final TabController tabController;
   final week = Rx<List<Day>>([]);
   final editMode = false.obs;
+  late final StreamSubscription<List<Day>> timeTableSubscription;
 
   @override
   void onInit() async {
     _defaultDays();
+    timeTableSubscription =
+        Get.find<FirestoreService>().timeTableStream().listen((event) {
+      week.value = event;
+      // week.update((val) => week.value = event);
+    });
     tabController = TabController(vsync: this, length: 7);
     await getUserInfo();
     super.onInit();
@@ -55,9 +62,10 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     week.value.firstWhere((e) => e.day == day).subjects.addAll(_subjects);
   }
 
-  void toggleEditMode() {
+  void toggleEditMode() async {
     if (editMode.value) {
       if (_validate()) {
+        await _addOrUpdateTimeTable();
         editMode.value = false;
       }
     } else {
@@ -83,9 +91,23 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     return true;
   }
 
+  Future<void> _addOrUpdateTimeTable() async {
+    final _userInfo = Get.find<HiveDatabase>().userInfo!;
+    final timeTable = TimeTable(
+      week: week.value,
+      creatorId: _userInfo.id,
+      batch: _userInfo.batch,
+      year: _userInfo.year,
+      slot: _userInfo.slot,
+      date: DateTime.now(),
+    );
+    await Get.find<FirestoreService>().addOrUpdateTimeTable(timeTable);
+  }
+
   Future<void> signout() async {
     final _authService = Get.find<AuthService>();
     await _authService.logout();
     Get.offAllNamed(Routes.AUTH);
+    timeTableSubscription.cancel();
   }
 }

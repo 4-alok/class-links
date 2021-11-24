@@ -13,6 +13,7 @@ _$_TimeTable _$$_TimeTableFromJson(Map<String, dynamic> json) => _$_TimeTable(
       creatorId: json['creatorId'] as String,
       batch: json['batch'] as String,
       year: json['year'] as int,
+      slot: json['slot'] as int,
       date: DateTime.parse(json['date'] as String),
     );
 
@@ -22,6 +23,7 @@ Map<String, dynamic> _$$_TimeTableToJson(_$_TimeTable instance) =>
       'creatorId': instance.creatorId,
       'batch': instance.batch,
       'year': instance.year,
+      'slot': instance.slot,
       'date': instance.date.toIso8601String(),
     };
 

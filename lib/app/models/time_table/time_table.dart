@@ -10,6 +10,7 @@ abstract class TimeTable with _$TimeTable {
     required String creatorId,
     required String batch,
     required int year,
+    required int slot,
     required DateTime date,
   }) = _TimeTable;
 
