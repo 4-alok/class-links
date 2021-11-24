@@ -33,10 +33,21 @@ abstract class Subject with _$Subject {
   const factory Subject({
     required String subjectName,
     required String remark,
-    required DateTime startTime,
+    required DayTime startTime,
 
   }) = _Subject;
 
   factory Subject.fromJson(Map<String, dynamic> json) =>
       _$SubjectFromJson(json);
+}
+
+@freezed
+abstract class DayTime with _$DayTime {
+  const factory DayTime({
+    required int hour,
+    required int minute,
+  }) = _DayTime;
+
+  factory DayTime.fromJson(Map<String, dynamic> json) =>
+      _$DayTimeFromJson(json);
 }

@@ -40,12 +40,23 @@ Map<String, dynamic> _$$_DayToJson(_$_Day instance) => <String, dynamic>{
 _$_Subject _$$_SubjectFromJson(Map<String, dynamic> json) => _$_Subject(
       subjectName: json['subjectName'] as String,
       remark: json['remark'] as String,
-      startTime: DateTime.parse(json['startTime'] as String),
+      startTime: DayTime.fromJson(json['startTime'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_SubjectToJson(_$_Subject instance) =>
     <String, dynamic>{
       'subjectName': instance.subjectName,
       'remark': instance.remark,
-      'startTime': instance.startTime.toIso8601String(),
+      'startTime': instance.startTime.toJson(),
+    };
+
+_$_DayTime _$$_DayTimeFromJson(Map<String, dynamic> json) => _$_DayTime(
+      hour: json['hour'] as int,
+      minute: json['minute'] as int,
+    );
+
+Map<String, dynamic> _$$_DayTimeToJson(_$_DayTime instance) =>
+    <String, dynamic>{
+      'hour': instance.hour,
+      'minute': instance.minute,
     };

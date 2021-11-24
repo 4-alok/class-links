@@ -30,22 +30,20 @@ class UserInfoView extends GetView<UserInfoController> {
     );
   }
 
-  FloatingActionButton fab() {
-    return FloatingActionButton.extended(
-      onPressed: controller.fab,
-      label: AnimatedSize(
-        duration: Duration(milliseconds: 200),
-        child: Obx(
-          () => Text(
-            (controller.currentPage.value == 0) ? 'Next' : 'Done',
+  FloatingActionButton fab() => FloatingActionButton.extended(
+        onPressed: controller.fab,
+        label: AnimatedSize(
+          duration: Duration(milliseconds: 200),
+          child: Obx(
+            () => Text(
+              (controller.currentPage.value == 0) ? 'Next' : 'Done',
+            ),
           ),
         ),
-      ),
-      icon: Obx(
-        () => Icon((controller.currentPage.value == 0)
-            ? Icons.arrow_forward
-            : Icons.done),
-      ),
-    );
-  }
+        icon: Obx(
+          () => Icon((controller.currentPage.value == 0)
+              ? Icons.arrow_forward
+              : Icons.done),
+        ),
+      );
 }

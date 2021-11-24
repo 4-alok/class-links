@@ -419,7 +419,7 @@ class _$SubjectTearOff {
   _Subject call(
       {required String subjectName,
       required String remark,
-      required DateTime startTime}) {
+      required DayTime startTime}) {
     return _Subject(
       subjectName: subjectName,
       remark: remark,
@@ -439,7 +439,7 @@ const $Subject = _$SubjectTearOff();
 mixin _$Subject {
   String get subjectName => throw _privateConstructorUsedError;
   String get remark => throw _privateConstructorUsedError;
-  DateTime get startTime => throw _privateConstructorUsedError;
+  DayTime get startTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -450,7 +450,9 @@ mixin _$Subject {
 abstract class $SubjectCopyWith<$Res> {
   factory $SubjectCopyWith(Subject value, $Res Function(Subject) then) =
       _$SubjectCopyWithImpl<$Res>;
-  $Res call({String subjectName, String remark, DateTime startTime});
+  $Res call({String subjectName, String remark, DayTime startTime});
+
+  $DayTimeCopyWith<$Res> get startTime;
 }
 
 /// @nodoc
@@ -479,8 +481,15 @@ class _$SubjectCopyWithImpl<$Res> implements $SubjectCopyWith<$Res> {
       startTime: startTime == freezed
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DayTime,
     ));
+  }
+
+  @override
+  $DayTimeCopyWith<$Res> get startTime {
+    return $DayTimeCopyWith<$Res>(_value.startTime, (value) {
+      return _then(_value.copyWith(startTime: value));
+    });
   }
 }
 
@@ -489,7 +498,10 @@ abstract class _$SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
   factory _$SubjectCopyWith(_Subject value, $Res Function(_Subject) then) =
       __$SubjectCopyWithImpl<$Res>;
   @override
-  $Res call({String subjectName, String remark, DateTime startTime});
+  $Res call({String subjectName, String remark, DayTime startTime});
+
+  @override
+  $DayTimeCopyWith<$Res> get startTime;
 }
 
 /// @nodoc
@@ -519,7 +531,7 @@ class __$SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
       startTime: startTime == freezed
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DayTime,
     ));
   }
 }
@@ -540,7 +552,7 @@ class _$_Subject implements _Subject {
   @override
   final String remark;
   @override
-  final DateTime startTime;
+  final DayTime startTime;
 
   @override
   String toString() {
@@ -577,7 +589,7 @@ abstract class _Subject implements Subject {
   const factory _Subject(
       {required String subjectName,
       required String remark,
-      required DateTime startTime}) = _$_Subject;
+      required DayTime startTime}) = _$_Subject;
 
   factory _Subject.fromJson(Map<String, dynamic> json) = _$_Subject.fromJson;
 
@@ -586,9 +598,166 @@ abstract class _Subject implements Subject {
   @override
   String get remark;
   @override
-  DateTime get startTime;
+  DayTime get startTime;
   @override
   @JsonKey(ignore: true)
   _$SubjectCopyWith<_Subject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+DayTime _$DayTimeFromJson(Map<String, dynamic> json) {
+  return _DayTime.fromJson(json);
+}
+
+/// @nodoc
+class _$DayTimeTearOff {
+  const _$DayTimeTearOff();
+
+  _DayTime call({required int hour, required int minute}) {
+    return _DayTime(
+      hour: hour,
+      minute: minute,
+    );
+  }
+
+  DayTime fromJson(Map<String, Object?> json) {
+    return DayTime.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $DayTime = _$DayTimeTearOff();
+
+/// @nodoc
+mixin _$DayTime {
+  int get hour => throw _privateConstructorUsedError;
+  int get minute => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DayTimeCopyWith<DayTime> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DayTimeCopyWith<$Res> {
+  factory $DayTimeCopyWith(DayTime value, $Res Function(DayTime) then) =
+      _$DayTimeCopyWithImpl<$Res>;
+  $Res call({int hour, int minute});
+}
+
+/// @nodoc
+class _$DayTimeCopyWithImpl<$Res> implements $DayTimeCopyWith<$Res> {
+  _$DayTimeCopyWithImpl(this._value, this._then);
+
+  final DayTime _value;
+  // ignore: unused_field
+  final $Res Function(DayTime) _then;
+
+  @override
+  $Res call({
+    Object? hour = freezed,
+    Object? minute = freezed,
+  }) {
+    return _then(_value.copyWith(
+      hour: hour == freezed
+          ? _value.hour
+          : hour // ignore: cast_nullable_to_non_nullable
+              as int,
+      minute: minute == freezed
+          ? _value.minute
+          : minute // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$DayTimeCopyWith<$Res> implements $DayTimeCopyWith<$Res> {
+  factory _$DayTimeCopyWith(_DayTime value, $Res Function(_DayTime) then) =
+      __$DayTimeCopyWithImpl<$Res>;
+  @override
+  $Res call({int hour, int minute});
+}
+
+/// @nodoc
+class __$DayTimeCopyWithImpl<$Res> extends _$DayTimeCopyWithImpl<$Res>
+    implements _$DayTimeCopyWith<$Res> {
+  __$DayTimeCopyWithImpl(_DayTime _value, $Res Function(_DayTime) _then)
+      : super(_value, (v) => _then(v as _DayTime));
+
+  @override
+  _DayTime get _value => super._value as _DayTime;
+
+  @override
+  $Res call({
+    Object? hour = freezed,
+    Object? minute = freezed,
+  }) {
+    return _then(_DayTime(
+      hour: hour == freezed
+          ? _value.hour
+          : hour // ignore: cast_nullable_to_non_nullable
+              as int,
+      minute: minute == freezed
+          ? _value.minute
+          : minute // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_DayTime implements _DayTime {
+  const _$_DayTime({required this.hour, required this.minute});
+
+  factory _$_DayTime.fromJson(Map<String, dynamic> json) =>
+      _$$_DayTimeFromJson(json);
+
+  @override
+  final int hour;
+  @override
+  final int minute;
+
+  @override
+  String toString() {
+    return 'DayTime(hour: $hour, minute: $minute)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _DayTime &&
+            (identical(other.hour, hour) || other.hour == hour) &&
+            (identical(other.minute, minute) || other.minute == minute));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, hour, minute);
+
+  @JsonKey(ignore: true)
+  @override
+  _$DayTimeCopyWith<_DayTime> get copyWith =>
+      __$DayTimeCopyWithImpl<_DayTime>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_DayTimeToJson(this);
+  }
+}
+
+abstract class _DayTime implements DayTime {
+  const factory _DayTime({required int hour, required int minute}) = _$_DayTime;
+
+  factory _DayTime.fromJson(Map<String, dynamic> json) = _$_DayTime.fromJson;
+
+  @override
+  int get hour;
+  @override
+  int get minute;
+  @override
+  @JsonKey(ignore: true)
+  _$DayTimeCopyWith<_DayTime> get copyWith =>
       throw _privateConstructorUsedError;
 }

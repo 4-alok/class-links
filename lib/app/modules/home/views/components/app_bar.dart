@@ -29,6 +29,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget _appBarEditMode(BuildContext context) {
     return AppBar(
       centerTitle: true,
+      leading: IconButton(
+          onPressed: () => homeController.editMode.value = false,
+          icon: Icon(Icons.cancel_outlined, color: Colors.black87)),
       title: Text(
         'Edit TimeTable',
         style: Theme.of(context)
@@ -60,13 +63,14 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).cardColor,
       actions: [
         Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: GestureDetector(child: UserIcon(radius: 20),onTap:() {
+          padding: const EdgeInsets.only(right: 12.0),
+          child: GestureDetector(
+            child: UserIcon(radius: 20),
+            onTap: () {
               // TODO:Adding a Profile page
-              
-            },),
-
+            },
           ),
+        ),
       ],
     );
   }
