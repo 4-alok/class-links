@@ -13,36 +13,15 @@ class HomeView extends GetView<HomeController> {
         if (snapshot.hasData && snapshot.data != null) {
           return TimeTablePage(homeController: controller);
         } else if (snapshot.hasError) {
-          return errorPage(snapshot);
+          return Center(
+            child: Text(snapshot.error.toString())
+          );
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         } else {
           return Center(child: Text('Error'));
         }
       },
-    );
-  }
-
-  Widget errorPage(AsyncSnapshot<Object?> snapshot) {
-    return Column(
-      children: [
-        Text(snapshot.error.toString()),
-      ],
-    );
-  }
-
-  ListView user() {
-    print(controller.userInfo);
-    return ListView(
-      children: [
-        Card(
-          child: ListTile(
-            title: Text(controller.userInfo!.id),
-            subtitle: Text(controller.userInfo!.batch),
-            onTap: () {},
-          ),
-        ),
-      ],
     );
   }
 }

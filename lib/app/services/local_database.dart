@@ -3,27 +3,28 @@ import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
-const String USER_INFO = 'user_info';
-
 class HiveDatabase extends GetxService {
-  late final Box userInfo;
+  late final Box userInfoBox;
+  UserInfo? userInfo;
 
-  Future<void> initDatabase() async =>
-      userInfo = await Hive.openBox('userInfo');
+  Future<void> initDatabase() async {
+    userInfoBox = await Hive.openBox('userInfo');
+    userInfo = await getUserInfo();
+  }
 
   Future<void> setUserInfo(UserInfo userInfo) async {
-    if (this.userInfo.isEmpty) {
+    if (userInfoBox.isEmpty) {
       await _add(jsonEncode(userInfo.toJson()));
     } else {
-      await this.userInfo.clear();
+      await userInfoBox.clear();
       await _add(jsonEncode(userInfo.toJson()));
     }
   }
 
   Future<void> _add(String data) async =>
-      await this.userInfo.put(USER_INFO, data);
+      await userInfoBox.add(data);
 
-  Future<UserInfo?> getUserInfo() async => (await userInfo.isEmpty)
+  Future<UserInfo?> getUserInfo() async => (await userInfoBox.isEmpty)
       ? null
-      : UserInfo.fromJson(jsonDecode(await userInfo.values.first));
+      : UserInfo.fromJson(jsonDecode(await userInfoBox.values.first));
 }

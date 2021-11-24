@@ -19,7 +19,7 @@ class AuthService extends GetxService {
     _user.value = _auth.currentUser;
   }
 
-  Future<void> login() async {
+  Future<bool> login() async {
     try {
       final GoogleSignIn googleSignIn =
           GoogleSignIn(scopes: ['profile'], hostedDomain: 'kiit.ac.in');
@@ -34,8 +34,10 @@ class AuthService extends GetxService {
       );
       await _auth.signInWithCredential(credential);
       _user.value = _auth.currentUser;
+      return true;
     } catch (e) {
       Message("Error while signing in", e.toString());
+      return false;
     }
   }
 

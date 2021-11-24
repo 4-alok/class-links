@@ -13,7 +13,6 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   late final TabController tabController;
   final week = Rx<List<Day>>([]);
   final editMode = false.obs;
-  UserInfo? userInfo;
 
   @override
   void onInit() async {
@@ -29,15 +28,13 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
       );
 
   Future<UserInfo?> getUserInfo() async {
-    final result = await Get.find<HiveDatabase>().getUserInfo();
+    final result = Get.find<HiveDatabase>().userInfo;
     if (result != null) {
-      userInfo = result;
       return result;
     } else {
       final result2 = await Get.find<FirestoreService>().getUserInfo();
       if (result2 != null) {
         await Get.find<HiveDatabase>().setUserInfo(result2);
-        userInfo = result2;
         return result2;
       } else {
         Get.offNamed(Routes.USER_INFO);

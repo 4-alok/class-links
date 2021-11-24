@@ -87,9 +87,9 @@ class MyReordableLIst extends StatelessWidget {
       );
 
   void addSubject(BuildContext context) async {
+    // TODO: need proper dispose.
     final editBottomSheet = EditBottomSheet();
     final sub = await editBottomSheet.show(context);
-    print(sub);
     if (sub != null) homeController.addSubject(currentDay, sub);
     Future.delayed(
         Duration(milliseconds: 500), () => editBottomSheet.dispose());

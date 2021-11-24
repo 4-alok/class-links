@@ -29,9 +29,9 @@ Future<void> init() async {
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   await Firebase.initializeApp();
   await Hive.initFlutter();
-  Get.put(AuthService());
-  Get.put(FirestoreService());
   final database = HiveDatabase();
-  Get.lazyPut<HiveDatabase>(() => database);
+  Get.put<HiveDatabase>(database);
   await database.initDatabase();
+  Get.put(FirestoreService());
+  Get.put(AuthService());
 }

@@ -1,11 +1,64 @@
+import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:class_link/app/utils/get_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'auth_service.dart';
+import 'local_database.dart';
 
 class FirestoreService extends GetxService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final hiveDatabase = Get.find<HiveDatabase>();
+
+  // ---------------timeTable-----------------------//
+
+  Stream<TimeTable> timeTableStream() {
+    if (hiveDatabase.userInfo!.year == 1) {
+      final _ref = _firestore
+          .collection("time_table")
+          .where("year", isEqualTo: 1)
+          .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
+          .where("batch", isEqualTo: hiveDatabase.userInfo!.batch)
+          .snapshots();
+      return _ref.map((event) => TimeTable.fromJson(event.docs.first.data()));
+    } else {
+      final _ref = _firestore
+          .collection("time_table")
+          .where("year", isEqualTo: hiveDatabase.userInfo!.year)
+          .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
+          .snapshots();
+      return _ref.map((event) => TimeTable.fromJson(event.docs.first.data()));
+    }
+  }
+
+  Future<void> addOrUpdateTimeTable(TimeTable timeTable) async {
+    if (hiveDatabase.userInfo!.year == 1) {
+      final result = await _firestore
+          .collection("time_table")
+          .where("year", isEqualTo: 1)
+          .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
+          .where("batch", isEqualTo: hiveDatabase.userInfo!.batch)
+          .get();
+
+      if (result.docs.isEmpty) {
+        await _firestore.collection("time_table").add(timeTable.toJson());
+      } else {
+        await result.docs.first.reference.update(timeTable.toJson());
+      }
+    } else {
+      final result = await _firestore
+          .collection("time_table")
+          .where("year", isEqualTo: 1)
+          .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
+          .get();
+
+      if (result.docs.isEmpty) {
+        await _firestore.collection("time_table").add(timeTable.toJson());
+      } else {
+        await result.docs.first.reference.update(timeTable.toJson());
+      }
+    }
+  }
 
   // -----------------userInfo----------------------//
   Future<UserInfo?> getUserInfo() async {
@@ -31,8 +84,8 @@ class FirestoreService extends GetxService {
     try {
       final result = await _firestore
           .collection("user")
-          .limit(1)
           .where("id", isEqualTo: Get.find<AuthService>().user!.email)
+          .limit(1)
           .get();
 
       if (result.docs.isEmpty) {
