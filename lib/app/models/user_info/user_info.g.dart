@@ -12,7 +12,7 @@ _$_UserInfo _$$_UserInfoFromJson(Map<String, dynamic> json) => _$_UserInfo(
       batch: json['batch'] as String,
       year: json['year'] as int,
       date: DateTime.parse(json['date'] as String),
-      blocked: json['blocked'] as bool? ?? false,
+      role: json['role'] as String? ?? 'user',
     );
 
 Map<String, dynamic> _$$_UserInfoToJson(_$_UserInfo instance) =>
@@ -22,5 +22,5 @@ Map<String, dynamic> _$$_UserInfoToJson(_$_UserInfo instance) =>
       'batch': instance.batch,
       'year': instance.year,
       'date': instance.date.toIso8601String(),
-      'blocked': instance.blocked,
+      'role': instance.role,
     };

@@ -2,7 +2,7 @@ import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
-import 'components/time_table.dart';
+import 'components/time_table_page.dart';
 
 class HomeView extends GetView<HomeController> {
   @override

@@ -27,14 +27,14 @@ class _$UserInfoTearOff {
       required String batch,
       required int year,
       required DateTime date,
-      bool blocked = false}) {
+      String role = "user"}) {
     return _UserInfo(
       id: id,
       slot: slot,
       batch: batch,
       year: year,
       date: date,
-      blocked: blocked,
+      role: role,
     );
   }
 
@@ -53,7 +53,7 @@ mixin _$UserInfo {
   String get batch => throw _privateConstructorUsedError;
   int get year => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
-  bool get blocked => throw _privateConstructorUsedError;
+  String get role => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,7 +71,7 @@ abstract class $UserInfoCopyWith<$Res> {
       String batch,
       int year,
       DateTime date,
-      bool blocked});
+      String role});
 }
 
 /// @nodoc
@@ -89,7 +89,7 @@ class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
     Object? batch = freezed,
     Object? year = freezed,
     Object? date = freezed,
-    Object? blocked = freezed,
+    Object? role = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -112,10 +112,10 @@ class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      blocked: blocked == freezed
-          ? _value.blocked
-          : blocked // ignore: cast_nullable_to_non_nullable
-              as bool,
+      role: role == freezed
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -131,7 +131,7 @@ abstract class _$UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
       String batch,
       int year,
       DateTime date,
-      bool blocked});
+      String role});
 }
 
 /// @nodoc
@@ -150,7 +150,7 @@ class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
     Object? batch = freezed,
     Object? year = freezed,
     Object? date = freezed,
-    Object? blocked = freezed,
+    Object? role = freezed,
   }) {
     return _then(_UserInfo(
       id: id == freezed
@@ -173,10 +173,10 @@ class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      blocked: blocked == freezed
-          ? _value.blocked
-          : blocked // ignore: cast_nullable_to_non_nullable
-              as bool,
+      role: role == freezed
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -190,7 +190,7 @@ class _$_UserInfo implements _UserInfo {
       required this.batch,
       required this.year,
       required this.date,
-      this.blocked = false});
+      this.role = "user"});
 
   factory _$_UserInfo.fromJson(Map<String, dynamic> json) =>
       _$$_UserInfoFromJson(json);
@@ -205,13 +205,13 @@ class _$_UserInfo implements _UserInfo {
   final int year;
   @override
   final DateTime date;
-  @JsonKey(defaultValue: false)
+  @JsonKey(defaultValue: "user")
   @override
-  final bool blocked;
+  final String role;
 
   @override
   String toString() {
-    return 'UserInfo(id: $id, slot: $slot, batch: $batch, year: $year, date: $date, blocked: $blocked)';
+    return 'UserInfo(id: $id, slot: $slot, batch: $batch, year: $year, date: $date, role: $role)';
   }
 
   @override
@@ -224,12 +224,12 @@ class _$_UserInfo implements _UserInfo {
             (identical(other.batch, batch) || other.batch == batch) &&
             (identical(other.year, year) || other.year == year) &&
             (identical(other.date, date) || other.date == date) &&
-            (identical(other.blocked, blocked) || other.blocked == blocked));
+            (identical(other.role, role) || other.role == role));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, slot, batch, year, date, blocked);
+      Object.hash(runtimeType, id, slot, batch, year, date, role);
 
   @JsonKey(ignore: true)
   @override
@@ -249,7 +249,7 @@ abstract class _UserInfo implements UserInfo {
       required String batch,
       required int year,
       required DateTime date,
-      bool blocked}) = _$_UserInfo;
+      String role}) = _$_UserInfo;
 
   factory _UserInfo.fromJson(Map<String, dynamic> json) = _$_UserInfo.fromJson;
 
@@ -264,7 +264,7 @@ abstract class _UserInfo implements UserInfo {
   @override
   DateTime get date;
   @override
-  bool get blocked;
+  String get role;
   @override
   @JsonKey(ignore: true)
   _$UserInfoCopyWith<_UserInfo> get copyWith =>

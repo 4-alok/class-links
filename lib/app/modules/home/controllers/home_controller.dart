@@ -15,14 +15,18 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   final week = Rx<List<Day>>([]);
   final editMode = false.obs;
   late final StreamSubscription<List<Day>> timeTableSubscription;
+  List<Day> originalList = List.generate(
+    7,
+    (index) => Day(day: Days.days[index], subjects: []),
+  );
 
   @override
   void onInit() async {
     _defaultDays();
     timeTableSubscription =
         Get.find<FirestoreService>().timeTableStream().listen((event) {
-      week.value = event;
-      // week.update((val) => week.value = event);
+      week.value = List.generate(event.length, (index) => event[index]);
+      originalList = _deepCopyWeek(originalList);
     });
     tabController = TabController(vsync: this, length: 7);
     await getUserInfo();
@@ -48,6 +52,11 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
       }
     }
     return null;
+  }
+
+  void cancleEditMode() {
+    week.value = _deepCopyWeek(originalList);
+    editMode.value = false;
   }
 
   void addSubject(Day day, Subject _subject) => week.update((val) =>
@@ -103,6 +112,9 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     );
     await Get.find<FirestoreService>().addOrUpdateTimeTable(timeTable);
   }
+
+  List<Day> _deepCopyWeek(List<Day> originList) =>
+      originList.map((e) => Day.fromJson(e.toJson())).toList();
 
   Future<void> signout() async {
     final _authService = Get.find<AuthService>();

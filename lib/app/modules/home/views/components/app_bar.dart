@@ -30,7 +30,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       centerTitle: true,
       leading: IconButton(
-          onPressed: () => homeController.editMode.value = false,
+          onPressed: () => homeController.cancleEditMode(),
           icon: Icon(Icons.cancel_outlined, color: Colors.black87)),
       title: Text(
         'Edit TimeTable',
