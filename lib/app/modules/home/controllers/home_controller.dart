@@ -22,13 +22,13 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
 
   @override
   void onInit() async {
+    tabController = TabController(vsync: this, length: 7);
     _defaultDays();
     timeTableSubscription =
         Get.find<FirestoreService>().timeTableStream().listen((event) {
       week.value = List.generate(event.length, (index) => event[index]);
       originalList = _deepCopyWeek(event);
     });
-    tabController = TabController(vsync: this, length: 7);
     await getUserInfo();
     super.onInit();
   }
@@ -122,8 +122,9 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   List<Day> _deepCopyWeek(List<Day> originList) =>
       originList.map((e) => Day.fromJson(e.toJson())).toList();
 
-  Future<void> signout() async {
+  Future<void> logout() async {
     final _authService = Get.find<AuthService>();
+    await Get.find<HiveDatabase>().clearUserInfo();
     await _authService.logout();
     Get.offAllNamed(Routes.AUTH);
     timeTableSubscription.cancel();

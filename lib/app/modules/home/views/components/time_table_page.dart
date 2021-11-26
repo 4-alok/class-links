@@ -7,10 +7,8 @@ import 'reordable_list.dart';
 
 class TimeTablePage extends StatelessWidget {
   final HomeController homeController;
-  const TimeTablePage({
-    Key? key,
-    required this.homeController,
-  }) : super(key: key);
+  const TimeTablePage({Key? key, required this.homeController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => DefaultTabController(

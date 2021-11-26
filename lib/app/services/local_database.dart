@@ -21,6 +21,8 @@ class HiveDatabase extends GetxService {
     }
   }
 
+  Future<void> clearUserInfo() async => await userInfoBox.clear();
+
   Future<void> _add(String data) async =>
       await userInfoBox.add(data);
 
