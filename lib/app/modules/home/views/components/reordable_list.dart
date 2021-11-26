@@ -31,9 +31,13 @@ class MyReordableLIst extends StatelessWidget {
                     curve: Curves.easeInOut,
                     child: AnimatedSize(
                       duration: Duration(milliseconds: 200),
-                      child: Obx(() => !homeController.editMode.value
-                          ? displayTile(context, item)
-                          : editModeTile(inDrag, item)),
+                      child: AnimatedBuilder(
+                        animation: dragAnimation,
+                        builder: (context, child) => Obx(() =>
+                            !homeController.editMode.value
+                                ? displayTile(context, item)
+                                : editModeTile(context, inDrag, item)),
+                      ),
                     ),
                   );
                 },
@@ -50,7 +54,7 @@ class MyReordableLIst extends StatelessWidget {
                   ),
           ));
 
-  Widget editModeTile(bool inDrag, Subject item) => Card(
+  Widget editModeTile(BuildContext context, bool inDrag, Subject item) => Card(
         color: inDrag ? Colors.blue[50] : Colors.white,
         elevation: inDrag ? 2 : .5,
         child: ListTile(
@@ -65,6 +69,7 @@ class MyReordableLIst extends StatelessWidget {
             icon: Icon(Icons.delete),
             onPressed: () => homeController.removeSubject(item, currentDay.day),
           ),
+          onTap: () => addSubject(context, item),
         ),
       );
 
@@ -86,11 +91,17 @@ class MyReordableLIst extends StatelessWidget {
         },
       );
 
-  void addSubject(BuildContext context) async {
+  void addSubject(BuildContext context, [Subject? _subject = null]) async {
     // TODO: need proper dispose.
     final editBottomSheet = EditBottomSheet();
-    final sub = await editBottomSheet.show(context);
-    if (sub != null) homeController.addSubject(currentDay, sub);
+    final sub = await editBottomSheet.show(context, _subject);
+    if (sub != null) {
+      if (_subject != null) {
+        homeController.updateSubject(currentDay.day, _subject, sub);
+      } else {
+        homeController.addSubject(currentDay, sub);
+      }
+    }
     Future.delayed(
         Duration(milliseconds: 500), () => editBottomSheet.dispose());
   }

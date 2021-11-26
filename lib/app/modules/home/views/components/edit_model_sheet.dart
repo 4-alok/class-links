@@ -8,68 +8,77 @@ class EditBottomSheet {
   final _remarkController = TextEditingController();
   final _dayTimeController = TimeFieldController();
 
-  Future<Subject?> show(BuildContext context) async =>
-      await showModalBottomSheet<Subject>(
-        isScrollControlled: true,
-        context: context,
-        builder: (context) => Container(
-          padding: EdgeInsets.only(
-            top: 10,
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-            left: 10,
-            right: 10,
-          ),
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            shrinkWrap: true,
-            children: [
-              TextFormField(
-                controller: _subjectNameController,
-                decoration: InputDecoration(
-                  border: curvedBox(),
-                  filled: true,
-                  hintText: "Subject",
-                ),
-                textInputAction: TextInputAction.next,
-              ),
-              SizedBox(height: 10),
-              TextFormField(
-                controller: _remarkController,
-                maxLines: 3,
-                decoration: InputDecoration(
-                  border: curvedBox(),
-                  filled: true,
-                  hintText: "Remark",
-                ),
-                textInputAction: TextInputAction.done,
-              ),
-              SizedBox(height: 10),
-              SelectTimeFIeld(
-                dayTimeController: _dayTimeController,
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // TODO: need validation
-                    final sub = Subject(
-                      subjectName: _subjectNameController.text,
-                      remark: _remarkController.text,
-                      startTime: DayTime(
-                        hour: _dayTimeController.dayTime?.hour ?? 0,
-                        minute: _dayTimeController.dayTime?.minute ?? 0,
-                      ),
-                    );
-                    Navigator.pop(context, sub);
-                  },
-                  child: Text("done"),
-                ),
-              )
-            ],
-          ),
+  Future<Subject?> show(BuildContext context, Subject? subject) async {
+    if (subject != null) {
+      _subjectNameController.text = subject.subjectName;
+      _remarkController.text = subject.remark;
+      _dayTimeController.setTime(
+          context,
+          TimeOfDay(
+              minute: subject.startTime.minute, hour: subject.startTime.hour));
+    }
+    return await showModalBottomSheet<Subject>(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => Container(
+        padding: EdgeInsets.only(
+          top: 10,
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          left: 10,
+          right: 10,
         ),
-      );
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          shrinkWrap: true,
+          children: [
+            TextFormField(
+              controller: _subjectNameController,
+              decoration: InputDecoration(
+                border: curvedBox(),
+                filled: true,
+                hintText: "Subject",
+              ),
+              textInputAction: TextInputAction.next,
+            ),
+            SizedBox(height: 10),
+            TextFormField(
+              controller: _remarkController,
+              maxLines: 3,
+              decoration: InputDecoration(
+                border: curvedBox(),
+                filled: true,
+                hintText: "Remark",
+              ),
+              textInputAction: TextInputAction.done,
+            ),
+            SizedBox(height: 10),
+            SelectTimeFIeld(
+              dayTimeController: _dayTimeController,
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // TODO: need validation
+                  final sub = Subject(
+                    subjectName: _subjectNameController.text,
+                    remark: _remarkController.text,
+                    startTime: DayTime(
+                      hour: _dayTimeController.dayTime?.hour ?? 0,
+                      minute: _dayTimeController.dayTime?.minute ?? 0,
+                    ),
+                  );
+                  Navigator.pop(context, sub);
+                },
+                child: Text("done"),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
   void dispose() {
     _subjectNameController.dispose();

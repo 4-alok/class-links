@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:get/get.dart';
+import 'app/global/transition_animation.dart/shared_axis_scale_transition.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/local_database.dart';
 
@@ -14,10 +15,11 @@ void main() async {
     Builder(
       builder: (context) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "Application",
+        title: "Class Link",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
         // theme: ThemeClass.buildTheme(context),
+        customTransition: SharedAxisScaleTransition(),
       ),
     ),
   );

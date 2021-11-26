@@ -26,7 +26,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     timeTableSubscription =
         Get.find<FirestoreService>().timeTableStream().listen((event) {
       week.value = List.generate(event.length, (index) => event[index]);
-      originalList = _deepCopyWeek(originalList);
+      originalList = _deepCopyWeek(event);
     });
     tabController = TabController(vsync: this, length: 7);
     await getUserInfo();
@@ -61,6 +61,12 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
 
   void addSubject(Day day, Subject _subject) => week.update((val) =>
       week.value.firstWhere((e) => e.day == day.day).subjects.add(_subject));
+
+  void updateSubject(String day, Subject _oldSubject, Subject _newSubject) {
+    final _day = week.value.firstWhere((e) => e.day == day);
+    week.update((val) => _day.subjects[_day.subjects
+        .indexWhere((element) => element == _oldSubject)] = _newSubject);
+  }
 
   void removeSubject(Subject subject, String day) => week.update((val) =>
       week.value.firstWhere((e) => e.day == day).subjects.remove(subject));
