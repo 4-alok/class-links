@@ -27,7 +27,7 @@ class _$UserInfoTearOff {
       required String batch,
       required int year,
       required DateTime date,
-      String role = "user"}) {
+      String role = 'user'}) {
     return _UserInfo(
       id: id,
       slot: slot,
@@ -190,7 +190,7 @@ class _$_UserInfo implements _UserInfo {
       required this.batch,
       required this.year,
       required this.date,
-      this.role = "user"});
+      this.role = 'user'});
 
   factory _$_UserInfo.fromJson(Map<String, dynamic> json) =>
       _$$_UserInfoFromJson(json);
@@ -205,7 +205,7 @@ class _$_UserInfo implements _UserInfo {
   final int year;
   @override
   final DateTime date;
-  @JsonKey(defaultValue: "user")
+  @JsonKey(defaultValue: 'user')
   @override
   final String role;
 

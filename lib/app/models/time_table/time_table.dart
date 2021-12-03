@@ -34,6 +34,10 @@ abstract class Subject with _$Subject {
   const factory Subject({
     required String subjectName,
     required String remark,
+    @Default("") String googleClassRoomLink,
+    @Default("") String gLinkAddBy,
+    @Default("") String zoomLink,
+    @Default("") String zLinkAddBy,
     required DayTime startTime,
 
   }) = _Subject;

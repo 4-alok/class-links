@@ -1,12 +1,14 @@
+import 'package:class_link/app/global/widget/meet_link_selector.dart';
 import 'package:class_link/app/global/widget/time_selector.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class EditBottomSheet {
   final _subjectNameController = TextEditingController();
   final _remarkController = TextEditingController();
   final _dayTimeController = TimeFieldController();
+  final _gMeetLinkController = MeetLinkController();
+  final _zMeetLinkController = MeetLinkController();
 
   Future<Subject?> show(BuildContext context, Subject? subject) async {
     if (subject != null) {
@@ -50,6 +52,16 @@ class EditBottomSheet {
                 hintText: "Remark",
               ),
               textInputAction: TextInputAction.done,
+            ),
+            SizedBox(height: 10),
+            MeetLinkSelector(
+              meetType: MeetLinkType.googleClassroom,
+              controller: _gMeetLinkController,
+            ),
+            SizedBox(height: 10),
+            MeetLinkSelector(
+              meetType: MeetLinkType.zoomLink,
+              controller: _zMeetLinkController,
             ),
             SizedBox(height: 10),
             SelectTimeFIeld(

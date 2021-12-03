@@ -23,6 +23,7 @@ dependencies:
   font_awesome_flutter: ^9.2.0
   implicitly_animated_reorderable_list: ^0.4.2
   animations: ^2.0.2
+  vibration: ^1.7.4-nullsafety.0
   flutter:
     sdk: flutter
 

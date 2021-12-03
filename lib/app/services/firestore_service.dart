@@ -1,4 +1,5 @@
 import 'package:class_link/app/global/const/const.dart';
+import 'package:class_link/app/models/batch/batch.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:class_link/app/utils/get_snackbar.dart';
@@ -11,8 +12,26 @@ class FirestoreService extends GetxService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final hiveDatabase = Get.find<HiveDatabase>();
 
-  // ---------------timeTable-----------------------//
+  // ---------------batch-----------------//
+  Future<bool> addBatch(BatchYear batch) async {
+    try {
+      await _firestore.collection('batches').add(batch.toJson());
+      return true;
+    } catch (e) {
+      Message("Error", e.toString());
+      return false;
+    }
+  }
 
+  Future<bool> removeBatch(BatchYear batch) async {
+    // final ref = _firestore.collection('batches')
+        // .where("forYear", isEqualTo: batch.forYear)
+    return false;
+  }
+
+  Future<void> getBatchList() async {}
+
+  // ---------------timeTable-----------------------//
   Stream<List<Day>> timeTableStream() {
     if (hiveDatabase.userInfo!.year == 1) {
       final _ref = _firestore

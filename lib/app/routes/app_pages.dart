@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+
+import 'package:class_link/app/modules/admin/bindings/admin_binding.dart';
+import 'package:class_link/app/modules/admin/views/admin_view.dart';
 import 'package:class_link/app/modules/auth/bindings/auth_binding.dart';
 import 'package:class_link/app/modules/auth/views/auth_view.dart';
 import 'package:class_link/app/modules/home/bindings/home_binding.dart';
@@ -13,7 +16,7 @@ class AppPages {
   AppPages._();
 
   static final INITIAL =
-  Get.find<AuthService>().user == null ? Routes.AUTH : Routes.HOME;
+      Get.find<AuthService>().user == null ? Routes.AUTH : Routes.HOME;
 
   // static final INITIAL = Routes.USER_INFO;
 
@@ -32,6 +35,11 @@ class AppPages {
       name: _Paths.USER_INFO,
       page: () => UserInfoView(),
       binding: UserInfoBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADMIN,
+      page: () => AdminView(),
+      binding: AdminBinding(),
     ),
   ];
 }

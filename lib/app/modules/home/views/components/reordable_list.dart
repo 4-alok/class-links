@@ -1,10 +1,13 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/modules/home/controllers/home_controller.dart';
+import 'package:vibration/vibration.dart';
 import 'edit_model_sheet.dart';
+import 'subject_info_page.dart';
 
 class MyReordableLIst extends StatelessWidget {
   final HomeController homeController;
@@ -24,23 +27,21 @@ class MyReordableLIst extends StatelessWidget {
           items: currentDay.subjects,
           itemBuilder: (context, animation, item, index) => Reorderable(
                 key: ValueKey(item),
-                builder: (context, dragAnimation, inDrag) {
-                  return SizeFadeTransition(
-                    animation: animation,
-                    sizeFraction: 0.7,
-                    curve: Curves.easeInOut,
-                    child: AnimatedSize(
-                      duration: Duration(milliseconds: 200),
-                      child: AnimatedBuilder(
-                        animation: dragAnimation,
-                        builder: (context, child) => Obx(() =>
-                            !homeController.editMode.value
-                                ? displayTile(context, item)
-                                : editModeTile(context, inDrag, item)),
-                      ),
+                builder: (context, dragAnimation, inDrag) => SizeFadeTransition(
+                  animation: animation,
+                  sizeFraction: 0.7,
+                  curve: Curves.easeInOut,
+                  child: AnimatedSize(
+                    duration: Duration(milliseconds: 200),
+                    child: AnimatedBuilder(
+                      animation: dragAnimation,
+                      builder: (context, child) => Obx(() =>
+                          !homeController.editMode.value
+                              ? displayTile(context, item)
+                              : editModeTile(context, inDrag, item)),
                     ),
-                  );
-                },
+                  ),
+                ),
               ),
           footer: Obx(
             () => !homeController.editMode.value
@@ -73,23 +74,40 @@ class MyReordableLIst extends StatelessWidget {
         ),
       );
 
-  Widget displayTile(BuildContext context, Subject item) => ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          child: Text(
-            item.startTime.hour.toString(),
-            style: Theme.of(context).textTheme.headline4,
+  Widget displayTile(BuildContext context, Subject item) => OpenContainer(
+        closedBuilder: (context, action) => ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.transparent,
+            child: Text(
+              item.startTime.hour.toString(),
+              style: Theme.of(context).textTheme.headline4,
+            ),
           ),
-        ),
-        title: Text(item.subjectName),
-        subtitle: Text(item.remark == "" ? "No Remark" : item.remark),
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          title: Text(item.subjectName),
+          subtitle: Text(item.remark == "" ? "No Remark" : item.remark),
+          onTap: () => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             duration: Duration(seconds: 1),
             content: Text('No Link Available'),
-          ));
-        },
+          )),
+          onLongPress: () => onLongPress(action),
+        ),
+        openBuilder: (context, action) => SubjectInfo(
+          subject: item,
+        ),
       );
+
+  onLongPress(VoidCallback action) async {
+    if ((await Vibration.hasVibrator()) ?? false) {
+      Vibration.vibrate();
+      if ((await Vibration.hasAmplitudeControl()) ?? false) {
+        Vibration.vibrate(
+          duration: 20,
+          amplitude: 100,
+        );
+      }
+    }
+    action();
+  }
 
   void addSubject(BuildContext context, [Subject? _subject = null]) async {
     // TODO: need proper dispose.

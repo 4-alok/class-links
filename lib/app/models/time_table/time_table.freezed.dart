@@ -447,10 +447,18 @@ class _$SubjectTearOff {
   _Subject call(
       {required String subjectName,
       required String remark,
+      String googleClassRoomLink = "",
+      String gLinkAddBy = "",
+      String zoomLink = "",
+      String zLinkAddBy = "",
       required DayTime startTime}) {
     return _Subject(
       subjectName: subjectName,
       remark: remark,
+      googleClassRoomLink: googleClassRoomLink,
+      gLinkAddBy: gLinkAddBy,
+      zoomLink: zoomLink,
+      zLinkAddBy: zLinkAddBy,
       startTime: startTime,
     );
   }
@@ -467,6 +475,10 @@ const $Subject = _$SubjectTearOff();
 mixin _$Subject {
   String get subjectName => throw _privateConstructorUsedError;
   String get remark => throw _privateConstructorUsedError;
+  String get googleClassRoomLink => throw _privateConstructorUsedError;
+  String get gLinkAddBy => throw _privateConstructorUsedError;
+  String get zoomLink => throw _privateConstructorUsedError;
+  String get zLinkAddBy => throw _privateConstructorUsedError;
   DayTime get startTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -478,7 +490,14 @@ mixin _$Subject {
 abstract class $SubjectCopyWith<$Res> {
   factory $SubjectCopyWith(Subject value, $Res Function(Subject) then) =
       _$SubjectCopyWithImpl<$Res>;
-  $Res call({String subjectName, String remark, DayTime startTime});
+  $Res call(
+      {String subjectName,
+      String remark,
+      String googleClassRoomLink,
+      String gLinkAddBy,
+      String zoomLink,
+      String zLinkAddBy,
+      DayTime startTime});
 
   $DayTimeCopyWith<$Res> get startTime;
 }
@@ -495,6 +514,10 @@ class _$SubjectCopyWithImpl<$Res> implements $SubjectCopyWith<$Res> {
   $Res call({
     Object? subjectName = freezed,
     Object? remark = freezed,
+    Object? googleClassRoomLink = freezed,
+    Object? gLinkAddBy = freezed,
+    Object? zoomLink = freezed,
+    Object? zLinkAddBy = freezed,
     Object? startTime = freezed,
   }) {
     return _then(_value.copyWith(
@@ -505,6 +528,22 @@ class _$SubjectCopyWithImpl<$Res> implements $SubjectCopyWith<$Res> {
       remark: remark == freezed
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
+              as String,
+      googleClassRoomLink: googleClassRoomLink == freezed
+          ? _value.googleClassRoomLink
+          : googleClassRoomLink // ignore: cast_nullable_to_non_nullable
+              as String,
+      gLinkAddBy: gLinkAddBy == freezed
+          ? _value.gLinkAddBy
+          : gLinkAddBy // ignore: cast_nullable_to_non_nullable
+              as String,
+      zoomLink: zoomLink == freezed
+          ? _value.zoomLink
+          : zoomLink // ignore: cast_nullable_to_non_nullable
+              as String,
+      zLinkAddBy: zLinkAddBy == freezed
+          ? _value.zLinkAddBy
+          : zLinkAddBy // ignore: cast_nullable_to_non_nullable
               as String,
       startTime: startTime == freezed
           ? _value.startTime
@@ -526,7 +565,14 @@ abstract class _$SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
   factory _$SubjectCopyWith(_Subject value, $Res Function(_Subject) then) =
       __$SubjectCopyWithImpl<$Res>;
   @override
-  $Res call({String subjectName, String remark, DayTime startTime});
+  $Res call(
+      {String subjectName,
+      String remark,
+      String googleClassRoomLink,
+      String gLinkAddBy,
+      String zoomLink,
+      String zLinkAddBy,
+      DayTime startTime});
 
   @override
   $DayTimeCopyWith<$Res> get startTime;
@@ -545,6 +591,10 @@ class __$SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
   $Res call({
     Object? subjectName = freezed,
     Object? remark = freezed,
+    Object? googleClassRoomLink = freezed,
+    Object? gLinkAddBy = freezed,
+    Object? zoomLink = freezed,
+    Object? zLinkAddBy = freezed,
     Object? startTime = freezed,
   }) {
     return _then(_Subject(
@@ -555,6 +605,22 @@ class __$SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
       remark: remark == freezed
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
+              as String,
+      googleClassRoomLink: googleClassRoomLink == freezed
+          ? _value.googleClassRoomLink
+          : googleClassRoomLink // ignore: cast_nullable_to_non_nullable
+              as String,
+      gLinkAddBy: gLinkAddBy == freezed
+          ? _value.gLinkAddBy
+          : gLinkAddBy // ignore: cast_nullable_to_non_nullable
+              as String,
+      zoomLink: zoomLink == freezed
+          ? _value.zoomLink
+          : zoomLink // ignore: cast_nullable_to_non_nullable
+              as String,
+      zLinkAddBy: zLinkAddBy == freezed
+          ? _value.zLinkAddBy
+          : zLinkAddBy // ignore: cast_nullable_to_non_nullable
               as String,
       startTime: startTime == freezed
           ? _value.startTime
@@ -570,6 +636,10 @@ class _$_Subject implements _Subject {
   const _$_Subject(
       {required this.subjectName,
       required this.remark,
+      this.googleClassRoomLink = "",
+      this.gLinkAddBy = "",
+      this.zoomLink = "",
+      this.zLinkAddBy = "",
       required this.startTime});
 
   factory _$_Subject.fromJson(Map<String, dynamic> json) =>
@@ -579,12 +649,24 @@ class _$_Subject implements _Subject {
   final String subjectName;
   @override
   final String remark;
+  @JsonKey(defaultValue: "")
+  @override
+  final String googleClassRoomLink;
+  @JsonKey(defaultValue: "")
+  @override
+  final String gLinkAddBy;
+  @JsonKey(defaultValue: "")
+  @override
+  final String zoomLink;
+  @JsonKey(defaultValue: "")
+  @override
+  final String zLinkAddBy;
   @override
   final DayTime startTime;
 
   @override
   String toString() {
-    return 'Subject(subjectName: $subjectName, remark: $remark, startTime: $startTime)';
+    return 'Subject(subjectName: $subjectName, remark: $remark, googleClassRoomLink: $googleClassRoomLink, gLinkAddBy: $gLinkAddBy, zoomLink: $zoomLink, zLinkAddBy: $zLinkAddBy, startTime: $startTime)';
   }
 
   @override
@@ -595,12 +677,21 @@ class _$_Subject implements _Subject {
             (identical(other.subjectName, subjectName) ||
                 other.subjectName == subjectName) &&
             (identical(other.remark, remark) || other.remark == remark) &&
+            (identical(other.googleClassRoomLink, googleClassRoomLink) ||
+                other.googleClassRoomLink == googleClassRoomLink) &&
+            (identical(other.gLinkAddBy, gLinkAddBy) ||
+                other.gLinkAddBy == gLinkAddBy) &&
+            (identical(other.zoomLink, zoomLink) ||
+                other.zoomLink == zoomLink) &&
+            (identical(other.zLinkAddBy, zLinkAddBy) ||
+                other.zLinkAddBy == zLinkAddBy) &&
             (identical(other.startTime, startTime) ||
                 other.startTime == startTime));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, subjectName, remark, startTime);
+  int get hashCode => Object.hash(runtimeType, subjectName, remark,
+      googleClassRoomLink, gLinkAddBy, zoomLink, zLinkAddBy, startTime);
 
   @JsonKey(ignore: true)
   @override
@@ -617,6 +708,10 @@ abstract class _Subject implements Subject {
   const factory _Subject(
       {required String subjectName,
       required String remark,
+      String googleClassRoomLink,
+      String gLinkAddBy,
+      String zoomLink,
+      String zLinkAddBy,
       required DayTime startTime}) = _$_Subject;
 
   factory _Subject.fromJson(Map<String, dynamic> json) = _$_Subject.fromJson;
@@ -625,6 +720,14 @@ abstract class _Subject implements Subject {
   String get subjectName;
   @override
   String get remark;
+  @override
+  String get googleClassRoomLink;
+  @override
+  String get gLinkAddBy;
+  @override
+  String get zoomLink;
+  @override
+  String get zLinkAddBy;
   @override
   DayTime get startTime;
   @override
