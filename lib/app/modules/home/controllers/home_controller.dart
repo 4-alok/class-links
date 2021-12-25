@@ -10,7 +10,8 @@ import 'package:class_link/app/utils/get_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeController extends GetxController with SingleGetTickerProviderMixin {
+class HomeController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   late final TabController tabController;
   final week = Rx<List<Day>>([]);
   final editMode = false.obs;

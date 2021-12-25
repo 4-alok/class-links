@@ -4,14 +4,16 @@ import 'package:get/get.dart';
 import '../controllers/admin_controller.dart';
 
 class AdminView extends GetView<AdminController> {
+  const AdminView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Page'),
+        title: const Text('Admin Page'),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'AdminView is working',
           style: TextStyle(fontSize: 20),

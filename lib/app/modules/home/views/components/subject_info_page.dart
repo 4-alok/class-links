@@ -15,7 +15,7 @@ class SubjectInfo extends StatelessWidget {
         elevation: 0,
         title: Text(subject.subjectName),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Subject Info'),
       ),
     );

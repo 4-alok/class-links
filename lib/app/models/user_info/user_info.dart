@@ -3,7 +3,7 @@ part 'user_info.freezed.dart';
 part 'user_info.g.dart';
 
 @freezed
-abstract class UserInfo with _$UserInfo {
+class UserInfo with _$UserInfo {
   const factory UserInfo({
     required String id,
     required int slot,

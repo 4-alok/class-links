@@ -36,7 +36,7 @@ _$_Slot _$$_SlotFromJson(Map<String, dynamic> json) => _$_Slot(
       batches: (json['batches'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
-          [],
+          const [],
     );
 
 Map<String, dynamic> _$$_SlotToJson(_$_Slot instance) => <String, dynamic>{

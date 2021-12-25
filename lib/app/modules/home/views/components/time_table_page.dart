@@ -30,18 +30,18 @@ class TimeTablePage extends StatelessWidget {
   FloatingActionButton fab() => FloatingActionButton.extended(
         onPressed: () => homeController.toggleEditMode(),
         icon: Obx(() => !homeController.editMode.value
-            ? Icon(Icons.edit)
-            : Icon(Icons.done)),
+            ? const Icon(Icons.edit)
+            : const Icon(Icons.done)),
         label: AnimatedSize(
-          duration: Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 200),
           child: Obx(() =>
-              !homeController.editMode.value ? Text("Edit") : Text("Submit")),
+              !homeController.editMode.value ? const Text("Edit") : const Text("Submit")),
         ),
       );
 
   Widget tabBarView() => Expanded(
         child: TabBarView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           controller: homeController.tabController,
           children: List.generate(
               7,
@@ -56,18 +56,18 @@ class TimeTablePage extends StatelessWidget {
 
   Widget tabBar(BuildContext context) => Obx(
         () => AnimatedContainer(
-          duration: Duration(milliseconds: 200),
-          margin: EdgeInsets.only(bottom: 8),
+          duration: const Duration(milliseconds: 200),
+          margin: const EdgeInsets.only(bottom: 8),
           curve: Curves.easeInOut,
           color: !homeController.editMode.value
               ? Theme.of(context).cardColor
               : Colors.blue[100],
           child: TabBar(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             overlayColor: MaterialStateProperty.resolveWith(_getColor),
             labelColor: Colors.black,
             unselectedLabelStyle:
-                TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             labelStyle:
                 Theme.of(context).textTheme.headline4!.copyWith(fontSize: 27),
             unselectedLabelColor: Colors.grey,

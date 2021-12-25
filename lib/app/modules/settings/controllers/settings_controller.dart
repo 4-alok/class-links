@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class AdminController extends GetxController {
-  //TODO: Implement AdminController
+class SettingsController extends GetxController {
+  //TODO: Implement SettingsController
 
   final count = 0.obs;
 

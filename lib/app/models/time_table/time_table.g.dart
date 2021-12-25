@@ -42,10 +42,10 @@ Map<String, dynamic> _$$_DayToJson(_$_Day instance) => <String, dynamic>{
 _$_Subject _$$_SubjectFromJson(Map<String, dynamic> json) => _$_Subject(
       subjectName: json['subjectName'] as String,
       remark: json['remark'] as String,
-      googleClassRoomLink: json['googleClassRoomLink'] as String? ?? '',
-      gLinkAddBy: json['gLinkAddBy'] as String? ?? '',
-      zoomLink: json['zoomLink'] as String? ?? '',
-      zLinkAddBy: json['zLinkAddBy'] as String? ?? '',
+      googleClassRoomLink: json['googleClassRoomLink'] as String? ?? "",
+      gLinkAddBy: json['gLinkAddBy'] as String? ?? "",
+      zoomLink: json['zoomLink'] as String? ?? "",
+      zLinkAddBy: json['zLinkAddBy'] as String? ?? "",
       startTime: DayTime.fromJson(json['startTime'] as Map<String, dynamic>),
     );
 

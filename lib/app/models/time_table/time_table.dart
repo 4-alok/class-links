@@ -4,7 +4,7 @@ part 'time_table.freezed.dart';
 part 'time_table.g.dart';
 
 @freezed
-abstract class TimeTable with _$TimeTable {
+class TimeTable with _$TimeTable {
   const factory TimeTable({
     required List<Day> week,
     required String creatorId,
@@ -19,7 +19,7 @@ abstract class TimeTable with _$TimeTable {
 }
 
 @freezed
-abstract class Day with _$Day {
+class Day with _$Day {
   const factory Day({
     required String day,
     required List<Subject> subjects,
@@ -30,7 +30,7 @@ abstract class Day with _$Day {
 }
 
 @freezed
-abstract class Subject with _$Subject {
+class Subject with _$Subject {
   const factory Subject({
     required String subjectName,
     required String remark,
@@ -47,7 +47,7 @@ abstract class Subject with _$Subject {
 }
 
 @freezed
-abstract class DayTime with _$DayTime {
+class DayTime with _$DayTime {
   const factory DayTime({
     required int hour,
     required int minute,

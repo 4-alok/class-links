@@ -23,15 +23,17 @@ class MeetLinkSelector extends StatelessWidget {
         return 'Please enter a Google Classroom link';
       } else if (!value.startsWith('https://classroom.google.com/c/')) {
         return 'Please enter a valid Google Classroom link';
-      } else
+      } else {
         return null;
+      }
     } else if (meetType == MeetLinkType.zoomLink) {
       if (value == null || value.isEmpty) {
         return 'Please enter a Zoom link';
       } else if (!value.startsWith('https://zoom.us/')) {
         return 'Please enter a valid Zoom link';
-      } else
+      } else {
         return null;
+      }
     }
   }
 
@@ -44,14 +46,14 @@ class MeetLinkSelector extends StatelessWidget {
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   width: 0,
                   style: BorderStyle.none,
                 ),
               ),
               suffixIcon: IconButton(
                 onPressed: _pastText,
-                icon: Icon(Icons.paste),
+                icon: const Icon(Icons.paste),
               ),
               filled: true,
               hintText:

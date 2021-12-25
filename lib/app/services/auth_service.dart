@@ -6,7 +6,7 @@ import 'package:class_link/app/utils/exceptions.dart';
 
 class AuthService extends GetxService {
   late final FirebaseAuth _auth;
-  Rx<User?> _user = Rx<User?>(null);
+  final Rx<User?> _user = Rx<User?>(null);
 
   User? get user => _user.value;
 

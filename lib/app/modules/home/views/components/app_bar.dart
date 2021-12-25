@@ -19,7 +19,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           secondCurve: Curves.easeInOut,
           firstChild: _appBar(context),
           secondChild: _appBarEditMode(context),
-          duration: Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 200),
           crossFadeState: !homeController.editMode.value
               ? CrossFadeState.showFirst
               : CrossFadeState.showSecond,
@@ -30,7 +30,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         centerTitle: true,
         leading: IconButton(
             onPressed: () => homeController.cancleEditMode(),
-            icon: Icon(Icons.cancel_outlined, color: Colors.black87)),
+            icon: const Icon(Icons.cancel_outlined, color: Colors.black87)),
         title: Text(
           'Edit TimeTable',
           style: Theme.of(context)
@@ -44,7 +44,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.only(right: 12.0),
             child: IconButton(
               onPressed: () {},
-              icon: Icon(Icons.sync, color: Colors.black87),
+              icon: const Icon(Icons.sync, color: Colors.black87),
             ),
           ),
         ],
@@ -62,15 +62,13 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           Padding(
             padding: const EdgeInsets.only(right: 12.0),
             child: GestureDetector(
-              child: UserIcon(radius: 20),
+              child: const UserIcon(radius: 20),
               onTap: () => showModal<void>(
                 context: context,
                 configuration: const FadeScaleTransitionConfiguration(
                   transitionDuration: Duration(milliseconds: 300),
                 ),
-                builder: (BuildContext context) {
-                  return UserProfileDialog();
-                },
+                builder: (BuildContext context) => const UserProfileDialog(),
               ),
             ),
           ),

@@ -5,6 +5,8 @@ import '../controllers/home_controller.dart';
 import 'components/time_table_page.dart';
 
 class HomeView extends GetView<HomeController> {
+  const HomeView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<UserInfo?>(
@@ -17,9 +19,9 @@ class HomeView extends GetView<HomeController> {
             child: Text(snapshot.error.toString())
           );
         } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else {
-          return Center(child: Text('Error'));
+          return const Center(child: Text('Error'));
         }
       },
     );

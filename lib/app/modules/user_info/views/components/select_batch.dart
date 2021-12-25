@@ -22,7 +22,7 @@ class SelectBatch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       children: <Widget>[
         selectSlot(context),
         selectBatch(context),
@@ -35,7 +35,7 @@ class SelectBatch extends StatelessWidget {
     final currentYear = userInfoController.selectYearController.currentYear;
     return Obx(() {
       if (currentYear.value == null) {
-        return ListTile(title: Text("Select you year first"));
+        return const ListTile(title: Text("Select you year first"));
       } else {
         if (currentYear.value == 1) {
           return batchList(userInfoController.list1);

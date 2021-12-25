@@ -139,14 +139,16 @@ class _$_BatchYear implements _BatchYear {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _BatchYear &&
-            (identical(other.forBatchYear, forBatchYear) ||
-                other.forBatchYear == forBatchYear) &&
+            const DeepCollectionEquality()
+                .equals(other.forBatchYear, forBatchYear) &&
             const DeepCollectionEquality().equals(other.branches, branches));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, forBatchYear, const DeepCollectionEquality().hash(branches));
+      runtimeType,
+      const DeepCollectionEquality().hash(forBatchYear),
+      const DeepCollectionEquality().hash(branches));
 
   @JsonKey(ignore: true)
   @override
@@ -301,14 +303,16 @@ class _$_Branch implements _Branch {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Branch &&
-            (identical(other.branchName, branchName) ||
-                other.branchName == branchName) &&
+            const DeepCollectionEquality()
+                .equals(other.branchName, branchName) &&
             const DeepCollectionEquality().equals(other.slots, slots));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, branchName, const DeepCollectionEquality().hash(slots));
+      runtimeType,
+      const DeepCollectionEquality().hash(branchName),
+      const DeepCollectionEquality().hash(slots));
 
   @JsonKey(ignore: true)
   @override
@@ -446,7 +450,7 @@ class _$_Slot implements _Slot {
 
   @override
   final int slotNo;
-  @JsonKey(defaultValue: const [])
+  @JsonKey()
   @override
   final List<String> batches;
 
@@ -460,13 +464,15 @@ class _$_Slot implements _Slot {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Slot &&
-            (identical(other.slotNo, slotNo) || other.slotNo == slotNo) &&
+            const DeepCollectionEquality().equals(other.slotNo, slotNo) &&
             const DeepCollectionEquality().equals(other.batches, batches));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, slotNo, const DeepCollectionEquality().hash(batches));
+      runtimeType,
+      const DeepCollectionEquality().hash(slotNo),
+      const DeepCollectionEquality().hash(batches));
 
   @JsonKey(ignore: true)
   @override

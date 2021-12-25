@@ -30,5 +30,5 @@ class UserIcon extends StatelessWidget {
               ));
   }
 
-  FaIcon personIcon() => FaIcon(FontAwesomeIcons.user);
+  FaIcon personIcon() => const FaIcon(FontAwesomeIcons.user);
 }

@@ -220,23 +220,22 @@ class _$_TimeTable implements _TimeTable {
         (other.runtimeType == runtimeType &&
             other is _TimeTable &&
             const DeepCollectionEquality().equals(other.week, week) &&
-            (identical(other.creatorId, creatorId) ||
-                other.creatorId == creatorId) &&
-            (identical(other.batch, batch) || other.batch == batch) &&
-            (identical(other.year, year) || other.year == year) &&
-            (identical(other.slot, slot) || other.slot == slot) &&
-            (identical(other.date, date) || other.date == date));
+            const DeepCollectionEquality().equals(other.creatorId, creatorId) &&
+            const DeepCollectionEquality().equals(other.batch, batch) &&
+            const DeepCollectionEquality().equals(other.year, year) &&
+            const DeepCollectionEquality().equals(other.slot, slot) &&
+            const DeepCollectionEquality().equals(other.date, date));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(week),
-      creatorId,
-      batch,
-      year,
-      slot,
-      date);
+      const DeepCollectionEquality().hash(creatorId),
+      const DeepCollectionEquality().hash(batch),
+      const DeepCollectionEquality().hash(year),
+      const DeepCollectionEquality().hash(slot),
+      const DeepCollectionEquality().hash(date));
 
   @JsonKey(ignore: true)
   @override
@@ -402,13 +401,15 @@ class _$_Day implements _Day {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Day &&
-            (identical(other.day, day) || other.day == day) &&
+            const DeepCollectionEquality().equals(other.day, day) &&
             const DeepCollectionEquality().equals(other.subjects, subjects));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, day, const DeepCollectionEquality().hash(subjects));
+      runtimeType,
+      const DeepCollectionEquality().hash(day),
+      const DeepCollectionEquality().hash(subjects));
 
   @JsonKey(ignore: true)
   @override
@@ -649,16 +650,16 @@ class _$_Subject implements _Subject {
   final String subjectName;
   @override
   final String remark;
-  @JsonKey(defaultValue: "")
+  @JsonKey()
   @override
   final String googleClassRoomLink;
-  @JsonKey(defaultValue: "")
+  @JsonKey()
   @override
   final String gLinkAddBy;
-  @JsonKey(defaultValue: "")
+  @JsonKey()
   @override
   final String zoomLink;
-  @JsonKey(defaultValue: "")
+  @JsonKey()
   @override
   final String zLinkAddBy;
   @override
@@ -674,24 +675,29 @@ class _$_Subject implements _Subject {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Subject &&
-            (identical(other.subjectName, subjectName) ||
-                other.subjectName == subjectName) &&
-            (identical(other.remark, remark) || other.remark == remark) &&
-            (identical(other.googleClassRoomLink, googleClassRoomLink) ||
-                other.googleClassRoomLink == googleClassRoomLink) &&
-            (identical(other.gLinkAddBy, gLinkAddBy) ||
-                other.gLinkAddBy == gLinkAddBy) &&
-            (identical(other.zoomLink, zoomLink) ||
-                other.zoomLink == zoomLink) &&
-            (identical(other.zLinkAddBy, zLinkAddBy) ||
-                other.zLinkAddBy == zLinkAddBy) &&
-            (identical(other.startTime, startTime) ||
-                other.startTime == startTime));
+            const DeepCollectionEquality()
+                .equals(other.subjectName, subjectName) &&
+            const DeepCollectionEquality().equals(other.remark, remark) &&
+            const DeepCollectionEquality()
+                .equals(other.googleClassRoomLink, googleClassRoomLink) &&
+            const DeepCollectionEquality()
+                .equals(other.gLinkAddBy, gLinkAddBy) &&
+            const DeepCollectionEquality().equals(other.zoomLink, zoomLink) &&
+            const DeepCollectionEquality()
+                .equals(other.zLinkAddBy, zLinkAddBy) &&
+            const DeepCollectionEquality().equals(other.startTime, startTime));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, subjectName, remark,
-      googleClassRoomLink, gLinkAddBy, zoomLink, zLinkAddBy, startTime);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(subjectName),
+      const DeepCollectionEquality().hash(remark),
+      const DeepCollectionEquality().hash(googleClassRoomLink),
+      const DeepCollectionEquality().hash(gLinkAddBy),
+      const DeepCollectionEquality().hash(zoomLink),
+      const DeepCollectionEquality().hash(zLinkAddBy),
+      const DeepCollectionEquality().hash(startTime));
 
   @JsonKey(ignore: true)
   @override
@@ -860,12 +866,15 @@ class _$_DayTime implements _DayTime {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _DayTime &&
-            (identical(other.hour, hour) || other.hour == hour) &&
-            (identical(other.minute, minute) || other.minute == minute));
+            const DeepCollectionEquality().equals(other.hour, hour) &&
+            const DeepCollectionEquality().equals(other.minute, minute));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, hour, minute);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(hour),
+      const DeepCollectionEquality().hash(minute));
 
   @JsonKey(ignore: true)
   @override

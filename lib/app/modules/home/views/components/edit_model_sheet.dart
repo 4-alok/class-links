@@ -30,7 +30,7 @@ class EditBottomSheet {
           right: 10,
         ),
         child: ListView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
           children: [
             TextFormField(
@@ -42,7 +42,7 @@ class EditBottomSheet {
               ),
               textInputAction: TextInputAction.next,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormField(
               controller: _remarkController,
               maxLines: 3,
@@ -53,21 +53,21 @@ class EditBottomSheet {
               ),
               textInputAction: TextInputAction.done,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             MeetLinkSelector(
               meetType: MeetLinkType.googleClassroom,
               controller: _gMeetLinkController,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             MeetLinkSelector(
               meetType: MeetLinkType.zoomLink,
               controller: _zMeetLinkController,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             SelectTimeFIeld(
               dayTimeController: _dayTimeController,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
@@ -83,7 +83,7 @@ class EditBottomSheet {
                   );
                   Navigator.pop(context, sub);
                 },
-                child: Text("done"),
+                child: const Text("done"),
               ),
             )
           ],
@@ -100,7 +100,7 @@ class EditBottomSheet {
 
   static OutlineInputBorder curvedBox() => OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           width: 0,
           style: BorderStyle.none,
         ),

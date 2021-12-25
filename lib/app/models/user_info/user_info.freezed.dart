@@ -205,7 +205,7 @@ class _$_UserInfo implements _UserInfo {
   final int year;
   @override
   final DateTime date;
-  @JsonKey(defaultValue: 'user')
+  @JsonKey()
   @override
   final String role;
 
@@ -219,17 +219,23 @@ class _$_UserInfo implements _UserInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _UserInfo &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.slot, slot) || other.slot == slot) &&
-            (identical(other.batch, batch) || other.batch == batch) &&
-            (identical(other.year, year) || other.year == year) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.role, role) || other.role == role));
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.slot, slot) &&
+            const DeepCollectionEquality().equals(other.batch, batch) &&
+            const DeepCollectionEquality().equals(other.year, year) &&
+            const DeepCollectionEquality().equals(other.date, date) &&
+            const DeepCollectionEquality().equals(other.role, role));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, slot, batch, year, date, role);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(slot),
+      const DeepCollectionEquality().hash(batch),
+      const DeepCollectionEquality().hash(year),
+      const DeepCollectionEquality().hash(date),
+      const DeepCollectionEquality().hash(role));
 
   @JsonKey(ignore: true)
   @override

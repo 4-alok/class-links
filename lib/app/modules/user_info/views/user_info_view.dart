@@ -6,6 +6,8 @@ import 'components/select_batch.dart';
 import 'components/select_year.dart';
 
 class UserInfoView extends GetView<UserInfoController> {
+  const UserInfoView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +17,7 @@ class UserInfoView extends GetView<UserInfoController> {
       ),
       body: PageView(
         controller: controller.pageController,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         onPageChanged: controller.onPageChange,
         children: [
           SelectYear(
@@ -33,7 +35,7 @@ class UserInfoView extends GetView<UserInfoController> {
   FloatingActionButton fab() => FloatingActionButton.extended(
         onPressed: controller.fab,
         label: AnimatedSize(
-          duration: Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 200),
           child: Obx(
             () => Text(
               (controller.currentPage.value == 0) ? 'Next' : 'Done',

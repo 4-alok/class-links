@@ -7,18 +7,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UserProfileDialog extends StatelessWidget {
-  final hiveDatabase = Get.find<HiveDatabase>();
-  final authService = Get.find<AuthService>();
-  final homeController = Get.find<HomeController>();
+  const UserProfileDialog({Key? key}) : super(key: key);
+
+  HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
+  AuthService get authService => Get.find<AuthService>();
+  HomeController get homeController => Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-      contentPadding: EdgeInsets.all(2),
+      contentPadding: const EdgeInsets.all(2),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            leading: UserIcon(radius: 40),
+            leading: const UserIcon(radius: 40),
             title: Text(authService.user?.displayName ?? '',
                 style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontSize: 20,
@@ -31,7 +33,7 @@ class UserProfileDialog extends StatelessWidget {
                   ),
             ),
           ),
-          Divider(
+          const Divider(
             color: Colors.black,
           ),
           ListTile(
@@ -42,7 +44,10 @@ class UserProfileDialog extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   color: Colors.grey[600]),
             ),
-            onTap: () {},
+            onTap: () {
+              Get.back();
+              Get.toNamed(Routes.SETTINGS);
+            },
           ),
           hiveDatabase.userInfo!.role == "admin"
               ? ListTile(
@@ -57,7 +62,7 @@ class UserProfileDialog extends StatelessWidget {
                     Get.toNamed(Routes.ADMIN);
                   },
                 )
-              : SizedBox(),
+              : const SizedBox(),
           ListTile(
             title: Text(
               "Logout",

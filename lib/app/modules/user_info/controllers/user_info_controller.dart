@@ -28,7 +28,7 @@ class UserInfoController extends GetxController {
     if (currentPage.value == 0) {
       pageController.animateToPage(
         1,
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         curve: Curves.ease,
       );
     } else {

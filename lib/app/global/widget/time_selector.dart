@@ -37,7 +37,7 @@ class SelectTimeFIeld extends StatelessWidget {
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   width: 0,
                   style: BorderStyle.none,
                 ),
@@ -62,7 +62,7 @@ class SelectTimeFIeld extends StatelessWidget {
   void _showTimePicker(BuildContext context) {
     showTimePicker(
       context: context,
-      initialTime: TimeOfDay(hour: 09, minute: 00),
+      initialTime: const TimeOfDay(hour: 09, minute: 00),
     ).then((value) => dayTimeController.setTime(context, value));
   }
 }

@@ -4,7 +4,7 @@ part 'batch.freezed.dart';
 part 'batch.g.dart';
 
 @freezed
-abstract class BatchYear with _$BatchYear {
+class BatchYear with _$BatchYear {
   const factory BatchYear({
     required int forBatchYear,
     required List<Branch> branches,
@@ -15,7 +15,7 @@ abstract class BatchYear with _$BatchYear {
 }
 
 @freezed
-abstract class Branch with _$Branch {
+class Branch with _$Branch {
   const factory Branch({
     required String branchName,
     required List<Slot> slots,
@@ -26,7 +26,7 @@ abstract class Branch with _$Branch {
 }
 
 @freezed
-abstract class Slot with _$Slot {
+class Slot with _$Slot {
   const factory Slot({
     required int slotNo,
     @Default([]) List<String> batches,

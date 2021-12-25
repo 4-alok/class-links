@@ -32,7 +32,7 @@ class MyReordableLIst extends StatelessWidget {
                   sizeFraction: 0.7,
                   curve: Curves.easeInOut,
                   child: AnimatedSize(
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                     child: AnimatedBuilder(
                       animation: dragAnimation,
                       builder: (context, child) => Obx(() =>
@@ -45,12 +45,12 @@ class MyReordableLIst extends StatelessWidget {
               ),
           footer: Obx(
             () => !homeController.editMode.value
-                ? SizedBox()
+                ? const SizedBox()
                 : Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                     child: ElevatedButton(
                       onPressed: () => addSubject(context),
-                      child: Text('Add Subject'),
+                      child: const Text('Add Subject'),
                     ),
                   ),
           ));
@@ -59,7 +59,7 @@ class MyReordableLIst extends StatelessWidget {
         color: inDrag ? Colors.blue[50] : Colors.white,
         elevation: inDrag ? 2 : .5,
         child: ListTile(
-          leading: Handle(
+          leading: const Handle(
             child: CircleAvatar(
                 backgroundColor: Colors.transparent,
                 child: Icon(Icons.drag_indicator)),
@@ -67,7 +67,7 @@ class MyReordableLIst extends StatelessWidget {
           title: Text(item.subjectName),
           subtitle: Text(item.remark == "" ? "No Remark" : item.remark),
           trailing: IconButton(
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             onPressed: () => homeController.removeSubject(item, currentDay.day),
           ),
           onTap: () => addSubject(context, item),
@@ -85,7 +85,7 @@ class MyReordableLIst extends StatelessWidget {
           ),
           title: Text(item.subjectName),
           subtitle: Text(item.remark == "" ? "No Remark" : item.remark),
-          onTap: () => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          onTap: () => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             duration: Duration(seconds: 1),
             content: Text('No Link Available'),
           )),
@@ -109,7 +109,7 @@ class MyReordableLIst extends StatelessWidget {
     action();
   }
 
-  void addSubject(BuildContext context, [Subject? _subject = null]) async {
+  void addSubject(BuildContext context, [Subject? _subject]) async {
     // TODO: need proper dispose.
     final editBottomSheet = EditBottomSheet();
     final sub = await editBottomSheet.show(context, _subject);
@@ -121,6 +121,6 @@ class MyReordableLIst extends StatelessWidget {
       }
     }
     Future.delayed(
-        Duration(milliseconds: 500), () => editBottomSheet.dispose());
+        const Duration(milliseconds: 500), () => editBottomSheet.dispose());
   }
 }

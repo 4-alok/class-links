@@ -26,7 +26,7 @@ class HiveDatabase extends GetxService {
   Future<void> _add(String data) async =>
       await userInfoBox.add(data);
 
-  Future<UserInfo?> getUserInfo() async => (await userInfoBox.isEmpty)
+  Future<UserInfo?> getUserInfo() async => (userInfoBox.isEmpty)
       ? null
       : UserInfo.fromJson(jsonDecode(await userInfoBox.values.first));
 }

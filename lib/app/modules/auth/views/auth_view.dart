@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import '../controllers/auth_controller.dart';
 
 class AuthView extends GetView<AuthController> {
+  const AuthView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('AuthView'),
+        title: const Text('AuthView'),
         centerTitle: true,
       ),
       body: Center(
@@ -17,7 +19,7 @@ class AuthView extends GetView<AuthController> {
         children: [
           ElevatedButton(
             onPressed: () => controller.login(),
-            child: Text('Login'),
+            child: const Text('Login'),
           ),
         ],
       )),
