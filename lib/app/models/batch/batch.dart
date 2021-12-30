@@ -21,8 +21,7 @@ class Branch with _$Branch {
     required List<Slot> slots,
   }) = _Branch;
 
-  factory Branch.fromJson(Map<String, dynamic> json) =>
-      _$BranchFromJson(json);
+  factory Branch.fromJson(Map<String, dynamic> json) => _$BranchFromJson(json);
 }
 
 @freezed
@@ -32,6 +31,5 @@ class Slot with _$Slot {
     @Default([]) List<String> batches,
   }) = _Slot;
 
-  factory Slot.fromJson(Map<String, dynamic> json) =>
-      _$SlotFromJson(json);
+  factory Slot.fromJson(Map<String, dynamic> json) => _$SlotFromJson(json);
 }

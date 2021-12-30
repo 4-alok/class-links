@@ -25,7 +25,7 @@ class FirestoreService extends GetxService {
 
   Future<bool> removeBatch(BatchYear batch) async {
     // final ref = _firestore.collection('batches')
-        // .where("forYear", isEqualTo: batch.forYear)
+    // .where("forYear", isEqualTo: batch.forYear)
     return false;
   }
 

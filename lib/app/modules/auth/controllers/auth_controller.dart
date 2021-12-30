@@ -21,5 +21,6 @@ class AuthController extends GetxController {
           ? Get.offNamed(Routes.USER_INFO)
           : Get.offNamed(Routes.HOME);
     }
+    // Get.offNamed(Routes.USER_INFO);
   }
 }

@@ -103,6 +103,7 @@ class EditBottomSheet {
         borderSide: const BorderSide(
           width: 0,
           style: BorderStyle.none,
+          // color: Colors.transparent,
         ),
       );
 }

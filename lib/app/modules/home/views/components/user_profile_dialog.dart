@@ -15,6 +15,8 @@ class UserProfileDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AlertDialog(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25.0))),
       contentPadding: const EdgeInsets.all(2),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -72,7 +74,7 @@ class UserProfileDialog extends StatelessWidget {
                   color: Colors.red[300]),
             ),
             onTap: () async => await homeController.logout(),
-          )
+          ),
         ],
       ));
 }

@@ -12,7 +12,7 @@ class SharedAxisScaleTransition extends CustomTransition {
       Animation<double> secondaryAnimation,
       Widget child) {
     return SharedAxisTransition(
-      fillColor: Colors.white,
+      // fillColor: Colors.white,
       animation: animation,
       secondaryAnimation: secondaryAnimation,
       transitionType: SharedAxisTransitionType.scaled,

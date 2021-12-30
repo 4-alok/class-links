@@ -26,11 +26,12 @@ class SelectYear extends StatelessWidget {
 
   ListView buildLIst(int selectedYear) {
     return ListView.builder(
+      physics: const BouncingScrollPhysics(),
       itemCount: 2,
       itemBuilder: (context, index) => Card(
         color: selectedYear == index + 1
-            ? Theme.of(context).secondaryHeaderColor
-            : null,
+            ? Theme.of(context).primaryColor
+            : Theme.of(context).cardColor,
         child: ListTile(
           title: Text('Year ${index + 1}'),
           onTap: () => selectYearController.currentYear.value = index + 1,

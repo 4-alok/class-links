@@ -15,9 +15,7 @@ class HomeView extends GetView<HomeController> {
         if (snapshot.hasData && snapshot.data != null) {
           return TimeTablePage(homeController: controller);
         } else if (snapshot.hasError) {
-          return Center(
-            child: Text(snapshot.error.toString())
-          );
+          return Center(child: Text(snapshot.error.toString()));
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else {

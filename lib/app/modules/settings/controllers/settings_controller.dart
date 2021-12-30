@@ -1,12 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SettingsController extends GetxController {
-  //TODO: Implement SettingsController
-
-  final count = 0.obs;
-
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+  Future<void> toogleThemeMode() async {
+    Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+  }
 }

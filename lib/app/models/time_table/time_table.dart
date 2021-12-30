@@ -25,8 +25,7 @@ class Day with _$Day {
     required List<Subject> subjects,
   }) = _Day;
 
-  factory Day.fromJson(Map<String, dynamic> json) =>
-      _$DayFromJson(json);
+  factory Day.fromJson(Map<String, dynamic> json) => _$DayFromJson(json);
 }
 
 @freezed
@@ -39,7 +38,6 @@ class Subject with _$Subject {
     @Default("") String zoomLink,
     @Default("") String zLinkAddBy,
     required DayTime startTime,
-
   }) = _Subject;
 
   factory Subject.fromJson(Map<String, dynamic> json) =>

@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:class_link/app/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
@@ -47,7 +48,8 @@ class MyReordableLIst extends StatelessWidget {
             () => !homeController.editMode.value
                 ? const SizedBox()
                 : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 10),
                     child: ElevatedButton(
                       onPressed: () => addSubject(context),
                       child: const Text('Add Subject'),
@@ -56,13 +58,19 @@ class MyReordableLIst extends StatelessWidget {
           ));
 
   Widget editModeTile(BuildContext context, bool inDrag, Subject item) => Card(
-        color: inDrag ? Colors.blue[50] : Colors.white,
+        color: inDrag
+            ? Theme.of(context).secondaryHeaderColor
+            : BlendColor.cardColor(context),
         elevation: inDrag ? 2 : .5,
         child: ListTile(
-          leading: const Handle(
+          leading: Handle(
             child: CircleAvatar(
-                backgroundColor: Colors.transparent,
-                child: Icon(Icons.drag_indicator)),
+              backgroundColor: Colors.transparent,
+              child: Icon(
+                Icons.drag_indicator,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
           ),
           title: Text(item.subjectName),
           subtitle: Text(item.remark == "" ? "No Remark" : item.remark),
@@ -75,21 +83,34 @@ class MyReordableLIst extends StatelessWidget {
       );
 
   Widget displayTile(BuildContext context, Subject item) => OpenContainer(
-        closedBuilder: (context, action) => ListTile(
-          leading: CircleAvatar(
-            backgroundColor: Colors.transparent,
-            child: Text(
-              item.startTime.hour.toString(),
-              style: Theme.of(context).textTheme.headline4,
+        closedColor: Theme.of(context).scaffoldBackgroundColor,
+        openColor: Theme.of(context).scaffoldBackgroundColor,
+        middleColor: Theme.of(context).scaffoldBackgroundColor,
+        closedBuilder: (context, action) => Theme(
+          data: Theme.of(context).copyWith(
+              cardColor: Colors.transparent,
+              listTileTheme: ListTileThemeData(
+                tileColor: Theme.of(context).backgroundColor,
+              )),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.transparent,
+              child: Text(
+                item.startTime.hour.toString(),
+                style: Theme.of(context).textTheme.headline4!.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+              ),
             ),
+            title: Text(item.subjectName),
+            subtitle: Text(item.remark == "" ? "No Remark" : item.remark),
+            onTap: () =>
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              duration: Duration(seconds: 1),
+              content: Text('No Link Available'),
+            )),
+            onLongPress: () => onLongPress(action),
           ),
-          title: Text(item.subjectName),
-          subtitle: Text(item.remark == "" ? "No Remark" : item.remark),
-          onTap: () => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            duration: Duration(seconds: 1),
-            content: Text('No Link Available'),
-          )),
-          onLongPress: () => onLongPress(action),
         ),
         openBuilder: (context, action) => SubjectInfo(
           subject: item,
