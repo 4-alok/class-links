@@ -39,7 +39,7 @@ Future<void> main() async {
               appBarStyle: database.appbarStyle.value,
               useSubThemes: true,
             ),
-            themeMode: ThemeMode.dark,
+            themeMode: ThemeMode.system,
             customTransition: SharedAxisScaleTransition(),
           ),
         ),

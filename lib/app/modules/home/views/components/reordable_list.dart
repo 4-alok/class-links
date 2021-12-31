@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:class_link/app/utils/color.dart';
+import 'package:class_link/app/utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
@@ -33,14 +34,17 @@ class MyReordableLIst extends StatelessWidget {
                   sizeFraction: 0.7,
                   curve: Curves.easeInOut,
                   child: AnimatedSize(
+                    curve: Curves.easeInOut,
                     duration: const Duration(milliseconds: 200),
                     child: AnimatedBuilder(
-                      animation: dragAnimation,
-                      builder: (context, child) => Obx(() =>
-                          !homeController.editMode.value
-                              ? displayTile(context, item)
-                              : editModeTile(context, inDrag, item)),
-                    ),
+                        animation: dragAnimation,
+                        builder: (context, child) => Obx(
+                              () => homeController.editMode.value
+                                  ? editModeTile(context, inDrag, item)
+                                  : (index == 2)
+                                      ? currentTimeTile(context, item)
+                                      : displayTile(context, item),
+                            )),
                   ),
                 ),
               ),
@@ -96,7 +100,7 @@ class MyReordableLIst extends StatelessWidget {
             leading: CircleAvatar(
               backgroundColor: Colors.transparent,
               child: Text(
-                item.startTime.hour.toString(),
+                item.startTime.hourString,
                 style: Theme.of(context).textTheme.headline4!.copyWith(
                       color: Theme.of(context).colorScheme.primary,
                     ),
@@ -114,6 +118,52 @@ class MyReordableLIst extends StatelessWidget {
         ),
         openBuilder: (context, action) => SubjectInfo(
           subject: item,
+        ),
+      );
+
+  Widget currentTimeTile(BuildContext context, Subject item) => Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: OpenContainer(
+          closedElevation: 10,
+          closedShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          closedColor: Theme.of(context).scaffoldBackgroundColor,
+          openColor: Theme.of(context).scaffoldBackgroundColor,
+          middleColor: Theme.of(context).scaffoldBackgroundColor,
+          closedBuilder: (context, action) => SizedBox(
+              width: double.maxFinite,
+              height: 200,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 8),
+                        Container(
+                          height: 23,
+                          width: 4,
+                          color: Theme.of(context).colorScheme.secondaryVariant,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          item.startTime.text12HourStartEnd,
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(color: Get.theme.primaryColor),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )),
+          openBuilder: (context, action) => SubjectInfo(
+            subject: item,
+          ),
         ),
       );
 

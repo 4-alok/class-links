@@ -23,12 +23,23 @@ class TimeTablePage extends StatelessWidget {
           length: 7,
           child: Scaffold(
             appBar: MyAppBar(homeController: homeController),
-            body: Column(
-              children: [tabBarView()],
-            ),
+            body: tabBarView(),
             floatingActionButton: fab(context),
           ),
         ),
+      );
+
+  Widget tabBarView() => TabBarView(
+        physics: const BouncingScrollPhysics(),
+        controller: homeController.tabController,
+        children: List.generate(
+            7,
+            (index) => Obx(
+                  () => MyReordableLIst(
+                    homeController: homeController,
+                    currentDay: homeController.week.value[index],
+                  ),
+                )),
       );
 
   FloatingActionButton fab(BuildContext context) =>
@@ -44,21 +55,6 @@ class TimeTablePage extends StatelessWidget {
           child: Obx(() => !homeController.editMode.value
               ? const Text("Edit")
               : const Text("Submit")),
-        ),
-      );
-
-  Widget tabBarView() => Expanded(
-        child: TabBarView(
-          physics: const BouncingScrollPhysics(),
-          controller: homeController.tabController,
-          children: List.generate(
-              7,
-              (index) => Obx(
-                    () => MyReordableLIst(
-                      homeController: homeController,
-                      currentDay: homeController.week.value[index],
-                    ),
-                  )),
         ),
       );
 }
