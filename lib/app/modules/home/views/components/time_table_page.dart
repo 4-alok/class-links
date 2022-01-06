@@ -37,14 +37,15 @@ class TimeTablePage extends StatelessWidget {
             (index) => Obx(
                   () => MyReordableLIst(
                     homeController: homeController,
+                    currentTabIndex: index,
                     currentDay: homeController.week.value[index],
                   ),
                 )),
       );
-
+                  
   FloatingActionButton fab(BuildContext context) =>
       FloatingActionButton.extended(
-        onPressed: () => homeController.toggleEditMode(),
+        onPressed: () => homeController.toggleEditMode(),  
         icon: Obx(
           () => !homeController.editMode.value
               ? const Icon(Icons.edit)

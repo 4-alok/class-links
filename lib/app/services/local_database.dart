@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'package:class_link/app/global/theme/app_color.dart.dart';
 import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
 class HiveDatabase extends GetxService {
-  final appTheme = Rx<FlexSchemeData>(FlexColor.blueWhale);
+  final appTheme = Rx<FlexSchemeData>(AppColor.schemes[1]);
   final isBlack = Rx<bool>(false);
   final appbarStyle = Rx<FlexAppBarStyle>(FlexAppBarStyle.material);
   late final Box userInfoBox;

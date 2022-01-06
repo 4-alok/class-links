@@ -8,7 +8,7 @@ part of 'user_info.dart';
 
 _$_UserInfo _$$_UserInfoFromJson(Map<String, dynamic> json) => _$_UserInfo(
       id: json['id'] as String,
-      slot: json['slot'] as int,
+      slot: json['slot'] as int? ?? 1,
       batch: json['batch'] as String,
       year: json['year'] as int,
       date: DateTime.parse(json['date'] as String),

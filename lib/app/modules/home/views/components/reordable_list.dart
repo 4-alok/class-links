@@ -1,65 +1,76 @@
 import 'package:animations/animations.dart';
-import 'package:class_link/app/utils/color.dart';
-import 'package:class_link/app/utils/extension.dart';
+import 'package:class_link/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
+import 'package:vibration/vibration.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/modules/home/controllers/home_controller.dart';
-import 'package:vibration/vibration.dart';
+import 'package:class_link/app/utils/color.dart';
+import 'package:class_link/app/utils/extension.dart';
+import 'current_class_card.dart';
 import 'edit_model_sheet.dart';
 import 'subject_info_page.dart';
 
 class MyReordableLIst extends StatelessWidget {
   final HomeController homeController;
+  final int currentTabIndex;
   final Day currentDay;
   const MyReordableLIst({
     Key? key,
     required this.homeController,
+    required this.currentTabIndex,
     required this.currentDay,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) =>
       ImplicitlyAnimatedReorderableList<Subject>(
-          areItemsTheSame: (a, b) => a.subjectName == b.subjectName,
-          onReorderFinished: (a, b, c, d) =>
-              homeController.finishReorder(a, b, c, d, currentDay.day),
-          items: currentDay.subjects,
-          itemBuilder: (context, animation, item, index) => Reorderable(
-                key: ValueKey(item),
-                builder: (context, dragAnimation, inDrag) => SizeFadeTransition(
-                  animation: animation,
-                  sizeFraction: 0.7,
-                  curve: Curves.easeInOut,
-                  child: AnimatedSize(
-                    curve: Curves.easeInOut,
-                    duration: const Duration(milliseconds: 200),
-                    child: AnimatedBuilder(
-                        animation: dragAnimation,
-                        builder: (context, child) => Obx(
-                              () => homeController.editMode.value
-                                  ? editModeTile(context, inDrag, item)
-                                  : (index == 2)
-                                      ? currentTimeTile(context, item)
-                                      : displayTile(context, item),
-                            )),
+        physics: const BouncingScrollPhysics(),
+        areItemsTheSame: (a, b) => a.subjectName == b.subjectName,
+        onReorderFinished: (a, b, c, d) =>
+            homeController.finishReorder(a, b, c, d, currentDay.day),
+        items: currentDay.subjects,
+        itemBuilder: (context, animation, item, index) => Reorderable(
+          key: ValueKey(item),
+          builder: (context, dragAnimation, inDrag) => SizeFadeTransition(
+            animation: animation,
+            sizeFraction: 0.7,
+            curve: Curves.easeInOut,
+            child: AnimatedSize(
+              curve: Curves.easeInOut,
+              duration: const Duration(milliseconds: 200),
+              child: AnimatedBuilder(
+                  animation: dragAnimation,
+                  builder: (context, child) => Obx(
+                        () => homeController.editMode.value
+                            ? editModeTile(context, inDrag, item)
+                            // : true
+                            : (item.startTime.isCurrentTime &&
+                                    (currentTabIndex ==
+                                        DateTime.now().weekday - 1))
+                                ? CurrentClassCard(
+                                    item: item,
+                                  )
+                                : displayTile(context, item),
+                      )),
+            ),
+          ),
+        ),
+        footer: Obx(
+          () => !homeController.editMode.value
+              ? const SizedBox()
+              : Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  child: ElevatedButton(
+                    onPressed: () => addSubject(context),
+                    child: const Text('Add Subject'),
                   ),
                 ),
-              ),
-          footer: Obx(
-            () => !homeController.editMode.value
-                ? const SizedBox()
-                : Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 10),
-                    child: ElevatedButton(
-                      onPressed: () => addSubject(context),
-                      child: const Text('Add Subject'),
-                    ),
-                  ),
-          ));
+        ),
+      );
 
   Widget editModeTile(BuildContext context, bool inDrag, Subject item) => Card(
         color: inDrag
@@ -108,62 +119,15 @@ class MyReordableLIst extends StatelessWidget {
             ),
             title: Text(item.subjectName),
             subtitle: Text(item.remark == "" ? "No Remark" : item.remark),
-            onTap: () =>
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              duration: Duration(seconds: 1),
-              content: Text('No Link Available'),
-            )),
+            onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    duration: Duration(seconds: 1),
+                    content: Text('No Link Available'))),
             onLongPress: () => onLongPress(action),
           ),
         ),
         openBuilder: (context, action) => SubjectInfo(
           subject: item,
-        ),
-      );
-
-  Widget currentTimeTile(BuildContext context, Subject item) => Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: OpenContainer(
-          closedElevation: 10,
-          closedShape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          closedColor: Theme.of(context).scaffoldBackgroundColor,
-          openColor: Theme.of(context).scaffoldBackgroundColor,
-          middleColor: Theme.of(context).scaffoldBackgroundColor,
-          closedBuilder: (context, action) => SizedBox(
-              width: double.maxFinite,
-              height: 200,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 8),
-                        Container(
-                          height: 23,
-                          width: 4,
-                          color: Theme.of(context).colorScheme.secondaryVariant,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          item.startTime.text12HourStartEnd,
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1!
-                              .copyWith(color: Get.theme.primaryColor),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              )),
-          openBuilder: (context, action) => SubjectInfo(
-            subject: item,
-          ),
         ),
       );
 
@@ -180,10 +144,9 @@ class MyReordableLIst extends StatelessWidget {
     action();
   }
 
-  void addSubject(BuildContext context, [Subject? _subject]) async {
-    // TODO: need proper dispose.
+  Future<void> addSubject(BuildContext context, [Subject? _subject]) async {
     final editBottomSheet = EditBottomSheet();
-    final sub = await editBottomSheet.show(context, _subject);
+    Subject? sub = await editBottomSheet.show(context, _subject);
     if (sub != null) {
       if (_subject != null) {
         homeController.updateSubject(currentDay.day, _subject, sub);
@@ -191,7 +154,5 @@ class MyReordableLIst extends StatelessWidget {
         homeController.addSubject(currentDay, sub);
       }
     }
-    Future.delayed(
-        const Duration(milliseconds: 500), () => editBottomSheet.dispose());
   }
 }

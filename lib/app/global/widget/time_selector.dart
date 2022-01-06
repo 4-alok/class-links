@@ -45,6 +45,10 @@ class SelectTimeFIeld extends StatelessWidget {
               filled: true,
               hintText: "Select time",
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) return "Please select time";
+              return null;
+            },
             textInputAction: TextInputAction.next,
           ),
           Positioned.fill(
@@ -63,6 +67,9 @@ class SelectTimeFIeld extends StatelessWidget {
     showTimePicker(
       context: context,
       initialTime: const TimeOfDay(hour: 09, minute: 00),
-    ).then((value) => dayTimeController.setTime(context, value));
+    ).then(
+      (value) =>
+          value != null ? dayTimeController.setTime(context, value) : null,
+    );
   }
 }

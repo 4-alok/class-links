@@ -23,7 +23,7 @@ class _$UserInfoTearOff {
 
   _UserInfo call(
       {required String id,
-      required int slot,
+      int slot = 1,
       required String batch,
       required int year,
       required DateTime date,
@@ -186,7 +186,7 @@ class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
 class _$_UserInfo implements _UserInfo {
   const _$_UserInfo(
       {required this.id,
-      required this.slot,
+      this.slot = 1,
       required this.batch,
       required this.year,
       required this.date,
@@ -197,6 +197,7 @@ class _$_UserInfo implements _UserInfo {
 
   @override
   final String id;
+  @JsonKey()
   @override
   final int slot;
   @override
@@ -251,7 +252,7 @@ class _$_UserInfo implements _UserInfo {
 abstract class _UserInfo implements UserInfo {
   const factory _UserInfo(
       {required String id,
-      required int slot,
+      int slot,
       required String batch,
       required int year,
       required DateTime date,

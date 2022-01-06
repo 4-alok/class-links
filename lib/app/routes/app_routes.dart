@@ -11,6 +11,8 @@ abstract class Routes {
   static const USER_INFO = _Paths.USER_INFO;
   static const ADMIN = _Paths.ADMIN;
   static const SETTINGS = _Paths.SETTINGS;
+  static const PROFILE = _Paths.PROFILE;
+  static const USER_BATCH = _Paths.USER_BATCH;
 }
 
 abstract class _Paths {
@@ -19,4 +21,6 @@ abstract class _Paths {
   static const USER_INFO = '/user-info';
   static const ADMIN = '/admin';
   static const SETTINGS = '/settings';
+  static const PROFILE = '/profile';
+  static const USER_BATCH = '/user-batch';
 }

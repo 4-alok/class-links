@@ -25,6 +25,7 @@ dependencies:
   animations: ^2.0.2
   vibration: ^1.7.4-nullsafety.0
   flex_color_scheme: ^4.1.1
+  sliding_sheet: ^0.5.2
   flutter:
     sdk: flutter
 
@@ -37,7 +38,15 @@ dev_dependencies:
   flutter_test: 
     sdk: flutter
 
+flutter_gen:
+  output: lib/app/gen/
+  integrations:
+    flutter_svg: true
+  assets:
+    enabled: true
+
 flutter:
   uses-material-design: true
   assets:
-    - images/
+    - assets/icons/
+    # - images/

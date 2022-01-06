@@ -41,9 +41,13 @@ Map<String, dynamic> _$$_DayToJson(_$_Day instance) => <String, dynamic>{
 
 _$_Subject _$$_SubjectFromJson(Map<String, dynamic> json) => _$_Subject(
       subjectName: json['subjectName'] as String,
-      remark: json['remark'] as String,
+      subjectAddBy: json['subjectAddBy'] as String? ?? "",
+      remark: json['remark'] as String? ?? "",
+      remarkAddBy: json['remarkAddBy'] as String? ?? "",
       googleClassRoomLink: json['googleClassRoomLink'] as String? ?? "",
       gLinkAddBy: json['gLinkAddBy'] as String? ?? "",
+      roomNo: json['roomNo'] as int? ?? null,
+      roomNoAddBy: json['roomNoAddBy'] as String? ?? "",
       zoomLink: json['zoomLink'] as String? ?? "",
       zLinkAddBy: json['zLinkAddBy'] as String? ?? "",
       startTime: DayTime.fromJson(json['startTime'] as Map<String, dynamic>),
@@ -52,9 +56,13 @@ _$_Subject _$$_SubjectFromJson(Map<String, dynamic> json) => _$_Subject(
 Map<String, dynamic> _$$_SubjectToJson(_$_Subject instance) =>
     <String, dynamic>{
       'subjectName': instance.subjectName,
+      'subjectAddBy': instance.subjectAddBy,
       'remark': instance.remark,
+      'remarkAddBy': instance.remarkAddBy,
       'googleClassRoomLink': instance.googleClassRoomLink,
       'gLinkAddBy': instance.gLinkAddBy,
+      'roomNo': instance.roomNo,
+      'roomNoAddBy': instance.roomNoAddBy,
       'zoomLink': instance.zoomLink,
       'zLinkAddBy': instance.zLinkAddBy,
       'startTime': instance.startTime.toJson(),

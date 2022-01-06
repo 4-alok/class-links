@@ -1,6 +1,7 @@
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/route_manager.dart';
 
 class SubjectInfo extends StatelessWidget {
   final Subject subject;
@@ -15,14 +16,56 @@ class SubjectInfo extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const FaIcon(FontAwesomeIcons.chevronLeft),
-            color: Theme.of(context).appBarTheme.actionsIconTheme?.color ??
-                Colors.white,
+            icon: const FaIcon(FontAwesomeIcons.arrowLeft),
           ),
-          title: Text(subject.subjectName),
+          title: Text(
+            subject.subjectName,
+            style: TextStyle(
+              fontSize: 40,
+              fontWeight: Get.textTheme.headline6!.fontWeight,
+            ),
+          ),
         ),
-        body: const Center(
-          child: Text('Subject Info'),
+        body: Theme(
+          data: Get.theme.copyWith(
+            cardColor: Color.alphaBlend(
+                Get.theme.colorScheme.primary
+                    .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
+                Get.theme.cardColor),
+          ),
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            children: [
+              Card(
+                elevation: 3,
+                child: ListTile(
+                  title: const Text("Google Meet"),
+                  subtitle: Text(subject.gLinkAddBy),
+                  trailing: Text(subject.googleClassRoomLink),
+                ),
+              ),
+              Card(
+                elevation: 3,
+                child: ListTile(
+                  title: const Text("Zoom Meet"),
+                  subtitle: Text(subject.zoomLink),
+                  trailing: Text(subject.zLinkAddBy),
+                ),
+              ),
+              Card(
+                elevation: 3,
+                child: ListTile(
+                  title: const Text("Room No"),
+                  subtitle: Text(subject.roomNoAddBy),
+                  trailing: Text(
+                    subject.roomNo == null
+                        ? "Not Available"
+                        : subject.roomNo.toString(),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       );
 }

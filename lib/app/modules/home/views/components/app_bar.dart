@@ -1,10 +1,9 @@
-import 'package:animations/animations.dart';
 import 'package:class_link/app/global/const/const.dart';
-import 'package:class_link/app/modules/home/views/components/user_profile_dialog.dart';
-import 'package:class_link/app/utils/color.dart';
+import 'package:class_link/app/global/widget/app_title.dart';
+import 'package:class_link/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:class_link/app/modules/home/controllers/home_controller.dart';
-import 'package:class_link/app/modules/home/views/components/user_icon.dart';
+import 'package:class_link/app/global/widget/user_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -49,31 +48,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget appTitle(BuildContext context) => Theme(
         data: Theme.of(context),
-        child: Text.rich(
-            TextSpan(
-              text: 'Class', // default text style
-              children: [
-                TextSpan(
-                  text: ' Link ',
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w700,
-                    color: Theme.of(context)
-                                .colorScheme
-                                .secondaryVariant
-                                .value ==
-                            Theme.of(context).appBarTheme.backgroundColor!.value
-                        ? BlendColor.boldTitle(
-                            context, Theme.of(context).colorScheme.primary)
-                        : BlendColor.boldTitle(context,
-                            Theme.of(context).colorScheme.secondaryVariant),
-                  ),
-                ),
-              ],
-            ),
-            style: const TextStyle(
-              fontSize: 30,
-            )),
+        child: const Hero(tag: "app_logo", child: AppTitleWidget()),
       );
 
   Widget tabBar(BuildContext context) => AnimatedContainer(
@@ -98,14 +73,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 12.0),
       child: GestureDetector(
-        child: const UserIcon(radius: 20),
-        onTap: () => showModal<void>(
-          context: context,
-          configuration: const FadeScaleTransitionConfiguration(
-            transitionDuration: Duration(milliseconds: 300),
-          ),
-          builder: (BuildContext context) => const UserProfileDialog(),
-        ),
+        child: const Hero(tag: "profile_image", child: UserIcon(radius: 20)),
+        onTap: () => Get.toNamed(Routes.PROFILE),
       ),
     );
   }

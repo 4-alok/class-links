@@ -447,17 +447,25 @@ class _$SubjectTearOff {
 
   _Subject call(
       {required String subjectName,
-      required String remark,
+      String subjectAddBy = "",
+      String remark = "",
+      String remarkAddBy = "",
       String googleClassRoomLink = "",
       String gLinkAddBy = "",
+      int? roomNo = null,
+      String roomNoAddBy = "",
       String zoomLink = "",
       String zLinkAddBy = "",
       required DayTime startTime}) {
     return _Subject(
       subjectName: subjectName,
+      subjectAddBy: subjectAddBy,
       remark: remark,
+      remarkAddBy: remarkAddBy,
       googleClassRoomLink: googleClassRoomLink,
       gLinkAddBy: gLinkAddBy,
+      roomNo: roomNo,
+      roomNoAddBy: roomNoAddBy,
       zoomLink: zoomLink,
       zLinkAddBy: zLinkAddBy,
       startTime: startTime,
@@ -475,9 +483,13 @@ const $Subject = _$SubjectTearOff();
 /// @nodoc
 mixin _$Subject {
   String get subjectName => throw _privateConstructorUsedError;
+  String get subjectAddBy => throw _privateConstructorUsedError;
   String get remark => throw _privateConstructorUsedError;
+  String get remarkAddBy => throw _privateConstructorUsedError;
   String get googleClassRoomLink => throw _privateConstructorUsedError;
   String get gLinkAddBy => throw _privateConstructorUsedError;
+  int? get roomNo => throw _privateConstructorUsedError;
+  String get roomNoAddBy => throw _privateConstructorUsedError;
   String get zoomLink => throw _privateConstructorUsedError;
   String get zLinkAddBy => throw _privateConstructorUsedError;
   DayTime get startTime => throw _privateConstructorUsedError;
@@ -493,9 +505,13 @@ abstract class $SubjectCopyWith<$Res> {
       _$SubjectCopyWithImpl<$Res>;
   $Res call(
       {String subjectName,
+      String subjectAddBy,
       String remark,
+      String remarkAddBy,
       String googleClassRoomLink,
       String gLinkAddBy,
+      int? roomNo,
+      String roomNoAddBy,
       String zoomLink,
       String zLinkAddBy,
       DayTime startTime});
@@ -514,9 +530,13 @@ class _$SubjectCopyWithImpl<$Res> implements $SubjectCopyWith<$Res> {
   @override
   $Res call({
     Object? subjectName = freezed,
+    Object? subjectAddBy = freezed,
     Object? remark = freezed,
+    Object? remarkAddBy = freezed,
     Object? googleClassRoomLink = freezed,
     Object? gLinkAddBy = freezed,
+    Object? roomNo = freezed,
+    Object? roomNoAddBy = freezed,
     Object? zoomLink = freezed,
     Object? zLinkAddBy = freezed,
     Object? startTime = freezed,
@@ -526,9 +546,17 @@ class _$SubjectCopyWithImpl<$Res> implements $SubjectCopyWith<$Res> {
           ? _value.subjectName
           : subjectName // ignore: cast_nullable_to_non_nullable
               as String,
+      subjectAddBy: subjectAddBy == freezed
+          ? _value.subjectAddBy
+          : subjectAddBy // ignore: cast_nullable_to_non_nullable
+              as String,
       remark: remark == freezed
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
+              as String,
+      remarkAddBy: remarkAddBy == freezed
+          ? _value.remarkAddBy
+          : remarkAddBy // ignore: cast_nullable_to_non_nullable
               as String,
       googleClassRoomLink: googleClassRoomLink == freezed
           ? _value.googleClassRoomLink
@@ -537,6 +565,14 @@ class _$SubjectCopyWithImpl<$Res> implements $SubjectCopyWith<$Res> {
       gLinkAddBy: gLinkAddBy == freezed
           ? _value.gLinkAddBy
           : gLinkAddBy // ignore: cast_nullable_to_non_nullable
+              as String,
+      roomNo: roomNo == freezed
+          ? _value.roomNo
+          : roomNo // ignore: cast_nullable_to_non_nullable
+              as int?,
+      roomNoAddBy: roomNoAddBy == freezed
+          ? _value.roomNoAddBy
+          : roomNoAddBy // ignore: cast_nullable_to_non_nullable
               as String,
       zoomLink: zoomLink == freezed
           ? _value.zoomLink
@@ -568,9 +604,13 @@ abstract class _$SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
   @override
   $Res call(
       {String subjectName,
+      String subjectAddBy,
       String remark,
+      String remarkAddBy,
       String googleClassRoomLink,
       String gLinkAddBy,
+      int? roomNo,
+      String roomNoAddBy,
       String zoomLink,
       String zLinkAddBy,
       DayTime startTime});
@@ -591,9 +631,13 @@ class __$SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
   @override
   $Res call({
     Object? subjectName = freezed,
+    Object? subjectAddBy = freezed,
     Object? remark = freezed,
+    Object? remarkAddBy = freezed,
     Object? googleClassRoomLink = freezed,
     Object? gLinkAddBy = freezed,
+    Object? roomNo = freezed,
+    Object? roomNoAddBy = freezed,
     Object? zoomLink = freezed,
     Object? zLinkAddBy = freezed,
     Object? startTime = freezed,
@@ -603,9 +647,17 @@ class __$SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
           ? _value.subjectName
           : subjectName // ignore: cast_nullable_to_non_nullable
               as String,
+      subjectAddBy: subjectAddBy == freezed
+          ? _value.subjectAddBy
+          : subjectAddBy // ignore: cast_nullable_to_non_nullable
+              as String,
       remark: remark == freezed
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
+              as String,
+      remarkAddBy: remarkAddBy == freezed
+          ? _value.remarkAddBy
+          : remarkAddBy // ignore: cast_nullable_to_non_nullable
               as String,
       googleClassRoomLink: googleClassRoomLink == freezed
           ? _value.googleClassRoomLink
@@ -614,6 +666,14 @@ class __$SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
       gLinkAddBy: gLinkAddBy == freezed
           ? _value.gLinkAddBy
           : gLinkAddBy // ignore: cast_nullable_to_non_nullable
+              as String,
+      roomNo: roomNo == freezed
+          ? _value.roomNo
+          : roomNo // ignore: cast_nullable_to_non_nullable
+              as int?,
+      roomNoAddBy: roomNoAddBy == freezed
+          ? _value.roomNoAddBy
+          : roomNoAddBy // ignore: cast_nullable_to_non_nullable
               as String,
       zoomLink: zoomLink == freezed
           ? _value.zoomLink
@@ -636,9 +696,13 @@ class __$SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
 class _$_Subject implements _Subject {
   const _$_Subject(
       {required this.subjectName,
-      required this.remark,
+      this.subjectAddBy = "",
+      this.remark = "",
+      this.remarkAddBy = "",
       this.googleClassRoomLink = "",
       this.gLinkAddBy = "",
+      this.roomNo = null,
+      this.roomNoAddBy = "",
       this.zoomLink = "",
       this.zLinkAddBy = "",
       required this.startTime});
@@ -648,14 +712,27 @@ class _$_Subject implements _Subject {
 
   @override
   final String subjectName;
+  @JsonKey()
+  @override
+  final String subjectAddBy;
+  @JsonKey()
   @override
   final String remark;
+  @JsonKey()
+  @override
+  final String remarkAddBy;
   @JsonKey()
   @override
   final String googleClassRoomLink;
   @JsonKey()
   @override
   final String gLinkAddBy;
+  @JsonKey()
+  @override
+  final int? roomNo;
+  @JsonKey()
+  @override
+  final String roomNoAddBy;
   @JsonKey()
   @override
   final String zoomLink;
@@ -667,7 +744,7 @@ class _$_Subject implements _Subject {
 
   @override
   String toString() {
-    return 'Subject(subjectName: $subjectName, remark: $remark, googleClassRoomLink: $googleClassRoomLink, gLinkAddBy: $gLinkAddBy, zoomLink: $zoomLink, zLinkAddBy: $zLinkAddBy, startTime: $startTime)';
+    return 'Subject(subjectName: $subjectName, subjectAddBy: $subjectAddBy, remark: $remark, remarkAddBy: $remarkAddBy, googleClassRoomLink: $googleClassRoomLink, gLinkAddBy: $gLinkAddBy, roomNo: $roomNo, roomNoAddBy: $roomNoAddBy, zoomLink: $zoomLink, zLinkAddBy: $zLinkAddBy, startTime: $startTime)';
   }
 
   @override
@@ -677,11 +754,18 @@ class _$_Subject implements _Subject {
             other is _Subject &&
             const DeepCollectionEquality()
                 .equals(other.subjectName, subjectName) &&
+            const DeepCollectionEquality()
+                .equals(other.subjectAddBy, subjectAddBy) &&
             const DeepCollectionEquality().equals(other.remark, remark) &&
+            const DeepCollectionEquality()
+                .equals(other.remarkAddBy, remarkAddBy) &&
             const DeepCollectionEquality()
                 .equals(other.googleClassRoomLink, googleClassRoomLink) &&
             const DeepCollectionEquality()
                 .equals(other.gLinkAddBy, gLinkAddBy) &&
+            const DeepCollectionEquality().equals(other.roomNo, roomNo) &&
+            const DeepCollectionEquality()
+                .equals(other.roomNoAddBy, roomNoAddBy) &&
             const DeepCollectionEquality().equals(other.zoomLink, zoomLink) &&
             const DeepCollectionEquality()
                 .equals(other.zLinkAddBy, zLinkAddBy) &&
@@ -692,9 +776,13 @@ class _$_Subject implements _Subject {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(subjectName),
+      const DeepCollectionEquality().hash(subjectAddBy),
       const DeepCollectionEquality().hash(remark),
+      const DeepCollectionEquality().hash(remarkAddBy),
       const DeepCollectionEquality().hash(googleClassRoomLink),
       const DeepCollectionEquality().hash(gLinkAddBy),
+      const DeepCollectionEquality().hash(roomNo),
+      const DeepCollectionEquality().hash(roomNoAddBy),
       const DeepCollectionEquality().hash(zoomLink),
       const DeepCollectionEquality().hash(zLinkAddBy),
       const DeepCollectionEquality().hash(startTime));
@@ -713,9 +801,13 @@ class _$_Subject implements _Subject {
 abstract class _Subject implements Subject {
   const factory _Subject(
       {required String subjectName,
-      required String remark,
+      String subjectAddBy,
+      String remark,
+      String remarkAddBy,
       String googleClassRoomLink,
       String gLinkAddBy,
+      int? roomNo,
+      String roomNoAddBy,
       String zoomLink,
       String zLinkAddBy,
       required DayTime startTime}) = _$_Subject;
@@ -725,11 +817,19 @@ abstract class _Subject implements Subject {
   @override
   String get subjectName;
   @override
+  String get subjectAddBy;
+  @override
   String get remark;
+  @override
+  String get remarkAddBy;
   @override
   String get googleClassRoomLink;
   @override
   String get gLinkAddBy;
+  @override
+  int? get roomNo;
+  @override
+  String get roomNoAddBy;
   @override
   String get zoomLink;
   @override

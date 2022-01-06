@@ -5,7 +5,10 @@ import 'package:class_link/app/services/local_database.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
-  void login() async {
+  final loading = RxBool(false);
+
+  Future<void> login() async {
+    loading.value = true;
     final result = await Get.find<AuthService>().login();
     if (result) {
       final hiveDatabase = Get.find<HiveDatabase>();
@@ -18,9 +21,9 @@ class AuthController extends GetxController {
       }
 
       hiveDatabase.userInfo == null
-          ? Get.offNamed(Routes.USER_INFO)
+          ? Get.offNamed(Routes.USER_BATCH)
           : Get.offNamed(Routes.HOME);
     }
-    // Get.offNamed(Routes.USER_INFO);
+    loading.value = false;
   }
 }

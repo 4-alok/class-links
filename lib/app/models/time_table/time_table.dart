@@ -32,9 +32,13 @@ class Day with _$Day {
 class Subject with _$Subject {
   const factory Subject({
     required String subjectName,
-    required String remark,
+    @Default("") String subjectAddBy,
+    @Default("") String remark,
+    @Default("") String remarkAddBy,
     @Default("") String googleClassRoomLink,
     @Default("") String gLinkAddBy,
+    @Default(null) int? roomNo,
+    @Default("") String roomNoAddBy,
     @Default("") String zoomLink,
     @Default("") String zLinkAddBy,
     required DayTime startTime,

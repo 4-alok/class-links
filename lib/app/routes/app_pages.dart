@@ -1,18 +1,18 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:get/get.dart';
 
-import 'package:class_link/app/modules/admin/bindings/admin_binding.dart';
-import 'package:class_link/app/modules/admin/views/admin_view.dart';
-import 'package:class_link/app/modules/auth/bindings/auth_binding.dart';
-import 'package:class_link/app/modules/auth/views/auth_view.dart';
-import 'package:class_link/app/modules/home/bindings/home_binding.dart';
-import 'package:class_link/app/modules/home/views/home_view.dart';
-import 'package:class_link/app/modules/settings/bindings/settings_binding.dart';
-import 'package:class_link/app/modules/settings/views/settings_view.dart';
-import 'package:class_link/app/modules/user_info/bindings/user_info_binding.dart';
-import 'package:class_link/app/modules/user_info/views/user_info_view.dart';
-import 'package:class_link/app/services/auth_service.dart';
+import '../modules/admin/bindings/admin_binding.dart';
+import '../modules/admin/views/admin_view.dart';
+import '../modules/auth/bindings/auth_binding.dart';
+import '../modules/auth/views/auth_view.dart';
+import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/views/home_view.dart';
+import '../modules/profile/bindings/profile_binding.dart';
+import '../modules/profile/views/profile_view.dart';
+import '../modules/user_batch/bindings/user_batch_binding.dart';
+import '../modules/user_batch/views/user_batch_view.dart';
+import '../services/auth_service.dart';
+
+// ignore_for_file: non_constant_identifier_names
 
 part 'app_routes.dart';
 
@@ -35,20 +35,30 @@ class AppPages {
       page: () => const AuthView(),
       binding: AuthBinding(),
     ),
-    GetPage(
-      name: _Paths.USER_INFO,
-      page: () => const UserInfoView(),
-      binding: UserInfoBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.USER_INFO,
+    //   page: () => const UserInfoView(),
+    //   binding: UserInfoBinding(),
+    // ),
     GetPage(
       name: _Paths.ADMIN,
       page: () => const AdminView(),
       binding: AdminBinding(),
     ),
+    // GetPage(
+    //   name: _Paths.SETTINGS,
+    //   page: () => const SettingsView(),
+    //   binding: SettingsBinding(),
+    // ),
     GetPage(
-      name: _Paths.SETTINGS,
-      page: () => const SettingsView(),
-      binding: SettingsBinding(),
+      name: _Paths.PROFILE,
+      page: () => const ProfileView(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.USER_BATCH,
+      page: () => const UserBatchView(),
+      binding: UserBatchBinding(),
     ),
   ];
 }

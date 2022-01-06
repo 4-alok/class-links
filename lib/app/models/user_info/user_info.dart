@@ -6,7 +6,7 @@ part 'user_info.g.dart';
 class UserInfo with _$UserInfo {
   const factory UserInfo({
     required String id,
-    required int slot,
+    @Default(1) int slot,
     required String batch,
     required int year,
     required DateTime date,

@@ -27,8 +27,9 @@ extension StartEndTime on DayTime {
 }
 
 extension ColorAlphaBlend on Color {
-  Color get alphaBlendColor => Color.alphaBlend(
-        Get.theme.colorScheme.primary.withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
-        Get.theme.cardColor,
+  Color alphaBlendColor([Color? _color1, Color? _color2]) => Color.alphaBlend(
+        (_color2 ?? Get.theme.colorScheme.primary)
+            .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
+        _color1 ?? Get.theme.cardColor,
       );
 }

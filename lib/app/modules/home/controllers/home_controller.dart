@@ -3,7 +3,6 @@ import 'package:class_link/app/global/const/const.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:class_link/app/routes/app_pages.dart';
-import 'package:class_link/app/services/auth_service.dart';
 import 'package:class_link/app/services/firestore_service.dart';
 import 'package:class_link/app/services/local_database.dart';
 import 'package:class_link/app/utils/get_snackbar.dart';
@@ -23,7 +22,11 @@ class HomeController extends GetxController
 
   @override
   void onInit() async {
-    tabController = TabController(vsync: this, length: 7);
+    tabController = TabController(
+      initialIndex: DateTime.now().weekday - 1,
+      vsync: this,
+      length: 7,
+    );
     _defaultDays();
     timeTableSubscription =
         Get.find<FirestoreService>().timeTableStream().listen((event) {
@@ -123,11 +126,9 @@ class HomeController extends GetxController
   List<Day> _deepCopyWeek(List<Day> originList) =>
       originList.map((e) => Day.fromJson(e.toJson())).toList();
 
-  Future<void> logout() async {
-    final _authService = Get.find<AuthService>();
-    await Get.find<HiveDatabase>().clearUserInfo();
-    await _authService.logout();
-    Get.offAllNamed(Routes.AUTH);
+  @override
+  void onClose() {
     timeTableSubscription.cancel();
+    super.onClose();
   }
 }

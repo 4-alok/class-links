@@ -5,6 +5,10 @@ enum MeetLinkType { googleClassroom, zoomLink }
 
 class MeetLinkController {
   final TextEditingController textController = TextEditingController();
+
+  String get text => textController.text;
+
+  set text(String s) => textController.text = s;
 }
 
 class MeetLinkSelector extends StatelessWidget {
@@ -20,21 +24,31 @@ class MeetLinkSelector extends StatelessWidget {
   String? validation(String? value) {
     if (meetType == MeetLinkType.googleClassroom) {
       if (value == null || value.isEmpty) {
-        return 'Please enter a Google Classroom link';
-      } else if (!value.startsWith('https://classroom.google.com/c/')) {
+        return null;
+      } else if (urlValidator(value)) {
         return 'Please enter a valid Google Classroom link';
       } else {
         return null;
       }
     } else if (meetType == MeetLinkType.zoomLink) {
       if (value == null || value.isEmpty) {
-        return 'Please enter a Zoom link';
-      } else if (!value.startsWith('https://zoom.us/')) {
+        return null;
+      } else if (urlValidator(value)) {
         return 'Please enter a valid Zoom link';
       } else {
         return null;
       }
     }
+  }
+
+  bool urlValidator(String url) {
+    if (meetType == MeetLinkType.googleClassroom) {
+      if (url.startsWith('https://classroom.google.com/')) return true;
+      if (url.startsWith('https://meet.google.com/')) return true;
+    } else if (meetType == MeetLinkType.zoomLink) {
+      if (url.contains('.zoom.us') && url.startsWith('https://')) return true;
+    }
+    return false;
   }
 
   @override
