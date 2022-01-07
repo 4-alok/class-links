@@ -1,10 +1,8 @@
 import 'package:animations/animations.dart';
-import 'package:class_link/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
-import 'package:vibration/vibration.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/modules/home/controllers/home_controller.dart';
 import 'package:class_link/app/utils/color.dart';
@@ -110,38 +108,38 @@ class MyReordableLIst extends StatelessWidget {
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.transparent,
-              child: Text(
-                item.startTime.hourString,
-                style: Theme.of(context).textTheme.headline4!.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-              ),
+              child: Text(item.startTime.hourString,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4!
+                      .copyWith(color: Theme.of(context).colorScheme.primary)),
             ),
             title: Text(item.subjectName),
-            subtitle: Text(item.remark == "" ? "No Remark" : item.remark),
-            onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    duration: Duration(seconds: 1),
-                    content: Text('No Link Available'))),
-            onLongPress: () => onLongPress(action),
+            subtitle: displayTileText(item) != ""
+                ? Text(displayTileText(item))
+                : null,
+            trailing: item.roomNo == null
+                ? null
+                : Text(
+                    item.roomNo.toString(),
+                    style: Get.theme.textTheme.headline4,
+                  ),
+            onLongPress: () => ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content:
+                        Text(item.remark == "" ? "No Remark" : item.remark))),
+            onTap: action,
           ),
         ),
-        openBuilder: (context, action) => SubjectInfo(
-          subject: item,
-        ),
+        openBuilder: (context, action) => SubjectInfo(subject: item),
       );
 
-  onLongPress(VoidCallback action) async {
-    if ((await Vibration.hasVibrator()) ?? false) {
-      Vibration.vibrate();
-      if ((await Vibration.hasAmplitudeControl()) ?? false) {
-        Vibration.vibrate(
-          duration: 20,
-          amplitude: 100,
-        );
-      }
-    }
-    action();
+  String displayTileText(Subject item) {
+    List<String> subtitle = [];
+    if (item.googleClassRoomLink != "") subtitle.add("Google Meet");
+    if (item.zoomLink != "") subtitle.add("Zoom Meet");
+    if (item.roomNo != null) subtitle.add("Room No ${item.roomNo}");
+    return subtitle.join(" | ");
   }
 
   Future<void> addSubject(BuildContext context, [Subject? _subject]) async {

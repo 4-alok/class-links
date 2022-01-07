@@ -42,10 +42,10 @@ class TimeTablePage extends StatelessWidget {
                   ),
                 )),
       );
-                  
+
   FloatingActionButton fab(BuildContext context) =>
       FloatingActionButton.extended(
-        onPressed: () => homeController.toggleEditMode(),  
+        onPressed: () => homeController.toggleEditMode(),
         icon: Obx(
           () => !homeController.editMode.value
               ? const Icon(Icons.edit)

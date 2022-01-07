@@ -40,7 +40,7 @@ class SubjectInfo extends StatelessWidget {
                 elevation: 3,
                 child: ListTile(
                   title: const Text("Google Meet"),
-                  subtitle: Text(subject.gLinkAddBy),
+                  subtitle: Text(subject.gLinkAddBy.split(",").first),
                   trailing: Text(subject.googleClassRoomLink),
                 ),
               ),
@@ -48,15 +48,15 @@ class SubjectInfo extends StatelessWidget {
                 elevation: 3,
                 child: ListTile(
                   title: const Text("Zoom Meet"),
-                  subtitle: Text(subject.zoomLink),
-                  trailing: Text(subject.zLinkAddBy),
+                  subtitle: Text(subject.zLinkAddBy.split(",").first),
+                  trailing: Text(subject.zoomLink),
                 ),
               ),
               Card(
                 elevation: 3,
                 child: ListTile(
                   title: const Text("Room No"),
-                  subtitle: Text(subject.roomNoAddBy),
+                  subtitle: Text(subject.roomNoAddBy.split(",").first),
                   trailing: Text(
                     subject.roomNo == null
                         ? "Not Available"

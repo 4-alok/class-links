@@ -9,7 +9,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:get/get.dart';
 import 'app/global/transition_animation.dart/shared_axis_scale_transition.dart';
 import 'app/routes/app_pages.dart';
-import 'app/services/local_database.dart';
+import 'app/services/hive_database.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +39,7 @@ Future<void> main() async {
               appBarStyle: database.appbarStyle.value,
               useSubThemes: true,
             ),
-            themeMode: ThemeMode.system,
+            themeMode: database.themeMode.value,
             customTransition: SharedAxisScaleTransition(),
           ),
         ),

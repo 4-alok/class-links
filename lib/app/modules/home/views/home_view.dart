@@ -10,7 +10,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<UserInfo?>(
-      future: controller.getUserInfo(),
+      future: controller.getUserInfo,
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data != null) {
           return TimeTablePage(homeController: controller);
@@ -19,7 +19,7 @@ class HomeView extends GetView<HomeController> {
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else {
-          return const Center(child: Text('Error'));
+          return const Material(child: Center(child: Text('Loading...')));
         }
       },
     );

@@ -2,9 +2,12 @@ import 'dart:ui';
 import 'package:class_link/app/global/widget/meet_link_selector.dart';
 import 'package:class_link/app/global/widget/time_selector.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
+import 'package:class_link/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
+
+enum ChangesType { roomNo, remark, gClassRoomLink, zoomLink }
 
 class DeviceSpec {
   static double topPadding(BuildContext context) =>
@@ -30,6 +33,7 @@ class EditBottomSheet {
   final open = RxBool(false);
   final sheetController = SheetController();
   final formGlobalKey = GlobalKey<FormState>();
+  final user = Get.find<AuthService>().user!;
 
   Future<Subject?> show(BuildContext context, Subject? subject) async {
     if (subject != null) {
@@ -98,25 +102,12 @@ class EditBottomSheet {
                   width: double.maxFinite,
                   height: 40,
                   child: ElevatedButton(
-                    onPressed: () => submit(context),
+                    onPressed: () => submit(context, subject),
                     child: const Text("done"),
                   ),
                 ),
               )),
     );
-  }
-
-  void submit(BuildContext context) {
-    final Subject? sub = Subject(
-      subjectName: _subjectNameController.text,
-      roomNo: int.tryParse(_roomNoController.text),
-      remark: _remarkController.text,
-      startTime: DayTime(
-        hour: _dayTimeController.dayTime?.hour ?? 0,
-        minute: _dayTimeController.dayTime?.minute ?? 0,
-      ),
-    );
-    if (formGlobalKey.currentState!.validate()) Navigator.pop(context, sub);
   }
 
   Widget content(BuildContext context, SheetState state) => Stack(
@@ -208,10 +199,6 @@ class EditBottomSheet {
         ],
       );
 
-  void dispose() {
-    open.close();
-  }
-
   static OutlineInputBorder curvedBox() => OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
         borderSide: const BorderSide(
@@ -219,4 +206,58 @@ class EditBottomSheet {
           style: BorderStyle.none,
         ),
       );
+
+  void submit(BuildContext context, Subject? subject) {
+    final Subject? sub = Subject(
+      subjectName: _subjectNameController.text,
+      subjectAddBy: subject == null ? addedByInfo : subject.subjectAddBy,
+      roomNo: int.tryParse(_roomNoController.text),
+      roomNoAddBy: addByInfo(subject, ChangesType.roomNo),
+      remark: _remarkController.text,
+      remarkAddBy: addByInfo(subject, ChangesType.remark),
+      googleClassRoomLink: _gMeetLinkController.text,
+      gLinkAddBy: addByInfo(subject, ChangesType.gClassRoomLink),
+      zoomLink: _zMeetLinkController.text,
+      zLinkAddBy: addByInfo(subject, ChangesType.zoomLink),
+      startTime: DayTime(
+        hour: _dayTimeController.dayTime?.hour ?? 0,
+        minute: _dayTimeController.dayTime?.minute ?? 0,
+      ),
+    );
+    if (formGlobalKey.currentState!.validate()) Navigator.pop(context, sub);
+  }
+
+  String get addedByInfo {
+    return "${user.displayName},${user.email}";
+  }
+
+  String addByInfo(Subject? subject, [ChangesType? change]) {
+    if (subject != null) {
+      if (change == ChangesType.remark) {
+        return subject.remark == _remarkController.text
+            ? subject.remarkAddBy
+            : addedByInfo;
+      } else if (change == ChangesType.roomNo) {
+        return subject.roomNo == int.tryParse(_roomNoController.text)
+            ? subject.roomNoAddBy
+            : addedByInfo;
+      } else if (change == ChangesType.gClassRoomLink) {
+        return subject.googleClassRoomLink == _gMeetLinkController.text
+            ? subject.gLinkAddBy
+            : addedByInfo;
+      } else if (change == ChangesType.zoomLink) {
+        return subject.zoomLink == _zMeetLinkController.text
+            ? subject.zLinkAddBy
+            : addedByInfo;
+      } else {
+        throw "Unknown change";
+      }
+    } else {
+      return addedByInfo;
+    }
+  }
+
+  void dispose() {
+    open.close();
+  }
 }

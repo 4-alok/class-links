@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:class_link/app/global/theme/app_color.dart.dart';
 import 'package:class_link/app/modules/profile/controllers/profile_controller.dart';
-import 'package:class_link/app/services/local_database.dart';
+import 'package:class_link/app/services/hive_database.dart';
 
 class ThemeSelector extends StatelessWidget {
   final ProfileController controller;
@@ -47,8 +47,10 @@ class ThemeSelector extends StatelessWidget {
                     width: 4,
                   ),
                   onSelect: () {
-                    database.appTheme.value = AppColor.schemes[index];
-                    print(AppColor.schemes[index]);
+                    database.saveCurrentSchemeIndex(index);
+
+                    // database.appTheme.value = AppColor.schemes[index];
+                    // print(AppColor.schemes[index]);
                     // scrollController.animateTo(_kWidthOfScrollItem * index,
                     //     duration: const Duration(milliseconds: 350),
                     //     curve: Curves.easeOutCubic);

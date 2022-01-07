@@ -1,6 +1,6 @@
 import 'package:class_link/app/global/widget/user_icon.dart';
 import 'package:class_link/app/services/auth_service.dart';
-import 'package:class_link/app/services/local_database.dart';
+import 'package:class_link/app/services/hive_database.dart';
 import 'package:class_link/app/utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +79,7 @@ class ProfileView extends GetView<ProfileController> {
   Card batch(BuildContext context) => Card(
           child: ListTile(
         title: const Text("Batch"),
-        trailing: Text("CSE 8",
+        trailing: Text(Get.find<HiveDatabase>().userInfo?.batch ?? "",
             style:
                 Theme.of(context).textTheme.headline2!.copyWith(fontSize: 25)),
       ));
@@ -122,18 +122,11 @@ class ProfileView extends GetView<ProfileController> {
         child: Get.isDarkMode
             ? Card(
                 child: Obx(
-                  () {
-                    final isBlack = Get.find<HiveDatabase>().isBlack;
-                    return SwitchListTile(
-                      title: const Text(
-                        'Black Mode',
-                      ),
-                      onChanged: (bool value) {
-                        isBlack.value = !isBlack.value;
-                      },
-                      value: isBlack.value,
-                    );
-                  },
+                  () => SwitchListTile(
+                    title: const Text('Black Mode'),
+                    onChanged: controller.blackModeOnChange,
+                    value: controller.isBlack,
+                  ),
                 ),
               )
             : const SizedBox(),

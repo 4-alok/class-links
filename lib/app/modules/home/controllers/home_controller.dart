@@ -4,7 +4,7 @@ import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:class_link/app/routes/app_pages.dart';
 import 'package:class_link/app/services/firestore_service.dart';
-import 'package:class_link/app/services/local_database.dart';
+import 'package:class_link/app/services/hive_database.dart';
 import 'package:class_link/app/utils/get_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +14,7 @@ class HomeController extends GetxController
   late final TabController tabController;
   final week = Rx<List<Day>>([]);
   final editMode = false.obs;
-  late final StreamSubscription<List<Day>> timeTableSubscription;
+  StreamSubscription<List<Day>>? _timeTableSubscription;
   List<Day> originalList = List.generate(
     7,
     (index) => Day(day: Days.days[index], subjects: []),
@@ -28,13 +28,15 @@ class HomeController extends GetxController
       length: 7,
     );
     _defaultDays();
-    timeTableSubscription =
+    super.onInit();
+  }
+
+  void initSubscription() {
+    _timeTableSubscription =
         Get.find<FirestoreService>().timeTableStream().listen((event) {
       week.value = List.generate(event.length, (index) => event[index]);
       originalList = _deepCopyWeek(event);
     });
-    await getUserInfo();
-    super.onInit();
   }
 
   void _defaultDays() => week.value = List.generate(
@@ -42,17 +44,19 @@ class HomeController extends GetxController
         (index) => Day(day: Days.days[index], subjects: []),
       );
 
-  Future<UserInfo?> getUserInfo() async {
+  Future<UserInfo?> get getUserInfo async {
     final result = Get.find<HiveDatabase>().userInfo;
     if (result != null) {
+      initSubscription();
       return result;
     } else {
       final result2 = await Get.find<FirestoreService>().getUserInfo();
       if (result2 != null) {
         await Get.find<HiveDatabase>().setUserInfo(result2);
+        initSubscription();
         return result2;
       } else {
-        Get.offNamed(Routes.USER_INFO);
+        Get.offAllNamed(Routes.USER_BATCH);
       }
     }
     return null;
@@ -63,8 +67,12 @@ class HomeController extends GetxController
     editMode.value = false;
   }
 
-  void addSubject(Day day, Subject _subject) => week.update((val) =>
-      week.value.firstWhere((e) => e.day == day.day).subjects.add(_subject));
+  void addSubject(Day day, Subject _subject) => day.subjects
+          .where((e) => e.startTime.hour == _subject.startTime.hour)
+          .isEmpty
+      ? week.update((val) =>
+          week.value.firstWhere((e) => e.day == day.day).subjects.add(_subject))
+      : Message("Error", "Subject already exists at this time");
 
   void updateSubject(String day, Subject _oldSubject, Subject _newSubject) {
     final _day = week.value.firstWhere((e) => e.day == day);
@@ -83,8 +91,8 @@ class HomeController extends GetxController
 
   void toggleEditMode() async {
     if (editMode.value) {
-      if (_validate()) {
-        await _addOrUpdateTimeTable();
+      if (_validate) {
+        await _addOrUpdateTimeTable;
         editMode.value = false;
       }
     } else {
@@ -92,7 +100,7 @@ class HomeController extends GetxController
     }
   }
 
-  bool _validate() {
+  bool get _validate {
     for (final day in week.value) {
       for (int i = 1; i < day.subjects.length; i++) {
         final beforeSubTime = day.subjects[i - 1].startTime;
@@ -110,7 +118,7 @@ class HomeController extends GetxController
     return true;
   }
 
-  Future<void> _addOrUpdateTimeTable() async {
+  Future<void> get _addOrUpdateTimeTable async {
     final _userInfo = Get.find<HiveDatabase>().userInfo!;
     final timeTable = TimeTable(
       week: week.value,
@@ -128,7 +136,7 @@ class HomeController extends GetxController
 
   @override
   void onClose() {
-    timeTableSubscription.cancel();
+    if (_timeTableSubscription != null) _timeTableSubscription!.cancel();
     super.onClose();
   }
 }

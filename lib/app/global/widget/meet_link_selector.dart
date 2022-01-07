@@ -25,7 +25,7 @@ class MeetLinkSelector extends StatelessWidget {
     if (meetType == MeetLinkType.googleClassroom) {
       if (value == null || value.isEmpty) {
         return null;
-      } else if (urlValidator(value)) {
+      } else if (!urlValidator(value)) {
         return 'Please enter a valid Google Classroom link';
       } else {
         return null;
@@ -33,7 +33,7 @@ class MeetLinkSelector extends StatelessWidget {
     } else if (meetType == MeetLinkType.zoomLink) {
       if (value == null || value.isEmpty) {
         return null;
-      } else if (urlValidator(value)) {
+      } else if (!urlValidator(value)) {
         return 'Please enter a valid Zoom link';
       } else {
         return null;

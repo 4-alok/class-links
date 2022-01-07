@@ -6,7 +6,7 @@ import 'package:class_link/app/utils/get_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'auth_service.dart';
-import 'local_database.dart';
+import 'hive_database.dart';
 
 class FirestoreService extends GetxService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
