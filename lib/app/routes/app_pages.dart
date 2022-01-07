@@ -1,58 +1,64 @@
 import 'package:get/get.dart';
 
-import 'package:class_link/app/modules/home/bindings/home_binding.dart';
-import 'package:class_link/app/modules/home/views/home_view.dart';
-import 'package:class_link/app/modules/login/bindings/login_binding.dart';
-import 'package:class_link/app/modules/login/views/login_view.dart';
-import 'package:class_link/app/modules/routine/bindings/routine_binding.dart';
-import 'package:class_link/app/modules/routine/views/routine_view.dart';
-import 'package:class_link/app/modules/section_selection/bindings/section_selection_binding.dart';
-import 'package:class_link/app/modules/section_selection/views/section_selection_view.dart';
-import 'package:class_link/app/modules/servers/bindings/servers_binding.dart';
-import 'package:class_link/app/modules/servers/views/servers_view.dart';
-import 'package:class_link/app/modules/todo/bindings/todo_binding.dart';
-import 'package:class_link/app/modules/todo/views/todo_view.dart';
+import '../modules/admin/bindings/admin_binding.dart';
+import '../modules/admin/views/admin_view.dart';
+import '../modules/auth/bindings/auth_binding.dart';
+import '../modules/auth/views/auth_view.dart';
+import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/views/home_view.dart';
+import '../modules/profile/bindings/profile_binding.dart';
+import '../modules/profile/views/profile_view.dart';
+import '../modules/user_batch/bindings/user_batch_binding.dart';
+import '../modules/user_batch/views/user_batch_view.dart';
+import '../services/auth_service.dart';
 
-import '../modules/servers/views/servers_view.dart';
-import '../modules/todo/views/todo_view.dart';
+// ignore_for_file: non_constant_identifier_names
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static final INITIAL =
+      Get.find<AuthService>().user == null ? Routes.AUTH : Routes.HOME;
+
+  // static final INITIAL = Routes.USER_INFO;
 
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => HomeView(),
+      page: () => const HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.ROUTINE,
-      page: () => RoutinePage(),
-      binding: RoutineBinding(),
+      name: _Paths.AUTH,
+      page: () => const AuthView(),
+      binding: AuthBinding(),
+    ),
+    // GetPage(
+    //   name: _Paths.USER_INFO,
+    //   page: () => const UserInfoView(),
+    //   binding: UserInfoBinding(),
+    // ),
+    GetPage(
+      name: _Paths.ADMIN,
+      page: () => const AdminView(),
+      binding: AdminBinding(),
+    ),
+    // GetPage(
+    //   name: _Paths.SETTINGS,
+    //   page: () => const SettingsView(),
+    //   binding: SettingsBinding(),
+    // ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => const ProfileView(),
+      binding: ProfileBinding(),
     ),
     GetPage(
-      name: _Paths.SERVERS,
-      page: () => ServerPage(),
-      binding: ServersBinding(),
-    ),
-    GetPage(
-      name: _Paths.TODO,
-      page: () => AddingPage(),
-      binding: TodoBinding(),
-    ),
-    GetPage(
-      name: _Paths.LOGIN,
-      page: () => LoginView(),
-      binding: LoginBinding(),
-    ),
-    GetPage(
-      name: _Paths.SECTION_SELECTION,
-      page: () => SectionSelectionView(),
-      binding: SectionSelectionBinding(),
+      name: _Paths.USER_BATCH,
+      page: () => const UserBatchView(),
+      binding: UserBatchBinding(),
     ),
   ];
 }
