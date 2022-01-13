@@ -12,11 +12,9 @@ class AdminView extends GetView<AdminController> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-        icon: const FaIcon(
-          FontAwesomeIcons.arrowLeft,
+          icon: const FaIcon(FontAwesomeIcons.arrowLeft),
+          onPressed: () => Get.back(),
         ),
-        onPressed: () => Get.back(),
-      ),
         title: const Text('Admin Page'),
         centerTitle: true,
       ),

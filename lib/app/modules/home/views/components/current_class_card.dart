@@ -17,82 +17,79 @@ class CurrentClassCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-      child: OpenContainer(
-        closedElevation: 5,
-        closedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        closedColor: Theme.of(context).scaffoldBackgroundColor,
-        openColor: Theme.of(context).scaffoldBackgroundColor,
-        middleColor: Theme.of(context).scaffoldBackgroundColor,
-        closedBuilder: (context, action) => InkWell(
-          onLongPress: () => _onLongPress(action),
-          onTap: () => onTap(context, action, item),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(height: 8),
-                Row(children: [
-                  Container(
-                    height: 23,
-                    width: 4,
-                    color: Theme.of(context).colorScheme.secondaryVariant,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    item.startTime.text12HourStartEnd,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: Get.theme.primaryColor),
-                  ),
-                ]),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        item.subjectName,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headline2,
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+        child: OpenContainer(
+          closedElevation: 5,
+          closedShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          closedColor: Theme.of(context).scaffoldBackgroundColor,
+          openColor: Theme.of(context).scaffoldBackgroundColor,
+          middleColor: Theme.of(context).scaffoldBackgroundColor,
+          closedBuilder: (context, action) => InkWell(
+            onLongPress: () => _onLongPress(action),
+            onTap: () => onTap(context, action, item),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Container(
+                        height: 23,
+                        width: 4,
+                        color: Theme.of(context).colorScheme.secondaryVariant,
                       ),
-                    ),
-                    trailingWidget(),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: Text(
-                    item.remark == "" ? "No Remark" : item.remark,
-                    style: Theme.of(context).textTheme.subtitle1,
+                      const SizedBox(width: 8),
+                      Text(
+                        item.startTime.text12HourStartEnd,
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(color: Get.theme.primaryColor),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 8),
-              ],
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          item.subjectName,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.headline2,
+                        ),
+                      ),
+                      trailingWidget(),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    child: Text(
+                      item.remark == "" ? "No Remark" : item.remark,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
             ),
           ),
+          openBuilder: (context, action) => SubjectInfo(subject: item),
         ),
-        openBuilder: (context, action) => SubjectInfo(subject: item),
-      ),
-    );
-  }
+      );
 
   Future<void> _onLongPress(void Function() action) async {
     if ((await Vibration.hasVibrator()) ?? false) {
       Vibration.vibrate();
       if ((await Vibration.hasAmplitudeControl()) ?? false) {
-        Vibration.vibrate(
-          duration: 20,
-          amplitude: 200,
-        );
+        Vibration.vibrate(duration: 20, amplitude: 200);
       }
     }
     action();

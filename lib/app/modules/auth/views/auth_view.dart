@@ -27,5 +27,3 @@ class AuthView extends GetView<AuthController> {
         ),
       );
 }
-              // onPressed:
-              //     controller.loading.value ? null : () => controller.login(),

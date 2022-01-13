@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
-enum ChangesType { roomNo, remark, gClassRoomLink, zoomLink }
+enum ChangesType { roomNo, remark, gClassRoomLink, zoomLink, subjectAddedBy }
 
 class DeviceSpec {
   static double topPadding(BuildContext context) =>
@@ -210,7 +210,9 @@ class EditBottomSheet {
   void submit(BuildContext context, Subject? subject) {
     final Subject? sub = Subject(
       subjectName: _subjectNameController.text,
-      subjectAddBy: subject == null ? addedByInfo : subject.subjectAddBy,
+      subjectAddBy: subject == null
+          ? addByInfo(subject, ChangesType.subjectAddedBy)
+          : subject.subjectAddBy,
       roomNo: int.tryParse(_roomNoController.text),
       roomNoAddBy: addByInfo(subject, ChangesType.roomNo),
       remark: _remarkController.text,
@@ -249,12 +251,15 @@ class EditBottomSheet {
         return subject.zoomLink == _zMeetLinkController.text
             ? subject.zLinkAddBy
             : addedByInfo;
+      } else if (change == ChangesType.subjectAddedBy) {
+        return subject.subjectAddBy;
       } else {
         throw "Unknown change";
       }
-    } else {
+    } else if (change == ChangesType.subjectAddedBy) {
       return addedByInfo;
     }
+    return "";
   }
 
   void dispose() {

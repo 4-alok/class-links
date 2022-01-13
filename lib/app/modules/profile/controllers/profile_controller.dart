@@ -32,7 +32,8 @@ class ProfileController extends GetxController {
   }
 
   Future<void> toogleThemeMode() async {
-    await hiveDatabase.saveCurrentTheme(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+    await hiveDatabase
+        .saveCurrentTheme(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
     Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
   }
 

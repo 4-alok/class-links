@@ -1,5 +1,5 @@
 import 'package:class_link/app/global/const/const.dart';
-import 'package:class_link/app/models/batch/batch.dart';
+// import 'package:class_link/app/models/batch/batch.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:class_link/app/utils/get_snackbar.dart';
@@ -13,76 +13,50 @@ class FirestoreService extends GetxService {
   final hiveDatabase = Get.find<HiveDatabase>();
 
   // ---------------batch-----------------//
-  Future<bool> addBatch(BatchYear batch) async {
-    try {
-      await _firestore.collection('batches').add(batch.toJson());
-      return true;
-    } catch (e) {
-      Message("Error", e.toString());
-      return false;
-    }
-  }
+  // Future<bool> addBatch(BatchYear batch) async {
+  //   try {
+  //     await _firestore.collection('batches').add(batch.toJson());
+  //     return true;
+  //   } catch (e) {
+  //     Message("Error", e.toString());
+  //     return false;
+  //   }
+  // }
 
-  Future<bool> removeBatch(BatchYear batch) async {
-    // final ref = _firestore.collection('batches')
-    // .where("forYear", isEqualTo: batch.forYear)
-    return false;
-  }
+  // Future<bool> removeBatch(BatchYear batch) async {
+  //   // final ref = _firestore.collection('batches')
+  //   // .where("forYear", isEqualTo: batch.forYear)
+  //   return false;
+  // }
 
-  Future<void> getBatchList() async {}
+  // Future<void> getBatchList() async {}
 
   // ---------------timeTable-----------------------//
   Stream<List<Day>> timeTableStream() {
-    if (hiveDatabase.userInfo!.year == 1) {
-      final _ref = _firestore
-          .collection("time_table")
-          .where("year", isEqualTo: 1)
-          .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
-          .where("batch", isEqualTo: hiveDatabase.userInfo!.batch)
-          .snapshots();
-      return _ref.map((event) => event.docs.isEmpty
-          ? _defaultDays
-          : TimeTable.fromJson(event.docs.first.data()).week);
-    } else {
-      final _ref = _firestore
-          .collection("time_table")
-          .where("year", isEqualTo: hiveDatabase.userInfo!.year)
-          .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
-          .snapshots();
-      return _ref.map(
-        (event) => event.docs.isEmpty
-            ? _defaultDays
-            : TimeTable.fromJson(event.docs.first.data()).week,
-      );
-    }
+    final _ref = _firestore
+        .collection("time_table")
+        .where("year", isEqualTo: hiveDatabase.userInfo!.year)
+        .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
+        .where("batch", isEqualTo: hiveDatabase.userInfo!.batch)
+        .snapshots();
+    return _ref.map((event) => event.docs.isEmpty
+        ? _defaultDays
+        : TimeTable.fromJson(event.docs.first.data()).week);
   }
 
   Future<void> addOrUpdateTimeTable(TimeTable timeTable) async {
-    if (hiveDatabase.userInfo!.year == 1) {
-      final result = await _firestore
-          .collection("time_table")
-          .where("year", isEqualTo: 1)
-          .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
-          .where("batch", isEqualTo: hiveDatabase.userInfo!.batch)
-          .get();
+    // if (hiveDatabase.userInfo!.year == 1) {
+    final result = await _firestore
+        .collection("time_table")
+        .where("year", isEqualTo: hiveDatabase.userInfo!.year)
+        .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
+        .where("batch", isEqualTo: hiveDatabase.userInfo!.batch)
+        .get();
 
-      if (result.docs.isEmpty) {
-        await _firestore.collection("time_table").add(timeTable.toJson());
-      } else {
-        await result.docs.first.reference.update(timeTable.toJson());
-      }
+    if (result.docs.isEmpty) {
+      await _firestore.collection("time_table").add(timeTable.toJson());
     } else {
-      final result = await _firestore
-          .collection("time_table")
-          .where("year", isEqualTo: hiveDatabase.userInfo!.year)
-          .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
-          .get();
-
-      if (result.docs.isEmpty) {
-        await _firestore.collection("time_table").add(timeTable.toJson());
-      } else {
-        await result.docs.first.reference.update(timeTable.toJson());
-      }
+      await result.docs.first.reference.update(timeTable.toJson());
     }
   }
 

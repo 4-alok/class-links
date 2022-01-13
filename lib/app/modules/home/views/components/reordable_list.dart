@@ -114,7 +114,7 @@ class MyReordableLIst extends StatelessWidget {
                       .headline4!
                       .copyWith(color: Theme.of(context).colorScheme.primary)),
             ),
-            title: Text(item.subjectName),
+            title: Hero(tag: "subject_name", child: Text(item.subjectName)),
             subtitle: displayTileText(item) != ""
                 ? Text(displayTileText(item))
                 : null,

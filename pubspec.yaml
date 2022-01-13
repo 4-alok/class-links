@@ -27,6 +27,7 @@ dependencies:
   flex_color_scheme: ^4.1.1
   sliding_sheet: ^0.5.2
   url_launcher: ^6.0.17
+  day_night_time_picker: ^1.0.4+1
   flutter:
     sdk: flutter
 

@@ -1,3 +1,4 @@
+import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
@@ -45,10 +46,8 @@ class SelectTimeFIeld extends StatelessWidget {
               filled: true,
               hintText: "Select time",
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) return "Please select time";
-              return null;
-            },
+            validator: (value) =>
+                (value == null || value.isEmpty) ? "Please select time" : null,
             textInputAction: TextInputAction.next,
           ),
           Positioned.fill(
@@ -63,13 +62,11 @@ class SelectTimeFIeld extends StatelessWidget {
         ],
       );
 
-  void _showTimePicker(BuildContext context) {
-    showTimePicker(
-      context: context,
-      initialTime: const TimeOfDay(hour: 09, minute: 00),
-    ).then(
-      (value) =>
-          value != null ? dayTimeController.setTime(context, value) : null,
-    );
-  }
+  void _showTimePicker(BuildContext context) => Navigator.of(context).push(
+        showPicker(
+          context: context,
+          value: const TimeOfDay(hour: 09, minute: 00),
+          onChange: (value) => dayTimeController.setTime(context, value),
+        ),
+      );
 }
