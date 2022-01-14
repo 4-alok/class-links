@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../modules/admin/bindings/admin_binding.dart';
 import '../modules/admin/views/admin_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
@@ -47,11 +46,6 @@ class AppPages {
       page: () => const AdminView(),
       binding: AdminBinding(),
     ),
-    // GetPage(
-    //   name: _Paths.SETTINGS,
-    //   page: () => const SettingsView(),
-    //   binding: SettingsBinding(),
-    // ),
     GetPage(
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
@@ -64,8 +58,9 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LOG_PAGE,
-      page: () => LogPageView(),
+      page: () => const LogPageView(),
       binding: LogPageBinding(),
+      transition: Transition.cupertino,
     ),
   ];
 }

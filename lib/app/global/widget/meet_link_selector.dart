@@ -46,7 +46,7 @@ class MeetLinkSelector extends StatelessWidget {
       if (url.startsWith('https://classroom.google.com/')) return true;
       if (url.startsWith('https://meet.google.com/')) return true;
     } else if (meetType == MeetLinkType.zoomLink) {
-      if (url.contains('.zoom.us') && url.startsWith('https://')) return true;
+      if (url.contains('zoom.us') && url.startsWith('https://')) return true;
     }
     return false;
   }

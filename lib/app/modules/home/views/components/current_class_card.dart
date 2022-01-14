@@ -102,6 +102,7 @@ class CurrentClassCard extends StatelessWidget {
         content: Text("No Link Available"),
       ));
     } else if (item.zoomLink != "" && item.googleClassRoomLink != "") {
+      // TODO : Add Dialog
     } else if (item.zoomLink == "" && item.googleClassRoomLink != "") {
       launchUrl(context, item.googleClassRoomLink);
     } else if (item.zoomLink != "" && item.googleClassRoomLink == "") {
