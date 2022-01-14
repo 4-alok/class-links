@@ -3,9 +3,8 @@ import 'package:class_link/app/services/log_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import '../controllers/log_page_controller.dart';
 
-class LogPageView extends GetView<LogPageController> {
+class LogPageView extends StatelessWidget {
   const LogPageView({Key? key}) : super(key: key);
 
   @override
@@ -47,44 +46,42 @@ class LogPageView extends GetView<LogPageController> {
         },
       ));
 
-  ListView logList(List<LogData> logs) {
-    return ListView.builder(
-      itemCount: logs.length,
-      itemBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: RichText(
-          text: TextSpan(
-            text: '${logs[index].date} \n',
-            style: TextStyle(
-              color: Get.theme.primaryColor,
-              fontWeight: FontWeight.bold,
-            ),
-            children: [
-              TextSpan(
-                  text: '${logs[index].name} ',
-                  // style: logs[index].log,
+  ListView logList(List<LogData> logs) => ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        itemCount: logs.length,
+        reverse: true,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: RichText(
+            text: TextSpan(
+              text: '${logs[index].date} \n',
+              style: TextStyle(
+                color: Get.theme.primaryColor,
+                fontWeight: FontWeight.bold,
+              ),
+              children: [
+                TextSpan(
+                    text: '${logs[index].name} ',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(fontSize: 16)),
+                TextSpan(
+                    text: '${logs[index].email} \n',
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontSize: 16,
+                          color: Get.theme.secondaryHeaderColor,
+                        )),
+                TextSpan(
+                  text: logs[index].log,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 16)),
-              TextSpan(
-                  text: '${logs[index].email} \n',
-                  // style: logs[index].log,
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontSize: 16,
-                        color: Get.theme.secondaryHeaderColor,
-                      )),
-              TextSpan(
-                text: logs[index].log,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4!
-                    .copyWith(fontSize: 16),
-              ),
-            ],
+                      .headline4!
+                      .copyWith(fontSize: 16),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
