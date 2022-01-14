@@ -6,6 +6,8 @@ import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/log_page/bindings/log_page_binding.dart';
+import '../modules/log_page/views/log_page_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/user_batch/bindings/user_batch_binding.dart';
@@ -59,6 +61,11 @@ class AppPages {
       name: _Paths.USER_BATCH,
       page: () => const UserBatchView(),
       binding: UserBatchBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOG_PAGE,
+      page: () => LogPageView(),
+      binding: LogPageBinding(),
     ),
   ];
 }

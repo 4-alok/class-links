@@ -1,6 +1,9 @@
+import 'package:class_link/app/models/log/log.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+
+import 'gsheet_utils.dart';
 
 extension StartingTimeText on DayTime {
   String get text12Hour => (hour > 12)
@@ -31,5 +34,22 @@ extension ColorAlphaBlend on Color {
         (_color2 ?? Get.theme.colorScheme.primary)
             .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
         _color1 ?? Get.theme.cardColor,
+      );
+}
+
+extension ToSheetRowList on List<LogData> {
+  List<List<dynamic>> get toSheetRowList => map(
+        (e) => [GSheetUtils.dateToGsheetsDate(e.date), e.name, e.email, e.log],
+      ).toList();
+}
+
+extension ToListLogData on List<List<dynamic>> {
+  Iterable<LogData> get toListLogData => map(
+        (e) => LogData(
+          date: GSheetUtils.gsheetsDateToDate(e[0]) ?? DateTime.now(),
+          name: e[1],
+          email: e[2],
+          log: e[3],
+        ),
       );
 }

@@ -1,4 +1,5 @@
 import 'package:class_link/app/global/widget/user_icon.dart';
+import 'package:class_link/app/routes/app_pages.dart';
 import 'package:class_link/app/services/auth_service.dart';
 import 'package:class_link/app/services/hive_database.dart';
 import 'package:class_link/app/utils/extension.dart';
@@ -34,11 +35,12 @@ class ProfileView extends GetView<ProfileController> {
               email(),
               const SizedBox(height: 20),
               batch(context),
+              showLog(),
               const SizedBox(height: 20),
               themeSelector(),
               themeMode(),
               blackMode(),
-              appBarStyle(),
+              // appBarStyle(),
               const SizedBox(height: 20),
               logoutCard(),
             ],
@@ -137,6 +139,14 @@ class ProfileView extends GetView<ProfileController> {
           title: const Text("Theme Mode"),
           subtitle: Text(Get.isDarkMode ? "Dark Mode" : "Light Mode"),
           onTap: () => controller.toogleThemeMode(),
+        ),
+      );
+
+  Widget showLog() => Card(
+        child: ListTile(
+          title: const Text("Show Log"),
+          trailing: const FaIcon(FontAwesomeIcons.caretRight),
+          onTap: () => Get.toNamed(Routes.LOG_PAGE),
         ),
       );
 

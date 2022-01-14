@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'app/global/transition_animation.dart/shared_axis_scale_transition.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/hive_database.dart';
+import 'app/services/log_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,4 +60,5 @@ Future<void> init(HiveDatabase database) async {
   await database.initDatabase();
   Get.put(FirestoreService());
   Get.put(AuthService());
+  Get.lazyPut(() => GoogleSheetSerevice());
 }

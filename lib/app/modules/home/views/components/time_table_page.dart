@@ -43,19 +43,22 @@ class TimeTablePage extends StatelessWidget {
                 )),
       );
 
-  FloatingActionButton fab(BuildContext context) =>
-      FloatingActionButton.extended(
-        onPressed: () => homeController.toggleEditMode(),
-        icon: Obx(
-          () => !homeController.editMode.value
-              ? const Icon(Icons.edit)
-              : const FaIcon(FontAwesomeIcons.check),
-        ),
-        label: AnimatedSize(
-          duration: const Duration(milliseconds: 200),
-          child: Obx(() => !homeController.editMode.value
-              ? const Text("Edit")
-              : const Text("Submit")),
-        ),
-      );
+  Widget fab(BuildContext context) => Obx(
+    () => (homeController.hideEdit.value)
+        ? const SizedBox()
+        : FloatingActionButton.extended(
+            onPressed: () => homeController.toggleEditMode(),
+            icon: Obx(
+              () => !homeController.editMode.value
+                  ? const Icon(Icons.edit)
+                  : const FaIcon(FontAwesomeIcons.check),
+            ),
+            label: AnimatedSize(
+              duration: const Duration(milliseconds: 200),
+              child: Obx(() => !homeController.editMode.value
+                  ? const Text("Edit")
+                  : const Text("Submit")),
+            ),
+          ),
+  );
 }

@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'package:class_link/app/global/const/const.dart';
+import 'package:class_link/app/models/log/log.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:class_link/app/routes/app_pages.dart';
+import 'package:class_link/app/services/auth_service.dart';
 import 'package:class_link/app/services/firestore_service.dart';
 import 'package:class_link/app/services/hive_database.dart';
+import 'package:class_link/app/services/log_service.dart';
 import 'package:class_link/app/utils/get_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,12 +16,14 @@ class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late final TabController tabController;
   final week = Rx<List<Day>>([]);
+  final hideEdit = true.obs;
   final editMode = false.obs;
   StreamSubscription<List<Day>>? _timeTableSubscription;
   List<Day> originalList = List.generate(
     7,
     (index) => Day(day: Days.days[index], subjects: []),
   );
+  List<LogData> logData = [];
 
   @override
   void onInit() async {
@@ -28,16 +33,24 @@ class HomeController extends GetxController
       length: 7,
     );
     _defaultDays();
+    _getUserRole();
     super.onInit();
   }
 
-  void initSubscription() {
-    _timeTableSubscription =
-        Get.find<FirestoreService>().timeTableStream().listen((event) {
-      week.value = List.generate(event.length, (index) => event[index]);
-      originalList = _deepCopyWeek(event);
-    });
+  Future<void> _getUserRole() async {
+    final result2 = await Get.find<FirestoreService>().getUserInfo();
+    if (result2 != null) {
+      if (result2.role != "viewer") {
+        hideEdit.value = false;
+      }
+    }
   }
+
+  void initSubscription() => _timeTableSubscription =
+          Get.find<FirestoreService>().timeTableStream().listen((event) {
+        week.value = List.generate(event.length, (index) => event[index]);
+        originalList = _deepCopyWeek(event);
+      });
 
   void _defaultDays() => week.value = List.generate(
         7,
@@ -63,25 +76,53 @@ class HomeController extends GetxController
   }
 
   void cancleEditMode() {
+    logData = [];
     week.value = _deepCopyWeek(originalList);
     editMode.value = false;
   }
 
-  void addSubject(Day day, Subject _subject) => day.subjects
-          .where((e) => e.startTime.hour == _subject.startTime.hour)
-          .isEmpty
-      ? week.update((val) =>
-          week.value.firstWhere((e) => e.day == day.day).subjects.add(_subject))
-      : Message("Error", "Subject already exists at this time");
+  void addSubject(Day day, Subject _subject) {
+    if (day.subjects
+        .where((e) => e.startTime.hour == _subject.startTime.hour)
+        .isEmpty) {
+      week.update((val) => week.value
+          .firstWhere((e) => e.day == day.day)
+          .subjects
+          .add(_subject));
+      createLog("${_subject.subjectName} added to ${day.day}");
+    } else {
+      Message("Error", "Subject already exists at this time");
+    }
+  }
+
+  void createLog(String changes) {
+    final user = Get.find<AuthService>().user;
+    logData.add(
+      LogData(
+          name: user?.displayName ?? "",
+          email: user?.email ?? "",
+          log: changes,
+          date: DateTime.now()),
+    );
+  }
 
   void updateSubject(String day, Subject _oldSubject, Subject _newSubject) {
     final _day = week.value.firstWhere((e) => e.day == day);
     week.update((val) => _day.subjects[_day.subjects
         .indexWhere((element) => element == _oldSubject)] = _newSubject);
+
+    if (_oldSubject.remark != _newSubject.remark) {
+      createLog(
+          "${_newSubject.subjectName} remark changed to '${_newSubject.remark}' for $day");
+    } else {
+      createLog("${_newSubject.subjectName} updated for $day");
+    }
   }
 
-  void removeSubject(Subject subject, String day) => week.update((val) =>
-      week.value.firstWhere((e) => e.day == day).subjects.remove(subject));
+  void removeSubject(Subject subject, String day) => week.update((val) {
+        createLog("Removed ${subject.subjectName} from $day");
+        week.value.firstWhere((e) => e.day == day).subjects.remove(subject);
+      });
 
   void finishReorder(Subject _subject, int _from, int _to,
       List<Subject> _subjects, String day) {
@@ -92,8 +133,13 @@ class HomeController extends GetxController
   void toggleEditMode() async {
     if (editMode.value) {
       if (_validate) {
-        await _addOrUpdateTimeTable;
-        editMode.value = false;
+        if (await Get.find<GoogleSheetSerevice>().addEntry(logData) ?? false) {
+          await _addOrUpdateTimeTable;
+          logData.clear();
+          editMode.value = false;
+        } else {
+          Message("Error", "Error while uploading log, please try later");
+        }
       }
     } else {
       editMode.value = true;

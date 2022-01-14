@@ -1,5 +1,4 @@
 import 'package:class_link/app/global/const/const.dart';
-// import 'package:class_link/app/models/batch/batch.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:class_link/app/utils/get_snackbar.dart';
