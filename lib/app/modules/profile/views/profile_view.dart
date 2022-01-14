@@ -1,10 +1,13 @@
+import 'package:class_link/app/gen/assets.gen.dart';
 import 'package:class_link/app/global/widget/user_icon.dart';
 import 'package:class_link/app/routes/app_pages.dart';
 import 'package:class_link/app/services/auth_service.dart';
 import 'package:class_link/app/services/hive_database.dart';
 import 'package:class_link/app/utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../controllers/profile_controller.dart';
@@ -18,7 +21,7 @@ class ProfileView extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: appBar(),
+        appBar: appBar(context),
         body: Theme(
           data: Get.theme.copyWith(
               cardColor: Color.alphaBlend(
@@ -107,16 +110,22 @@ class ProfileView extends GetView<ProfileController> {
         child: UserIcon(radius: 50),
       );
 
-  AppBar appBar() => AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const FaIcon(
-            FontAwesomeIcons.arrowLeft,
+  AppBar appBar(context) => AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const FaIcon(
+              FontAwesomeIcons.arrowLeft,
+            ),
+            onPressed: () => Get.back(),
           ),
-          onPressed: () => Get.back(),
-        ),
-      );
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showAppAboutDialog(context);
+                },
+                icon: Icon(Icons.assignment_rounded))
+          ]);
 
   Widget blackMode() => AnimatedSize(
         duration: const Duration(milliseconds: 200),
@@ -167,4 +176,56 @@ class ProfileView extends GetView<ProfileController> {
           ),
         ),
       );
+
+  void showAppAboutDialog(BuildContext context) {
+    final ThemeData themeData = Theme.of(context);
+    final TextStyle aboutTextStyle = themeData.textTheme.bodyText1!;
+    final TextStyle footerStyle = themeData.textTheme.caption!;
+    final TextStyle linkStyle =
+        themeData.textTheme.bodyText1!.copyWith(color: themeData.primaryColor);
+    showAboutDialog(
+      context: context,
+      applicationName: 'Class Links',
+      applicationVersion: 'Version:1.0',
+      applicationIcon: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 8),
+            child: SvgPicture.asset(
+              Assets.icons.dsc.path,
+              semanticsLabel: 'A red up arrow',
+              height: 40,
+              width: 40,
+            ),
+          ),
+        ],
+      ),
+      applicationLegalese: 'Managed By GDSC Kiit',
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(top: 24),
+          child: RichText(
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  style: aboutTextStyle,
+                  text:
+                      'This app aids in the efficient management of college classes '
+                      ' by centralising the schedule and tasks. '
+                      'Here, one can manage the entire college routine in one location, rather of having '
+                      'to go from one location to another looking for classes and their linkages. \n\n',
+                ),
+                TextSpan(
+                  style: footerStyle,
+                  text: 'Built with Flutter , '
+                      ' \n\n',
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }

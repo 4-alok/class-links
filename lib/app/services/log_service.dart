@@ -13,11 +13,11 @@ List<LogData> _listRowToListLog(List<List<String>> rowList) =>
     rowList.toListLogData.toList();
 
 class GoogleSheetSerevice extends GetxService {
-  final _gsheet = GSheets(SheetCredentials.credentials);
+final _gsheet = GSheets(SheetCredentials.credentials);
   UserInfo? get _userInfo => Get.find<HiveDatabase>().userInfo;
 
   Future<bool?> addEntry(List<LogData> logs) async {
-    final Spreadsheet spreadsheet =
+   final Spreadsheet spreadsheet =
         await _gsheet.spreadsheet(GSheetUtils.getGSheetsId(""));
     final _userInfo = this._userInfo!;
     final _worksheetTitle =
