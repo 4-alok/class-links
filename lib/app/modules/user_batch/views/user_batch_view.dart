@@ -11,31 +11,52 @@ class UserBatchView extends GetView<UserBatchController> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-            centerTitle: true,
-            title: const Hero(
-              tag: "app_logo",
-              child: Material(child: AppTitleWidget()),
-            )),
-        body: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            title(context, "Select Year"),
-            selectYearWidget(context),
-            selectSchemeTitle(context),
-            selectScheme(context),
-            selectBatchTitle(context),
-            batchList,
-          ],
-        ),
-        floatingActionButton: fab,
-      );
+      appBar: AppBar(
+          centerTitle: true,
+          title: const Hero(
+            tag: "app_logo",
+            child: Material(child: AppTitleWidget()),
+          )),
+      body: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          title(context, "Select Year"),
+          selectYearWidget(context),
+          selectSchemeTitle(context),
+          selectScheme(context),
+          selectBatchTitle(context),
+          batchList,
+        ],
+      ),
+      floatingActionButton: fab(context),
+    );
 
-  Widget get fab => Obx(
+  Widget fab(BuildContext context) => Obx(
         () => !controller.showSubmitButton
             ? const SizedBox()
             : FloatingActionButton.extended(
-                onPressed: () => controller.submit(),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Caution'),
+                      content: const Text('Once selected cannot be changed'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Cancel')),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              controller.submit();
+                            },
+                            child: const Text('Confirm')),
+                      ],
+                    ),
+                  );
+                },
                 icon: controller.loading.value
                     ? const Padding(
                         padding: EdgeInsets.only(left: 10),
