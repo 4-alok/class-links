@@ -34,7 +34,7 @@ class AuthView extends GetView<AuthController> {
                     height: 20,
                     width: 20,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   const Text("Login"),

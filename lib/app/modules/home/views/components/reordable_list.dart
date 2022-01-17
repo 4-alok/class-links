@@ -1,4 +1,6 @@
 import 'package:animations/animations.dart';
+import 'package:class_link/app/modules/subject_info/controllers/subject_info_controller.dart';
+import 'package:class_link/app/modules/subject_info/views/subject_info_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
@@ -9,7 +11,6 @@ import 'package:class_link/app/utils/color.dart';
 import 'package:class_link/app/utils/extension.dart';
 import 'current_class_card.dart';
 import 'edit_model_sheet.dart';
-import 'subject_info_page.dart';
 
 class MyReordableLIst extends StatelessWidget {
   final HomeController homeController;
@@ -131,7 +132,13 @@ class MyReordableLIst extends StatelessWidget {
             onTap: action,
           ),
         ),
-        openBuilder: (context, action) => SubjectInfo(subject: item),
+        openBuilder: (context, action) {
+          Get.lazyPut<SubjectInfoController>(
+            () => SubjectInfoController(),
+            tag: SubjectInfoController.TAG,
+          );
+          return SubjectInfoView(subject: item);
+        },
       );
 
   String displayTileText(Subject item) {

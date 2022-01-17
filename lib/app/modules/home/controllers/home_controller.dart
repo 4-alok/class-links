@@ -18,6 +18,7 @@ class HomeController extends GetxController
   final week = Rx<List<Day>>([]);
   final hideEdit = true.obs;
   final editMode = false.obs;
+  final isLoading = false.obs;
   StreamSubscription<List<Day>>? _timeTableSubscription;
   List<Day> originalList = List.generate(
     7,
@@ -133,6 +134,7 @@ class HomeController extends GetxController
   void toggleEditMode() async {
     if (editMode.value) {
       if (_validate) {
+        isLoading.value = true;
         if (await Get.find<GoogleSheetSerevice>().addEntry(logData) ?? false) {
           await _addOrUpdateTimeTable;
           logData.clear();
@@ -140,6 +142,7 @@ class HomeController extends GetxController
         } else {
           Message("Error", "Error while uploading log, please try later");
         }
+        isLoading.value = false;
       }
     } else {
       editMode.value = true;

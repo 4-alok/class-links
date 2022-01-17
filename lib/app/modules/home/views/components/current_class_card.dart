@@ -120,57 +120,47 @@ class CurrentClassCard extends StatelessWidget {
     }
   }
 
-  void showClassDialog(context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Choose Url"),
-          content: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              children: [
-                Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    launchUrl(context, item.googleClassRoomLink);
-                  },
-                  child: SvgPicture.asset(
-                    Assets.icons.meet.path,
-                    semanticsLabel: 'A red up arrow',
-                    height: 35,
-                    width: 35,
+  void showClassDialog(BuildContext context) => showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Choose Url"),
+            content: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () => launchUrl(context, item.googleClassRoomLink),
+                    child: SvgPicture.asset(
+                      Assets.icons.meet.path,
+                      semanticsLabel: 'A red up arrow',
+                      height: 35,
+                      width: 35,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 80,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    launchUrl(context, item.zoomLink);
-                  },
-                  child: SvgPicture.asset(
-                    Assets.icons.zoom.path,
-                    semanticsLabel: 'A red up arrow',
-                    height: 50,
-                    width: 50,
+                  const SizedBox(width: 80),
+                  GestureDetector(
+                    onTap: () => launchUrl(context, item.zoomLink),
+                    child: SvgPicture.asset(
+                      Assets.icons.zoom.path,
+                      semanticsLabel: 'A red up arrow',
+                      height: 50,
+                      width: 50,
+                    ),
                   ),
-                ),
-                Spacer(),
-              ],
+                  const Spacer(),
+                ],
+              ),
             ),
-          ),
-          actions: [
-            RaisedButton(
-                child: Text("Cancel"),
-                onPressed: () {
-                  Navigator.pop(context);
-                })
-          ],
-        );
-      },
-    );
-  }
+            actions: [
+              ElevatedButton(
+                  child: const Text("Cancel"),
+                  onPressed: () => Navigator.pop(context))
+            ],
+          );
+        },
+      );
 
   Widget trailingWidget() => item.roomNo != null
       ? Text(

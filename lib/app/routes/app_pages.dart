@@ -10,6 +10,7 @@ import '../modules/home/views/home_view.dart';
 import '../modules/log_page/log_page_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/subject_info/views/subject_info_view.dart';
 import '../modules/user_batch/bindings/user_batch_binding.dart';
 import '../modules/user_batch/views/user_batch_view.dart';
 import '../services/auth_service.dart';
@@ -52,6 +53,10 @@ class AppPages {
       name: _Paths.LOG_PAGE,
       page: () => const LogPageView(),
       transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: _Paths.SUBJECT_INFO,
+      page: () => SubjectInfoView(subject: Get.arguments),
     ),
   ];
 }

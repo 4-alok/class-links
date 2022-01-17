@@ -23,13 +23,13 @@ class TimeTablePage extends StatelessWidget {
           length: 7,
           child: Scaffold(
             appBar: MyAppBar(homeController: homeController),
-            body: tabBarView(),
+            body: tabBarView,
             floatingActionButton: fab(context),
           ),
         ),
       );
 
-  Widget tabBarView() => TabBarView(
+  Widget get tabBarView => TabBarView(
         physics: const BouncingScrollPhysics(),
         controller: homeController.tabController,
         children: List.generate(
@@ -44,21 +44,36 @@ class TimeTablePage extends StatelessWidget {
       );
 
   Widget fab(BuildContext context) => Obx(
-    () => (homeController.hideEdit.value)
-        ? const SizedBox()
-        : FloatingActionButton.extended(
-            onPressed: () => homeController.toggleEditMode(),
-            icon: Obx(
-              () => !homeController.editMode.value
-                  ? const Icon(Icons.edit)
-                  : const FaIcon(FontAwesomeIcons.check),
-            ),
-            label: AnimatedSize(
-              duration: const Duration(milliseconds: 200),
-              child: Obx(() => !homeController.editMode.value
-                  ? const Text("Edit")
-                  : const Text("Submit")),
-            ),
-          ),
-  );
+        () => (homeController.hideEdit.value)
+            ? const SizedBox()
+            : FloatingActionButton.extended(
+                onPressed: homeController.isLoading.value
+                    ? null
+                    : () => homeController.toggleEditMode(),
+                icon: Obx(
+                  () => homeController.isLoading.value
+                      ? const Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      : !homeController.editMode.value
+                          ? const Icon(Icons.edit)
+                          : const FaIcon(FontAwesomeIcons.check),
+                ),
+                label: AnimatedSize(
+                  duration: const Duration(milliseconds: 200),
+                  child: Obx(() => homeController.isLoading.value
+                      ? const SizedBox()
+                      : !homeController.editMode.value
+                          ? const Text("Edit")
+                          : const Text("Submit")),
+                ),
+              ),
+      );
 }

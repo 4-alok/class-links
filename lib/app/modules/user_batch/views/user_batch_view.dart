@@ -10,28 +10,26 @@ class UserBatchView extends GetView<UserBatchController> {
   const UserBatchView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          centerTitle: true,
-          title: const Hero(
-            tag: "app_logo",
-            child: Material(child: AppTitleWidget()),
-          )),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          title(context, "Select Year"),
-          selectYearWidget(context),
-          selectSchemeTitle(context),
-          selectScheme(context),
-          selectBatchTitle(context),
-          batchList,
-        ],
-      ),
-      floatingActionButton: fab,
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+            centerTitle: true,
+            title: const Hero(
+              tag: "app_logo",
+              child: Material(child: AppTitleWidget()),
+            )),
+        body: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: [
+            title(context, "Select Year"),
+            selectYearWidget(context),
+            selectSchemeTitle(context),
+            selectScheme(context),
+            selectBatchTitle(context),
+            batchList,
+          ],
+        ),
+        floatingActionButton: fab,
+      );
 
   Widget get fab => Obx(
         () => !controller.showSubmitButton
