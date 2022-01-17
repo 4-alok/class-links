@@ -20,9 +20,10 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static final INITIAL =
-      Get.find<AuthService>().user == null ? Routes.AUTH : Routes.HOME;
-
+  // static final INITIAL =
+  //     Get.find<AuthService>().user == null ? Routes.AUTH : Routes.HOME;
+   // ignore: constant_identifier_names
+   static const INITIAL = Routes.USER_BATCH;
   // static final INITIAL = Routes.USER_INFO;
 
   static final routes = [

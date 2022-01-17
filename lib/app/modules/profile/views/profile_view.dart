@@ -5,11 +5,13 @@ import 'package:class_link/app/services/auth_service.dart';
 import 'package:class_link/app/services/hive_database.dart';
 import 'package:class_link/app/utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
+//import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../controllers/profile_controller.dart';
 import 'component/appbar_style.dart';
 import 'component/theme_selector.dart';
@@ -124,7 +126,7 @@ class ProfileView extends GetView<ProfileController> {
                 onPressed: () {
                   showAppAboutDialog(context);
                 },
-                icon: Icon(Icons.assignment_rounded))
+                icon: const Icon(Icons.assignment_rounded))
           ]);
 
   Widget blackMode() => AnimatedSize(
@@ -142,6 +144,15 @@ class ProfileView extends GetView<ProfileController> {
               )
             : const SizedBox(),
       );
+  Future<void> launchUrl(BuildContext context, String url) async {
+    try {
+      await launch(url);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Unable to open"),
+      ));
+    }
+  }
 
   Widget themeMode() => Card(
         child: ListTile(
@@ -181,8 +192,7 @@ class ProfileView extends GetView<ProfileController> {
     final ThemeData themeData = Theme.of(context);
     final TextStyle aboutTextStyle = themeData.textTheme.bodyText1!;
     final TextStyle footerStyle = themeData.textTheme.caption!;
-    final TextStyle linkStyle =
-        themeData.textTheme.bodyText1!.copyWith(color: themeData.primaryColor);
+    
     showAboutDialog(
       context: context,
       applicationName: 'Class Links',
@@ -216,11 +226,24 @@ class ProfileView extends GetView<ProfileController> {
                       'Here, one can manage the entire college routine in one location, rather of having '
                       'to go from one location to another looking for classes and their linkages. \n\n',
                 ),
+                TextSpan(style: footerStyle, text: 'Contact us : '),
                 TextSpan(
-                  style: footerStyle,
-                  text: 'Built with Flutter , '
-                      ' \n\n',
-                ),
+                    text: 'Gmail id',
+                    style: footerStyle.copyWith(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launchUrl(context, 'mail@dsckiit.in');
+                      }),
+                TextSpan(
+                    style: footerStyle, text: '\nContributing with code : '),
+                TextSpan(
+                    text: 'github repo',
+                    style: footerStyle.copyWith(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launchUrl(
+                            context, 'https://github.com/DSC-KIIT/class-links');
+                      }),
               ],
             ),
           ),

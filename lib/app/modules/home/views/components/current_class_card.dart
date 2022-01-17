@@ -125,12 +125,12 @@ class CurrentClassCard extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Choose Url"),
+          title: const Text("Choose Url"),
           content: Padding(
             padding: const EdgeInsets.all(8),
             child: Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {
                     launchUrl(context, item.googleClassRoomLink);
@@ -142,7 +142,7 @@ class CurrentClassCard extends StatelessWidget {
                     width: 35,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 80,
                 ),
                 GestureDetector(
@@ -156,13 +156,13 @@ class CurrentClassCard extends StatelessWidget {
                     width: 50,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             ),
           ),
           actions: [
-            RaisedButton(
-                child: Text("Cancel"),
+            ElevatedButton(
+                child: const Text("Cancel"),
                 onPressed: () {
                   Navigator.pop(context);
                 })

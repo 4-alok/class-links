@@ -1,6 +1,6 @@
 import 'package:class_link/app/gen/assets.gen.dart';
 import 'package:class_link/app/global/widget/app_title.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 // import 'package:class_link/app/modules/user_info/controllers/user_info_controller.dart';
 // import 'package:class_link/app/modules/user_info/views/user_info_view.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class AuthView extends GetView<AuthController> {
                     height: 20,
                     width: 20,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   const Text("Login"),
