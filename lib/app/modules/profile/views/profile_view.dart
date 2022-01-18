@@ -5,7 +5,6 @@ import 'package:class_link/app/services/auth_service.dart';
 import 'package:class_link/app/services/hive_database.dart';
 import 'package:class_link/app/utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -45,7 +44,6 @@ class ProfileView extends GetView<ProfileController> {
               themeSelector(),
               themeMode(),
               blackMode(),
-              // appBarStyle(),
               const SizedBox(height: 20),
               logoutCard(),
             ],
@@ -172,10 +170,7 @@ class ProfileView extends GetView<ProfileController> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 2),
           child: ListTile(
-            title: const Text(
-              "Theme",
-              // style: ,
-            ),
+            title: const Text("Theme"),
             subtitle: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: ThemeSelector(
@@ -199,11 +194,18 @@ class ProfileView extends GetView<ProfileController> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 8),
-            child: SvgPicture.asset(
-              Assets.icons.dsc.path,
-              semanticsLabel: 'A red up arrow',
-              height: 40,
-              width: 40,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  Assets.icons.dsc.path,
+                  semanticsLabel: 'A red up arrow',
+                  height: 40,
+                  width: 40,
+                ),
+                const SizedBox(height: 10),
+                const Text("GDSC KIIT")
+              ],
             ),
           ),
         ],
@@ -229,19 +231,16 @@ class ProfileView extends GetView<ProfileController> {
                     text: 'mail@dsckiit.in',
                     style: footerStyle.copyWith(color: Colors.blue),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        launchUrl(context, 'mail@dsckiit.in');
-                      }),
+                      ..onTap =
+                          () => launchUrl(context, 'mailto:mail@dsckiit.in')),
                 TextSpan(
-                    style: footerStyle, text: '\nContributing with code : '),
+                    style: footerStyle, text: '\nContributions are welcomed '),
                 TextSpan(
                     text: 'Github',
                     style: footerStyle.copyWith(color: Colors.blue),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        launchUrl(
-                            context, 'https://github.com/DSC-KIIT/class-links');
-                      }),
+                      ..onTap = () => launchUrl(
+                          context, 'https://github.com/DSC-KIIT/class-links')),
               ],
             ),
           ),

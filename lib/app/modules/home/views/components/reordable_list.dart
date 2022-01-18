@@ -87,7 +87,7 @@ class MyReordableLIst extends StatelessWidget {
             ),
           ),
           title: Text(item.subjectName),
-          subtitle: Text(item.remark == "" ? "No Remark" : item.remark),
+          subtitle: Text(item.startTime.text12HourStartEnd),
           trailing: IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () => homeController.removeSubject(item, currentDay.day),

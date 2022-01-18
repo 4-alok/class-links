@@ -157,7 +157,7 @@ class HomeController extends GetxController
         if (((startingTime.hour * 60) + startingTime.minute) <
             ((beforeSubTime.hour * 60) + beforeSubTime.minute)) {
           Message(
-            "Error",
+            "Error at ${day.subjects[i - 1].subjectName}",
             "Starting time should be greater than previous subject's ending time",
           );
           return false;
@@ -188,4 +188,6 @@ class HomeController extends GetxController
     if (_timeTableSubscription != null) _timeTableSubscription!.cancel();
     super.onClose();
   }
+
+  // AℓOk
 }

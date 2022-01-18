@@ -2,7 +2,6 @@ import 'package:class_link/app/models/log/log.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-
 import 'gsheet_utils.dart';
 
 extension StartingTimeText on DayTime {

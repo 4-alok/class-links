@@ -10,7 +10,7 @@ import 'package:gsheets/gsheets.dart';
 
 // ignore: unused_element
 List<LogData> _listRowToListLog(List<List<String>> rowList) =>
-    rowList.toListLogData.toList();
+    rowList.toListLogData.toList().reversed.toList();
 
 class GoogleSheetSerevice extends GetxService {
 final _gsheet = GSheets(SheetCredentials.credentials);

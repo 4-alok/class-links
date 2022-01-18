@@ -19,7 +19,7 @@ class LogPageView extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
       ),
-      body: FutureBuilder<Iterable<LogData>?>(
+      body: FutureBuilder<List<LogData>?>(
         future: Get.find<GoogleSheetSerevice>().readLog(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -30,7 +30,7 @@ class LogPageView extends StatelessWidget {
                 child: Text('Something went wrong'),
               );
             } else {
-              final logs = snapshot.data?.toList() ?? [];
+              final logs = snapshot.data ?? [];
               if (logs.isEmpty) {
                 return const Center(
                   child: Text('No logs'),
