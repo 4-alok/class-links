@@ -152,9 +152,9 @@ class HomeController extends GetxController
   }
 
   String? get _validate {
-    if (_isNotEqual) {
-      return "No changes made";
-    }
+    // if (_isNotEqual) {
+    //   return "No changes made";
+    // }
     for (final day in week.value) {
       for (int i = 1; i < day.subjects.length; i++) {
         final beforeSubTime = day.subjects[i - 1].startTime;
@@ -168,17 +168,8 @@ class HomeController extends GetxController
     return null;
   }
 
-  bool get _isNotEqual {
-    try {
-      for (int i = 0; i < originalList.length; i++) {
-        if (originalList[i].subjects != week.value[i].subjects) {
-          return true;
-        }
-      }
-      return false;
-    } catch (e) {
-      return false;
-    }
+  bool? get _isNotEqual {
+    // TODO: implement _isNotEqual
   }
 
   Future<void> get _addOrUpdateTimeTable async {
