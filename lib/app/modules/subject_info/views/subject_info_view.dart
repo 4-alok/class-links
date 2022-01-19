@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import '../controllers/subject_info_controller.dart';
 import 'components/appbar.dart';
+import 'components/body.dart';
 
 class SubjectInfoView extends GetView<SubjectInfoController> {
   const SubjectInfoView({
@@ -50,39 +51,12 @@ class SubjectInfoView extends GetView<SubjectInfoController> {
                 Column(
                   children: [
                     const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Remark",
-                                  style: TextStyle(
-                                    color: Get.theme.colorScheme.primary,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 20,
-                                  )),
-                              controller.subject.remarkAddBy == ""
-                                  ? const SizedBox()
-                                  : Text(
-                                      " ~ ${controller.subject.remarkAddBy.split(",").first}",
-                                      textAlign: TextAlign.end,
-                                    ),
-                            ],
-                          ),
-                          Text(
-                            controller.subject.remark == ""
-                                ? "No Remark"
-                                : controller.subject.remark,
-                            style: Get.theme.textTheme.headline4,
-                          ),
-                        ],
-                      ),
-                    )
+                    SubjectInfoBody(controller: controller).remark,
+                    SubjectInfoBody(controller: controller).room,
+                    const SizedBox(height: 10),
+                    SubjectInfoBody(controller: controller).googleLink,
+                    const SizedBox(height: 10),
+                    SubjectInfoBody(controller: controller).zoomLink,
                   ],
                 ),
               ],

@@ -3,6 +3,7 @@ import 'package:class_link/app/global/const/const.dart';
 import 'package:class_link/app/models/log/log.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:class_link/app/models/user_info/user_info.dart';
+import 'package:class_link/app/modules/subject_info/controllers/subject_info_controller.dart';
 import 'package:class_link/app/routes/app_pages.dart';
 import 'package:class_link/app/services/auth_service.dart';
 import 'package:class_link/app/services/firestore_service.dart';
@@ -131,40 +132,53 @@ class HomeController extends GetxController
     week.value.firstWhere((e) => e.day == day).subjects.addAll(_subjects);
   }
 
-  void toggleEditMode() async {
+  Future<String?> toggleEditMode() async {
     if (editMode.value) {
-      if (_validate) {
+      final _validate = this._validate;
+      if (_validate == null) {
         isLoading.value = true;
         if (await Get.find<GoogleSheetSerevice>().addEntry(logData) ?? false) {
           await _addOrUpdateTimeTable;
           logData.clear();
           editMode.value = false;
-        } else {
-          Message("Error", "Error while uploading log, please try later");
         }
         isLoading.value = false;
+      } else {
+        return _validate;
       }
     } else {
       editMode.value = true;
     }
   }
 
-  bool get _validate {
+  String? get _validate {
+    if (_isNotEqual) {
+      return "No changes made";
+    }
     for (final day in week.value) {
       for (int i = 1; i < day.subjects.length; i++) {
         final beforeSubTime = day.subjects[i - 1].startTime;
         final startingTime = day.subjects[i].startTime;
         if (((startingTime.hour * 60) + startingTime.minute) <
             ((beforeSubTime.hour * 60) + beforeSubTime.minute)) {
-          Message(
-            "Error at ${day.subjects[i - 1].subjectName}",
-            "Starting time should be greater than previous subject's ending time",
-          );
-          return false;
+          return "Error at ${day.subjects[i - 1].subjectName}\nArrange subjects in order";
         }
       }
     }
-    return true;
+    return null;
+  }
+
+  bool get _isNotEqual {
+    try {
+      for (int i = 0; i < originalList.length; i++) {
+        if (originalList[i].subjects != week.value[i].subjects) {
+          return true;
+        }
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<void> get _addOrUpdateTimeTable async {
@@ -186,8 +200,7 @@ class HomeController extends GetxController
   @override
   void onClose() {
     if (_timeTableSubscription != null) _timeTableSubscription!.cancel();
+    Get.delete<SubjectInfoController>(tag: SubjectInfoController.TAG);
     super.onClose();
   }
-
-  // AℓOk
 }

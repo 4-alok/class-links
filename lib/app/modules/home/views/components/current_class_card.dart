@@ -134,8 +134,7 @@ class CurrentClassCard extends StatelessWidget {
                     onTap: () => launchUrl(context, item.googleClassRoomLink),
                     child: SvgPicture.asset(
                       Assets.icons.meet.path,
-                      semanticsLabel: 'A red up arrow',
-                      height: 35,
+                      semanticsLabel: 'Googel Class Room',                      height: 35,
                       width: 35,
                     ),
                   ),
@@ -144,7 +143,7 @@ class CurrentClassCard extends StatelessWidget {
                     onTap: () => launchUrl(context, item.zoomLink),
                     child: SvgPicture.asset(
                       Assets.icons.zoom.path,
-                      semanticsLabel: 'A red up arrow',
+                      semanticsLabel: 'Zoom Meet',
                       height: 50,
                       width: 50,
                     ),

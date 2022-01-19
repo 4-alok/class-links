@@ -49,7 +49,7 @@ class TimeTablePage extends StatelessWidget {
             : FloatingActionButton.extended(
                 onPressed: homeController.isLoading.value
                     ? null
-                    : () => homeController.toggleEditMode(),
+                    : () async => await toggleEditMode(context),
                 icon: Obx(
                   () => homeController.isLoading.value
                       ? const Padding(
@@ -76,4 +76,13 @@ class TimeTablePage extends StatelessWidget {
                 ),
               ),
       );
+
+  Future<void> toggleEditMode(BuildContext context) async {
+    final res = await homeController.toggleEditMode();
+    if (res != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(res)),
+      );
+    } 
+  }
 }

@@ -52,36 +52,71 @@ class LogPageView extends StatelessWidget {
         reverse: true,
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.all(8.0),
-          child: RichText(
-            text: TextSpan(
-              text: '${logs[index].date} \n',
-              style: TextStyle(
-                color: Get.theme.primaryColor,
-                fontWeight: FontWeight.bold,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    logs[index].date.toString(),
+                    style: TextStyle(
+                      color: Get.theme.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Tooltip(
+                    message: logs[index].email,
+                    child: Text(
+                      " ~ ${logs[index].name}",
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 16,
+                            color: Get.theme.secondaryHeaderColor,
+                          ),
+                    ),
+                  ),
+                ],
               ),
-              children: [
-                TextSpan(
-                    text: '${logs[index].name} ',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: 16)),
-                TextSpan(
-                    text: '${logs[index].email} \n',
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 16,
-                          color: Get.theme.secondaryHeaderColor,
-                        )),
-                TextSpan(
-                  text: logs[index].log,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(fontSize: 16),
-                ),
-              ],
-            ),
+              Text(
+                logs[index].log,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4!
+                    .copyWith(fontSize: 16),
+              ),
+            ],
           ),
+
+          // child: RichText(
+          //   text: TextSpan(
+          //     text: '${logs[index].date} \n',
+          //     style: TextStyle(
+          //       color: Get.theme.primaryColor,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //     children: [
+          //       TextSpan(
+          //           text: '${logs[index].name}\n',
+          //           style: Theme.of(context)
+          //               .textTheme
+          //               .bodyText1!
+          //               .copyWith(fontSize: 16)),
+          //       // TextSpan(
+          //       //     text: '${logs[index].email} \n',
+          //       //     style: Theme.of(context).textTheme.bodyText1!.copyWith(
+          //       //           fontSize: 16,
+          //       //           color: Get.theme.secondaryHeaderColor,
+          //       //         )),
+          //       TextSpan(
+          //         text: logs[index].log,
+          //         style: Theme.of(context)
+          //             .textTheme
+          //             .headline4!
+          //             .copyWith(fontSize: 16),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ),
       );
 }

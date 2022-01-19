@@ -122,7 +122,7 @@ class ProfileView extends GetView<ProfileController> {
           actions: [
             IconButton(
                 onPressed: () => showAppAboutDialog(context),
-                icon: const Icon(Icons.assignment_rounded))
+                icon: const FaIcon(FontAwesomeIcons.info)),
           ]);
 
   Widget blackMode() => AnimatedSize(
@@ -211,7 +211,7 @@ class ProfileView extends GetView<ProfileController> {
         ],
       ),
       applicationLegalese:
-          'Copyright (c) 2024 Google Developer Student Club - KIIT',
+          'Copyright (c) 2024 Google Developer Student Club - KIIT\nMIT License',
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 24),
