@@ -83,6 +83,6 @@ class TimeTablePage extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(res)),
       );
-    } 
+    }
   }
 }

@@ -1,10 +1,14 @@
-import 'package:class_link/app/models/user_info/user_info.dart';
-import 'package:class_link/app/services/firestore_service.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class AdminController extends GetxController {
-  // FirestoreService get firestoreService => Get.find<FirestoreService>();
+  final scrollController = ScrollController(
+    initialScrollOffset: 100
+  );
 
-  // Future<List<UserInfo>> getUserList() async =>
-  //     await firestoreService.userList();
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 }

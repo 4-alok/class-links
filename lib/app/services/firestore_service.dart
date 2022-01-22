@@ -93,17 +93,7 @@ class FirestoreService extends GetxService {
 
   Future<bool> updateUser(UserInfo user) async {
     try {
-      final result = await _firestore
-          .collection("user")
-          .doc(user.refId)
-          .update(user.toJson());
-
-      // if (result.docs.isEmpty) {
-      //   await _firestore.collection("user").add(user.toJson());
-      // } else {
-      //   await result.docs.first.reference.delete();
-      //   await _firestore.collection("user").add(user.toJson());
-      // }
+      await _firestore.collection("user").doc(user.refId).update(user.toJson());
       return true;
     } catch (e) {
       Message("Error", "Unable to add user : $e");
