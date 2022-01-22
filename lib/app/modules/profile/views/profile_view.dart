@@ -1,10 +1,11 @@
 import 'package:class_link/app/gen/assets.gen.dart';
 import 'package:class_link/app/global/widget/user_icon.dart';
+import 'package:class_link/app/models/user_info/user_info.dart';
 import 'package:class_link/app/routes/app_pages.dart';
 import 'package:class_link/app/services/auth_service.dart';
 import 'package:class_link/app/services/hive_database.dart';
 import 'package:class_link/app/utils/extension.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,6 +20,7 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
 
   User? get user => Get.find<AuthService>().user;
+  UserInfo? get userInfo => Get.find<HiveDatabase>().userInfo;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -45,6 +47,7 @@ class ProfileView extends GetView<ProfileController> {
               themeMode(),
               blackMode(),
               const SizedBox(height: 20),
+              adminPanel(),
               logoutCard(),
             ],
           ),
@@ -165,6 +168,15 @@ class ProfileView extends GetView<ProfileController> {
           onTap: () => Get.toNamed(Routes.LOG_PAGE),
         ),
       );
+
+  Widget adminPanel() => userInfo?.role == "admin"
+      ? Card(
+          child: ListTile(
+            title: const Text("Admin Panel"),
+            onTap: () => Get.toNamed(Routes.ADMIN),
+          ),
+        )
+      : const SizedBox();
 
   Widget themeSelector() => Card(
         child: Padding(

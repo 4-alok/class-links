@@ -1,10 +1,12 @@
 import 'package:animations/animations.dart';
 import 'package:class_link/app/gen/assets.gen.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
-import 'package:class_link/app/modules/home/views/components/subject_info_page.dart';
+import 'package:class_link/app/modules/subject_info/controllers/subject_info_controller.dart';
+import 'package:class_link/app/modules/subject_info/views/subject_info_view.dart';
 import 'package:class_link/app/utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
@@ -81,7 +83,13 @@ class CurrentClassCard extends StatelessWidget {
               ),
             ),
           ),
-          openBuilder: (context, action) => SubjectInfo(subject: item),
+          openBuilder: (context, action) {
+            Get.lazyPut<SubjectInfoController>(
+              () => SubjectInfoController(),
+              tag: SubjectInfoController.TAG,
+            );
+            return SubjectInfoView(subject: item);
+          },
         ),
       );
 
@@ -134,7 +142,8 @@ class CurrentClassCard extends StatelessWidget {
                     onTap: () => launchUrl(context, item.googleClassRoomLink),
                     child: SvgPicture.asset(
                       Assets.icons.meet.path,
-                      semanticsLabel: 'Googel Class Room',                      height: 35,
+                      semanticsLabel: 'Googel Class Room',
+                      height: 35,
                       width: 35,
                     ),
                   ),
@@ -164,9 +173,8 @@ class CurrentClassCard extends StatelessWidget {
   Widget trailingWidget() => item.roomNo != null
       ? Text(
           item.roomNo.toString(),
-          style: const TextStyle(
-            fontSize: 12,
-            color: Colors.red,
+          style: Get.theme.textTheme.headline3!.copyWith(
+            color: Get.theme.colorScheme.primary,
           ),
         )
       : Wrap(

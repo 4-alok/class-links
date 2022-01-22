@@ -1,9 +1,10 @@
+import 'package:class_link/app/models/user_info/user_info.dart';
+import 'package:class_link/app/services/firestore_service.dart';
 import 'package:get/get.dart';
 
 class AdminController extends GetxController {
-  final count = 0.obs;
+  // FirestoreService get firestoreService => Get.find<FirestoreService>();
 
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+  // Future<List<UserInfo>> getUserList() async =>
+  //     await firestoreService.userList();
 }

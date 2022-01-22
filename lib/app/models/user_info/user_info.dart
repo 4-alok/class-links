@@ -5,11 +5,14 @@ part 'user_info.g.dart';
 @freezed
 class UserInfo with _$UserInfo {
   const factory UserInfo({
+    @Default(null) String? refId,
     required String id,
     @Default(1) int slot,
     required String batch,
+    required String stream,
     required int year,
     required DateTime date,
+    required String userName,
     @Default('user') String role,
   }) = _UserInfo;
 

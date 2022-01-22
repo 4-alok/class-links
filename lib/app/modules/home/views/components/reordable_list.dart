@@ -49,9 +49,7 @@ class MyReordableLIst extends StatelessWidget {
                             : (item.startTime.isCurrentTime &&
                                     (currentTabIndex ==
                                         DateTime.now().weekday - 1))
-                                ? CurrentClassCard(
-                                    item: item,
-                                  )
+                                ? CurrentClassCard(item: item)
                                 : displayTile(context, item),
                       )),
             ),

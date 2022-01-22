@@ -11,25 +11,6 @@ class FirestoreService extends GetxService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final hiveDatabase = Get.find<HiveDatabase>();
 
-  // ---------------batch-----------------//
-  // Future<bool> addBatch(BatchYear batch) async {
-  //   try {
-  //     await _firestore.collection('batches').add(batch.toJson());
-  //     return true;
-  //   } catch (e) {
-  //     Message("Error", e.toString());
-  //     return false;
-  //   }
-  // }
-
-  // Future<bool> removeBatch(BatchYear batch) async {
-  //   // final ref = _firestore.collection('batches')
-  //   // .where("forYear", isEqualTo: batch.forYear)
-  //   return false;
-  // }
-
-  // Future<void> getBatchList() async {}
-
   // ---------------timeTable-----------------------//
   Stream<List<Day>> timeTableStream() {
     final _ref = _firestore
@@ -93,6 +74,36 @@ class FirestoreService extends GetxService {
         await result.docs.first.reference.delete();
         await _firestore.collection("user").add(user.toJson());
       }
+      return true;
+    } catch (e) {
+      Message("Error", "Unable to add user : $e");
+      return false;
+    }
+  }
+
+  // -----------------userList----------------------//
+  Stream<List<UserInfo>> userList() {
+    final result = _firestore.collection("user").snapshots();
+    return result.map((event) => event.docs.isEmpty
+        ? []
+        : event.docs
+            .map((e) => UserInfo.fromJson(e.data()).copyWith(refId: e.id))
+            .toList());
+  }
+
+  Future<bool> updateUser(UserInfo user) async {
+    try {
+      final result = await _firestore
+          .collection("user")
+          .doc(user.refId)
+          .update(user.toJson());
+
+      // if (result.docs.isEmpty) {
+      //   await _firestore.collection("user").add(user.toJson());
+      // } else {
+      //   await result.docs.first.reference.delete();
+      //   await _firestore.collection("user").add(user.toJson());
+      // }
       return true;
     } catch (e) {
       Message("Error", "Unable to add user : $e");

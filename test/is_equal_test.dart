@@ -41,12 +41,12 @@ void main() {
     test("Day Equality if not-equal", () {
       const d1 = Day(
         day: "Monday",
-        subjects: [s1, s2, s3],
+        subjects: [s1],
       );
 
       const d2 = Day(
         day: "Monday",
-        subjects: [s2, s2, s3],
+        subjects: [s1],
       );
 
       // final res = d1.toJson() == d2.toJson(); //Not equal

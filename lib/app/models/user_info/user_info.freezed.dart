@@ -22,18 +22,24 @@ class _$UserInfoTearOff {
   const _$UserInfoTearOff();
 
   _UserInfo call(
-      {required String id,
+      {String? refId = null,
+      required String id,
       int slot = 1,
       required String batch,
+      required String stream,
       required int year,
       required DateTime date,
+      required String userName,
       String role = 'user'}) {
     return _UserInfo(
+      refId: refId,
       id: id,
       slot: slot,
       batch: batch,
+      stream: stream,
       year: year,
       date: date,
+      userName: userName,
       role: role,
     );
   }
@@ -48,11 +54,14 @@ const $UserInfo = _$UserInfoTearOff();
 
 /// @nodoc
 mixin _$UserInfo {
+  String? get refId => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   int get slot => throw _privateConstructorUsedError;
   String get batch => throw _privateConstructorUsedError;
+  String get stream => throw _privateConstructorUsedError;
   int get year => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
+  String get userName => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -66,11 +75,14 @@ abstract class $UserInfoCopyWith<$Res> {
   factory $UserInfoCopyWith(UserInfo value, $Res Function(UserInfo) then) =
       _$UserInfoCopyWithImpl<$Res>;
   $Res call(
-      {String id,
+      {String? refId,
+      String id,
       int slot,
       String batch,
+      String stream,
       int year,
       DateTime date,
+      String userName,
       String role});
 }
 
@@ -84,14 +96,21 @@ class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? refId = freezed,
     Object? id = freezed,
     Object? slot = freezed,
     Object? batch = freezed,
+    Object? stream = freezed,
     Object? year = freezed,
     Object? date = freezed,
+    Object? userName = freezed,
     Object? role = freezed,
   }) {
     return _then(_value.copyWith(
+      refId: refId == freezed
+          ? _value.refId
+          : refId // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -104,6 +123,10 @@ class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
           ? _value.batch
           : batch // ignore: cast_nullable_to_non_nullable
               as String,
+      stream: stream == freezed
+          ? _value.stream
+          : stream // ignore: cast_nullable_to_non_nullable
+              as String,
       year: year == freezed
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
@@ -112,6 +135,10 @@ class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
       role: role == freezed
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
@@ -126,11 +153,14 @@ abstract class _$UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
       __$UserInfoCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
+      {String? refId,
+      String id,
       int slot,
       String batch,
+      String stream,
       int year,
       DateTime date,
+      String userName,
       String role});
 }
 
@@ -145,14 +175,21 @@ class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? refId = freezed,
     Object? id = freezed,
     Object? slot = freezed,
     Object? batch = freezed,
+    Object? stream = freezed,
     Object? year = freezed,
     Object? date = freezed,
+    Object? userName = freezed,
     Object? role = freezed,
   }) {
     return _then(_UserInfo(
+      refId: refId == freezed
+          ? _value.refId
+          : refId // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -165,6 +202,10 @@ class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
           ? _value.batch
           : batch // ignore: cast_nullable_to_non_nullable
               as String,
+      stream: stream == freezed
+          ? _value.stream
+          : stream // ignore: cast_nullable_to_non_nullable
+              as String,
       year: year == freezed
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
@@ -173,6 +214,10 @@ class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
       role: role == freezed
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
@@ -185,16 +230,22 @@ class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserInfo implements _UserInfo {
   const _$_UserInfo(
-      {required this.id,
+      {this.refId = null,
+      required this.id,
       this.slot = 1,
       required this.batch,
+      required this.stream,
       required this.year,
       required this.date,
+      required this.userName,
       this.role = 'user'});
 
   factory _$_UserInfo.fromJson(Map<String, dynamic> json) =>
       _$$_UserInfoFromJson(json);
 
+  @JsonKey()
+  @override
+  final String? refId;
   @override
   final String id;
   @JsonKey()
@@ -203,16 +254,20 @@ class _$_UserInfo implements _UserInfo {
   @override
   final String batch;
   @override
+  final String stream;
+  @override
   final int year;
   @override
   final DateTime date;
+  @override
+  final String userName;
   @JsonKey()
   @override
   final String role;
 
   @override
   String toString() {
-    return 'UserInfo(id: $id, slot: $slot, batch: $batch, year: $year, date: $date, role: $role)';
+    return 'UserInfo(refId: $refId, id: $id, slot: $slot, batch: $batch, stream: $stream, year: $year, date: $date, userName: $userName, role: $role)';
   }
 
   @override
@@ -220,22 +275,28 @@ class _$_UserInfo implements _UserInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _UserInfo &&
+            const DeepCollectionEquality().equals(other.refId, refId) &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.slot, slot) &&
             const DeepCollectionEquality().equals(other.batch, batch) &&
+            const DeepCollectionEquality().equals(other.stream, stream) &&
             const DeepCollectionEquality().equals(other.year, year) &&
             const DeepCollectionEquality().equals(other.date, date) &&
+            const DeepCollectionEquality().equals(other.userName, userName) &&
             const DeepCollectionEquality().equals(other.role, role));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(refId),
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(slot),
       const DeepCollectionEquality().hash(batch),
+      const DeepCollectionEquality().hash(stream),
       const DeepCollectionEquality().hash(year),
       const DeepCollectionEquality().hash(date),
+      const DeepCollectionEquality().hash(userName),
       const DeepCollectionEquality().hash(role));
 
   @JsonKey(ignore: true)
@@ -251,15 +312,20 @@ class _$_UserInfo implements _UserInfo {
 
 abstract class _UserInfo implements UserInfo {
   const factory _UserInfo(
-      {required String id,
+      {String? refId,
+      required String id,
       int slot,
       required String batch,
+      required String stream,
       required int year,
       required DateTime date,
+      required String userName,
       String role}) = _$_UserInfo;
 
   factory _UserInfo.fromJson(Map<String, dynamic> json) = _$_UserInfo.fromJson;
 
+  @override
+  String? get refId;
   @override
   String get id;
   @override
@@ -267,9 +333,13 @@ abstract class _UserInfo implements UserInfo {
   @override
   String get batch;
   @override
+  String get stream;
+  @override
   int get year;
   @override
   DateTime get date;
+  @override
+  String get userName;
   @override
   String get role;
   @override

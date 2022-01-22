@@ -42,11 +42,15 @@ class UserBatchController extends GetxController {
       const Duration(milliseconds: 1000),
     );
 
+    final _user = Get.find<AuthService>().user!;
+
     final userInfo = UserInfo(
-      id: Get.find<AuthService>().user!.email!,
+      id: _user.email!,
+      userName: _user.displayName ?? "",
       slot: currentScheme.value ?? 1,
       year: currentYear.value!,
       batch: currentBatch.value!,
+      stream: "CSE",
       date: DateTime.now(),
     );
 

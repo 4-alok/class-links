@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:class_link/app/utils/color.dart';
 
 class AppTitleWidget extends StatelessWidget {
   final double fontSize;
@@ -18,12 +17,7 @@ class AppTitleWidget extends StatelessWidget {
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w700,
-                color: Theme.of(context).colorScheme.secondaryVariant.value ==
-                        Theme.of(context).appBarTheme.backgroundColor!.value
-                    ? BlendColor.boldTitle(
-                        context, Theme.of(context).colorScheme.primary)
-                    : BlendColor.boldTitle(context,
-                        Theme.of(context).colorScheme.secondaryVariant),
+                color: Theme.of(context).colorScheme.primaryVariant,
               ),
             ),
           ],
