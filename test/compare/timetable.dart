@@ -1,18 +1,12 @@
 import 'package:class_link/app/models/time_table/time_table.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class TT {
-  static bool dayEqual(Day d1, Day d2) {
-    try {
-      for (int i = 0; i < d1.subjects.length; i++) {
-        // print(d1.subjects[i]);
-        // print(d2.subjects[i]);
-        if (d1.subjects[i] != d2.subjects[i]) {
-          return false;
-        }
-      }
-    } catch (e) {
+extension DayEquality on Day {
+  bool equal(Day _day, [Day? _day2]) {
+    if ((_day2?.day ?? day) == _day.day) {
+      return const ListEquality().equals(_day2?.subjects ?? subjects, _day.subjects);
+    } else {
       return false;
     }
-    return true;
   }
 }

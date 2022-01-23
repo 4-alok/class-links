@@ -1,6 +1,7 @@
 import 'package:class_link/app/models/log/log.dart';
 import 'package:class_link/app/models/time_table/time_table.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get/route_manager.dart';
 import 'gsheet_utils.dart';
 
@@ -51,4 +52,10 @@ extension ToListLogData on List<List<dynamic>> {
           log: e[3],
         ),
       );
+}
+
+extension DayEquality on Day {
+  bool equals(Day _day, [Day? _day2]) => ((_day2?.day ?? day) == _day.day)
+      ? const ListEquality().equals(_day2?.subjects ?? subjects, _day.subjects)
+      : false;
 }

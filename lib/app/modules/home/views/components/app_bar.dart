@@ -69,15 +69,13 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       );
 
-  Padding userIcon(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 12.0),
-      child: GestureDetector(
-        child: const Hero(tag: "profile_image", child: UserIcon(radius: 20)),
-        onTap: () => Get.toNamed(Routes.PROFILE),
-      ),
-    );
-  }
+  Widget userIcon(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(right: 12.0),
+        child: GestureDetector(
+          child: const Hero(tag: "profile_image", child: UserIcon(radius: 20)),
+          onTap: () => Get.toNamed(Routes.PROFILE),
+        ),
+      );
 
   Color _getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{

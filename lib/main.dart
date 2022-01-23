@@ -15,47 +15,56 @@ import 'app/services/log_service.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runZonedGuarded<Future<void>>(
-    () async {
-      final database = HiveDatabase();
-      await init(database);
-      runApp(
-        GetX<HiveDatabase>(
-          builder: (_) => GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: "Class Link",
-            initialRoute: AppPages.INITIAL,
-            getPages: AppPages.routes,
-            theme: FlexThemeData.light(
-              blendLevel: 40,
-              subThemesData: const FlexSubThemesData(blendTextTheme: false),
-              colors: database.appTheme.value.light,
-              useSubThemes: true,
-              appBarStyle: database.appbarStyle.value,
-            ),
-            darkTheme: FlexThemeData.dark(
-              blendLevel: 40,
-              subThemesData: const FlexSubThemesData(blendTextTheme: false),
-              darkIsTrueBlack: database.isBlack.value,
-              colors: database.appTheme.value.dark,
-              appBarStyle: database.appbarStyle.value,
-              useSubThemes: true,
-            ),
-            themeMode: database.themeMode.value,
-            customTransition: SharedAxisScaleTransition(),
-          ),
-        ),
-      );
-    },
+    () async => await init().then((_) => runApp(
+          const ClassLink(),
+        )),
     (error, stackTrace) =>
         {debugPrint("Error# $error "), debugPrint("StackTrace# $stackTrace")},
   );
 }
 
-Future<void> init(HiveDatabase database) async {
+class ClassLink extends StatelessWidget {
+  const ClassLink({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final HiveDatabase database = Get.find<HiveDatabase>();
+    return GetX<HiveDatabase>(
+      builder: (_) => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Class Link",
+        initialRoute: AppPages.INITIAL,
+        getPages: AppPages.routes,
+        theme: FlexThemeData.light(
+          blendLevel: 40,
+          subThemesData: const FlexSubThemesData(blendTextTheme: false),
+          colors: database.appTheme.value.light,
+          useSubThemes: true,
+          appBarStyle: database.appbarStyle.value,
+        ),
+        darkTheme: FlexThemeData.dark(
+          blendLevel: 40,
+          subThemesData: const FlexSubThemesData(blendTextTheme: false),
+          darkIsTrueBlack: database.isBlack.value,
+          colors: database.appTheme.value.dark,
+          appBarStyle: database.appbarStyle.value,
+          useSubThemes: true,
+        ),
+        themeMode: database.themeMode.value,
+        customTransition: SharedAxisScaleTransition(),
+      ),
+    );
+  }
+}
+
+Future<void> init() async {
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   await Firebase.initializeApp();
   await Hive.initFlutter();
+  final database = HiveDatabase();
   Get.put<HiveDatabase>(database);
   await database.initDatabase();
   Get.put(FirestoreService());

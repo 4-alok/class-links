@@ -9,6 +9,7 @@ import 'package:class_link/app/services/auth_service.dart';
 import 'package:class_link/app/services/firestore_service.dart';
 import 'package:class_link/app/services/hive_database.dart';
 import 'package:class_link/app/services/log_service.dart';
+import 'package:class_link/app/utils/extension.dart';
 import 'package:class_link/app/utils/get_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,11 +17,14 @@ import 'package:get/get.dart';
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late final TabController tabController;
-  final week = Rx<List<Day>>([]);
   final hideEdit = true.obs;
   final editMode = false.obs;
   final isLoading = false.obs;
   StreamSubscription<List<Day>>? _timeTableSubscription;
+
+  // copy of originalList
+  final week = Rx<List<Day>>([]);
+  //  original list
   List<Day> originalList = List.generate(
     7,
     (index) => Day(day: Days.days[index], subjects: []),
@@ -152,9 +156,7 @@ class HomeController extends GetxController
   }
 
   String? get _validate {
-    // if (_isNotEqual) {
-    //   return "No changes made";
-    // }
+    if (!_isNotEqual) return "No changes made";
     for (final day in week.value) {
       for (int i = 1; i < day.subjects.length; i++) {
         final beforeSubTime = day.subjects[i - 1].startTime;
@@ -168,8 +170,15 @@ class HomeController extends GetxController
     return null;
   }
 
-  bool? get _isNotEqual {
-    // TODO: implement _isNotEqual
+  bool get _isNotEqual {
+    try {
+      for (int i = 0; i < originalList.length; i++) {
+        if (!originalList[i].equals(week.value[i])) return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<void> get _addOrUpdateTimeTable async {

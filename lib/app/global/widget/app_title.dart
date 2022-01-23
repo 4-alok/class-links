@@ -17,7 +17,7 @@ class AppTitleWidget extends StatelessWidget {
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w700,
-                color: Theme.of(context).colorScheme.primaryVariant,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ],

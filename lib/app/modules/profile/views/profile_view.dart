@@ -233,10 +233,11 @@ class ProfileView extends GetView<ProfileController> {
                 TextSpan(
                   style: aboutTextStyle,
                   text:
-                      'This app aids in the efficient management of college classes '
-                      ' by centralising the schedule and tasks. '
-                      'Here, one can manage the entire college routine in one location, rather of having '
-                      'to go from one location to another looking for classes and their linkages. \n\n',
+                      "Class Links is a student's one-stop destination to organize their class links and to make joining their classes easier and faster. "
+                      // "With only one app with it all, you never have to waste time searching for your schedule or meeting codes. "
+                      // "Simply create your timetable and add your classroom/zoom links. "
+                      // "Voila! A neat and precise system for the messy student in you. "
+                      "Don't let a mix-up be the reason you're late for class!. \n\n",
                 ),
                 TextSpan(style: footerStyle, text: 'Contact us : '),
                 TextSpan(
