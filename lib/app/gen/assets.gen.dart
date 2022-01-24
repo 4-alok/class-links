@@ -53,29 +53,28 @@ class AssetGenImage extends AssetImage {
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
     FilterQuality filterQuality = FilterQuality.low,
-  }) {
-    return Image(
-      key: key,
-      image: this,
-      frameBuilder: frameBuilder,
-      loadingBuilder: loadingBuilder,
-      errorBuilder: errorBuilder,
-      semanticLabel: semanticLabel,
-      excludeFromSemantics: excludeFromSemantics,
-      width: width,
-      height: height,
-      color: color,
-      colorBlendMode: colorBlendMode,
-      fit: fit,
-      alignment: alignment,
-      repeat: repeat,
-      centerSlice: centerSlice,
-      matchTextDirection: matchTextDirection,
-      gaplessPlayback: gaplessPlayback,
-      isAntiAlias: isAntiAlias,
-      filterQuality: filterQuality,
-    );
-  }
+  }) =>
+      Image(
+        key: key,
+        image: this,
+        frameBuilder: frameBuilder,
+        loadingBuilder: loadingBuilder,
+        errorBuilder: errorBuilder,
+        semanticLabel: semanticLabel,
+        excludeFromSemantics: excludeFromSemantics,
+        width: width,
+        height: height,
+        color: color,
+        colorBlendMode: colorBlendMode,
+        fit: fit,
+        alignment: alignment,
+        repeat: repeat,
+        centerSlice: centerSlice,
+        matchTextDirection: matchTextDirection,
+        gaplessPlayback: gaplessPlayback,
+        isAntiAlias: isAntiAlias,
+        filterQuality: filterQuality,
+      );
 
   String get path => assetName;
 }
@@ -101,26 +100,25 @@ class SvgGenImage {
     String? semanticsLabel,
     bool excludeFromSemantics = false,
     Clip clipBehavior = Clip.hardEdge,
-  }) {
-    return SvgPicture.asset(
-      _assetName,
-      key: key,
-      matchTextDirection: matchTextDirection,
-      bundle: bundle,
-      package: package,
-      width: width,
-      height: height,
-      fit: fit,
-      alignment: alignment,
-      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
-      placeholderBuilder: placeholderBuilder,
-      color: color,
-      colorBlendMode: colorBlendMode,
-      semanticsLabel: semanticsLabel,
-      excludeFromSemantics: excludeFromSemantics,
-      clipBehavior: clipBehavior,
-    );
-  }
+  }) =>
+      SvgPicture.asset(
+        _assetName,
+        key: key,
+        matchTextDirection: matchTextDirection,
+        bundle: bundle,
+        package: package,
+        width: width,
+        height: height,
+        fit: fit,
+        alignment: alignment,
+        allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+        placeholderBuilder: placeholderBuilder,
+        color: color,
+        colorBlendMode: colorBlendMode,
+        semanticsLabel: semanticsLabel,
+        excludeFromSemantics: excludeFromSemantics,
+        clipBehavior: clipBehavior,
+      );
 
   String get path => _assetName;
 }

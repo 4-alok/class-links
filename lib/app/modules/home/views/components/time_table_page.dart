@@ -78,7 +78,7 @@ class TimeTablePage extends StatelessWidget {
       );
 
   Future<void> toggleEditMode(BuildContext context) async {
-    final res = await homeController.toggleEditMode();
+    final res = await homeController.toggleEditMode;
     if (res != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(res)),

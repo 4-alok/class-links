@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:gsheets/gsheets.dart';
 
-// ignore: unused_element
+// isolated thread
 List<LogData> _listRowToListLog(List<List<String>> rowList) =>
     rowList.toListLogData.toList().reversed.toList();
 
@@ -33,7 +33,7 @@ class GoogleSheetSerevice extends GetxService {
     }
   }
 
-  Future<List<LogData>?> readLog() async {
+  Future<List<LogData>?> get readLog async {
     final Spreadsheet spreadsheet =
         await _gsheet.spreadsheet(GSheetUtils.getGSheetsId(""));
     final _userInfo = this._userInfo!;

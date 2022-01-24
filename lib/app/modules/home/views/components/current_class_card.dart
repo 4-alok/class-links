@@ -128,46 +128,44 @@ class CurrentClassCard extends StatelessWidget {
     }
   }
 
-  void showClassDialog(BuildContext context) => showDialog(
+  Future<void> showClassDialog(BuildContext context) async => await showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Choose Url"),
-            content: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                children: [
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () => launchUrl(context, item.googleClassRoomLink),
-                    child: SvgPicture.asset(
-                      Assets.icons.meet.path,
-                      semanticsLabel: 'Googel Class Room',
-                      height: 35,
-                      width: 35,
-                    ),
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text("Choose Url"),
+          content: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              children: [
+                const Spacer(),
+                GestureDetector(
+                  onTap: () => launchUrl(context, item.googleClassRoomLink),
+                  child: SvgPicture.asset(
+                    Assets.icons.meet.path,
+                    semanticsLabel: 'Googel Class Room',
+                    height: 35,
+                    width: 35,
                   ),
-                  const SizedBox(width: 80),
-                  GestureDetector(
-                    onTap: () => launchUrl(context, item.zoomLink),
-                    child: SvgPicture.asset(
-                      Assets.icons.zoom.path,
-                      semanticsLabel: 'Zoom Meet',
-                      height: 50,
-                      width: 50,
-                    ),
+                ),
+                const SizedBox(width: 80),
+                GestureDetector(
+                  onTap: () => launchUrl(context, item.zoomLink),
+                  child: SvgPicture.asset(
+                    Assets.icons.zoom.path,
+                    semanticsLabel: 'Zoom Meet',
+                    height: 50,
+                    width: 50,
                   ),
-                  const Spacer(),
-                ],
-              ),
+                ),
+                const Spacer(),
+              ],
             ),
-            actions: [
-              ElevatedButton(
-                  child: const Text("Cancel"),
-                  onPressed: () => Navigator.pop(context))
-            ],
-          );
-        },
+          ),
+          actions: [
+            ElevatedButton(
+                child: const Text("Cancel"),
+                onPressed: () => Navigator.pop(context))
+          ],
+        ),
       );
 
   Widget trailingWidget() => item.roomNo != null

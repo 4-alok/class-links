@@ -42,9 +42,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       );
 
-  Widget editAppTitle(BuildContext context) => const Text(
-        'Edit TimeTable',
-      );
+  Widget editAppTitle(BuildContext context) => const Text('Edit TimeTable');
 
   Widget appTitle(BuildContext context) => Theme(
         data: Theme.of(context),

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import '../../../global/const/const.dart';
 import '../../../models/log/log.dart';
 import '../../../models/time_table/time_table.dart';
@@ -11,6 +12,7 @@ import '../../../services/hive_database.dart';
 import '../../../services/log_service.dart';
 import '../../../utils/extension.dart';
 import '../../../utils/get_snackbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,12 +41,12 @@ class HomeController extends GetxController
       length: 7,
     );
     _defaultDays();
-    _getUserRole();
+    _getUserRole;
     super.onInit();
   }
 
-  Future<void> _getUserRole() async {
-    final result2 = await Get.find<FirestoreService>().getUserInfo();
+  Future<void> get _getUserRole async {
+    final result2 = await Get.find<FirestoreService>().getUserInfo;
     if (result2 != null) {
       if (result2.role != "viewer") {
         hideEdit.value = false;
@@ -53,7 +55,7 @@ class HomeController extends GetxController
   }
 
   void initSubscription() => _timeTableSubscription =
-          Get.find<FirestoreService>().timeTableStream().listen((event) {
+          Get.find<FirestoreService>().timeTableStream.listen((event) {
         week.value = List.generate(event.length, (index) => event[index]);
         originalList = _deepCopyWeek(event);
       });
@@ -69,7 +71,7 @@ class HomeController extends GetxController
       initSubscription();
       return result;
     } else {
-      final result2 = await Get.find<FirestoreService>().getUserInfo();
+      final result2 = await Get.find<FirestoreService>().getUserInfo;
       if (result2 != null) {
         await Get.find<HiveDatabase>().setUserInfo(result2);
         initSubscription();
@@ -136,7 +138,7 @@ class HomeController extends GetxController
     week.value.firstWhere((e) => e.day == day).subjects.addAll(_subjects);
   }
 
-  Future<String?> toggleEditMode() async {
+  Future<String?> get toggleEditMode async {
     if (editMode.value) {
       final _validate = this._validate;
       if (_validate == null) {

@@ -20,7 +20,7 @@ class LogPageView extends StatelessWidget {
         ),
       ),
       body: FutureBuilder<List<LogData>?>(
-        future: Get.find<GoogleSheetSerevice>().readLog(),
+        future: Get.find<GoogleSheetSerevice>().readLog,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const LinearProgressIndicator();
@@ -86,37 +86,6 @@ class LogPageView extends StatelessWidget {
               ),
             ],
           ),
-
-          // child: RichText(
-          //   text: TextSpan(
-          //     text: '${logs[index].date} \n',
-          //     style: TextStyle(
-          //       color: Get.theme.primaryColor,
-          //       fontWeight: FontWeight.bold,
-          //     ),
-          //     children: [
-          //       TextSpan(
-          //           text: '${logs[index].name}\n',
-          //           style: Theme.of(context)
-          //               .textTheme
-          //               .bodyText1!
-          //               .copyWith(fontSize: 16)),
-          //       // TextSpan(
-          //       //     text: '${logs[index].email} \n',
-          //       //     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-          //       //           fontSize: 16,
-          //       //           color: Get.theme.secondaryHeaderColor,
-          //       //         )),
-          //       TextSpan(
-          //         text: logs[index].log,
-          //         style: Theme.of(context)
-          //             .textTheme
-          //             .headline4!
-          //             .copyWith(fontSize: 16),
-          //       ),
-          //     ],
-          //   ),
-          // ),
         ),
       );
 }

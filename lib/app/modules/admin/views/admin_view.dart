@@ -22,7 +22,7 @@ class AdminView extends GetView<AdminController> {
         centerTitle: true,
       ),
       body: StreamBuilder<List<UserInfo>>(
-        stream: firestoreService.userList(),
+        stream: firestoreService.userList,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final userList = snapshot.data ?? [];

@@ -4,9 +4,7 @@ import '../controllers/admin_controller.dart';
 
 class AdminBinding extends Bindings {
   @override
-  void dependencies() {
-    Get.lazyPut<AdminController>(
-      () => AdminController(),
-    );
-  }
+  void dependencies() => Get.lazyPut<AdminController>(
+        () => AdminController(),
+      );
 }

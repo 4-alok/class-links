@@ -14,21 +14,19 @@ class UserIcon extends StatelessWidget {
   final bool noUser;
 
   @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-        radius: radius,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        child: noUser
-            ? personIcon()
-            : ClipOval(
-                child: CachedNetworkImage(
-                  placeholder: (_, __) => personIcon(),
-                  imageUrl: Get.find<AuthService>().user?.photoURL ?? "",
-                  errorWidget: (_, __, ___) => personIcon(),
-                  fit: BoxFit.cover,
-                ),
-              ));
-  }
+  Widget build(BuildContext context) => CircleAvatar(
+      radius: radius,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      child: noUser
+          ? personIcon()
+          : ClipOval(
+              child: CachedNetworkImage(
+                placeholder: (_, __) => personIcon(),
+                imageUrl: Get.find<AuthService>().user?.photoURL ?? "",
+                errorWidget: (_, __, ___) => personIcon(),
+                fit: BoxFit.cover,
+              ),
+            ));
 
   FaIcon personIcon() => const FaIcon(FontAwesomeIcons.user);
 }

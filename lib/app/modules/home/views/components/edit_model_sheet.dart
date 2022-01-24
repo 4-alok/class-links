@@ -229,9 +229,7 @@ class EditBottomSheet {
     if (formGlobalKey.currentState!.validate()) Navigator.pop(context, sub);
   }
 
-  String get addedByInfo {
-    return "${user.displayName},${user.email}";
-  }
+  String get addedByInfo => "${user.displayName},${user.email}";
 
   String addByInfo(Subject? subject, [ChangesType? change]) {
     if (subject != null) {

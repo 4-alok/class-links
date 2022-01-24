@@ -62,11 +62,10 @@ class SelectTimeFIeld extends StatelessWidget {
         ],
       );
 
-  void _showTimePicker(BuildContext context) => Navigator.of(context).push(
-        showPicker(
-          context: context,
-          value: const TimeOfDay(hour: 09, minute: 00),
-          onChange: (value) => dayTimeController.setTime(context, value),
-        ),
-      );
+  void _showTimePicker(BuildContext context) =>
+      Navigator.of(context).push(showPicker(
+        context: context,
+        value: const TimeOfDay(hour: 09, minute: 00),
+        onChange: (value) => dayTimeController.setTime(context, value),
+      ));
 }

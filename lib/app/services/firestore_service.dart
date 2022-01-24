@@ -12,20 +12,17 @@ class FirestoreService extends GetxService {
   final hiveDatabase = Get.find<HiveDatabase>();
 
   // ---------------timeTable-----------------------//
-  Stream<List<Day>> timeTableStream() {
-    final _ref = _firestore
-        .collection("time_table")
-        .where("year", isEqualTo: hiveDatabase.userInfo!.year)
-        .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
-        .where("batch", isEqualTo: hiveDatabase.userInfo!.batch)
-        .snapshots();
-    return _ref.map((event) => event.docs.isEmpty
-        ? _defaultDays
-        : TimeTable.fromJson(event.docs.first.data()).week);
-  }
+  Stream<List<Day>> get timeTableStream => _firestore
+      .collection("time_table")
+      .where("year", isEqualTo: hiveDatabase.userInfo!.year)
+      .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
+      .where("batch", isEqualTo: hiveDatabase.userInfo!.batch)
+      .snapshots()
+      .map((event) => event.docs.isEmpty
+          ? _defaultDays
+          : TimeTable.fromJson(event.docs.first.data()).week);
 
   Future<void> addOrUpdateTimeTable(TimeTable timeTable) async {
-    // if (hiveDatabase.userInfo!.year == 1) {
     final result = await _firestore
         .collection("time_table")
         .where("year", isEqualTo: hiveDatabase.userInfo!.year)
@@ -41,7 +38,7 @@ class FirestoreService extends GetxService {
   }
 
   // -----------------userInfo----------------------//
-  Future<UserInfo?> getUserInfo() async {
+  Future<UserInfo?> get getUserInfo async {
     try {
       final result = await _firestore
           .collection("user")
@@ -82,14 +79,14 @@ class FirestoreService extends GetxService {
   }
 
   // -----------------userList----------------------//
-  Stream<List<UserInfo>> userList() {
-    final result = _firestore.collection("user").snapshots();
-    return result.map((event) => event.docs.isEmpty
-        ? []
-        : event.docs
-            .map((e) => UserInfo.fromJson(e.data()).copyWith(refId: e.id))
-            .toList());
-  }
+  Stream<List<UserInfo>> get userList => _firestore
+      .collection("user")
+      .snapshots()
+      .map((event) => event.docs.isEmpty
+          ? []
+          : event.docs
+              .map((e) => UserInfo.fromJson(e.data()).copyWith(refId: e.id))
+              .toList());
 
   Future<bool> updateUser(UserInfo user) async {
     try {
