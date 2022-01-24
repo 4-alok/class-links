@@ -1,5 +1,5 @@
-import 'package:class_link/app/models/log/log.dart';
-import 'package:class_link/app/models/time_table/time_table.dart';
+import '../models/log/log.dart';
+import '../models/time_table/time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get/route_manager.dart';

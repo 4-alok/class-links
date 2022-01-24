@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:class_link/app/modules/home/controllers/home_controller.dart';
+import '../../controllers/home_controller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'app_bar.dart';

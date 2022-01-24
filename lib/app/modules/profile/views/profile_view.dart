@@ -1,10 +1,10 @@
-import 'package:class_link/app/gen/assets.gen.dart';
-import 'package:class_link/app/global/widget/user_icon.dart';
-import 'package:class_link/app/models/user_info/user_info.dart';
-import 'package:class_link/app/routes/app_pages.dart';
-import 'package:class_link/app/services/auth_service.dart';
-import 'package:class_link/app/services/hive_database.dart';
-import 'package:class_link/app/utils/extension.dart';
+import '../../../gen/assets.gen.dart';
+import '../../../global/widget/user_icon.dart';
+import '../../../models/user_info/user_info.dart';
+import '../../../routes/app_pages.dart';
+import '../../../services/auth_service.dart';
+import '../../../services/hive_database.dart';
+import '../../../utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -55,16 +55,20 @@ class ProfileView extends GetView<ProfileController> {
       );
 
   Card logoutCard() => Card(
-        color: Get.theme.cardColor
-            .alphaBlendColor(
-                Get.isDarkMode
-                    ? Get.theme.scaffoldBackgroundColor
-                    : Colors.red.withOpacity(0.05),
-                Colors.red[100])
-            .withOpacity(.8),
+        color: Get.isDarkMode
+            ? Get.theme.cardColor
+                .alphaBlendColor(
+                    Get.theme.scaffoldBackgroundColor, Colors.red[100])
+                .withOpacity(.8)
+            : Get.theme.cardColor.alphaBlendColor(Colors.red).withOpacity(.1),
         child: ListTile(
-          title: const Text('Logout', style: TextStyle(color: Colors.red)),
-          leading: const Icon(FontAwesomeIcons.signOutAlt, color: Colors.red),
+          title: Row(
+            children: const [
+              Icon(FontAwesomeIcons.signOutAlt, color: Colors.red),
+              SizedBox(width: 10),
+              Text('Logout', style: TextStyle(color: Colors.red)),
+            ],
+          ),
           onTap: () async => await controller.logout(),
         ),
       );

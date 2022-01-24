@@ -1,8 +1,8 @@
-import 'package:class_link/app/gen/assets.gen.dart';
+import '../../../../gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/route_manager.dart';
-import 'package:class_link/app/modules/subject_info/controllers/subject_info_controller.dart';
+import '../../controllers/subject_info_controller.dart';
 
 class SubjectInfoBody {
   final SubjectInfoController controller;

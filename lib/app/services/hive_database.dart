@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:class_link/app/global/theme/app_color.dart.dart';
-import 'package:class_link/app/models/user_info/user_info.dart';
+import '../global/theme/app_color.dart.dart';
+import '../models/user_info/user_info.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

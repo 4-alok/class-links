@@ -1,9 +1,9 @@
-import 'package:class_link/app/global/const/const.dart';
-import 'package:class_link/app/global/widget/app_title.dart';
-import 'package:class_link/app/routes/app_pages.dart';
+import '../../../../global/const/const.dart';
+import '../../../../global/widget/app_title.dart';
+import '../../../../routes/app_pages.dart';
 import 'package:flutter/material.dart';
-import 'package:class_link/app/modules/home/controllers/home_controller.dart';
-import 'package:class_link/app/global/widget/user_icon.dart';
+import '../../controllers/home_controller.dart';
+import '../../../../global/widget/user_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 

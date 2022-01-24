@@ -1,4 +1,4 @@
-import 'package:class_link/app/models/time_table/time_table.dart';
+import '../../../models/time_table/time_table.dart';
 import 'package:get/get.dart';
 
 class SubjectInfoController extends GetxController {

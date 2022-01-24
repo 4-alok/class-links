@@ -1,5 +1,5 @@
-import 'package:class_link/app/models/user_info/user_info.dart';
-import 'package:class_link/app/services/firestore_service.dart';
+import '../../../models/user_info/user_info.dart';
+import '../../../services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

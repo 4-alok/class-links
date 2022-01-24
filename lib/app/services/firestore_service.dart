@@ -1,7 +1,7 @@
-import 'package:class_link/app/global/const/const.dart';
-import 'package:class_link/app/models/time_table/time_table.dart';
-import 'package:class_link/app/models/user_info/user_info.dart';
-import 'package:class_link/app/utils/get_snackbar.dart';
+import '../global/const/const.dart';
+import '../models/time_table/time_table.dart';
+import '../models/user_info/user_info.dart';
+import '../utils/get_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'auth_service.dart';

@@ -1,8 +1,8 @@
-import 'package:class_link/app/models/user_info/user_info.dart';
-import 'package:class_link/app/routes/app_pages.dart';
-import 'package:class_link/app/services/auth_service.dart';
-import 'package:class_link/app/services/firestore_service.dart';
-import 'package:class_link/app/services/hive_database.dart';
+import '../../../models/user_info/user_info.dart';
+import '../../../routes/app_pages.dart';
+import '../../../services/auth_service.dart';
+import '../../../services/firestore_service.dart';
+import '../../../services/hive_database.dart';
 import 'package:get/get.dart';
 
 class UserBatchController extends GetxController {

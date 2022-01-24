@@ -1,14 +1,16 @@
 import 'dart:async';
-import 'package:class_link/app/services/auth_service.dart';
-import 'package:class_link/app/services/firestore_service.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'app/global/transition_animation.dart/shared_axis_scale_transition.dart';
 import 'app/routes/app_pages.dart';
+import 'app/services/auth_service.dart';
+import 'app/services/firestore_service.dart';
 import 'app/services/hive_database.dart';
 import 'app/services/log_service.dart';
 

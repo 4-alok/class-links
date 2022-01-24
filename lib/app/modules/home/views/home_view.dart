@@ -1,4 +1,4 @@
-import 'package:class_link/app/models/user_info/user_info.dart';
+import '../../../models/user_info/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/home_controller.dart';

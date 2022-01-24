@@ -1,10 +1,10 @@
-import 'package:class_link/app/global/const/credentials.dart';
-import 'package:class_link/app/models/log/log.dart';
-import 'package:class_link/app/models/user_info/user_info.dart';
-import 'package:class_link/app/services/hive_database.dart';
-import 'package:class_link/app/utils/extension.dart';
-import 'package:class_link/app/utils/get_snackbar.dart';
-import 'package:class_link/app/utils/gsheet_utils.dart';
+import '../global/const/credentials.dart';
+import '../models/log/log.dart';
+import '../models/user_info/user_info.dart';
+import 'hive_database.dart';
+import '../utils/extension.dart';
+import '../utils/get_snackbar.dart';
+import '../utils/gsheet_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:gsheets/gsheets.dart';

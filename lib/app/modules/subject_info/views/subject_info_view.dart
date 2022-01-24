@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:class_link/app/models/time_table/time_table.dart';
+import '../../../models/time_table/time_table.dart';
 import '../controllers/subject_info_controller.dart';
 import 'components/appbar.dart';
 import 'components/body.dart';

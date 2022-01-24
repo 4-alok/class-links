@@ -1,8 +1,8 @@
 import 'dart:ui';
-import 'package:class_link/app/global/widget/meet_link_selector.dart';
-import 'package:class_link/app/global/widget/time_selector.dart';
-import 'package:class_link/app/models/time_table/time_table.dart';
-import 'package:class_link/app/services/auth_service.dart';
+import '../../../../global/widget/meet_link_selector.dart';
+import '../../../../global/widget/time_selector.dart';
+import '../../../../models/time_table/time_table.dart';
+import '../../../../services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';

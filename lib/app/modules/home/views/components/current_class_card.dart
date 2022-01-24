@@ -1,9 +1,9 @@
 import 'package:animations/animations.dart';
-import 'package:class_link/app/gen/assets.gen.dart';
-import 'package:class_link/app/models/time_table/time_table.dart';
-import 'package:class_link/app/modules/subject_info/controllers/subject_info_controller.dart';
-import 'package:class_link/app/modules/subject_info/views/subject_info_view.dart';
-import 'package:class_link/app/utils/extension.dart';
+import '../../../../gen/assets.gen.dart';
+import '../../../../models/time_table/time_table.dart';
+import '../../../subject_info/controllers/subject_info_controller.dart';
+import '../../../subject_info/views/subject_info_view.dart';
+import '../../../../utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_instance/src/extension_instance.dart';

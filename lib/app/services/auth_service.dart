@@ -1,8 +1,8 @@
-import 'package:class_link/app/utils/get_snackbar.dart';
+import '../utils/get_snackbar.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:class_link/app/utils/exceptions.dart';
+import '../utils/exceptions.dart';
 
 class AuthService extends GetxService {
   late final FirebaseAuth _auth;
