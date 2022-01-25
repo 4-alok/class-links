@@ -2,11 +2,8 @@ class GSheetUtils {
   static const gsDateBase = 2209161600 / 86400;
   static const gsDateFactor = 86400000;
 
-  static String getGSheetsId(String idOrUrl) {
-    idOrUrl =
-        "https://docs.google.com/spreadsheets/d/15xJOfvH2xU8UfWBBObVymOqJS1Dq5ztXs5ZATnyb_3A/edit#gid=0";
-    return idOrUrl.contains("/") ? idOrUrl.split("/")[5] : idOrUrl;
-  }
+  static String getGSheetsId(String idOrUrl) =>
+      idOrUrl.contains("/") ? idOrUrl.split("/")[5] : idOrUrl;
 
   static double dateToGsheetsDate(DateTime dateTime, {bool localTime = true}) {
     final offset = dateTime.millisecondsSinceEpoch / gsDateFactor;

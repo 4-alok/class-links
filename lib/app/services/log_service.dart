@@ -19,8 +19,8 @@ class GoogleSheetSerevice extends GetxService {
 
   Future<bool?> addEntry(List<LogData> logs) async {
     try {
-      final Spreadsheet spreadsheet =
-          await _gsheet.spreadsheet(GSheetUtils.getGSheetsId(""));
+      final Spreadsheet spreadsheet = await _gsheet.spreadsheet(
+          GSheetUtils.getGSheetsId(SheetCredentials.spreadsheetId));
       final _userInfo = this._userInfo!;
       final _worksheetTitle =
           "${_userInfo.year}-${_userInfo.slot}-${_userInfo.batch}";
@@ -34,15 +34,13 @@ class GoogleSheetSerevice extends GetxService {
   }
 
   Future<List<LogData>?> get readLog async {
-    final Spreadsheet spreadsheet =
-        await _gsheet.spreadsheet(GSheetUtils.getGSheetsId(""));
+    final Spreadsheet spreadsheet = await _gsheet
+        .spreadsheet(GSheetUtils.getGSheetsId(SheetCredentials.spreadsheetId));
     final _userInfo = this._userInfo!;
     final _worksheetTitle =
         "${_userInfo.year}-${_userInfo.slot}-${_userInfo.batch}";
-
     Worksheet? worksheet = spreadsheet.worksheetByTitle(_worksheetTitle);
     worksheet ??= await spreadsheet.addWorksheet(_worksheetTitle);
-
     return await compute(_listRowToListLog, await worksheet.values.allRows());
   }
 }

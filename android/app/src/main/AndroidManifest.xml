@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dsc.class_link">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <queries>
       <intent>
         <action android:name="android.intent.action.VIEW" />
