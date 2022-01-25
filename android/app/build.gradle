@@ -48,7 +48,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.android.class_link"
+        applicationId "com.application.class_link"
         minSdkVersion 19
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
