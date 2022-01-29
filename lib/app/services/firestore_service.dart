@@ -12,7 +12,7 @@ class FirestoreService extends GetxService {
   final hiveDatabase = Get.find<HiveDatabase>();
 
   // ---------------timeTable-----------------------//
-  Stream<List<Day>> get timeTableStream => _firestore
+  Stream<List<Day>> get batchTimeTableStream => _firestore
       .collection("time_table")
       .where("year", isEqualTo: hiveDatabase.userInfo!.year)
       .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
@@ -22,7 +22,7 @@ class FirestoreService extends GetxService {
           ? _defaultDays
           : TimeTable.fromJson(event.docs.first.data()).week);
 
-  Future<void> addOrUpdateTimeTable(TimeTable timeTable) async {
+  Future<void> addOrUpdateBatchTimeTable(TimeTable timeTable) async {
     final result = await _firestore
         .collection("time_table")
         .where("year", isEqualTo: hiveDatabase.userInfo!.year)
@@ -32,6 +32,29 @@ class FirestoreService extends GetxService {
 
     if (result.docs.isEmpty) {
       await _firestore.collection("time_table").add(timeTable.toJson());
+    } else {
+      await result.docs.first.reference.update(timeTable.toJson());
+    }
+  }
+
+  Stream<List<Day>> get personalTimeTableStream => _firestore
+      .collection("personal_time_table")
+      .where("creatorId", isEqualTo: Get.find<AuthService>().user!.email!)
+      .snapshots()
+      .map((event) => event.docs.isEmpty
+          ? _defaultDays
+          : TimeTable.fromJson(event.docs.first.data()).week);
+
+  Future<void> addOrUpdatePersonalTimeTable(TimeTable timeTable) async {
+    final result = await _firestore
+        .collection("personal_time_table")
+        .where("creatorId", isEqualTo: Get.find<AuthService>().user!.email!)
+        .get();
+
+    if (result.docs.isEmpty) {
+      await _firestore
+          .collection("personal_time_table")
+          .add(timeTable.toJson());
     } else {
       await result.docs.first.reference.update(timeTable.toJson());
     }

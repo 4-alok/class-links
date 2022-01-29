@@ -88,13 +88,18 @@ class ProfileView extends GetView<ProfileController> {
         ),
       );
 
-  Card batch(BuildContext context) => Card(
-          child: ListTile(
-        title: const Text("Batch"),
-        trailing: Text(Get.find<HiveDatabase>().userInfo?.batch ?? "",
-            style:
-                Theme.of(context).textTheme.headline2!.copyWith(fontSize: 25)),
-      ));
+  Widget batch(BuildContext context) =>
+      Get.find<AuthService>().userType() == UserType.user
+          ? Card(
+              child: ListTile(
+              title: const Text("Batch"),
+              trailing: Text(Get.find<HiveDatabase>().userInfo?.batch ?? "",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline2!
+                      .copyWith(fontSize: 25)),
+            ))
+          : const SizedBox();
 
   Text email() => Text(
         user?.email ?? "",
@@ -165,13 +170,15 @@ class ProfileView extends GetView<ProfileController> {
         ),
       );
 
-  Widget showLog() => Card(
-        child: ListTile(
-          title: const Text("Show Log"),
-          trailing: const FaIcon(FontAwesomeIcons.caretRight),
-          onTap: () => Get.toNamed(Routes.LOG_PAGE),
-        ),
-      );
+  Widget showLog() => Get.find<AuthService>().userType() == UserType.user
+      ? Card(
+          child: ListTile(
+            title: const Text("Show Log"),
+            trailing: const FaIcon(FontAwesomeIcons.caretRight),
+            onTap: () => Get.toNamed(Routes.LOG_PAGE),
+          ),
+        )
+      : const SizedBox();
 
   Widget adminPanel() => userInfo?.role == "admin"
       ? Card(
@@ -204,7 +211,7 @@ class ProfileView extends GetView<ProfileController> {
     showAboutDialog(
       context: context,
       applicationName: 'Class Links',
-      applicationVersion: 'Version: 0.1',
+      applicationVersion: 'Version: 0.1.0',
       applicationIcon: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -236,12 +243,11 @@ class ProfileView extends GetView<ProfileController> {
               children: <TextSpan>[
                 TextSpan(
                   style: aboutTextStyle,
-                  text:
-                      "Class Links is a student's one-stop destination to organize their class links and to make joining their classes easier and faster. "
-                      // "With only one app with it all, you never have to waste time searching for your schedule or meeting codes. "
-                      // "Simply create your timetable and add your classroom/zoom links. "
-                      // "Voila! A neat and precise system for the messy student in you. "
-                      "Don't let a mix-up be the reason you're late for class!. \n\n",
+                  text: "Open class-link with a single click. "
+                      "Easily sync the same batch's schedule and class-link.\n\n",
+                  // "With only one app with it all, you never have to waste time searching for your schedule or meeting codes. "
+                  // "Simply create your timetable and add your classroom/zoom links. "
+                  // "Voila! A neat and precise system for the messy student in you. "
                 ),
                 TextSpan(style: footerStyle, text: 'Contact us : '),
                 TextSpan(

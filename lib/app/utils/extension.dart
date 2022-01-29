@@ -59,3 +59,7 @@ extension DayEquality on Day {
       ? const ListEquality().equals(_day2?.subjects ?? subjects, _day.subjects)
       : false;
 }
+
+extension Range on num {
+  bool isBetween(num from, num to) => from <= this && this <= to;
+}

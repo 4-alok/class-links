@@ -10,7 +10,7 @@ class AuthController extends GetxController {
   Future<void> login() async {
     loading.value = true;
     final result = await Get.find<AuthService>().login();
-    if (result) {
+    if (result == UserType.user) {
       final hiveDatabase = Get.find<HiveDatabase>();
       if (hiveDatabase.userInfo == null) {
         final _userInfo = await Get.find<FirestoreService>().getUserInfo;
@@ -22,6 +22,8 @@ class AuthController extends GetxController {
       hiveDatabase.userInfo == null
           ? Get.offNamed(Routes.USER_BATCH)
           : Get.offNamed(Routes.HOME);
+    } else if (result == UserType.kiitian || result == UserType.guest) {
+      Get.offNamed(Routes.HOME);
     }
     loading.value = false;
   }

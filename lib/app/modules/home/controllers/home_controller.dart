@@ -19,9 +19,11 @@ import 'package:get/get.dart';
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late final TabController tabController;
+  late final bool personalTimeTable;
   final hideEdit = true.obs;
   final editMode = false.obs;
   final isLoading = false.obs;
+
   StreamSubscription<List<Day>>? _timeTableSubscription;
 
   // copy of originalList
@@ -40,25 +42,49 @@ class HomeController extends GetxController
       vsync: this,
       length: 7,
     );
+    personalTimeTable =
+        (Get.find<AuthService>().userType() != UserType.user) ? true : false;
+
     _defaultDays();
     _getUserRole;
     super.onInit();
   }
 
+  @override
+  void onReady() {
+    personalTimeTable ? initSubscription() : null;
+    super.onReady();
+  }
+
   Future<void> get _getUserRole async {
-    final result2 = await Get.find<FirestoreService>().getUserInfo;
-    if (result2 != null) {
-      if (result2.role != "viewer") {
-        hideEdit.value = false;
+    if (personalTimeTable) {
+      hideEdit.value = false;
+    } else {
+      final result2 = await Get.find<FirestoreService>().getUserInfo;
+      if (result2 != null) {
+        if (result2.role != "viewer") {
+          hideEdit.value = false;
+        }
       }
     }
   }
 
-  void initSubscription() => _timeTableSubscription =
-          Get.find<FirestoreService>().timeTableStream.listen((event) {
+  void initSubscription() {
+    final _firestoreService = Get.find<FirestoreService>();
+    if (personalTimeTable) {
+      _timeTableSubscription =
+          _firestoreService.personalTimeTableStream.listen((event) {
         week.value = List.generate(event.length, (index) => event[index]);
         originalList = _deepCopyWeek(event);
       });
+    } else {
+      _timeTableSubscription =
+          _firestoreService.batchTimeTableStream.listen((event) {
+        week.value = List.generate(event.length, (index) => event[index]);
+        originalList = _deepCopyWeek(event);
+      });
+    }
+  }
 
   void _defaultDays() => week.value = List.generate(
         7,
@@ -143,7 +169,12 @@ class HomeController extends GetxController
       final _validate = this._validate;
       if (_validate == null) {
         isLoading.value = true;
-        if (await Get.find<GoogleSheetSerevice>().addEntry(logData) ?? false) {
+        if (personalTimeTable) {
+          await _addOrUpdateTimeTable;
+          logData.clear();
+          editMode.value = false;
+        } else if (await Get.find<GoogleSheetSerevice>().addEntry(logData) ??
+            false) {
           await _addOrUpdateTimeTable;
           logData.clear();
           editMode.value = false;
@@ -184,16 +215,30 @@ class HomeController extends GetxController
   }
 
   Future<void> get _addOrUpdateTimeTable async {
-    final _userInfo = Get.find<HiveDatabase>().userInfo!;
-    final timeTable = TimeTable(
-      week: week.value,
-      creatorId: _userInfo.id,
-      batch: _userInfo.batch,
-      year: _userInfo.year,
-      slot: _userInfo.slot,
-      date: DateTime.now(),
-    );
-    await Get.find<FirestoreService>().addOrUpdateTimeTable(timeTable);
+    if (personalTimeTable) {
+      final email = Get.find<AuthService>().user!.email!;
+      final timeTable = TimeTable(
+        week: week.value,
+        creatorId: email,
+        batch: '',
+        date: DateTime.now(),
+        slot: -1,
+        year: -1,
+      );
+      await Get.find<FirestoreService>()
+          .addOrUpdatePersonalTimeTable(timeTable);
+    } else {
+      final _userInfo = Get.find<HiveDatabase>().userInfo!;
+      final timeTable = TimeTable(
+        week: week.value,
+        creatorId: _userInfo.id,
+        batch: _userInfo.batch,
+        year: _userInfo.year,
+        slot: _userInfo.slot,
+        date: DateTime.now(),
+      );
+      await Get.find<FirestoreService>().addOrUpdateBatchTimeTable(timeTable);
+    }
   }
 
   List<Day> _deepCopyWeek(List<Day> originList) =>

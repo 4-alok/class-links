@@ -58,19 +58,18 @@ class CurrentClassCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          item.subjectName,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headline2,
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            item.subjectName,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.headline2,
+                          ),
                         ),
-                      ),
-                      trailingWidget(),
-                    ],
-                  ),
+                        trailingWidget(),
+                      ]),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 6),
                     child: Text(
