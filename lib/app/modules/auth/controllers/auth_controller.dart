@@ -1,3 +1,5 @@
+import '../../../utils/app_update.dart';
+
 import '../../../routes/app_pages.dart';
 import '../../../services/auth_service.dart';
 import '../../../services/firestore_service.dart';
@@ -6,6 +8,12 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   final loading = RxBool(false);
+
+  @override
+  void onReady() {
+    AndroidAppUpdate();
+    super.onReady();
+  }
 
   Future<void> login() async {
     loading.value = true;

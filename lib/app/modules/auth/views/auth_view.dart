@@ -16,30 +16,57 @@ class AuthView extends GetView<AuthController> {
         body: const Center(
             child: Hero(
           tag: "app_logo",
-          child: Material(child: AppTitleWidget(fontSize: 60)),
+          flightShuttleBuilder: AppTitleWidget.flightShuttleBuilder,
+          transitionOnUserGestures: true,
+          child: Material(
+            type: MaterialType.transparency,
+            child: AppTitleWidget(fontSize: 60),
+          ),
         )),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Obx(
-            () => ElevatedButton(
-              onPressed:
-                  controller.loading.value ? null : () => controller.login(),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    Assets.icons.google.path,
-                    semanticsLabel: 'A red up arrow',
-                    height: 20,
-                    width: 20,
+            () => Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Text(
+                    "by GDSC TEAM KIIT",
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(fontSize: 12),
                   ),
-                  const SizedBox(
-                    width: 10,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: controller.loading.value
+                      ? null
+                      : () => controller.login(),
+                  child: SizedBox(
+                    width: double.maxFinite,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(
+                          Assets.icons.google.path,
+                          semanticsLabel: 'A red up arrow',
+                          height: 20,
+                          width: 20,
+                        ),
+                        const SizedBox(width: 10),
+                        const Text("Login"),
+                        const SizedBox(width: 20),
+                      ],
+                    ),
                   ),
-                  const Text("Login"),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

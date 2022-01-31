@@ -15,6 +15,8 @@ class UserBatchView extends GetView<UserBatchController> {
             centerTitle: true,
             title: const Hero(
               tag: "app_logo",
+              flightShuttleBuilder: AppTitleWidget.flightShuttleBuilder,
+              transitionOnUserGestures: true,
               child: Material(child: AppTitleWidget()),
             )),
         body: ListView(

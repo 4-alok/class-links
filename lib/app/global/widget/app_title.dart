@@ -7,21 +7,35 @@ class AppTitleWidget extends StatelessWidget {
     this.fontSize = 30,
   }) : super(key: key);
 
+  static Widget flightShuttleBuilder(
+    BuildContext flightContext,
+    Animation<double> animation,
+    HeroFlightDirection flightDirection,
+    BuildContext fromHeroContext,
+    BuildContext toHeroContext,
+  ) =>
+      DefaultTextStyle(
+        style: DefaultTextStyle.of(toHeroContext).style,
+        child: toHeroContext.widget,
+      );
+
   @override
-  Widget build(BuildContext context) => Text.rich(
-        TextSpan(
-          text: 'Class',
-          children: [
-            TextSpan(
-              text: ' Link ',
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.w700,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+  Widget build(BuildContext context) => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Class",
+            style: TextStyle(fontSize: fontSize),
+          ),
+          Text(
+            " Link",
+            style: TextStyle(
+              fontSize: fontSize,
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).primaryColor,
             ),
-          ],
-        ),
-        style: TextStyle(fontSize: fontSize),
+          )
+        ],
       );
 }

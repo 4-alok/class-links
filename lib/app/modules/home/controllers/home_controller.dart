@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import '../../../utils/app_update.dart';
+
 import '../../../global/const/const.dart';
 import '../../../models/log/log.dart';
 import '../../../models/time_table/time_table.dart';
@@ -53,6 +55,7 @@ class HomeController extends GetxController
   @override
   void onReady() {
     personalTimeTable ? initSubscription() : null;
+    AndroidAppUpdate();
     super.onReady();
   }
 

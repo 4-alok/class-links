@@ -46,7 +46,12 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget appTitle(BuildContext context) => Theme(
         data: Theme.of(context),
-        child: const Hero(tag: "app_logo", child: AppTitleWidget()),
+        child: const Hero(
+          tag: "app_logo",
+          flightShuttleBuilder: AppTitleWidget.flightShuttleBuilder,
+          transitionOnUserGestures: true,
+          child: AppTitleWidget(),
+        ),
       );
 
   Widget tabBar(BuildContext context) => AnimatedContainer(
