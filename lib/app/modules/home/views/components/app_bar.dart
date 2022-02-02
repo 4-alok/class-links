@@ -65,7 +65,16 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           labelStyle:
               Theme.of(context).textTheme.headline4!.copyWith(fontSize: 27),
-          indicatorColor: Colors.transparent,
+          indicator: UnderlineTabIndicator(
+            insets: const EdgeInsets.symmetric(horizontal: 20),
+            borderSide: BorderSide(
+              width: 2,
+              color: Get.isDarkMode
+                  ? Colors.white
+                  : Theme.of(context).colorScheme.primary,
+              // color: Colors.white,
+            ),
+          ),
           isScrollable: true,
           controller: homeController.tabController,
           tabs: Days.days.map((e) => Tab(text: e)).toList(),

@@ -1,3 +1,5 @@
+import 'package:class_link/app/global/const/app_info.dart';
+
 import '../../../../gen/assets.gen.dart';
 import '../../../../global/widget/launcher.dart';
 import 'package:flutter/gestures.dart';
@@ -5,15 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/route_manager.dart';
 
-class AppInfo {
+class AppInfoBox {
   static void showAppAboutDialog(BuildContext context) {
     final TextStyle aboutTextStyle = Get.theme.textTheme.bodyText1!;
     final TextStyle footerStyle = Get.theme.textTheme.caption!;
 
     showAboutDialog(
       context: context,
-      applicationName: 'Class Links',
-      applicationVersion: 'Version: 0.1.0',
+      applicationName: AppInfo.appName,
+      applicationVersion: AppInfo.appVersion,
       applicationIcon: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -24,7 +26,6 @@ class AppInfo {
               children: [
                 SvgPicture.asset(
                   Assets.icons.dsc.path,
-                  semanticsLabel: 'A red up arrow',
                   height: 40,
                   width: 40,
                 ),
@@ -46,8 +47,7 @@ class AppInfo {
           ),
         ],
       ),
-      applicationLegalese:
-          'Copyright (c) 2024 Google Developer Student Club - KIIT\nMIT License',
+      applicationLegalese: AppInfo.applicationLegalese,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 24),
@@ -56,24 +56,23 @@ class AppInfo {
               children: <TextSpan>[
                 TextSpan(
                   style: aboutTextStyle,
-                  text: "Open class-link with a single click. "
-                      "Easily sync the same batch's schedule and class-link.\n\n",
+                  text: AppInfo.appInfo,
                 ),
                 TextSpan(style: footerStyle, text: 'Contact us : '),
                 TextSpan(
-                    text: 'classlink@dsckiit.in',
+                    text: AppInfo.supportMail,
                     style: footerStyle.copyWith(color: Colors.blue),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () => Launcher.launchUrl(
-                          context, 'mailto:classlink@dsckiit.in')),
+                          context, 'mailto: ${AppInfo.supportMail}')),
                 TextSpan(
                     style: footerStyle, text: '\nContributions are welcomed '),
                 TextSpan(
                     text: 'Github',
                     style: footerStyle.copyWith(color: Colors.blue),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () => Launcher.launchUrl(
-                          context, 'https://github.com/DSC-KIIT/class-links')),
+                      ..onTap =
+                          () => Launcher.launchUrl(context, AppInfo.github)),
               ],
             ),
           ),

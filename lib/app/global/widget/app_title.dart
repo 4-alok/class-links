@@ -20,22 +20,25 @@ class AppTitleWidget extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) => Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            "Class",
-            style: TextStyle(fontSize: fontSize),
-          ),
-          Text(
-            " Link",
-            style: TextStyle(
-              fontSize: fontSize,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.w700,
-              color: Theme.of(context).primaryColor,
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "Class",
+              style: TextStyle(fontSize: fontSize),
             ),
-          )
-        ],
+            Text(
+              " Link",
+              style: TextStyle(
+                fontSize: fontSize,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w700,
+                color: Theme.of(context).primaryColor,
+              ),
+            )
+          ],
+        ),
       );
 }

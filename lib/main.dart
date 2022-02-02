@@ -5,6 +5,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'app/global/transition_animation.dart/shared_axis_scale_transition.dart';
@@ -39,8 +40,10 @@ class ClassLink extends StatelessWidget {
         title: "Class Link",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
+        // fontFamily: GoogleFonts.openSans().fontFamily,
         theme: FlexThemeData.light(
           blendLevel: 40,
+          fontFamily: GoogleFonts.poppins().fontFamily,
           subThemesData: const FlexSubThemesData(blendTextTheme: false),
           colors: database.appTheme.value.light,
           useSubThemes: true,
@@ -48,6 +51,7 @@ class ClassLink extends StatelessWidget {
         ),
         darkTheme: FlexThemeData.dark(
           blendLevel: 40,
+          fontFamily: GoogleFonts.poppins().fontFamily,
           subThemesData: const FlexSubThemesData(blendTextTheme: false),
           darkIsTrueBlack: database.isBlack.value,
           colors: database.appTheme.value.dark,

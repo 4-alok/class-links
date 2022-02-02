@@ -26,6 +26,10 @@ class HomeController extends GetxController
   final editMode = false.obs;
   final isLoading = false.obs;
 
+  /// value changes every hour, to rebuild [TimeTablePage] body
+  final hourlyUpdpdate = ValueNotifier(DateTime.now().hour);
+
+  StreamSubscription? _hourlyUpdateSubscription;
   StreamSubscription<List<Day>>? _timeTableSubscription;
 
   // copy of originalList
@@ -46,6 +50,13 @@ class HomeController extends GetxController
     );
     personalTimeTable =
         (Get.find<AuthService>().userType() != UserType.user) ? true : false;
+
+    _hourlyUpdateSubscription =
+        Stream.periodic(const Duration(seconds: 1), (i) => i).listen((_) {
+      hourlyUpdpdate.value != DateTime.now().hour
+          ? hourlyUpdpdate.value = DateTime.now().hour
+          : null;
+    });
 
     _defaultDays();
     _getUserRole;
@@ -250,6 +261,8 @@ class HomeController extends GetxController
   @override
   void onClose() {
     if (_timeTableSubscription != null) _timeTableSubscription!.cancel();
+    if (_hourlyUpdateSubscription != null) _hourlyUpdateSubscription!.cancel();
+    hourlyUpdpdate.dispose();
     Get.delete<SubjectInfoController>(tag: SubjectInfoController.TAG);
     super.onClose();
   }

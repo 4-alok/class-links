@@ -1,3 +1,5 @@
+import '../../../../global/widget/launcher.dart';
+
 import '../../../../gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -70,7 +72,7 @@ class SubjectInfoBody {
         ),
       );
 
-  Widget get googleLink => Card(
+  Widget googleLink(BuildContext context) => Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -107,13 +109,17 @@ class SubjectInfoBody {
                   ),
                   controller.subject.googleClassRoomLink == ""
                       ? const SizedBox()
-                      : Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SvgPicture.asset(
-                            Assets.icons.meet.path,
-                            semanticsLabel: 'Googel Class Room',
-                            // height: 35,
-                            width: 25,
+                      : GestureDetector(
+                          onTap: () => Launcher.launchUrl(
+                              context, controller.subject.googleClassRoomLink),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SvgPicture.asset(
+                              Assets.icons.meet.path,
+                              semanticsLabel: 'Googel Class Room',
+                              // height: 35,
+                              width: 25,
+                            ),
                           ),
                         ),
                 ],
@@ -123,7 +129,7 @@ class SubjectInfoBody {
         ),
       );
 
-  Widget get zoomLink => Card(
+  Widget zoomLink(BuildContext context) => Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -163,13 +169,17 @@ class SubjectInfoBody {
                   ),
                   controller.subject.zoomLink == ""
                       ? const SizedBox()
-                      : Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SvgPicture.asset(
-                            Assets.icons.zoom.path,
-                            semanticsLabel: 'Zoom Meet',
-                            // height: 35,
-                            width: 30,
+                      : GestureDetector(
+                          onTap: () => Launcher.launchUrl(
+                              context, controller.subject.zoomLink),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SvgPicture.asset(
+                              Assets.icons.zoom.path,
+                              semanticsLabel: 'Zoom Meet',
+                              // height: 35,
+                              width: 30,
+                            ),
                           ),
                         ),
                 ],

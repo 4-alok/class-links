@@ -132,7 +132,7 @@ class ProfileView extends GetView<ProfileController> {
           ),
           actions: [
             IconButton(
-                onPressed: () => AppInfo.showAppAboutDialog(context),
+                onPressed: () => AppInfoBox.showAppAboutDialog(context),
                 icon: const FaIcon(FontAwesomeIcons.info)),
           ]);
 
