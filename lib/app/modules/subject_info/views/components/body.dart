@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import '../../../../global/widget/launcher.dart';
 
 import '../../../../gen/assets.gen.dart';
@@ -97,13 +99,27 @@ class SubjectInfoBody {
               Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      controller.subject.googleClassRoomLink == ""
-                          ? "No Google Classroom Link"
-                          : controller.subject.googleClassRoomLink,
-                      style: Get.theme.textTheme.headline4!.copyWith(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
+                    child: GestureDetector(
+                      onLongPress: () =>
+                          controller.subject.googleClassRoomLink != ""
+                              ? {
+                                  Clipboard.setData(ClipboardData(
+                                      text: controller
+                                          .subject.googleClassRoomLink)),
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content:
+                                              Text("Link copied to clipboard")))
+                                }
+                              : null,
+                      child: Text(
+                        controller.subject.googleClassRoomLink == ""
+                            ? "No Google Classroom Link"
+                            : controller.subject.googleClassRoomLink,
+                        style: Get.theme.textTheme.headline4!.copyWith(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
@@ -154,15 +170,28 @@ class SubjectInfoBody {
               Row(
                 children: [
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2),
-                      child: Text(
-                        controller.subject.zoomLink == ""
-                            ? "No Zoom Meeting Link"
-                            : controller.subject.zoomLink,
-                        style: Get.theme.textTheme.headline4!.copyWith(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
+                    child: GestureDetector(
+                      onLongPress: () => controller.subject.zoomLink != ""
+                          ? {
+                              Clipboard.setData(ClipboardData(
+                                text: controller.subject.zoomLink,
+                              )),
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content:
+                                          Text("Link copied to clipboard")))
+                            }
+                          : null,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2),
+                        child: Text(
+                          controller.subject.zoomLink == ""
+                              ? "No Zoom Meeting Link"
+                              : controller.subject.zoomLink,
+                          style: Get.theme.textTheme.headline4!.copyWith(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),

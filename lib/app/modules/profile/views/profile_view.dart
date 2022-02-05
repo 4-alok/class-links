@@ -1,3 +1,4 @@
+import '../../../global/const/app_info.dart';
 import '../../../global/widget/user_icon.dart';
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
@@ -12,6 +13,7 @@ import '../controllers/profile_controller.dart';
 import 'component/app_info_dialog.dart';
 import 'component/appbar_style.dart';
 import 'component/theme_selector.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
@@ -131,6 +133,11 @@ class ProfileView extends GetView<ProfileController> {
             onPressed: () => Get.back(),
           ),
           actions: [
+            IconButton(
+                onPressed: () => Share.share(
+                    'Download Class Link form Google Play Store ${AppInfo.appUrl}',
+                    subject: 'Class Link'),
+                icon: const FaIcon(FontAwesomeIcons.share)),
             IconButton(
                 onPressed: () => AppInfoBox.showAppAboutDialog(context),
                 icon: const FaIcon(FontAwesomeIcons.info)),

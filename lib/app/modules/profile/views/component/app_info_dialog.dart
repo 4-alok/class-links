@@ -1,4 +1,4 @@
-import 'package:class_link/app/global/const/app_info.dart';
+import '../../../../global/const/app_info.dart';
 
 import '../../../../gen/assets.gen.dart';
 import '../../../../global/widget/launcher.dart';
