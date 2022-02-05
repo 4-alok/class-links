@@ -44,7 +44,7 @@ class CurrentClassCard extends StatelessWidget {
                       Container(
                         height: 23,
                         width: 4,
-                        color: Theme.of(context).colorScheme.secondaryVariant,
+                        color: Theme.of(context).colorScheme.secondaryContainer,
                       ),
                       const SizedBox(width: 8),
                       Text(

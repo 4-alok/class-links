@@ -28,7 +28,7 @@ class AdminView extends GetView<AdminController> {
             final userList = snapshot.data ?? [];
             return RawScrollbar(
               thickness: 12,
-              thumbColor: Theme.of(context).colorScheme.primaryVariant,
+              thumbColor: Theme.of(context).colorScheme.primaryContainer,
               radius: const Radius.circular(6),
               minThumbLength: 100,
               interactive: true,

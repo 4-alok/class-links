@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class BlendColor {
   static Color boldTitle(BuildContext context, Color color) {
     final theme = Theme.of(context);
-    return theme.colorScheme.secondaryVariant.value ==
+    return theme.colorScheme.secondary.value ==
             theme.appBarTheme.backgroundColor!.value
         ? theme.secondaryHeaderColor
         : theme.primaryColorLight;

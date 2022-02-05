@@ -31,6 +31,7 @@ class GoogleSheetSerevice extends GetxService {
     } catch (e) {
       Message("Error while adding log", "Try again later");
     }
+    return null;
   }
 
   Future<List<LogData>?> get readLog async {

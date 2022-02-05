@@ -200,6 +200,7 @@ class HomeController extends GetxController
     } else {
       editMode.value = true;
     }
+    return null;
   }
 
   String? get _validate {

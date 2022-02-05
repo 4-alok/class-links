@@ -39,6 +39,7 @@ class MeetLinkSelector extends StatelessWidget {
         return null;
       }
     }
+    return null;
   }
 
   bool urlValidator(String url) {
