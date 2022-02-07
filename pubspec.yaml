@@ -31,6 +31,7 @@ dependencies:
   gsheets: ^0.3.2
   in_app_update: ^2.0.0
   share_plus: ^3.0.4
+  flutter_local_notifications: ^9.2.0
   flutter:
     sdk: flutter
 

@@ -40,7 +40,6 @@ class ClassLink extends StatelessWidget {
         title: "Class Link",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
-        // fontFamily: GoogleFonts.openSans().fontFamily,
         theme: FlexThemeData.light(
           blendLevel: 40,
           fontFamily: GoogleFonts.poppins().fontFamily,

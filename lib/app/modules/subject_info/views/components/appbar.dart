@@ -17,24 +17,25 @@ class SubjectInfoAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SliverAppBar(
-      expandedHeight: 200,
-      pinned: true,
-      snap: true,
-      floating: true,
-      leading: IconButton(
-        onPressed: () => Navigator.pop(context),
-        icon: const FaIcon(FontAwesomeIcons.arrowLeft),
-      ),
-      flexibleSpace: FlexibleSpaceBar(
-        background: sunMoonWidget(),
-        title: Hero(
-          tag: "subject_name",
-          child: Text(
-            controller.subject.subjectName,
-            style: Theme.of(context).textTheme.headline4,
+        expandedHeight: 200,
+        pinned: true,
+        snap: true,
+        floating: true,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const FaIcon(FontAwesomeIcons.arrowLeft),
+        ),
+        flexibleSpace: FlexibleSpaceBar(
+          background: sunMoonWidget(),
+          title: Hero(
+            tag: "subject_name",
+            child: Text(
+              controller.subject.subjectName,
+              style: Theme.of(context).textTheme.headline4,
+            ),
           ),
         ),
-      ));
+      );
 
   Widget sunMoonWidget() => Container(
       color: (Get.isDarkMode)
