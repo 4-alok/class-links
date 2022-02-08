@@ -21,4 +21,6 @@ class SubjectInfoController extends GetxController {
 
   bool get isDay => hour.value >= 6 && hour.value <= 18;
   // bool get isDusk => hour.value >= 16 && hour.value <= 18;
+
+  
 }

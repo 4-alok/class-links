@@ -12,7 +12,7 @@ import '../modules/subject_info/views/subject_info_view.dart';
 class NotificationService extends GetxService {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   final initializationSettingsAndroid =
-      const AndroidInitializationSettings('app_icon');
+      const AndroidInitializationSettings('app_notification_icon');
   late final InitializationSettings initializationSettings;
   late final NotificationAppLaunchDetails? notificationAppLaunchDetails;
 
@@ -25,7 +25,7 @@ class NotificationService extends GetxService {
         await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
     await flutterLocalNotificationsPlugin.initialize(
         InitializationSettings(android: initializationSettingsAndroid),
-        onSelectNotification: (String? payload) {});
+        onSelectNotification: (String? payload) => _openSubject(payload));
 
     if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
       _openSubject(notificationAppLaunchDetails!.payload);
@@ -114,6 +114,14 @@ class NotificationService extends GetxService {
       return "Google meet - Zoom meeting";
     } else {
       return null;
+    }
+  }
+
+  Future test() async {
+    final k =
+        await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+    for (var element in k) {
+      // final a = element.;
     }
   }
 }

@@ -57,6 +57,9 @@ class SubjectInfoView extends GetView<SubjectInfoController> {
                     SubjectInfoBody(controller: controller).googleLink(context),
                     const SizedBox(height: 10),
                     SubjectInfoBody(controller: controller).zoomLink(context),
+                    const SizedBox(height: 10),
+                    SubjectInfoBody(controller: controller)
+                        .scheduleButtons(context)
                   ],
                 ),
               ],

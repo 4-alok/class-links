@@ -14,6 +14,7 @@ import 'app/services/auth_service.dart';
 import 'app/services/firestore_service.dart';
 import 'app/services/hive_database.dart';
 import 'app/services/log_service.dart';
+import 'app/services/notification_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,4 +76,5 @@ Future<void> init() async {
   Get.put(FirestoreService());
   Get.put(AuthService());
   Get.lazyPut(() => GoogleSheetSerevice());
+  Get.put(() => NotificationService());
 }

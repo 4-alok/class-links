@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../global/widget/launcher.dart';
 
@@ -217,6 +218,62 @@ class SubjectInfoBody {
           ),
         ),
       );
+
+  Widget scheduleButtons(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Flexible(
+            child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            width: double.maxFinite,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).cardColor),
+              onPressed: () {},
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(child: FaIcon(FontAwesomeIcons.bell)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 6.0),
+                    child: Text("Reminde Today"),
+                  )
+                ],
+              ),
+            ),
+          ),
+        )),
+        Flexible(
+            child: SizedBox(
+          width: double.maxFinite,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(child: FaIcon(FontAwesomeIcons.calendarAlt)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 6.0),
+                    child: Text("Reminde Everyday"),
+                  )
+                ],
+              ),
+            ),
+          ),
+        )),
+      ],
+    );
+  }
 
   Tooltip _toolTipText(String text) => Tooltip(
         preferBelow: false,

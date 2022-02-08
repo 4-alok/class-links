@@ -27,11 +27,13 @@ class SubjectInfoAppBar extends StatelessWidget {
         ),
         flexibleSpace: FlexibleSpaceBar(
           background: sunMoonWidget(),
-          title: Hero(
-            tag: "subject_name",
-            child: Text(
-              controller.subject.subjectName,
-              style: Theme.of(context).textTheme.headline4,
+          title: SafeArea(
+            child: Hero(
+              tag: "subject_name",
+              child: Text(
+                controller.subject.subjectName,
+                style: Theme.of(context).textTheme.headline3,
+              ),
             ),
           ),
         ),
@@ -85,8 +87,9 @@ class SubjectInfoAppBar extends StatelessWidget {
                         child: SlideTransition(
                           position: anim.drive(
                             Tween(
-                                begin: const Offset(0, 4),
-                                end: const Offset(0, 0)),
+                              begin: const Offset(0, 4),
+                              end: const Offset(0, 0),
+                            ),
                           ),
                           child: child,
                         ),
