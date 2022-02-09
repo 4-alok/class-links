@@ -25,6 +25,7 @@ Class Link is available on the Google Play Store
 <img width="205px" alt="Example" src="https://i.imgur.com/bkOalBS.png"/>
 <img width="205px" alt="Example" src="https://i.imgur.com/gyn1nzd.png"/>
 <img width="205px" alt="Example" src="https://i.imgur.com/wvBswvI.png"/>
+<img width="205px" alt="Example" src="https://i.imgur.com/azFXx1K.png"/>
 </p>
 <br>
 <!-- markdownlint-restore -->
@@ -84,6 +85,8 @@ Thanks go to these wonderful people
     <td align="center"><a href="https://github.com/4-alok"><img src="https://avatars.githubusercontent.com/u/29683474?v=4" width="100px;" alt=""/><br /><sub><b>Alok Kumar</b></sub></a><br/>
     </td>
     <td align="center"><a href="https://github.com/lzzy12"><img src="https://avatars.githubusercontent.com/u/26739338?v=4" width="100px;" alt=""/><br /><sub><b>Shivam Jha</b></sub></a><br/>
+    </td>
+    <td align="center"><a href="https://github.com/sahilkr9"><img src="https://avatars.githubusercontent.com/u/78214104?v=4" width="100px;" alt=""/><br/><sub><b>Sahil Kumar</b></sub></a><br/>
     </td>
     <td align="center"><a href="https://github.com/CarlJohnson10"><img src="https://avatars.githubusercontent.com/u/59209208?v=4" width="100px;" alt=""/><br/><sub><b>Sumit Panwar</b></sub></a><br/>
     </td>

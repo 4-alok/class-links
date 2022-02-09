@@ -93,12 +93,22 @@ class ProfileView extends GetView<ProfileController> {
       Get.find<AuthService>().userType() == UserType.user
           ? Card(
               child: ListTile(
-              title: const Text("Batch"),
-              trailing: Text(Get.find<HiveDatabase>().userInfo?.batch ?? "",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline2!
-                      .copyWith(fontSize: 25)),
+              title: const Text("My Batch"),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(Get.find<HiveDatabase>().userInfo?.batch ?? "",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5!
+                          .copyWith(fontSize: 20)),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 12),
+                    child: FaIcon(FontAwesomeIcons.caretRight),
+                  )
+                ],
+              ),
+              onTap: () => Get.toNamed(Routes.MY_BATCH),
             ))
           : const SizedBox();
 
@@ -137,7 +147,7 @@ class ProfileView extends GetView<ProfileController> {
                 onPressed: () => Share.share(
                     'Download Class Link form Google Play Store ${AppInfo.appUrl}',
                     subject: 'Class Link'),
-                icon: const FaIcon(FontAwesomeIcons.share)),
+                icon: const FaIcon(FontAwesomeIcons.shareAlt)),
             IconButton(
                 onPressed: () => AppInfoBox.showAppAboutDialog(context),
                 icon: const FaIcon(FontAwesomeIcons.info)),

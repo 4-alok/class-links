@@ -1,6 +1,7 @@
-// ignore_for_file: non_constant_identifier_names
-
+import '../modules/my_batch/bindings/my_batch_binding.dart';
+import '../modules/my_batch/views/my_batch_view.dart';
 import 'package:get/get.dart';
+
 import '../modules/admin/bindings/admin_binding.dart';
 import '../modules/admin/views/admin_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
@@ -15,6 +16,7 @@ import '../modules/user_batch/bindings/user_batch_binding.dart';
 import '../modules/user_batch/views/user_batch_view.dart';
 import '../services/auth_service.dart';
 
+// ignore_for_file: non_constant_identifier_names
 part 'app_routes.dart';
 
 class AppPages {
@@ -57,6 +59,12 @@ class AppPages {
     GetPage(
       name: _Paths.SUBJECT_INFO,
       page: () => SubjectInfoView(subject: Get.arguments),
+    ),
+    GetPage(
+      name: _Paths.MY_BATCH,
+      page: () => const MyBatchView(),
+      binding: MyBatchBinding(),
+      transition: Transition.cupertino,
     ),
   ];
 }

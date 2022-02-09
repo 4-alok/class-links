@@ -102,14 +102,11 @@ class FirestoreService extends GetxService {
   }
 
   // -----------------userList----------------------//
-  Stream<List<UserInfo>> get userList => _firestore
-      .collection("user")
-      .snapshots()
-      .map((event) => event.docs.isEmpty
-          ? []
-          : event.docs
-              .map((e) => UserInfo.fromJson(e.data()).copyWith(refId: e.id))
-              .toList());
+  Future<List<UserInfo>> get userList async =>
+      (await _firestore.collection("user").get())
+          .docs
+          .map((e) => UserInfo.fromJson(e.data()))
+          .toList();
 
   Future<bool> updateUser(UserInfo user) async {
     try {
@@ -119,6 +116,28 @@ class FirestoreService extends GetxService {
       Message("Error", "Unable to add user : $e");
       return false;
     }
+  }
+
+  Future<List<UserInfo>> myBatch() async {
+    final userList = (await _firestore
+            .collection("user")
+            .where("batch",
+                isEqualTo: Get.find<HiveDatabase>().userInfo?.batch ?? "na")
+            .get())
+        .docs
+        .map(
+          (e) => UserInfo.fromJson(e.data()),
+        )
+        .toList();
+    final shortRolls = userList
+        .where((element) => element.id.split("@").first.length == 7)
+        .toList();
+    shortRolls.sort((a, b) => a.id.compareTo(b.id));
+    final longRolls = userList
+        .where((element) => element.id.split("@").first.length == 8)
+        .toList();
+    longRolls.sort((a, b) => a.id.compareTo(b.id));
+    return [...shortRolls, ...longRolls];
   }
 
   // -----------------utils----------------------//
