@@ -1,10 +1,13 @@
+import 'package:class_link/app/utils/filter_user_by_id.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../models/user_info/user_info.dart';
 import '../../../services/firestore_service.dart';
 
-enum UserFilter { id, date, name }
+enum UserFilter { id, date }
+
+const List<String> filterOptions = ['ID', 'Date'];
 
 class AdminController extends GetxController {
   final scrollController = ScrollController(initialScrollOffset: 100);
@@ -14,10 +17,22 @@ class AdminController extends GetxController {
 
   List<String> batches = [];
 
+  void updateFilter(String filter) {
+    switch (filter) {
+      case 'ID':
+        userFilter.value = UserFilter.id;
+        break;
+      case 'Date':
+        userFilter.value = UserFilter.date;
+        break;
+    }
+    batch.update((val) => Get.back());
+  }
+
   Future<List<UserInfo>> get userList async {
     late final List<UserInfo> users;
     if (batch.value != null) {
-      if (batch.value == " None") {
+      if (batch.value == " Show All") {
         users = await Get.find<FirestoreService>().userList;
       } else {
         users = (await Get.find<FirestoreService>().userList)
@@ -34,19 +49,15 @@ class AdminController extends GetxController {
 
     switch (userFilter.value) {
       case UserFilter.id:
-        users.sort((a, b) => a.id.compareTo(b.id));
-        return users;
+        return filterById(users);
       case UserFilter.date:
-        users.sort((a, b) => a.date.compareTo(b.date));
-        return users;
-      case UserFilter.name:
-        users.sort((a, b) => a.userName.compareTo(b.userName));
+        users.sort((a, b) => b.date.compareTo(a.date));
         return users;
     }
   }
 
   List<String> _batchList(List<UserInfo> users) {
-    List<String> batches = [" None"];
+    List<String> batches = [" Show All"];
     for (final UserInfo userInfo in users) {
       if (!batches.contains(userInfo.batch)) {
         batches.add(userInfo.batch);

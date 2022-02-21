@@ -29,6 +29,9 @@ class GoogleSheetSerevice extends GetxService {
       worksheet ??= await spreadsheet.addWorksheet(_worksheetTitle);
       return await worksheet.values.appendRows(logs.toSheetRowList);
     } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
       Message("Error while adding log", "Try again later");
     }
     return null;

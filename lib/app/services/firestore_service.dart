@@ -1,6 +1,7 @@
 import '../global/const/const.dart';
 import '../models/time_table/time_table.dart';
 import '../models/user_info/user_info.dart';
+import '../utils/filter_user_by_id.dart';
 import '../utils/get_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
@@ -129,15 +130,7 @@ class FirestoreService extends GetxService {
           (e) => UserInfo.fromJson(e.data()),
         )
         .toList();
-    final shortRolls = userList
-        .where((element) => element.id.split("@").first.length == 7)
-        .toList();
-    shortRolls.sort((a, b) => a.id.compareTo(b.id));
-    final longRolls = userList
-        .where((element) => element.id.split("@").first.length == 8)
-        .toList();
-    longRolls.sort((a, b) => a.id.compareTo(b.id));
-    return [...shortRolls, ...longRolls];
+        return filterById(userList);
   }
 
   // -----------------utils----------------------//
