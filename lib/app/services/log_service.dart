@@ -13,7 +13,7 @@ import 'package:gsheets/gsheets.dart';
 List<LogData> _listRowToListLog(List<List<String>> rowList) =>
     rowList.toListLogData.toList().reversed.toList();
 
-class GoogleSheetSerevice extends GetxService {
+class GoogleSheetService extends GetxService {
   final _gsheet = GSheets(SheetCredentials.credentials);
   UserInfo? get _userInfo => Get.find<HiveDatabase>().userInfo;
 

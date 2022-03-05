@@ -29,18 +29,18 @@ class AdminController extends GetxController {
     batch.update((val) => Get.back());
   }
 
-  Future<List<UserInfo>> get userList async {
+  List<UserInfo> userList(List<UserInfo> listUserInfo) {
     late final List<UserInfo> users;
     if (batch.value != null) {
       if (batch.value == " Show All") {
-        users = await Get.find<FirestoreService>().userList;
+        users = listUserInfo;
       } else {
-        users = (await Get.find<FirestoreService>().userList)
+        users = listUserInfo
             .where((element) => element.batch == batch.value)
             .toList();
       }
     } else {
-      users = await Get.find<FirestoreService>().userList;
+      users = listUserInfo;
     }
     if (!batchReady) {
       batches = _batchList(users);

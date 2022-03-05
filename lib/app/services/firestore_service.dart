@@ -106,8 +106,26 @@ class FirestoreService extends GetxService {
   Future<List<UserInfo>> get userList async =>
       (await _firestore.collection("user").get())
           .docs
-          .map((e) => UserInfo.fromJson(e.data()))
+          .map((e) => UserInfo.fromJson(e.data()).copyWith(refId: e.id))
           .toList();
+
+  Stream<List<UserInfo>> get streamAllUserList =>
+      _firestore.collection("user").snapshots().map(
+            (event) => event.docs.map((e) {
+              return UserInfo.fromJson(e.data()).copyWith(refId: e.id);
+            }).toList(),
+          );
+
+  Stream<List<UserInfo>> get streamUserList => _firestore
+      .collection("user")
+      .where("batch",
+          isEqualTo: Get.find<HiveDatabase>().userInfo?.batch ?? "na")
+      .snapshots()
+      .map(
+        (event) => event.docs.map((e) {
+          return UserInfo.fromJson(e.data()).copyWith(refId: e.id);
+        }).toList(),
+      );
 
   Future<bool> updateUser(UserInfo user) async {
     try {
@@ -120,6 +138,15 @@ class FirestoreService extends GetxService {
   }
 
   Future<List<UserInfo>> myBatch() async {
+    final k = _firestore
+        .collection("user")
+        .where("batch",
+            isEqualTo: Get.find<HiveDatabase>().userInfo?.batch ?? "na")
+        .snapshots()
+        .map((event) => event.docs.map((e) {
+              return UserInfo.fromJson(e.data());
+            }).toList());
+
     final userList = (await _firestore
             .collection("user")
             .where("batch",
@@ -130,7 +157,7 @@ class FirestoreService extends GetxService {
           (e) => UserInfo.fromJson(e.data()),
         )
         .toList();
-        return filterById(userList);
+    return filterById(userList);
   }
 
   // -----------------utils----------------------//

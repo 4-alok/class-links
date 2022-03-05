@@ -77,7 +77,7 @@ class ProfileView extends GetView<ProfileController> {
   Card appBarStyle() => Card(
         child: Obx(
           () {
-            final appBarStyle = Get.find<HiveDatabase>().appbarStyle;
+            final appBarStyle = Get.find<HiveDatabase>().appBarStyle;
             return ListTile(
               title: const Text("AppBar Style"),
               trailing: AppBarStyleButtons(
@@ -187,7 +187,7 @@ class ProfileView extends GetView<ProfileController> {
         )
       : const SizedBox();
 
-  Widget adminPanel() => userInfo?.role == "admin"
+  Widget adminPanel() => (userInfo?.role == "admin" || userInfo?.role == "mod")
       ? Card(
           child: ListTile(
             title: const Text("Admin Panel"),

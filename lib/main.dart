@@ -40,14 +40,13 @@ class ClassLink extends StatelessWidget {
         title: "Class Link",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
-        // fontFamily: GoogleFonts.openSans().fontFamily,
         theme: FlexThemeData.light(
           blendLevel: 40,
           fontFamily: GoogleFonts.poppins().fontFamily,
           subThemesData: const FlexSubThemesData(blendTextTheme: false),
           colors: database.appTheme.value.light,
           useSubThemes: true,
-          appBarStyle: database.appbarStyle.value,
+          appBarStyle: database.appBarStyle.value,
         ),
         darkTheme: FlexThemeData.dark(
           blendLevel: 40,
@@ -55,7 +54,7 @@ class ClassLink extends StatelessWidget {
           subThemesData: const FlexSubThemesData(blendTextTheme: false),
           darkIsTrueBlack: database.isBlack.value,
           colors: database.appTheme.value.dark,
-          appBarStyle: database.appbarStyle.value,
+          appBarStyle: database.appBarStyle.value,
           useSubThemes: true,
         ),
         themeMode: database.themeMode.value,
@@ -75,5 +74,5 @@ Future<void> init() async {
   await database.initDatabase();
   Get.put(FirestoreService());
   Get.put(AuthService());
-  Get.lazyPut(() => GoogleSheetSerevice());
+  Get.lazyPut(() => GoogleSheetService());
 }

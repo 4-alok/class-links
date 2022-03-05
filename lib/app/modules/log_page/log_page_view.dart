@@ -20,7 +20,7 @@ class LogPageView extends StatelessWidget {
         ),
       ),
       body: FutureBuilder<List<LogData>?>(
-        future: Get.find<GoogleSheetSerevice>().readLog,
+        future: Get.find<GoogleSheetService>().readLog,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const LinearProgressIndicator();
