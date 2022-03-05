@@ -66,6 +66,9 @@ Are you tired of scribbling your schedule in notebooks and then forgetting which
   <a href="https://github.com/DSC-KIIT/class-links"><img alt="npm" height="32" width="32" src="https://i.imgur.com/R3BLvAW.png"></a>&emsp;&emsp;
   <a href="https://www.instagram.com/class_link_"><img alt="LinkedIn" height="32" width="32" src="https://i.imgur.com/OWdUupI.png"></a>
 </p>
-
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+
+## GDSC KIIT
+
+Copyright (c) 2024 GDSC TEAM KIIT

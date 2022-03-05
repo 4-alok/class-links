@@ -27,7 +27,7 @@ class MyBatchView extends GetView<MyBatchController> {
         ),
       ),
       body: FutureBuilder<List<UserInfo>>(
-        future: Get.find<FirestoreService>().myBatch(),
+        future: Get.find<FirestoreService>().myBatch,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

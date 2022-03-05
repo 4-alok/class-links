@@ -1,14 +1,15 @@
-import '../modules/my_batch/bindings/my_batch_binding.dart';
-import '../modules/my_batch/views/my_batch_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/admin/bindings/admin_binding.dart';
 import '../modules/admin/views/admin_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
+import '../modules/holidays/holidays_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/log_page/log_page_view.dart';
+import '../modules/my_batch/bindings/my_batch_binding.dart';
+import '../modules/my_batch/views/my_batch_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/subject_info/views/subject_info_view.dart';
@@ -64,6 +65,11 @@ class AppPages {
       name: _Paths.MY_BATCH,
       page: () => const MyBatchView(),
       binding: MyBatchBinding(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: _Paths.HOLIDAYS,
+      page: () => const HolidaysView(),
       transition: Transition.cupertino,
     ),
   ];

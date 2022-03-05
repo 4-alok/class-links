@@ -11,7 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../controllers/profile_controller.dart';
 import 'component/app_info_dialog.dart';
-import 'component/appbar_style.dart';
+import 'component/app_bar_style.dart';
 import 'component/theme_selector.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -36,26 +36,27 @@ class ProfileView extends GetView<ProfileController> {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             physics: const BouncingScrollPhysics(),
             children: [
-              profilePhoto(),
+              profilePhoto,
               const SizedBox(height: 20),
-              displayName(),
-              email(),
+              displayName,
+              email,
               const SizedBox(height: 20),
               batch(context),
-              showLog(),
+              showLog,
+              holidays,
               const SizedBox(height: 20),
-              themeSelector(),
-              themeMode(),
-              blackMode(),
+              themeSelector,
+              themeMode,
+              blackMode,
               const SizedBox(height: 20),
-              adminPanel(),
-              logoutCard(),
+              adminPanel,
+              logoutCard,
             ],
           ),
         ),
       );
 
-  Card logoutCard() => Card(
+  Card get logoutCard => Card(
         color: Get.isDarkMode
             ? Get.theme.cardColor
                 .alphaBlendColor(
@@ -112,7 +113,7 @@ class ProfileView extends GetView<ProfileController> {
             ))
           : const SizedBox();
 
-  Text email() => Text(
+  Text get email => Text(
         user?.email ?? "",
         textAlign: TextAlign.center,
         style: Get.theme.textTheme.subtitle1!.copyWith(
@@ -122,13 +123,13 @@ class ProfileView extends GetView<ProfileController> {
             )),
       );
 
-  Text displayName() => Text(
+  Text get displayName => Text(
         user?.displayName ?? "",
         textAlign: TextAlign.center,
         style: Get.theme.textTheme.headline1!.copyWith(fontSize: 30),
       );
 
-  Hero profilePhoto() => const Hero(
+  Hero get profilePhoto => const Hero(
         tag: "profile_image",
         child: UserIcon(radius: 50),
       );
@@ -145,15 +146,16 @@ class ProfileView extends GetView<ProfileController> {
           actions: [
             IconButton(
                 onPressed: () => Share.share(
-                    'Download Class Link form Google Play Store ${AppInfo.appUrl}',
-                    subject: 'Class Link'),
+                      'Download Class Link form Google Play Store ${AppInfo.appUrl}',
+                      subject: 'Class Link',
+                    ),
                 icon: const FaIcon(FontAwesomeIcons.shareAlt)),
             IconButton(
                 onPressed: () => AppInfoBox.showAppAboutDialog(context),
                 icon: const FaIcon(FontAwesomeIcons.info)),
           ]);
 
-  Widget blackMode() => AnimatedSize(
+  Widget get blackMode => AnimatedSize(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
         child: Get.isDarkMode
@@ -169,15 +171,25 @@ class ProfileView extends GetView<ProfileController> {
             : const SizedBox(),
       );
 
-  Widget themeMode() => Card(
+  Widget get themeMode => Card(
         child: ListTile(
           title: const Text("Theme Mode"),
           subtitle: Text(Get.isDarkMode ? "Dark Mode" : "Light Mode"),
-          onTap: () => controller.toogleThemeMode(),
+          onTap: () => controller.toggleThemeMode(),
         ),
       );
 
-  Widget showLog() => Get.find<AuthService>().userType() == UserType.user
+  Widget get holidays => Get.find<AuthService>().userType() == UserType.user
+      ? Card(
+          child: ListTile(
+            title: const Text("Holidays"),
+            trailing: const FaIcon(FontAwesomeIcons.caretRight),
+            onTap: () => Get.toNamed(Routes.HOLIDAYS),
+          ),
+        )
+      : const SizedBox();
+
+  Widget get showLog => Get.find<AuthService>().userType() == UserType.user
       ? Card(
           child: ListTile(
             title: const Text("Show Log"),
@@ -187,16 +199,17 @@ class ProfileView extends GetView<ProfileController> {
         )
       : const SizedBox();
 
-  Widget adminPanel() => (userInfo?.role == "admin" || userInfo?.role == "mod")
-      ? Card(
-          child: ListTile(
-            title: const Text("Admin Panel"),
-            onTap: () => Get.toNamed(Routes.ADMIN),
-          ),
-        )
-      : const SizedBox();
+  Widget get adminPanel =>
+      (userInfo?.role == "admin" || userInfo?.role == "mod")
+          ? Card(
+              child: ListTile(
+                title: const Text("Admin Panel"),
+                onTap: () => Get.toNamed(Routes.ADMIN),
+              ),
+            )
+          : const SizedBox();
 
-  Widget themeSelector() => Card(
+  Widget get themeSelector => Card(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 2),
           child: ListTile(
