@@ -60,7 +60,7 @@ class NotificationService extends GetxService {
 
   Future<void> setNotificationForToday(Subject subject) async {
     if (_validateSubjectSchedule(subject)) {
-      final scheduledtime = tz.TZDateTime.now(tz.local).add(
+      final scheduledTime = tz.TZDateTime.now(tz.local).add(
         Duration(hours: subject.startTime.hour) -
             Duration(
                 hours: DateTime.now().hour, minutes: DateTime.now().minute),
@@ -82,7 +82,7 @@ class NotificationService extends GetxService {
         subject.hashCode,
         subject.subjectName,
         _notificationBody(subject) ?? "Current Class",
-        scheduledtime,
+        scheduledTime,
         notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
@@ -120,6 +120,7 @@ class NotificationService extends GetxService {
   Future test() async {
     final k =
         await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+    // ignore: unused_local_variable
     for (var element in k) {
       // final a = element.;
     }

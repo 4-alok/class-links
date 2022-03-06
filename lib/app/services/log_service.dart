@@ -13,7 +13,7 @@ import 'package:gsheets/gsheets.dart';
 List<LogData> _listRowToListLog(List<List<String>> rowList) =>
     rowList.toListLogData.toList().reversed.toList();
 
-class GoogleSheetSerevice extends GetxService {
+class GoogleSheetService extends GetxService {
   final _gsheet = GSheets(SheetCredentials.credentials);
   UserInfo? get _userInfo => Get.find<HiveDatabase>().userInfo;
 
@@ -29,6 +29,9 @@ class GoogleSheetSerevice extends GetxService {
       worksheet ??= await spreadsheet.addWorksheet(_worksheetTitle);
       return await worksheet.values.appendRows(logs.toSheetRowList);
     } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
       Message("Error while adding log", "Try again later");
     }
     return null;

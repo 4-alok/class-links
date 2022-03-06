@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../controllers/profile_controller.dart';
+import 'component/app_bar_style.dart';
 import 'component/app_info_dialog.dart';
-import 'component/appbar_style.dart';
 import 'component/theme_selector.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -43,6 +43,7 @@ class ProfileView extends GetView<ProfileController> {
               const SizedBox(height: 20),
               batch(context),
               showLog,
+              holidays,
               const SizedBox(height: 20),
               themeSelector,
               themeMode,
@@ -77,7 +78,7 @@ class ProfileView extends GetView<ProfileController> {
   Card get appBarStyle => Card(
         child: Obx(
           () {
-            final appBarStyle = Get.find<HiveDatabase>().appbarStyle;
+            final appBarStyle = Get.find<HiveDatabase>().appBarStyle;
             return ListTile(
               title: const Text("AppBar Style"),
               trailing: AppBarStyleButtons(
@@ -93,12 +94,22 @@ class ProfileView extends GetView<ProfileController> {
       Get.find<AuthService>().userType() == UserType.user
           ? Card(
               child: ListTile(
-              title: const Text("Batch"),
-              trailing: Text(Get.find<HiveDatabase>().userInfo?.batch ?? "",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline2!
-                      .copyWith(fontSize: 25)),
+              title: const Text("My Batch"),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(Get.find<HiveDatabase>().userInfo?.batch ?? "",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5!
+                          .copyWith(fontSize: 20)),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 12),
+                    child: FaIcon(FontAwesomeIcons.caretRight),
+                  )
+                ],
+              ),
+              onTap: () => Get.toNamed(Routes.MY_BATCH),
             ))
           : const SizedBox();
 
@@ -135,8 +146,9 @@ class ProfileView extends GetView<ProfileController> {
           actions: [
             IconButton(
                 onPressed: () => Share.share(
-                    'Download Class Link form Google Play Store ${AppInfo.appUrl}',
-                    subject: 'Class Link'),
+                      'Download Class Link form Google Play Store ${AppInfo.appUrl}',
+                      subject: 'Class Link',
+                    ),
                 icon: const FaIcon(FontAwesomeIcons.shareAlt)),
             IconButton(
                 onPressed: () => AppInfoBox.showAppAboutDialog(context),
@@ -163,9 +175,19 @@ class ProfileView extends GetView<ProfileController> {
         child: ListTile(
           title: const Text("Theme Mode"),
           subtitle: Text(Get.isDarkMode ? "Dark Mode" : "Light Mode"),
-          onTap: () => controller.toogleThemeMode(),
+          onTap: () => controller.toggleThemeMode(),
         ),
       );
+
+  Widget get holidays => Get.find<AuthService>().userType() == UserType.user
+      ? Card(
+          child: ListTile(
+            title: const Text("Holidays"),
+            trailing: const FaIcon(FontAwesomeIcons.caretRight),
+            onTap: () => Get.toNamed(Routes.HOLIDAYS),
+          ),
+        )
+      : const SizedBox();
 
   Widget get showLog => Get.find<AuthService>().userType() == UserType.user
       ? Card(
@@ -177,14 +199,15 @@ class ProfileView extends GetView<ProfileController> {
         )
       : const SizedBox();
 
-  Widget get adminPanel => userInfo?.role == "admin"
-      ? Card(
-          child: ListTile(
-            title: const Text("Admin Panel"),
-            onTap: () => Get.toNamed(Routes.ADMIN),
-          ),
-        )
-      : const SizedBox();
+  Widget get adminPanel =>
+      (userInfo?.role == "admin" || userInfo?.role == "mod")
+          ? Card(
+              child: ListTile(
+                title: const Text("Admin Panel"),
+                onTap: () => Get.toNamed(Routes.ADMIN),
+              ),
+            )
+          : const SizedBox();
 
   Widget get themeSelector => Card(
         child: Padding(

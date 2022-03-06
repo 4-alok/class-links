@@ -1,5 +1,9 @@
 # Change log
 
+## v0.1.3
+
+- show classmate
+
 ## v0.1.2
 
 - copy subject link to clipboard

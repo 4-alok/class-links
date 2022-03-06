@@ -187,7 +187,7 @@ class HomeController extends GetxController
           await _addOrUpdateTimeTable;
           logData.clear();
           editMode.value = false;
-        } else if (await Get.find<GoogleSheetSerevice>().addEntry(logData) ??
+        } else if (await Get.find<GoogleSheetService>().addEntry(logData) ??
             false) {
           await _addOrUpdateTimeTable;
           logData.clear();

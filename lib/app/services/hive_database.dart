@@ -10,7 +10,7 @@ class HiveDatabase extends GetxService {
   final appTheme = Rx<FlexSchemeData>(AppColor.schemes[1]);
   final isBlack = Rx<bool>(false);
   final themeMode = Rx<ThemeMode>(ThemeMode.system);
-  final appbarStyle = Rx<FlexAppBarStyle>(FlexAppBarStyle.material);
+  final appBarStyle = Rx<FlexAppBarStyle>(FlexAppBarStyle.material);
   late final Box userInfoBox;
   late final Box settingsBox;
 

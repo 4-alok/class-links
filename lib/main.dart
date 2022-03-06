@@ -14,7 +14,6 @@ import 'app/services/auth_service.dart';
 import 'app/services/firestore_service.dart';
 import 'app/services/hive_database.dart';
 import 'app/services/log_service.dart';
-import 'app/services/notification_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +46,7 @@ class ClassLink extends StatelessWidget {
           subThemesData: const FlexSubThemesData(blendTextTheme: false),
           colors: database.appTheme.value.light,
           useSubThemes: true,
-          appBarStyle: database.appbarStyle.value,
+          appBarStyle: database.appBarStyle.value,
         ),
         darkTheme: FlexThemeData.dark(
           blendLevel: 40,
@@ -55,7 +54,7 @@ class ClassLink extends StatelessWidget {
           subThemesData: const FlexSubThemesData(blendTextTheme: false),
           darkIsTrueBlack: database.isBlack.value,
           colors: database.appTheme.value.dark,
-          appBarStyle: database.appbarStyle.value,
+          appBarStyle: database.appBarStyle.value,
           useSubThemes: true,
         ),
         themeMode: database.themeMode.value,
@@ -75,6 +74,5 @@ Future<void> init() async {
   await database.initDatabase();
   Get.put(FirestoreService());
   Get.put(AuthService());
-  Get.lazyPut(() => GoogleSheetSerevice());
-  Get.put(() => NotificationService());
+  Get.lazyPut(() => GoogleSheetService());
 }
