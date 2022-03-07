@@ -5,9 +5,12 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import '../models/notification_payload.dart/notification_payload.dart';
 import '../models/time_table/time_table.dart';
 import '../modules/subject_info/controllers/subject_info_controller.dart';
 import '../modules/subject_info/views/subject_info_view.dart';
+import 'auth_service.dart';
+import 'firestore_service.dart';
 
 class NotificationService extends GetxService {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -33,15 +36,41 @@ class NotificationService extends GetxService {
     super.onInit();
   }
 
-  void _openSubject(String? payload) {
+  Future<void> _openSubject(String? payload) async {
     if (payload != null) {
       try {
-        final subject = Subject.fromJson(jsonDecode(payload));
+        final notificationPayload =
+            NotificationPayload.fromJson(jsonDecode(payload));
         Get.lazyPut<SubjectInfoController>(
           () => SubjectInfoController(),
           tag: SubjectInfoController.TAG,
         );
-        Get.to(SubjectInfoView(subject: subject));
+
+        try {
+          final firestoreService = Get.find<FirestoreService>();
+          final userType = Get.find<AuthService>().userType();
+
+          if (userType == UserType.kiitian || userType == UserType.user) {
+            final timetable = await firestoreService.batchTimeTable;
+            final subject = timetable[DateTime.now().weekday - 1]
+                .subjects
+                .where(
+                    (element) => element.startTime == notificationPayload.time)
+                .first;
+            Get.to(SubjectInfoView(subject: subject));
+          } else {
+            final timetable = await firestoreService.personalTimeTable;
+            final subject = timetable[DateTime.now().weekday - 1]
+                .subjects
+                .where(
+                    (element) => element.startTime == notificationPayload.time)
+                .first;
+            Get.to(SubjectInfoView(subject: subject));
+          }
+        } catch (e) {
+          final subject = notificationPayload.subject;
+          Get.to(SubjectInfoView(subject: subject));
+        }
       } catch (e) {
         null;
       }
@@ -58,64 +87,57 @@ class NotificationService extends GetxService {
       checkPendingNotificationsRequest() async =>
           await flutterLocalNotificationsPlugin.pendingNotificationRequests();
 
-  Future<void> setNotificationForToday(Subject subject) async {
-    if (_validateSubjectSchedule(subject)) {
+  Future<void> setNotificationForToday(
+      NotificationPayload notificationPayload) async {
+    if (_validateSubjectSchedule(notificationPayload.time)) {
       final scheduledTime = tz.TZDateTime.now(tz.local).add(
-        Duration(hours: subject.startTime.hour) -
+        Duration(
+                hours: notificationPayload.time.hour,
+                minutes: notificationPayload.time.minute) -
             Duration(
                 hours: DateTime.now().hour, minutes: DateTime.now().minute),
       );
 
-      final androidNotificationDetails = AndroidNotificationDetails(
+      const androidNotificationDetails = AndroidNotificationDetails(
         "class_link",
-        "class_link",
-        channelDescription:
-            "Notification for ${subject.subjectName}, Class Link",
+        "class_link_channel",
         importance: Importance.max,
         priority: Priority.max,
       );
 
-      final notificationDetails =
+      const notificationDetails =
           NotificationDetails(android: androidNotificationDetails);
 
       await flutterLocalNotificationsPlugin.zonedSchedule(
-        subject.hashCode,
-        subject.subjectName,
-        _notificationBody(subject) ?? "Current Class",
+        notificationPayload.hashCode,
+        notificationPayload.title,
+        notificationPayload.body,
         scheduledTime,
         notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
         androidAllowWhileIdle: true,
-        payload: jsonEncode(subject.toJson()),
+        payload: jsonEncode(notificationPayload.toJson()),
       );
     }
   }
 
-  // Future<bool> isScheduleForToday(Subject subject) async {
-  //   final pendingNotificationRequests =
-  //       await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-  //   final isScheduleForToday =
-  //       pendingNotificationRequests.map((e) => e.id).contains(subject.hashCode);
-  //   return isScheduleForToday;
-  // }
-
-  bool _validateSubjectSchedule(Subject subject) =>
-      Duration(hours: subject.startTime.hour) >
+  bool _validateSubjectSchedule(DayTime time) =>
+      Duration(hours: time.hour, minutes: time.minute) >
       Duration(hours: DateTime.now().hour, minutes: DateTime.now().minute);
 
-  String? _notificationBody(Subject subject) {
-    if (subject.roomNo != null) return "Room number - ${subject.roomNo}";
-    if (subject.googleClassRoomLink == "" && subject.zoomLink != "") {
-      return "Join Zoom meeting";
-    } else if (subject.googleClassRoomLink != "" && subject.zoomLink == "") {
-      return "Join Google meet";
-    } else if (subject.googleClassRoomLink != "" && subject.zoomLink != "") {
-      return "Google meet - Zoom meeting";
-    } else {
-      return null;
-    }
-  }
+  // String? _notificationBody(Subject subject) {
+  //   if (subject.roomNo != null) return "Room number - ${subject.roomNo}";
+  //   if (subject.googleClassRoomLink == "" && subject.zoomLink != "") {
+  //     return "Join Zoom meeting";
+  //   } else if (subject.googleClassRoomLink != "" && subject.zoomLink == "") {
+  //     return "Join Google meet";
+  //   } else if (subject.googleClassRoomLink != "" && subject.zoomLink != "") {
+  //     return "Google meet - Zoom meeting";
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   Future test() async {
     final k =

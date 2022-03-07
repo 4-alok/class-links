@@ -48,7 +48,7 @@ Are you tired of scribbling your schedule in notebooks and then forgetting which
 
 - Do Google login (KIIT ID preferred)
 
-- Select year and scheme/batch (Only for CSE Students in their 1st or 2nd year)
+- Select year and scheme/batch (Only for 1st and 2nd year CSE Students)
 
 - Boom, ClassLink provides a real-time timetable with a Google/Zoom meet link.
     (1st user? Create the timetable for your section and get the moderator access)
@@ -61,14 +61,14 @@ Are you tired of scribbling your schedule in notebooks and then forgetting which
 <!-- markdownlint-disable -->
 
 <p align="left">
-  <a href="mailto:classlinks@dsckiit.in"><img alt="GitHub" height="32" width="32" src="https://cdn-icons-png.flaticon.com/512/281/281769.png"></a>
+  <a href="mailto:classlinks@dsckiit.in"><img alt="Gmail" height="32" width="32" src="https://cdn-icons-png.flaticon.com/512/281/281769.png"></a>
   &emsp;&emsp;
-  <a href="https://github.com/DSC-KIIT/class-links"><img alt="npm" height="32" width="32" src="https://i.imgur.com/R3BLvAW.png"></a>&emsp;&emsp;
-  <a href="https://www.instagram.com/class_link_"><img alt="LinkedIn" height="32" width="32" src="https://i.imgur.com/OWdUupI.png"></a>
+  <a href="https://github.com/DSC-KIIT/class-links"><img alt="Github" height="32" width="62" src="https://www.macobserver.com/wp-content/uploads/2019/05/workfeatured-GitHub-2.png"></a>&emsp;&emsp;
+  <a href="https://www.instagram.com/class_link_"><img alt="Instagram" height="32" width="32" src="https://i.imgur.com/OWdUupI.png"></a>
 </p>
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
 ## GDSC KIIT
 
-Copyright (c) 2024 GDSC TEAM KIIT
+Copyright (c) 2024 [GDSC TEAM KIIT]("http://www.dsckiit.in")

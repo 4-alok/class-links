@@ -1,5 +1,8 @@
+import '../../../models/notification_payload.dart/notification_payload.dart';
 import '../../../models/time_table/time_table.dart';
 import 'package:get/get.dart';
+
+import '../../../services/notification_service.dart';
 
 class SubjectInfoController extends GetxController {
   Subject? _subject;
@@ -22,5 +25,19 @@ class SubjectInfoController extends GetxController {
   bool get isDay => hour.value >= 6 && hour.value <= 18;
   // bool get isDusk => hour.value >= 16 && hour.value <= 18;
 
-  
+  Future setNotificationForToday(Subject subject) async {
+    final payload = NotificationPayload(
+      title: subject.subjectName,
+      body: "Current Class, click to open",
+      // time: subject.startTime,
+      time:
+          DayTime(hour: DateTime.now().hour, minute: DateTime.now().minute + 1),
+      subject: subject,
+      roomNo: subject.roomNo.toString(),
+    );
+    // await Get.find<NotificationService>().setNotificationForToday(payload);
+    final k = await Get.find<NotificationService>()
+        .checkPendingNotificationsRequest();
+    print(k);
+  }
 }

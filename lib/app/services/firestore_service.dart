@@ -23,6 +23,27 @@ class FirestoreService extends GetxService {
           ? _defaultDays
           : TimeTable.fromJson(event.docs.first.data()).week);
 
+  Future<List<Day>> get batchTimeTable async {
+    try {
+      final querySnapshot = await _firestore
+          .collection("time_table")
+          .where("year", isEqualTo: hiveDatabase.userInfo!.year)
+          .where("slot", isEqualTo: hiveDatabase.userInfo!.slot)
+          .where("batch", isEqualTo: hiveDatabase.userInfo!.batch)
+          .get();
+
+      return querySnapshot.docs.isEmpty
+          ? _defaultDays
+          : querySnapshot.docs
+              .map((e) => TimeTable.fromJson(e.data()))
+              .toList()
+              .first
+              .week;
+    } catch (e) {
+      return _defaultDays;
+    }
+  }
+
   Future<void> addOrUpdateBatchTimeTable(TimeTable timeTable) async {
     final result = await _firestore
         .collection("time_table")
@@ -45,6 +66,25 @@ class FirestoreService extends GetxService {
       .map((event) => event.docs.isEmpty
           ? _defaultDays
           : TimeTable.fromJson(event.docs.first.data()).week);
+
+  Future<List<Day>> get personalTimeTable async {
+    try {
+      final querySnapshot = await _firestore
+          .collection("personal_time_table")
+          .where("creatorId", isEqualTo: Get.find<AuthService>().user!.email!)
+          .get();
+
+      return querySnapshot.docs.isEmpty
+          ? _defaultDays
+          : querySnapshot.docs
+              .map((e) => TimeTable.fromJson(e.data()))
+              .toList()
+              .first
+              .week;
+    } catch (e) {
+      return _defaultDays;
+    }
+  }
 
   Future<void> addOrUpdatePersonalTimeTable(TimeTable timeTable) async {
     final result = await _firestore

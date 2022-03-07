@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 import '../../../../global/widget/launcher.dart';
 
@@ -7,6 +8,7 @@ import '../../../../gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/route_manager.dart';
+import '../../../../services/firestore_service.dart';
 import '../../controllers/subject_info_controller.dart';
 
 class SubjectInfoBody {
@@ -133,7 +135,7 @@ class SubjectInfoBody {
                             padding: const EdgeInsets.all(8.0),
                             child: SvgPicture.asset(
                               Assets.icons.meet.path,
-                              semanticsLabel: 'Googel Class Room',
+                              semanticsLabel: 'Google Class Room',
                               // height: 35,
                               width: 25,
                             ),
@@ -219,61 +221,50 @@ class SubjectInfoBody {
         ),
       );
 
-  Widget scheduleButtons(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Flexible(
+  Widget scheduleButtons(BuildContext context) => Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          const Flexible(
+            flex: 1,
             child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            width: double.maxFinite,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).cardColor),
-              onPressed: () {},
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Center(child: FaIcon(FontAwesomeIcons.bell)),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 6.0),
-                    child: Text("Reminde Today"),
-                  )
-                ],
+              padding: EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: double.maxFinite,
               ),
             ),
           ),
-        )),
-        Flexible(
-            child: SizedBox(
-          width: double.maxFinite,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Center(child: FaIcon(FontAwesomeIcons.calendarAlt)),
+          Flexible(
+              flex: 1,
+              child: SizedBox(
+                width: double.maxFinite,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Theme.of(context).cardColor),
+                    onPressed: () {
+                      controller.setNotificationForToday(controller.subject);
+                      // Get.find<FirestoreService>().batchTimeTable;
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 12.0, horizontal: 8.0),
+                          child: Center(child: FaIcon(FontAwesomeIcons.bell)),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 6.0),
+                          child: Text("Remind Today"),
+                        )
+                      ],
+                    ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 6.0),
-                    child: Text("Reminde Everyday"),
-                  )
-                ],
-              ),
-            ),
-          ),
-        )),
-      ],
-    );
-  }
+                ),
+              )),
+        ],
+      );
 
   Tooltip _toolTipText(String text) => Tooltip(
         preferBelow: false,

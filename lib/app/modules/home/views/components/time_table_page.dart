@@ -30,7 +30,7 @@ class TimeTablePage extends StatelessWidget {
       );
 
   Widget get tabBarView => ValueListenableBuilder<Object>(
-      valueListenable: homeController.hourlyUpdpdate,
+      valueListenable: homeController.hourlyUpdate,
       builder: (_, __, ___) => TabBarView(
             physics: const BouncingScrollPhysics(),
             controller: homeController.tabController,
