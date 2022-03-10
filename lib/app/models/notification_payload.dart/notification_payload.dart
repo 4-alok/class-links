@@ -1,4 +1,4 @@
-import 'package:class_link/app/models/time_table/time_table.dart';
+import '../time_table/time_table.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'notification_payload.freezed.dart';
@@ -11,6 +11,7 @@ class NotificationPayload with _$NotificationPayload {
   const factory NotificationPayload({
     required String title,
     required String body,
+    required int currentWeek,
     @Default(null) LinkType? type,
     required DayTime time,
     @Default(null) String? roomNo,

@@ -11,6 +11,7 @@ _$_NotificationPayload _$$_NotificationPayloadFromJson(
     _$_NotificationPayload(
       title: json['title'] as String,
       body: json['body'] as String,
+      currentWeek: json['currentWeek'] as int,
       type: $enumDecodeNullable(_$LinkTypeEnumMap, json['type']) ?? null,
       time: DayTime.fromJson(json['time'] as Map<String, dynamic>),
       roomNo: json['roomNo'] as String? ?? null,
@@ -24,6 +25,7 @@ Map<String, dynamic> _$$_NotificationPayloadToJson(
     <String, dynamic>{
       'title': instance.title,
       'body': instance.body,
+      'currentWeek': instance.currentWeek,
       'type': _$LinkTypeEnumMap[instance.type],
       'time': instance.time.toJson(),
       'roomNo': instance.roomNo,

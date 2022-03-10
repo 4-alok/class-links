@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import '../../../../models/subject_info/subject_info.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../models/time_table/time_table.dart';
 import '../../../subject_info/controllers/subject_info_controller.dart';
@@ -12,10 +13,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
 
 class CurrentClassCard extends StatelessWidget {
-  final Subject item;
+  final SubjectInfo subjectInfo;
   const CurrentClassCard({
     Key? key,
-    required this.item,
+    required this.subjectInfo,
   }) : super(key: key);
 
   @override
@@ -31,7 +32,7 @@ class CurrentClassCard extends StatelessWidget {
           middleColor: Theme.of(context).scaffoldBackgroundColor,
           closedBuilder: (context, action) => InkWell(
             onLongPress: () => _onLongPress(action),
-            onTap: () => onTap(context, action, item),
+            onTap: () => onTap(context, action, subjectInfo.subject),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               child: Column(
@@ -48,7 +49,7 @@ class CurrentClassCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        item.startTime.text12HourStartEnd,
+                        subjectInfo.subject.startTime.text12HourStartEnd,
                         style: Theme.of(context)
                             .textTheme
                             .subtitle1!
@@ -63,7 +64,7 @@ class CurrentClassCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            item.subjectName,
+                            subjectInfo.subject.subjectName,
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.headline2,
                           ),
@@ -73,7 +74,9 @@ class CurrentClassCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 6),
                     child: Text(
-                      item.remark == "" ? "No Remark" : item.remark,
+                      subjectInfo.subject.remark == ""
+                          ? "No Remark"
+                          : subjectInfo.subject.remark,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                   ),
@@ -87,7 +90,9 @@ class CurrentClassCard extends StatelessWidget {
               () => SubjectInfoController(),
               tag: SubjectInfoController.TAG,
             );
-            return SubjectInfoView(subject: item);
+            return SubjectInfoView(
+              subjectInfo: subjectInfo,
+            );
           },
         ),
       );
@@ -102,18 +107,21 @@ class CurrentClassCard extends StatelessWidget {
     action();
   }
 
-  void onTap(BuildContext context, Function action, Subject item) {
-    if (item.zoomLink == "" && item.googleClassRoomLink == "") {
+  void onTap(BuildContext context, Function action, Subject subjectInfo) {
+    if (subjectInfo.zoomLink == "" && subjectInfo.googleClassRoomLink == "") {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 1),
         content: Text("No Link Available"),
       ));
-    } else if (item.zoomLink != "" && item.googleClassRoomLink != "") {
+    } else if (subjectInfo.zoomLink != "" &&
+        subjectInfo.googleClassRoomLink != "") {
       showClassDialog(context);
-    } else if (item.zoomLink == "" && item.googleClassRoomLink != "") {
-      launchUrl(context, item.googleClassRoomLink);
-    } else if (item.zoomLink != "" && item.googleClassRoomLink == "") {
-      launchUrl(context, item.zoomLink);
+    } else if (subjectInfo.zoomLink == "" &&
+        subjectInfo.googleClassRoomLink != "") {
+      launchUrl(context, subjectInfo.googleClassRoomLink);
+    } else if (subjectInfo.zoomLink != "" &&
+        subjectInfo.googleClassRoomLink == "") {
+      launchUrl(context, subjectInfo.zoomLink);
     }
   }
 
@@ -137,7 +145,8 @@ class CurrentClassCard extends StatelessWidget {
               children: [
                 const Spacer(),
                 GestureDetector(
-                  onTap: () => launchUrl(context, item.googleClassRoomLink),
+                  onTap: () => launchUrl(
+                      context, subjectInfo.subject.googleClassRoomLink),
                   child: SvgPicture.asset(
                     Assets.icons.meet.path,
                     semanticsLabel: 'Googel Class Room',
@@ -147,7 +156,7 @@ class CurrentClassCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 80),
                 GestureDetector(
-                  onTap: () => launchUrl(context, item.zoomLink),
+                  onTap: () => launchUrl(context, subjectInfo.subject.zoomLink),
                   child: SvgPicture.asset(
                     Assets.icons.zoom.path,
                     semanticsLabel: 'Zoom Meet',
@@ -167,16 +176,16 @@ class CurrentClassCard extends StatelessWidget {
         ),
       );
 
-  Widget trailingWidget() => item.roomNo != null
+  Widget trailingWidget() => subjectInfo.subject.roomNo != null
       ? Text(
-          item.roomNo.toString(),
+          subjectInfo.subject.roomNo.toString(),
           style: Get.theme.textTheme.headline3!.copyWith(
             color: Get.theme.colorScheme.primary,
           ),
         )
       : Wrap(
           children: [
-            item.googleClassRoomLink == ""
+            subjectInfo.subject.googleClassRoomLink == ""
                 ? const SizedBox()
                 : Padding(
                     padding: const EdgeInsets.only(right: 8, top: 3),
@@ -187,7 +196,7 @@ class CurrentClassCard extends StatelessWidget {
                       width: 25,
                     ),
                   ),
-            item.zoomLink == ""
+            subjectInfo.subject.zoomLink == ""
                 ? const SizedBox()
                 : SvgPicture.asset(
                     Assets.icons.zoom.path,

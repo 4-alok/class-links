@@ -1,14 +1,17 @@
 import 'dart:convert';
 
+import '../models/subject_info/subject_info.dart';
 import 'package:get/get.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+    hide Message;
 
 import '../models/notification_payload.dart/notification_payload.dart';
 import '../models/time_table/time_table.dart';
 import '../modules/subject_info/controllers/subject_info_controller.dart';
 import '../modules/subject_info/views/subject_info_view.dart';
+import '../utils/get_snackbar.dart';
 import 'auth_service.dart';
 import 'firestore_service.dart';
 
@@ -18,6 +21,8 @@ class NotificationService extends GetxService {
       const AndroidInitializationSettings('app_notification_icon');
   late final InitializationSettings initializationSettings;
   late final NotificationAppLaunchDetails? notificationAppLaunchDetails;
+
+  var pendingNotification = <PendingNotificationRequest>[];
 
   @override
   Future<void> onInit() async {
@@ -33,8 +38,13 @@ class NotificationService extends GetxService {
     if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
       _openSubject(notificationAppLaunchDetails!.payload);
     }
+    updateNotificationList();
     super.onInit();
   }
+
+  Future<void> updateNotificationList() async =>
+      await checkPendingNotificationsRequest()
+          .then((list) => pendingNotification = list);
 
   Future<void> _openSubject(String? payload) async {
     if (payload != null) {
@@ -54,10 +64,14 @@ class NotificationService extends GetxService {
             final timetable = await firestoreService.batchTimeTable;
             final subject = timetable[DateTime.now().weekday - 1]
                 .subjects
-                .where(
-                    (element) => element.startTime == notificationPayload.time)
+                .where((element) =>
+                    element.startTime.hour == notificationPayload.time.hour)
                 .first;
-            Get.to(SubjectInfoView(subject: subject));
+            Get.to(() => SubjectInfoView(
+                    subjectInfo: SubjectInfo(
+                  subject: subject,
+                  currentWeek: notificationPayload.currentWeek,
+                )));
           } else {
             final timetable = await firestoreService.personalTimeTable;
             final subject = timetable[DateTime.now().weekday - 1]
@@ -65,14 +79,30 @@ class NotificationService extends GetxService {
                 .where(
                     (element) => element.startTime == notificationPayload.time)
                 .first;
-            Get.to(SubjectInfoView(subject: subject));
+            Get.to(() => SubjectInfoView(
+                    subjectInfo: SubjectInfo(
+                  subject: subject,
+                  currentWeek: notificationPayload.currentWeek,
+                )));
           }
         } catch (e) {
-          final subject = notificationPayload.subject;
-          Get.to(SubjectInfoView(subject: subject));
+          Message("Unable to fetch subject information", "$e");
+
+          Get.to(
+            () => SubjectInfoView(
+              subjectInfo: SubjectInfo(
+                subject: notificationPayload.subject ??
+                    const Subject(
+                      subjectName: "No Info",
+                      startTime: DayTime(hour: 6, minute: 0),
+                    ),
+                currentWeek: notificationPayload.currentWeek,
+              ),
+            ),
+          );
         }
       } catch (e) {
-        null;
+        Message("Something went wrong", "$e");
       }
     }
   }
@@ -109,7 +139,7 @@ class NotificationService extends GetxService {
           NotificationDetails(android: androidNotificationDetails);
 
       await flutterLocalNotificationsPlugin.zonedSchedule(
-        notificationPayload.hashCode,
+        notificationPayload.time.hour,
         notificationPayload.title,
         notificationPayload.body,
         scheduledTime,
@@ -139,12 +169,12 @@ class NotificationService extends GetxService {
   //   }
   // }
 
-  Future test() async {
-    final k =
-        await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-    // ignore: unused_local_variable
-    for (var element in k) {
-      // final a = element.;
-    }
-  }
+  // Future test() async {
+  //   final k =
+  //       await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+  //   // ignore: unused_local_variable
+  //   for (var element in k) {
+  //     // final a = element.;
+  //   }
+  // }
 }

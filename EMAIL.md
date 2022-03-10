@@ -61,10 +61,10 @@ Are you tired of scribbling your schedule in notebooks and then forgetting which
 <!-- markdownlint-disable -->
 
 <p align="left">
-  <a href="mailto:classlinks@dsckiit.in"><img alt="Gmail" height="32" width="32" src="https://cdn-icons-png.flaticon.com/512/281/281769.png"></a>
+  <a href="mailto:classlinks@dsckiit.in"><img alt="Gmail" height="32" width="32" src="https://github.com/DSC-KIIT/class-links/raw/notification/images/gmail.png"></a>
   &emsp;&emsp;
-  <a href="https://github.com/DSC-KIIT/class-links"><img alt="Github" height="32" width="62" src="https://www.macobserver.com/wp-content/uploads/2019/05/workfeatured-GitHub-2.png"></a>&emsp;&emsp;
-  <a href="https://www.instagram.com/class_link_"><img alt="Instagram" height="32" width="32" src="https://i.imgur.com/OWdUupI.png"></a>
+  <a href="https://github.com/DSC-KIIT/class-links"><img alt="Github" height="32" width="32" src="https://github.com/DSC-KIIT/class-links/raw/notification/images/github.png"></a>&emsp;&emsp;
+  <a href="https://www.instagram.com/class_link_"><img alt="Instagram" height="32" width="32" src="https://github.com/DSC-KIIT/class-links/raw/notification/images/insta.png"></a>
 </p>
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->

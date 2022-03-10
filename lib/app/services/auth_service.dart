@@ -30,10 +30,10 @@ class AuthService extends GetxService {
       if (account == null) {
         throw UserSignInFlowCancelled();
       }
-      final creds = await account.authentication;
+      final _authentication = await account.authentication;
       final credential = GoogleAuthProvider.credential(
-        accessToken: creds.accessToken,
-        idToken: creds.idToken,
+        accessToken: _authentication.accessToken,
+        idToken: _authentication.idToken,
       );
       await _auth.signInWithCredential(credential);
       _user.value = _auth.currentUser;

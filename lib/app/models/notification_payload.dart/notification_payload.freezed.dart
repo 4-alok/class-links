@@ -25,6 +25,7 @@ class _$NotificationPayloadTearOff {
   _NotificationPayload call(
       {required String title,
       required String body,
+      required int currentWeek,
       LinkType? type = null,
       required DayTime time,
       String? roomNo = null,
@@ -32,6 +33,7 @@ class _$NotificationPayloadTearOff {
     return _NotificationPayload(
       title: title,
       body: body,
+      currentWeek: currentWeek,
       type: type,
       time: time,
       roomNo: roomNo,
@@ -51,6 +53,7 @@ const $NotificationPayload = _$NotificationPayloadTearOff();
 mixin _$NotificationPayload {
   String get title => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
+  int get currentWeek => throw _privateConstructorUsedError;
   LinkType? get type => throw _privateConstructorUsedError;
   DayTime get time => throw _privateConstructorUsedError;
   String? get roomNo => throw _privateConstructorUsedError;
@@ -70,6 +73,7 @@ abstract class $NotificationPayloadCopyWith<$Res> {
   $Res call(
       {String title,
       String body,
+      int currentWeek,
       LinkType? type,
       DayTime time,
       String? roomNo,
@@ -92,6 +96,7 @@ class _$NotificationPayloadCopyWithImpl<$Res>
   $Res call({
     Object? title = freezed,
     Object? body = freezed,
+    Object? currentWeek = freezed,
     Object? type = freezed,
     Object? time = freezed,
     Object? roomNo = freezed,
@@ -106,6 +111,10 @@ class _$NotificationPayloadCopyWithImpl<$Res>
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
+      currentWeek: currentWeek == freezed
+          ? _value.currentWeek
+          : currentWeek // ignore: cast_nullable_to_non_nullable
+              as int,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -154,6 +163,7 @@ abstract class _$NotificationPayloadCopyWith<$Res>
   $Res call(
       {String title,
       String body,
+      int currentWeek,
       LinkType? type,
       DayTime time,
       String? roomNo,
@@ -180,6 +190,7 @@ class __$NotificationPayloadCopyWithImpl<$Res>
   $Res call({
     Object? title = freezed,
     Object? body = freezed,
+    Object? currentWeek = freezed,
     Object? type = freezed,
     Object? time = freezed,
     Object? roomNo = freezed,
@@ -194,6 +205,10 @@ class __$NotificationPayloadCopyWithImpl<$Res>
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
+      currentWeek: currentWeek == freezed
+          ? _value.currentWeek
+          : currentWeek // ignore: cast_nullable_to_non_nullable
+              as int,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -220,6 +235,7 @@ class _$_NotificationPayload implements _NotificationPayload {
   const _$_NotificationPayload(
       {required this.title,
       required this.body,
+      required this.currentWeek,
       this.type = null,
       required this.time,
       this.roomNo = null,
@@ -232,6 +248,8 @@ class _$_NotificationPayload implements _NotificationPayload {
   final String title;
   @override
   final String body;
+  @override
+  final int currentWeek;
   @JsonKey()
   @override
   final LinkType? type;
@@ -246,7 +264,7 @@ class _$_NotificationPayload implements _NotificationPayload {
 
   @override
   String toString() {
-    return 'NotificationPayload(title: $title, body: $body, type: $type, time: $time, roomNo: $roomNo, subject: $subject)';
+    return 'NotificationPayload(title: $title, body: $body, currentWeek: $currentWeek, type: $type, time: $time, roomNo: $roomNo, subject: $subject)';
   }
 
   @override
@@ -256,6 +274,8 @@ class _$_NotificationPayload implements _NotificationPayload {
             other is _NotificationPayload &&
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality().equals(other.body, body) &&
+            const DeepCollectionEquality()
+                .equals(other.currentWeek, currentWeek) &&
             const DeepCollectionEquality().equals(other.type, type) &&
             const DeepCollectionEquality().equals(other.time, time) &&
             const DeepCollectionEquality().equals(other.roomNo, roomNo) &&
@@ -267,6 +287,7 @@ class _$_NotificationPayload implements _NotificationPayload {
       runtimeType,
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(body),
+      const DeepCollectionEquality().hash(currentWeek),
       const DeepCollectionEquality().hash(type),
       const DeepCollectionEquality().hash(time),
       const DeepCollectionEquality().hash(roomNo),
@@ -288,6 +309,7 @@ abstract class _NotificationPayload implements NotificationPayload {
   const factory _NotificationPayload(
       {required String title,
       required String body,
+      required int currentWeek,
       LinkType? type,
       required DayTime time,
       String? roomNo,
@@ -300,6 +322,8 @@ abstract class _NotificationPayload implements NotificationPayload {
   String get title;
   @override
   String get body;
+  @override
+  int get currentWeek;
   @override
   LinkType? get type;
   @override

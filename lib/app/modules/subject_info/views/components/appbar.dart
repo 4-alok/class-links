@@ -31,7 +31,7 @@ class SubjectInfoAppBar extends StatelessWidget {
             child: Hero(
               tag: "subject_name",
               child: Text(
-                controller.subject.subjectName,
+                controller.subjectInfo.subject.subjectName,
                 style: Theme.of(context).textTheme.headline3,
               ),
             ),

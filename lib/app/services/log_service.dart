@@ -4,7 +4,7 @@ import '../models/user_info/user_info.dart';
 import 'hive_database.dart';
 import '../utils/extension.dart';
 import '../utils/get_snackbar.dart';
-import '../utils/gsheet_utils.dart';
+import '../utils/gsheets_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:gsheets/gsheets.dart';

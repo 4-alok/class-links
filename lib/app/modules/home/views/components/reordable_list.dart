@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import '../../../../models/subject_info/subject_info.dart';
 import '../../../subject_info/controllers/subject_info_controller.dart';
 import '../../../subject_info/views/subject_info_view.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,11 @@ import '../../../../utils/extension.dart';
 import 'current_class_card.dart';
 import 'edit_model_sheet.dart';
 
-class MyReordableLIst extends StatelessWidget {
+class MyReorderableLIst extends StatelessWidget {
   final HomeController homeController;
   final int currentTabIndex;
   final Day currentDay;
-  const MyReordableLIst({
+  const MyReorderableLIst({
     Key? key,
     required this.homeController,
     required this.currentTabIndex,
@@ -49,7 +50,11 @@ class MyReordableLIst extends StatelessWidget {
                             : (item.startTime.isCurrentTime &&
                                     (currentTabIndex ==
                                         DateTime.now().weekday - 1))
-                                ? CurrentClassCard(item: item)
+                                ? CurrentClassCard(
+                                    subjectInfo: SubjectInfo(
+                                        subject: item,
+                                        currentWeek: currentTabIndex),
+                                  )
                                 : displayTile(context, item),
                       )),
             ),
@@ -135,7 +140,10 @@ class MyReordableLIst extends StatelessWidget {
             () => SubjectInfoController(),
             tag: SubjectInfoController.TAG,
           );
-          return SubjectInfoView(subject: item);
+          return SubjectInfoView(
+            subjectInfo:
+                SubjectInfo(subject: item, currentWeek: currentTabIndex),
+          );
         },
       );
 

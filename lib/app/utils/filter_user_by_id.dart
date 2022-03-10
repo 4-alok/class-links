@@ -1,4 +1,4 @@
-import 'package:class_link/app/models/user_info/user_info.dart';
+import '../models/user_info/user_info.dart';
 
 List<UserInfo> filterById(List<UserInfo> userList) {
   final shortRolls = userList

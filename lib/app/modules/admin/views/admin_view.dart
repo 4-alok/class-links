@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:animations/animations.dart';
 
 import '../../../models/user_info/user_info.dart';
@@ -7,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import '../../../services/hive_database.dart';
+import '../../../utils/utils.dart';
 import '../controllers/admin_controller.dart';
 
 class AdminView extends GetView<AdminController> {
@@ -89,7 +92,7 @@ class AdminView extends GetView<AdminController> {
           ListTile(
             title: const Text("Joined"),
             subtitle: Text(
-              userList[index].date.toString(),
+              Utils.formateDate(userList[index].date, false, true),
               style:
                   Theme.of(context).textTheme.headline4!.copyWith(fontSize: 20),
             ),
@@ -187,7 +190,7 @@ class AdminView extends GetView<AdminController> {
       );
 
   Future<String?> showBatchList(
-          BuildContext context, List<String> list) async =>
+          BuildContext context, LinkedHashMap<String, int> list) async =>
       await showModal<String>(
         context: context,
         configuration: const FadeScaleTransitionConfiguration(
@@ -201,12 +204,17 @@ class AdminView extends GetView<AdminController> {
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               itemCount: list.length,
-              itemBuilder: (context, index) => ListTile(
-                title: Text(
-                  list[index],
-                ),
-                onTap: () => Get.back<String>(result: list[index]),
-              ),
+              itemBuilder: (context, index) {
+                final batches = list.keys.toList();
+                final count = list.values.toList();
+                return ListTile(
+                  title: Text(
+                    batches[index],
+                  ),
+                  trailing: Text(count[index].toString()),
+                  onTap: () => Get.back<String>(result: batches[index]),
+                );
+              },
             ),
           ),
         ),

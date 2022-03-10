@@ -4,7 +4,7 @@ import '../models/time_table/time_table.dart' as timetable;
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get/route_manager.dart';
-import 'gsheet_utils.dart';
+import 'gsheets_utils.dart';
 
 extension StartingTimeText on timetable.DayTime {
   String get text12Hour => (hour > 12)

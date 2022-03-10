@@ -37,7 +37,7 @@ class TimeTablePage extends StatelessWidget {
             children: List.generate(
                 7,
                 (index) => Obx(
-                      () => MyReordableLIst(
+                      () => MyReorderableLIst(
                         homeController: homeController,
                         currentTabIndex: index,
                         currentDay: homeController.week.value[index],

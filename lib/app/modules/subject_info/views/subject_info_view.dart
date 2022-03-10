@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../models/time_table/time_table.dart';
+import '../../../models/subject_info/subject_info.dart';
 import '../controllers/subject_info_controller.dart';
 import 'components/appbar.dart';
 import 'components/body.dart';
@@ -9,15 +9,16 @@ import 'components/body.dart';
 class SubjectInfoView extends GetView<SubjectInfoController> {
   const SubjectInfoView({
     Key? key,
-    this.subject,
+    this.subjectInfo,
   }) : super(key: key);
 
-  final Subject? subject;
+  final SubjectInfo? subjectInfo;
+
   MediaQueryData get mqData => MediaQueryData.fromWindow(window);
 
   @override
   Widget build(BuildContext context) {
-    controller.subject = subject;
+    controller.subjectInfo = subjectInfo;
     return Scaffold(
         body: CustomScrollView(
       physics: const BouncingScrollPhysics(),

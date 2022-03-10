@@ -75,6 +75,6 @@ Future<void> init() async {
   await database.initDatabase();
   Get.put(FirestoreService());
   Get.put(AuthService());
-  Get.put(() => NotificationService());
+  Get.lazyPut(() => NotificationService());
   Get.lazyPut(() => GoogleSheetService());
 }
