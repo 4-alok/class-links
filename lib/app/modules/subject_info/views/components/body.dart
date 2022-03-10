@@ -1,11 +1,12 @@
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 import '../../../../global/widget/launcher.dart';
 
 import '../../../../gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/route_manager.dart';
 import '../../controllers/subject_info_controller.dart';
 
 class SubjectInfoBody {
@@ -28,15 +29,15 @@ class SubjectInfoBody {
                       fontWeight: FontWeight.w700,
                       fontSize: 20,
                     )),
-                controller.subject.remarkAddBy == ""
+                controller.subjectInfo.subject.remarkAddBy == ""
                     ? const SizedBox()
-                    : _toolTipText(controller.subject.remarkAddBy)
+                    : _toolTipText(controller.subjectInfo.subject.remarkAddBy)
               ],
             ),
             Text(
-              controller.subject.remark == ""
+              controller.subjectInfo.subject.remark == ""
                   ? "No Remark"
-                  : controller.subject.remark,
+                  : controller.subjectInfo.subject.remark,
               style: Get.theme.textTheme.headline4,
             ),
           ],
@@ -59,15 +60,15 @@ class SubjectInfoBody {
                       fontWeight: FontWeight.w700,
                       fontSize: 20,
                     )),
-                controller.subject.roomNoAddBy == ""
+                controller.subjectInfo.subject.roomNoAddBy == ""
                     ? const SizedBox()
-                    : _toolTipText(controller.subject.roomNoAddBy)
+                    : _toolTipText(controller.subjectInfo.subject.roomNoAddBy)
               ],
             ),
             Text(
-              controller.subject.roomNo == null
+              controller.subjectInfo.subject.roomNo == null
                   ? "Not Available"
-                  : controller.subject.roomNo.toString(),
+                  : controller.subjectInfo.subject.roomNo.toString(),
               style: Get.theme.textTheme.headline4,
             ),
           ],
@@ -91,9 +92,9 @@ class SubjectInfoBody {
                         fontWeight: FontWeight.w700,
                         fontSize: 20,
                       )),
-                  controller.subject.gLinkAddBy == ""
+                  controller.subjectInfo.subject.gLinkAddBy == ""
                       ? const SizedBox()
-                      : _toolTipText(controller.subject.gLinkAddBy),
+                      : _toolTipText(controller.subjectInfo.subject.gLinkAddBy),
                 ],
               ),
               Row(
@@ -101,11 +102,12 @@ class SubjectInfoBody {
                   Expanded(
                     child: GestureDetector(
                       onLongPress: () =>
-                          controller.subject.googleClassRoomLink != ""
+                          controller.subjectInfo.subject.googleClassRoomLink !=
+                                  ""
                               ? {
                                   Clipboard.setData(ClipboardData(
-                                      text: controller
-                                          .subject.googleClassRoomLink)),
+                                      text: controller.subjectInfo.subject
+                                          .googleClassRoomLink)),
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                           content:
@@ -113,9 +115,10 @@ class SubjectInfoBody {
                                 }
                               : null,
                       child: Text(
-                        controller.subject.googleClassRoomLink == ""
+                        controller.subjectInfo.subject.googleClassRoomLink == ""
                             ? "No Google Classroom Link"
-                            : controller.subject.googleClassRoomLink,
+                            : controller
+                                .subjectInfo.subject.googleClassRoomLink,
                         style: Get.theme.textTheme.headline4!.copyWith(
                           fontSize: 15,
                           fontWeight: FontWeight.w400,
@@ -123,16 +126,18 @@ class SubjectInfoBody {
                       ),
                     ),
                   ),
-                  controller.subject.googleClassRoomLink == ""
+                  controller.subjectInfo.subject.googleClassRoomLink == ""
                       ? const SizedBox()
                       : GestureDetector(
                           onTap: () => Launcher.launchUrl(
-                              context, controller.subject.googleClassRoomLink),
+                              context,
+                              controller
+                                  .subjectInfo.subject.googleClassRoomLink),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: SvgPicture.asset(
                               Assets.icons.meet.path,
-                              semanticsLabel: 'Googel Class Room',
+                              semanticsLabel: 'Google Class Room',
                               // height: 35,
                               width: 25,
                             ),
@@ -162,32 +167,34 @@ class SubjectInfoBody {
                         fontWeight: FontWeight.w700,
                         fontSize: 20,
                       )),
-                  controller.subject.zLinkAddBy == ""
+                  controller.subjectInfo.subject.zLinkAddBy == ""
                       ? const SizedBox()
-                      : _toolTipText(controller.subject.zLinkAddBy),
+                      : _toolTipText(controller.subjectInfo.subject.zLinkAddBy),
                 ],
               ),
               Row(
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onLongPress: () => controller.subject.zoomLink != ""
-                          ? {
-                              Clipboard.setData(ClipboardData(
-                                text: controller.subject.zoomLink,
-                              )),
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content:
-                                          Text("Link copied to clipboard")))
-                            }
-                          : null,
+                      onLongPress: () =>
+                          controller.subjectInfo.subject.zoomLink != ""
+                              ? {
+                                  Clipboard.setData(ClipboardData(
+                                    text:
+                                        controller.subjectInfo.subject.zoomLink,
+                                  )),
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content:
+                                              Text("Link copied to clipboard")))
+                                }
+                              : null,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 2),
                         child: Text(
-                          controller.subject.zoomLink == ""
+                          controller.subjectInfo.subject.zoomLink == ""
                               ? "No Zoom Meeting Link"
-                              : controller.subject.zoomLink,
+                              : controller.subjectInfo.subject.zoomLink,
                           style: Get.theme.textTheme.headline4!.copyWith(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
@@ -196,11 +203,11 @@ class SubjectInfoBody {
                       ),
                     ),
                   ),
-                  controller.subject.zoomLink == ""
+                  controller.subjectInfo.subject.zoomLink == ""
                       ? const SizedBox()
                       : GestureDetector(
                           onTap: () => Launcher.launchUrl(
-                              context, controller.subject.zoomLink),
+                              context, controller.subjectInfo.subject.zoomLink),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: SvgPicture.asset(
@@ -213,6 +220,72 @@ class SubjectInfoBody {
                         ),
                 ],
               ),
+            ],
+          ),
+        ),
+      );
+
+  Widget scheduleButtons(BuildContext context) =>
+      controller.subjectInfo.currentWeek == DateTime.now().weekday - 1
+          ? FutureBuilder<bool>(
+              future: controller.reminderReadyForToday,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final res = snapshot.data;
+                  return (res == null || controller.isClassOverOrOngoing)
+                      ? const SizedBox()
+                      : Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            const Flexible(
+                              flex: 1,
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: double.maxFinite,
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                                flex: 1,
+                                child: SizedBox(
+                                  width: double.maxFinite,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: _reminderButton(context),
+                                  ),
+                                )),
+                          ],
+                        );
+                } else {
+                  return const SizedBox();
+                }
+              })
+          : const SizedBox();
+
+  Widget _reminderButton(BuildContext context) => Obx(
+        () => ElevatedButton(
+          style: controller.notificationAdded.value
+              ? null
+              : ElevatedButton.styleFrom(primary: Theme.of(context).cardColor),
+          onPressed: () => controller.notificationAdded.value
+              ? controller.removeReminder
+              : controller.addReminder(controller.subjectInfo, context),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+                child: Center(child: FaIcon(FontAwesomeIcons.bell)),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6.0),
+                child: Text(
+                  controller.notificationAdded.value
+                      ? "Remove Reminder"
+                      : "Add Reminder",
+                ),
+              )
             ],
           ),
         ),

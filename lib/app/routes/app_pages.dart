@@ -59,7 +59,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SUBJECT_INFO,
-      page: () => SubjectInfoView(subject: Get.arguments),
+      page: () => SubjectInfoView(subjectInfo: Get.arguments),
     ),
     GetPage(
       name: _Paths.MY_BATCH,

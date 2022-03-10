@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../controllers/profile_controller.dart';
-import 'component/app_info_dialog.dart';
 import 'component/app_bar_style.dart';
+import 'component/app_info_dialog.dart';
 import 'component/theme_selector.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -75,7 +75,7 @@ class ProfileView extends GetView<ProfileController> {
         ),
       );
 
-  Card appBarStyle() => Card(
+  Card get appBarStyle => Card(
         child: Obx(
           () {
             final appBarStyle = Get.find<HiveDatabase>().appBarStyle;

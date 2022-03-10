@@ -1,9 +1,10 @@
-import 'package:class_link/app/utils/filter_user_by_id.dart';
+import 'dart:collection';
+
+import '../../../utils/filter_user_by_id.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../models/user_info/user_info.dart';
-import '../../../services/firestore_service.dart';
 
 enum UserFilter { id, date }
 
@@ -15,7 +16,9 @@ class AdminController extends GetxController {
   final batch = Rx<String?>(null);
   bool batchReady = false;
 
-  List<String> batches = [];
+  LinkedHashMap<String, int> batches = LinkedHashMap<String, int>();
+
+  Map<String, int> batchWiseStudentCount = {};
 
   void updateFilter(String filter) {
     switch (filter) {
@@ -56,22 +59,32 @@ class AdminController extends GetxController {
     }
   }
 
-  List<String> _batchList(List<UserInfo> users) {
-    List<String> batches = [" Show All"];
-    for (final UserInfo userInfo in users) {
-      if (!batches.contains(userInfo.batch)) {
-        batches.add(userInfo.batch);
+  LinkedHashMap<String, int> _batchList(List<UserInfo> users) {
+    Map<String, int> batchWiseStudentCount = {" Show All": users.length};
+
+    for (final user in users) {
+      if (batchWiseStudentCount.containsKey(user.batch)) {
+        batchWiseStudentCount[user.batch] =
+            batchWiseStudentCount[user.batch]! + 1;
+      } else {
+        batchWiseStudentCount[user.batch] = 1;
       }
     }
-    batches.sort(((a, b) => a.compareTo(b)));
-    return batches;
+
+    final sortKey = batchWiseStudentCount.keys.toList(growable: false)
+      ..sort((a, b) => a.compareTo(b));
+
+    return LinkedHashMap<String, int>.fromIterable(
+      sortKey,
+      key: (key) => key,
+      value: (key) => batchWiseStudentCount[key] ?? -1,
+    );
   }
 
   @override
   void dispose() {
     scrollController.dispose();
     batch.close();
-
     super.dispose();
   }
 }
