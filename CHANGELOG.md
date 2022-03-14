@@ -1,5 +1,10 @@
 # Change log
 
+## v0.1.4
+
+- Add Reminder
+- Holiday List
+
 ## v0.1.3
 
 - show classmate
