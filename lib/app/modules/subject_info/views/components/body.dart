@@ -274,9 +274,15 @@ class SubjectInfoBody {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
-                child: Center(child: FaIcon(FontAwesomeIcons.bell)),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+                child: Center(
+                  child: FaIcon(
+                    FontAwesomeIcons.bell,
+                    color: Get.theme.textTheme.headline4?.color,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 6.0),
@@ -284,6 +290,7 @@ class SubjectInfoBody {
                   controller.notificationAdded.value
                       ? "Remove Reminder"
                       : "Add Reminder",
+                  style: Get.theme.textTheme.headline4?.copyWith(fontSize: 18),
                 ),
               )
             ],
