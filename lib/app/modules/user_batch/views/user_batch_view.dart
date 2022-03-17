@@ -22,10 +22,19 @@ class UserBatchView extends GetView<UserBatchController> {
         body: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
+            // Select Year
             title(context, "Select Year"),
             selectYearWidget(context),
+
+            // Select Stream [IT, CSE]
+            selectStreamTitle(context),
+            selectStreamWidget(context),
+
+            // Select Scheme
             selectSchemeTitle(context),
             selectScheme(context),
+
+            // Select Batch
             selectBatchTitle(context),
             batchList,
           ],
@@ -99,8 +108,14 @@ class UserBatchView extends GetView<UserBatchController> {
         ),
       );
 
+  Widget selectStreamTitle(BuildContext context) =>
+      Obx(() => controller.currentYear.value == 2
+          ? title(context, "Select Stream")
+          : const SizedBox());
+
   Widget selectBatchTitle(BuildContext context) =>
-      Obx(() => controller.currentScheme.value != null
+      Obx(() => (controller.currentScheme.value != null) ||
+              (controller.currentStream.value != null)
           ? title(context, "Select Batch")
           : const SizedBox());
 
@@ -159,6 +174,42 @@ class UserBatchView extends GetView<UserBatchController> {
           ),
         ),
       );
+
+  Widget selectStreamWidget(BuildContext context) =>
+      Obx(() => controller.currentYear.value == 2
+          ? AnimatedSize(
+              curve: Curves.easeInOut,
+              duration: const Duration(milliseconds: 300),
+              child: Obx(
+                () => GridView.count(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(10),
+                  crossAxisCount: 2,
+                  childAspectRatio:
+                      controller.currentStream.value == null ? 1 : 2,
+                  children: ["CSE", "IT"]
+                      .map(
+                        (e) => Card(
+                          color: controller.currentStream.value == e
+                              ? selectedCardColor
+                              : cardColor,
+                          child: InkWell(
+                            onTap: () {
+                              controller.currentStream.value = e;
+                            },
+                            child: Center(
+                              child: Text(e,
+                                  style: Theme.of(context).textTheme.headline1),
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            )
+          : const SizedBox());
 
   Widget select(BuildContext context) => Obx(
         () => GridView.count(

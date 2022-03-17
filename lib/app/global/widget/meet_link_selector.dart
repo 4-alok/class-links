@@ -72,7 +72,7 @@ class MeetLinkSelector extends StatelessWidget {
               ),
               filled: true,
               hintText:
-                  "Past ${meetType == MeetLinkType.googleClassroom ? "google classroom" : "zoom"} Link",
+                  "Paste ${meetType == MeetLinkType.googleClassroom ? "google meet" : "zoom"} Link",
             ),
             validator: validation,
           ),

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 class UserBatchController extends GetxController {
   final currentYear = Rx<int?>(null);
+  final currentStream = Rx<String?>(null);
   final currentScheme = Rx<int?>(null);
   final currentBatch = Rx<String?>(null);
   final loading = Rx<bool>(false);
@@ -17,12 +18,21 @@ class UserBatchController extends GetxController {
   List<String> get firstYearScheme2 =>
       List.generate(30, (index) => "B${index + 1}");
 
-  List<String> get secondYear =>
+  List<String> get secondYearCSE =>
       List.generate(26, (index) => "CSE ${index + 1}");
+
+  List<String> get secondYearIT =>
+      List.generate(7, (index) => "IT ${index + 1}");
 
   List<String> get batchList {
     if (currentYear.value == 2) {
-      return secondYear;
+      if (currentStream.value != null) {
+        if (currentStream.value == "CSE") {
+          return secondYearCSE;
+        } else if (currentStream.value == "IT") {
+          return secondYearIT;
+        }
+      }
     } else if (currentYear.value == 1) {
       if (currentScheme.value == 1) {
         return firstYearScheme1;
@@ -50,7 +60,7 @@ class UserBatchController extends GetxController {
       slot: currentScheme.value ?? 1,
       year: currentYear.value!,
       batch: currentBatch.value!,
-      stream: "CSE",
+      stream: currentStream.value!,
       date: DateTime.now(),
     );
 
@@ -60,5 +70,15 @@ class UserBatchController extends GetxController {
     }
 
     loading.value = false;
+  }
+
+  @override
+  void onClose() {
+    currentYear.close();
+    currentStream.close();
+    currentScheme.close();
+    currentBatch.close();
+    loading.close();
+    super.onClose();
   }
 }

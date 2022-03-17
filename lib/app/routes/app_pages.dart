@@ -24,7 +24,10 @@ class AppPages {
   AppPages._();
 
   static final INITIAL =
-      Get.find<AuthService>().user == null ? Routes.AUTH : Routes.HOME;
+  Get.find<AuthService>().user == null ? Routes.AUTH : Routes.HOME;
+
+  // //TODO: fix this 
+  // static const INITIAL = Routes.USER_BATCH;
 
   static final routes = [
     GetPage(

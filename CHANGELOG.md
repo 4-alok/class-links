@@ -1,5 +1,10 @@
 # Change log
 
+## v0.1.5
+
+- Class Link now supports the 2nd year IT Batch.
+- Fix minor bugs
+
 ## v0.1.4
 
 - Add Reminder

@@ -53,7 +53,8 @@ class AuthService extends GetxService {
       if (rollNo.isBetween(2005000, 2005999) ||
           rollNo.isBetween(20051000, 20052010) ||
           rollNo.isBetween(2105000, 2105999) ||
-          rollNo.isBetween(21051000, 21053467)) {
+          rollNo.isBetween(21051000, 21053467) ||
+          rollNo.isBetween(2006001, 2006568)) {
         return UserType.user;
       }
       return UserType.kiitian;
