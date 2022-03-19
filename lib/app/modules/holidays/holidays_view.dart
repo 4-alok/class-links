@@ -47,8 +47,6 @@ class HolidaysView extends StatelessWidget {
   }
 
   k() {
-    return TextField(
-      onChanged: (val) {}
-    );
+    return TextField(onChanged: (val) {});
   }
 }

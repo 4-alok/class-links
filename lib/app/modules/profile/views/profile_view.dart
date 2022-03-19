@@ -3,7 +3,6 @@ import '../../../global/widget/user_icon.dart';
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth_service.dart';
-import '../../../services/firestore_service.dart';
 import '../../../services/hive_database.dart';
 import '../../../utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;

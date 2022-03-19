@@ -152,7 +152,11 @@ class MyReorderableLIst extends StatelessWidget {
     List<String> subtitle = [];
     if (item.googleClassRoomLink != "") subtitle.add("Google Meet");
     if (item.zoomLink != "") subtitle.add("Zoom Meet");
-    if (item.roomNo != null) subtitle.add("Room No ${item.roomNo}");
+    if (item.roomNo != null) {
+      if (item.roomNo != "") {
+        subtitle.add("Room No ${item.roomNo}");
+      }
+    }
     return subtitle.join(" | ");
   }
 
