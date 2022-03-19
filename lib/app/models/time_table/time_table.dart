@@ -37,7 +37,7 @@ class Subject with _$Subject {
     @Default("") String remarkAddBy,
     @Default("") String googleClassRoomLink,
     @Default("") String gLinkAddBy,
-    @Default(null) int? roomNo,
+    @Default(null) String? roomNo,
     @Default("") String roomNoAddBy,
     @Default("") String zoomLink,
     @Default("") String zLinkAddBy,

@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:class_link/app/modules/home/controllers/venue_validator.dart';
+
 import '../../../../global/widget/meet_link_selector.dart';
 import '../../../../global/widget/time_selector.dart';
 import '../../../../models/time_table/time_table.dart';
@@ -58,57 +60,64 @@ class EditBottomSheet {
             snappings: [1.0],
             positioning: SnapPositioning.relativeToAvailableSpace,
           ),
-          headerBuilder: (context, state) => Material(
-                child: Obx(() => SizedBox(
-                      width: double.infinity,
-                      child: open.value
-                          ? Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                    height: DeviceSpec.topPadding(context)),
-                                SizedBox(
-                                  height: 30,
-                                  child: Text("Edit Subject",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6),
-                                ),
-                              ],
-                            )
-                          : SizedBox(
-                              height: 30,
-                              child: Center(
-                                child: IconButton(
-                                    onPressed: () {
-                                      open.value = true;
-                                      sheetController.expand();
-                                    },
-                                    icon: const Icon(
-                                        Icons.keyboard_arrow_up_rounded)),
-                              ),
-                            ),
-                    )),
-              ),
-          builder: (context, state) {
-            if (state.extent == 1) if (!open.value) open.value = true;
-            return Material(
-              child: content(context, state),
-            );
-          },
-          footerBuilder: (context, state) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: double.maxFinite,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () => submit(context, subject),
-                    child: const Text("done"),
-                  ),
-                ),
-              )),
+          headerBuilder: slidingSheetDialogHeaderBuilder,
+          builder: slidingSheetDialogBuilder,
+          footerBuilder: (context, state) =>
+              slidingSheetDialogFooterBuilder(context, state, subject)),
     );
   }
+
+  Widget slidingSheetDialogBuilder(BuildContext context, SheetState state) {
+    if (state.extent == 1) if (!open.value) open.value = true;
+    return Material(
+      child: content(context, state),
+    );
+  }
+
+  Widget slidingSheetDialogFooterBuilder(
+          BuildContext context, SheetState state, Subject? subject) =>
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          width: double.maxFinite,
+          height: 40,
+          child: ElevatedButton(
+            onPressed: () => submit(context, subject),
+            child: const Text("done"),
+          ),
+        ),
+      );
+
+  Widget slidingSheetDialogHeaderBuilder(
+          BuildContext context, SheetState state) =>
+      Material(
+        child: Obx(() => SizedBox(
+              width: double.infinity,
+              child: open.value
+                  ? Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(height: DeviceSpec.topPadding(context)),
+                        SizedBox(
+                          height: 30,
+                          child: Text("Edit Subject",
+                              style: Theme.of(context).textTheme.headline6),
+                        ),
+                      ],
+                    )
+                  : SizedBox(
+                      height: 30,
+                      child: Center(
+                        child: IconButton(
+                            onPressed: () {
+                              open.value = true;
+                              sheetController.expand();
+                            },
+                            icon: const Icon(Icons.keyboard_arrow_up_rounded)),
+                      ),
+                    ),
+            )),
+      );
 
   Widget content(BuildContext context, SheetState state) => Stack(
         children: [
@@ -164,18 +173,20 @@ class EditBottomSheet {
                         hintText: "Remark",
                       ),
                       textInputAction: TextInputAction.done,
+                      // validator: ,
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
                       controller: _roomNoController,
                       maxLines: 1,
-                      keyboardType: TextInputType.number,
+                      textCapitalization: TextCapitalization.characters,
                       decoration: InputDecoration(
                         border: curvedBox(),
                         filled: true,
-                        hintText: "Room Number",
+                        hintText: "Venue",
                       ),
                       textInputAction: TextInputAction.done,
+                      validator: VenueValidator.validate,
                     ),
                     const SizedBox(height: 10),
                     MeetLinkSelector(
@@ -213,7 +224,7 @@ class EditBottomSheet {
       subjectAddBy: subject == null
           ? addByInfo(subject, ChangesType.subjectAddedBy)
           : subject.subjectAddBy,
-      roomNo: int.tryParse(_roomNoController.text),
+      roomNo: _roomNoController.text,
       roomNoAddBy: addByInfo(subject, ChangesType.roomNo),
       remark: _remarkController.text,
       remarkAddBy: addByInfo(subject, ChangesType.remark),
@@ -238,7 +249,7 @@ class EditBottomSheet {
             ? subject.remarkAddBy
             : addedByInfo;
       } else if (change == ChangesType.roomNo) {
-        return subject.roomNo == int.tryParse(_roomNoController.text)
+        return subject.roomNo == _roomNoController.text
             ? subject.roomNoAddBy
             : addedByInfo;
       } else if (change == ChangesType.gClassRoomLink) {

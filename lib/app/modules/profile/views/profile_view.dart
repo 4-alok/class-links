@@ -3,6 +3,7 @@ import '../../../global/widget/user_icon.dart';
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth_service.dart';
+import '../../../services/firestore_service.dart';
 import '../../../services/hive_database.dart';
 import '../../../utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
@@ -50,6 +51,7 @@ class ProfileView extends GetView<ProfileController> {
               blackMode,
               const SizedBox(height: 20),
               adminPanel,
+              // test,
               logoutCard,
             ],
           ),
@@ -188,6 +190,15 @@ class ProfileView extends GetView<ProfileController> {
           ),
         )
       : const SizedBox();
+
+  // Widget get test => Card(
+  //       child: ListTile(
+  //         title: const Text("Test"),
+  //         onTap: () {
+  //           Get.find<FirestoreService>().test();
+  //         },
+  //       ),
+  //     );
 
   Widget get showLog => Get.find<AuthService>().userType() == UserType.user
       ? Card(

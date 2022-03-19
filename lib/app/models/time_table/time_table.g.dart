@@ -46,7 +46,7 @@ _$_Subject _$$_SubjectFromJson(Map<String, dynamic> json) => _$_Subject(
       remarkAddBy: json['remarkAddBy'] as String? ?? "",
       googleClassRoomLink: json['googleClassRoomLink'] as String? ?? "",
       gLinkAddBy: json['gLinkAddBy'] as String? ?? "",
-      roomNo: json['roomNo'] as int? ?? null,
+      roomNo: json['roomNo'] as String? ?? null,
       roomNoAddBy: json['roomNoAddBy'] as String? ?? "",
       zoomLink: json['zoomLink'] as String? ?? "",
       zLinkAddBy: json['zLinkAddBy'] as String? ?? "",

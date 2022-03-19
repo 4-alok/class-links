@@ -101,6 +101,22 @@ class FirestoreService extends GetxService {
     }
   }
 
+  // Future<void> test() async {
+  //   final res = await _firestore.collection("time_table").get();
+  //   final timetableList =
+  //       res.docs.map((e) => TimeTable.fromJson(e.data())).toList();
+
+  //   for (final timetable in timetableList) {
+  //     for (final day in timetable.week) {
+  //       for (final subject in day.subjects) {
+  //         if (subject.roomNo is! int) {
+  //           print(subject.subjectName);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
   // -----------------userInfo----------------------//
   Future<UserInfo?> get getUserInfo async {
     try {

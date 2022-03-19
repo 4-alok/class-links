@@ -1,22 +1,21 @@
 import 'dart:async';
 
-import '../../../utils/app_update.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../global/const/const.dart';
 import '../../../models/log/log.dart';
 import '../../../models/time_table/time_table.dart';
 import '../../../models/user_info/user_info.dart';
-import '../../subject_info/controllers/subject_info_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth_service.dart';
 import '../../../services/firestore_service.dart';
 import '../../../services/hive_database.dart';
 import '../../../services/log_service.dart';
+import '../../../utils/app_update.dart';
 import '../../../utils/extension.dart';
 import '../../../utils/get_snackbar.dart';
-
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import '../../subject_info/controllers/subject_info_controller.dart';
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {

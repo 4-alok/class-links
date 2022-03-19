@@ -1,15 +1,16 @@
 import 'package:animations/animations.dart';
-import '../../../../models/subject_info/subject_info.dart';
-import '../../../subject_info/controllers/subject_info_controller.dart';
-import '../../../subject_info/views/subject_info_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
+
+import '../../../../models/subject_info/subject_info.dart';
 import '../../../../models/time_table/time_table.dart';
-import '../../controllers/home_controller.dart';
 import '../../../../utils/color.dart';
 import '../../../../utils/extension.dart';
+import '../../../subject_info/controllers/subject_info_controller.dart';
+import '../../../subject_info/views/subject_info_view.dart';
+import '../../controllers/home_controller.dart';
 import 'current_class_card.dart';
 import 'edit_model_sheet.dart';
 

@@ -453,7 +453,7 @@ class _$SubjectTearOff {
       String remarkAddBy = "",
       String googleClassRoomLink = "",
       String gLinkAddBy = "",
-      int? roomNo = null,
+      String? roomNo = null,
       String roomNoAddBy = "",
       String zoomLink = "",
       String zLinkAddBy = "",
@@ -489,7 +489,7 @@ mixin _$Subject {
   String get remarkAddBy => throw _privateConstructorUsedError;
   String get googleClassRoomLink => throw _privateConstructorUsedError;
   String get gLinkAddBy => throw _privateConstructorUsedError;
-  int? get roomNo => throw _privateConstructorUsedError;
+  String? get roomNo => throw _privateConstructorUsedError;
   String get roomNoAddBy => throw _privateConstructorUsedError;
   String get zoomLink => throw _privateConstructorUsedError;
   String get zLinkAddBy => throw _privateConstructorUsedError;
@@ -511,7 +511,7 @@ abstract class $SubjectCopyWith<$Res> {
       String remarkAddBy,
       String googleClassRoomLink,
       String gLinkAddBy,
-      int? roomNo,
+      String? roomNo,
       String roomNoAddBy,
       String zoomLink,
       String zLinkAddBy,
@@ -570,7 +570,7 @@ class _$SubjectCopyWithImpl<$Res> implements $SubjectCopyWith<$Res> {
       roomNo: roomNo == freezed
           ? _value.roomNo
           : roomNo // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       roomNoAddBy: roomNoAddBy == freezed
           ? _value.roomNoAddBy
           : roomNoAddBy // ignore: cast_nullable_to_non_nullable
@@ -610,7 +610,7 @@ abstract class _$SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
       String remarkAddBy,
       String googleClassRoomLink,
       String gLinkAddBy,
-      int? roomNo,
+      String? roomNo,
       String roomNoAddBy,
       String zoomLink,
       String zLinkAddBy,
@@ -671,7 +671,7 @@ class __$SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
       roomNo: roomNo == freezed
           ? _value.roomNo
           : roomNo // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       roomNoAddBy: roomNoAddBy == freezed
           ? _value.roomNoAddBy
           : roomNoAddBy // ignore: cast_nullable_to_non_nullable
@@ -730,7 +730,7 @@ class _$_Subject implements _Subject {
   final String gLinkAddBy;
   @JsonKey()
   @override
-  final int? roomNo;
+  final String? roomNo;
   @JsonKey()
   @override
   final String roomNoAddBy;
@@ -807,7 +807,7 @@ abstract class _Subject implements Subject {
       String remarkAddBy,
       String googleClassRoomLink,
       String gLinkAddBy,
-      int? roomNo,
+      String? roomNo,
       String roomNoAddBy,
       String zoomLink,
       String zLinkAddBy,
@@ -828,7 +828,7 @@ abstract class _Subject implements Subject {
   @override
   String get gLinkAddBy;
   @override
-  int? get roomNo;
+  String? get roomNo;
   @override
   String get roomNoAddBy;
   @override
