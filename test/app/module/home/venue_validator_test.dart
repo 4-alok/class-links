@@ -32,12 +32,12 @@ void main() {
       expect(res, isNotNull);
     });
 
-    test("Invalid Venue case 1", () {
+    test("Invalid Venue case 2", () {
       final res = VenueValidator.validate("XXX201X");
       expect(res, isNotNull);
     });
 
-    test("Invalid Venue case 1", () {
+    test("Invalid Venue case 3", () {
       final res = VenueValidator.validate("CLH201XXX");
       expect(res, isNotNull);
     });
