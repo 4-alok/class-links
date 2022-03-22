@@ -117,6 +117,26 @@ class FirestoreService extends GetxService {
   //   }
   // }
 
+  Future<void> delete2year() async {
+    final res = await _firestore.collection("time_table").get();
+
+    print(res.docs.length);
+    for (final snapshot in res.docs) {
+      final timetable = TimeTable.fromJson(snapshot.data());
+      if (timetable.year == 2) {
+        print(timetable.batch);
+        snapshot.reference.delete();
+      }
+    }
+  }
+
+  Future<void> addTimeTables(List<TimeTable> timeTables) async {
+    for (final timeTable in timeTables) {
+      print(timeTable.batch);
+      await _firestore.collection("time_table").add(timeTable.toJson());
+    }
+  }
+
   // -----------------userInfo----------------------//
   Future<UserInfo?> get getUserInfo async {
     try {

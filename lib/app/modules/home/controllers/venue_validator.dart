@@ -4,11 +4,10 @@ class VenueValidator {
     if (venue != null) {
       if (venue == "") {
         return null;
-      }
-      if (venue.startsWith("CLH") || venue.startsWith("CWL")) {
-        if (venue.length == 6) {
-          return null;
-        }
+      } else if (venue == "D4" || venue == "D5") {
+        return null;
+      } else if (venue.startsWith("CLH") || venue.startsWith("CWL")) {
+        if (venue.length == 6) return null;
       }
       return message;
     } else {

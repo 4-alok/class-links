@@ -3,12 +3,14 @@ import '../../../global/widget/user_icon.dart';
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth_service.dart';
+import '../../../services/firestore_service.dart';
 import '../../../services/hive_database.dart';
 import '../../../utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import '../../../utils/import_csv.dart';
 import '../controllers/profile_controller.dart';
 import 'component/app_bar_style.dart';
 import 'component/app_info_dialog.dart';
@@ -192,9 +194,10 @@ class ProfileView extends GetView<ProfileController> {
 
   // Widget get test => Card(
   //       child: ListTile(
-  //         title: const Text("Test"),
+  //         title: const Text("Add Timetable"),
   //         onTap: () {
-  //           Get.find<FirestoreService>().test();
+  //           // Get.find<FirestoreService>().delete2year();
+  //           FileUtils.pickFileTask();
   //         },
   //       ),
   //     );
