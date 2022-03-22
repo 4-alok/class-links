@@ -8,7 +8,7 @@ import 'package:hive/hive.dart';
 
 class HiveDatabase extends GetxService {
   final appTheme = Rx<FlexSchemeData>(AppColor.schemes[1]);
-  final isBlack = Rx<bool>(false);
+  final isBlack = Rx<bool>(true);
   final themeMode = Rx<ThemeMode>(ThemeMode.system);
   final appBarStyle = Rx<FlexAppBarStyle>(FlexAppBarStyle.material);
   late final Box userInfoBox;
