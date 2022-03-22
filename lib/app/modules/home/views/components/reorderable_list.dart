@@ -1,11 +1,9 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 
-import '../../../../gen/assets.gen.dart';
 import '../../../../models/subject_info/subject_info.dart';
 import '../../../../models/time_table/time_table.dart';
 import '../../../../utils/color.dart';

@@ -3,7 +3,7 @@ import '../../controllers/home_controller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'app_bar.dart';
-import 'reordable_list.dart';
+import 'reorderable_list.dart';
 
 class TimeTablePage extends StatelessWidget {
   final HomeController homeController;
