@@ -91,7 +91,7 @@ class MyReorderableLIst extends StatelessWidget {
             ),
           ),
           title: Text(item.subjectName),
-          subtitle: Text(item.startTime.text12HourStartEnd),
+          subtitle: Text(item.startTime.startEndTimeRange),
           trailing: IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () => homeController.removeSubject(item, currentDay.day),

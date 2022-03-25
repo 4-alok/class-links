@@ -76,7 +76,7 @@ class AppInfoBox {
                     socialWidget(
                       context,
                       FontAwesomeIcons.envelope,
-                      "Github",
+                      "Mail",
                       () => Launcher.launchUrl(
                           context, 'mailto: ${AppInfo.supportMail}'),
                     ),
