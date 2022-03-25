@@ -1,9 +1,9 @@
 import '../../../utils/app_update.dart';
 
 import '../../../routes/app_pages.dart';
-import '../../../services/auth_service.dart';
-import '../../../services/firestore_service.dart';
-import '../../../services/hive_database.dart';
+import '../../../services/auth/auth_service.dart';
+import '../../../services/firebase/firestore_service.dart';
+import '../../../services/hive/hive_database.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {

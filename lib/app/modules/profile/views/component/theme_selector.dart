@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../global/theme/app_color.dart.dart';
 import '../../controllers/profile_controller.dart';
-import '../../../../services/hive_database.dart';
+import '../../../../services/hive/hive_database.dart';
 
 class ThemeSelector extends StatelessWidget {
   final ProfileController controller;

@@ -1,7 +1,7 @@
 import '../../../global/theme/app_color.dart.dart';
 import '../../../routes/app_pages.dart';
-import '../../../services/auth_service.dart';
-import '../../../services/hive_database.dart';
+import '../../../services/auth/auth_service.dart';
+import '../../../services/hive/hive_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

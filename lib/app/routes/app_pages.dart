@@ -15,7 +15,7 @@ import '../modules/profile/views/profile_view.dart';
 import '../modules/subject_info/views/subject_info_view.dart';
 import '../modules/user_batch/bindings/user_batch_binding.dart';
 import '../modules/user_batch/views/user_batch_view.dart';
-import '../services/auth_service.dart';
+import '../services/auth/auth_service.dart';
 
 // ignore_for_file: non_constant_identifier_names
 part 'app_routes.dart';

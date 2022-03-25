@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../utils/exceptions.dart';
-import '../utils/extension.dart';
-import '../utils/get_snackbar.dart';
+import '../../utils/exceptions.dart';
+import '../../utils/extension.dart';
+import '../../utils/get_snackbar.dart';
 
 enum UserType { user, kiitian, guest, none }
 

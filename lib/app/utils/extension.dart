@@ -1,9 +1,11 @@
 import '../global/const/holiday_list.dart';
+import '../models/analytics/analytics_log.dart';
 import '../models/log/log.dart';
 import '../models/time_table/time_table.dart' as timetable;
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get/route_manager.dart';
+import '../models/user_info/user_info.dart';
 import 'gsheets_utils.dart';
 
 extension StartingTimeText on timetable.DayTime {
@@ -69,4 +71,15 @@ extension Range on num {
 
 extension ToDateTime on Holiday {
   DateTime get toDateTime => DateTime(year, month, day);
+}
+
+extension UserAnalyticsLog on UserInfo {
+  AnalyticsLog get toAnalyticsLog => AnalyticsLog(
+        id: id,
+        slot: slot,
+        batch: batch,
+        stream: stream,
+        year: year,
+        date: DateTime.now(),
+      );
 }
