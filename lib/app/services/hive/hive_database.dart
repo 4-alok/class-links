@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
-class HiveDatabase extends GetxService {
+import 'theme_analytics_log.dart';
+
+class HiveDatabase extends GetxService with ThemeAnalyticsLog {
   final appTheme = Rx<FlexSchemeData>(AppColor.schemes[1]);
   final isBlack = Rx<bool>(true);
   final themeMode = Rx<ThemeMode>(ThemeMode.system);
@@ -50,21 +52,24 @@ class HiveDatabase extends GetxService {
     appTheme.value = AppColor.schemes[await getCurrentSchemeIndex];
   }
 
-  Future<void> saveCurrentSchemeIndex(int index) async => await settingsBox
-      .put('currentScheme', index)
-      .then((value) => appTheme.value = AppColor.schemes[index]);
+  Future<void> saveCurrentSchemeIndex(int index) async =>
+      await settingsBox.put('currentScheme', index).then((value) {
+        appTheme.value = AppColor.schemes[index];
+        addThemeLog;
+      });
 
   Future<int> get getCurrentSchemeIndex async =>
       await settingsBox.get('currentScheme') ?? 1;
 
-  Future<void> saveCurrentTheme(ThemeMode themeMode) async =>
-      await settingsBox.put('mode', themeMode.index);
+  Future<void> saveCurrentTheme(ThemeMode themeMode) async => await settingsBox
+      .put('mode', themeMode.index)
+      .then((value) => addThemeLog);
 
   Future<ThemeMode> get getCurrentTheme async =>
       ThemeMode.values[await settingsBox.get('mode') ?? 0];
 
   Future<void> saveIsBlackMode(bool isBlack) async =>
-      await settingsBox.put('isBlack', isBlack);
+      await settingsBox.put('isBlack', isBlack).then((value) => addThemeLog);
 
   Future<bool> get getIsBlack async =>
       await settingsBox.get('isBlack') ?? false;
