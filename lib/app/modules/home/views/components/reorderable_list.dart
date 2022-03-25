@@ -155,7 +155,7 @@ class MyReorderableLIst extends StatelessWidget {
     if (item.roomNo != null) {
       if (item.roomNo != "" && subtitle.isEmpty) {
         subtitle.add(
-            "Room no: ${item.roomNo!.substring(0, 3) + " - " + item.roomNo!.substring(3, 6)}");
+            "Room no: ${item.roomNo!.substring(0, 3) + "-" + item.roomNo!.substring(3, 6)}");
       }
     }
     return subtitle.join(" | ");
