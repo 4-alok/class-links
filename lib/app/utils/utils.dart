@@ -9,7 +9,8 @@ class Utils {
     final currentDate = DateTime.now();
     if (dateTime.day == currentDate.day) {
       return todayString ? 'Today' : DateFormat('hh:mm a').format(dateTime);
-    } else if (dateTime.day == currentDate.day - 1) {
+    } else if (dateTime.day == currentDate.day - 1 &&
+        dateTime.month == currentDate.month) {
       return showTime
           ? ("Yesterday " + DateFormat('hh:mm a').format(dateTime))
           : 'Yesterday';
