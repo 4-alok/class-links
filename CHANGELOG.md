@@ -1,5 +1,9 @@
 # Change log
 
+## v0.1.7
+
+- UI update
+
 ## v0.1.6
 
 - change room no to venue

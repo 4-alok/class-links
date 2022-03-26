@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:class_link/app/modules/home/controllers/venue_validator.dart';
+import '../../controllers/venue_validator.dart';
 
 import '../../../../global/widget/meet_link_selector.dart';
 import '../../../../global/widget/time_selector.dart';

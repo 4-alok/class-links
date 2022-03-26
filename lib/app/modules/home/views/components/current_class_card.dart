@@ -30,17 +30,39 @@ class CurrentClassCard extends StatelessWidget {
           closedColor: Theme.of(context).scaffoldBackgroundColor,
           openColor: Theme.of(context).scaffoldBackgroundColor,
           middleColor: Theme.of(context).scaffoldBackgroundColor,
-          closedBuilder: (context, action) => InkWell(
-            onLongPress: () => _onLongPress(action),
-            onTap: () => onTap(context, action, subjectInfo.subject),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(height: 8),
-                  Row(
+          closedBuilder: (context, action) => closeTile(action, context),
+          openBuilder: (context, action) {
+            Get.lazyPut<SubjectInfoController>(
+              () => SubjectInfoController(),
+              tag: SubjectInfoController.TAG,
+            );
+            return SubjectInfoView(
+              subjectInfo: subjectInfo,
+            );
+          },
+        ),
+      );
+
+  Widget closeTile(VoidCallback action, BuildContext context) => Container(
+        color: Theme.of(context).colorScheme.secondaryContainer.withOpacity(.1),
+        child: InkWell(
+          onLongPress: () => _onLongPress(action),
+          onTap: () => onTap(context, action, subjectInfo.subject),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.only(right: 10),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .secondaryContainer
+                      .withOpacity(.1),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
                         height: 23,
@@ -57,43 +79,34 @@ class CurrentClassCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
-                  Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            subjectInfo.subject.subjectName,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.headline2,
-                          ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          subjectInfo.subject.subjectName,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.headline2,
                         ),
-                        trailingWidget(),
-                      ]),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6),
-                    child: Text(
-                      subjectInfo.subject.remark == ""
-                          ? "No Remark"
-                          : subjectInfo.subject.remark,
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
+                      ),
+                      trailingWidget(),
+                    ]),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  child: Text(
+                    subjectInfo.subject.remark == ""
+                        ? "No Remark"
+                        : subjectInfo.subject.remark,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
-                  const SizedBox(height: 8),
-                ],
-              ),
+                ),
+                const SizedBox(height: 8),
+              ],
             ),
           ),
-          openBuilder: (context, action) {
-            Get.lazyPut<SubjectInfoController>(
-              () => SubjectInfoController(),
-              tag: SubjectInfoController.TAG,
-            );
-            return SubjectInfoView(
-              subjectInfo: subjectInfo,
-            );
-          },
         ),
       );
 
@@ -149,7 +162,7 @@ class CurrentClassCard extends StatelessWidget {
                       context, subjectInfo.subject.googleClassRoomLink),
                   child: SvgPicture.asset(
                     Assets.icons.meet.path,
-                    semanticsLabel: 'Googel Class Room',
+                    semanticsLabel: 'Google Class Room',
                     height: 35,
                     width: 35,
                   ),
@@ -176,34 +189,47 @@ class CurrentClassCard extends StatelessWidget {
         ),
       );
 
-  Widget trailingWidget() => subjectInfo.subject.roomNo != null
-      ? Text(
-          subjectInfo.subject.roomNo.toString(),
-          style: Get.theme.textTheme.headline3!.copyWith(
-            color: Get.theme.colorScheme.primary,
-          ),
-        )
-      : Wrap(
-          children: [
-            subjectInfo.subject.googleClassRoomLink == ""
-                ? const SizedBox()
-                : Padding(
-                    padding: const EdgeInsets.only(right: 8, top: 3),
-                    child: SvgPicture.asset(
-                      Assets.icons.meet.path,
-                      semanticsLabel: 'A red up arrow',
-                      height: 25,
-                      width: 25,
+  Widget trailingWidget() => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              subjectInfo.subject.googleClassRoomLink == ""
+                  ? const SizedBox()
+                  : Padding(
+                      padding: const EdgeInsets.only(right: 8, top: 3),
+                      child: SvgPicture.asset(
+                        Assets.icons.meet.path,
+                        semanticsLabel: 'A red up arrow',
+                        height: 25,
+                        width: 25,
+                      ),
                     ),
-                  ),
-            subjectInfo.subject.zoomLink == ""
-                ? const SizedBox()
-                : SvgPicture.asset(
-                    Assets.icons.zoom.path,
-                    semanticsLabel: 'A red up arrow',
-                    height: 30,
-                    width: 30,
-                  ),
-          ],
-        );
+              subjectInfo.subject.zoomLink == ""
+                  ? const SizedBox()
+                  : SvgPicture.asset(
+                      Assets.icons.zoom.path,
+                      semanticsLabel: 'A red up arrow',
+                      height: 30,
+                      width: 30,
+                    ),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 8),
+                height: 20,
+                width: 2,
+                color: Get.theme.colorScheme.secondaryContainer,
+              ),
+              subjectInfo.subject.roomNo != null
+                  ? Text(
+                      subjectInfo.subject.roomNo.toString(),
+                      style: Get.theme.textTheme.headline3!.copyWith(
+                        color: Get.theme.colorScheme.primary,
+                      ),
+                    )
+                  : const SizedBox(),
+            ],
+          ),
+        ],
+      );
 }

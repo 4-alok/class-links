@@ -126,7 +126,7 @@ class MyReorderableLIst extends StatelessWidget {
             trailing: item.roomNo == null
                 ? null
                 : Text(
-                    item.roomNo.toString(),
+                    trailingText(item),
                     style: Get.theme.textTheme.headline4,
                   ),
             onLongPress: () => ScaffoldMessenger.of(context).showSnackBar(
@@ -153,22 +153,31 @@ class MyReorderableLIst extends StatelessWidget {
     if (item.googleClassRoomLink != "") subtitle.add("Google Meet");
     if (item.zoomLink != "") subtitle.add("Zoom Meet");
     if (item.roomNo != null) {
-      if (item.roomNo != "") {
-        subtitle.add("Room No ${item.roomNo}");
+      if (item.roomNo != "" && subtitle.isEmpty) {
+        subtitle.add(
+            "Room no: ${item.roomNo!.substring(0, 3) + "-" + item.roomNo!.substring(3, 6)}");
       }
     }
     return subtitle.join(" | ");
+  }
+
+  String trailingText(Subject item) {
+    final _roomNo = item.roomNo;
+    if (_roomNo == null) return "";
+    return (item.googleClassRoomLink == "" && item.zoomLink == "")
+        ? (_roomNo.length == 6)
+            ? _roomNo.substring(3, 6)
+            : _roomNo.substring(3, 6) + " " + _roomNo.substring(3, 6)
+        : _roomNo.substring(0, 3) + "-" + _roomNo.substring(3, 6);
   }
 
   Future<void> addSubject(BuildContext context, [Subject? _subject]) async {
     final editBottomSheet = EditBottomSheet();
     Subject? sub = await editBottomSheet.show(context, _subject);
     if (sub != null) {
-      if (_subject != null) {
-        homeController.updateSubject(currentDay.day, _subject, sub);
-      } else {
-        homeController.addSubject(currentDay, sub);
-      }
+      (_subject != null)
+          ? homeController.updateSubject(currentDay.day, _subject, sub)
+          : homeController.addSubject(currentDay, sub);
     }
   }
 }
