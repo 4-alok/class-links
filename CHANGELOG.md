@@ -1,5 +1,10 @@
 # Change log
 
+## v0.1.8
+
+- Bug fixes
+- Class Link now supports the 1nd year
+
 ## v0.1.7
 
 - UI update

@@ -16,7 +16,7 @@ class UserBatchController extends GetxController {
   List<String> get firstYearScheme1 => BatchList.firstYearScheme1;
 
   List<String> get firstYearScheme2 =>
-      List.generate(30, (index) => "B${index + 1}");
+      BatchList.firstYearScheme2;
 
   List<String> get secondYearCSE =>
       List.generate(26, (index) => "CSE ${index + 1}");
@@ -60,7 +60,7 @@ class UserBatchController extends GetxController {
       slot: currentScheme.value ?? 1,
       year: currentYear.value!,
       batch: currentBatch.value!,
-      stream: currentStream.value!,
+      stream: currentStream.value ?? "1st Year",
       date: DateTime.now(),
     );
 

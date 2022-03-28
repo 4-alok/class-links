@@ -28,8 +28,8 @@ abstract class MyReorderableLIstUtils {
     if (item.zoomLink != "") subtitle.add("Zoom Meet");
     if (item.roomNo != null) {
       if (item.roomNo != "" && subtitle.isEmpty) {
-        subtitle.add(
-            "Room no: ${item.roomNo!.substring(0, 3) + "-" + item.roomNo!.substring(3, 6)}");
+        final map = item.roomNo!.splitString;
+        subtitle.add("Room no: ${map.keys.first} - ${map.values.first}");
       }
     }
     return subtitle.join(" | ");
