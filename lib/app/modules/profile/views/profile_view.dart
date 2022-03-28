@@ -3,14 +3,13 @@ import '../../../global/widget/user_icon.dart';
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
-import '../../../services/firebase/firestore_service.dart';
+// import '../../../services/firebase/firestore_service.dart';
 import '../../../services/hive/hive_database.dart';
 import '../../../utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import '../../../utils/import/import_csv.dart';
 import '../controllers/profile_controller.dart';
 import 'component/app_bar_style.dart';
 import 'component/app_info_dialog.dart';
@@ -52,7 +51,7 @@ class ProfileView extends GetView<ProfileController> {
               blackMode,
               const SizedBox(height: 20),
               adminPanel,
-              test,
+              // test,
               logoutCard,
             ],
           ),
@@ -192,15 +191,15 @@ class ProfileView extends GetView<ProfileController> {
         )
       : const SizedBox();
 
-  Widget get test => Card(
-        child: ListTile(
-          title: const Text("Test"),
-          onTap: () {
-            // Get.find<FirestoreService>().deleteTimetable(1);
-            FileUtils.pickFileTask();
-          },
-        ),
-      );
+  // Widget get test => Card(
+  //       child: ListTile(
+  //         title: const Text("Test"),
+  //         onTap: () {
+  //           Get.find<FirestoreService>().deleteUser(1);
+  //           // FileUtils.pickFileTask();
+  //         },
+  //       ),
+  //     );
 
   Widget get showLog => Get.find<AuthService>().userType() == UserType.user
       ? Card(

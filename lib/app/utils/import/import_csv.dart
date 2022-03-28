@@ -1,9 +1,5 @@
 import 'dart:io';
-import 'package:get/get.dart';
 import '../../models/time_table/time_table.dart';
-import 'package:file_picker/file_picker.dart';
-import '../../services/firebase/firestore_service.dart';
-import 'first_year/first_year_import_utils.dart';
 import 'first_year/first_year_import_utils_2.dart';
 
 class ImportCSV {
@@ -24,16 +20,16 @@ class ImportCSV {
 
 class FileUtils {
   static void pickFileTask() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ["csv"],
-    );
+    // FilePickerResult? result = await FilePicker.platform.pickFiles(
+    //   type: FileType.custom,
+    //   allowedExtensions: ["csv"],
+    // );
 
-    if (result != null) {
-      final file = File(result.files.single.path!);
-      final res = await ImportCSV().import(file);
-      await Get.find<FirestoreService>().addTimeTables(res);
-    } else {}
-    await FilePicker.platform.clearTemporaryFiles();
+    // if (result != null) {
+    //   final file = File(result.files.single.path!);
+    //   final res = await ImportCSV().import(file);
+    //   await Get.find<FirestoreService>().addTimeTables(res);
+    // } else {}
+    // await FilePicker.platform.clearTemporaryFiles();
   }
 }

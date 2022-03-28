@@ -1,4 +1,4 @@
-import 'package:class_link/app/services/analytics/analytics_service.dart';
+import '../analytics/analytics_service.dart';
 import 'package:get/get.dart';
 
 abstract class ThemeAnalyticsLog {

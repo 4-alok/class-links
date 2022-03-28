@@ -139,12 +139,12 @@ class FirestoreService extends GetxService with FirestoreServiceUtils {
     }
   }
 
-  Future<void> addTimeTables(List<TimeTable> timeTables) async {
-    for (final timeTable in timeTables) {
-      print(timeTable.batch);
-      await _firestore.collection("time_table").add(timeTable.toJson());
-    }
-  }
+  // Future<void> addTimeTables(List<TimeTable> timeTables) async {
+  //   for (final timeTable in timeTables) {
+  //     print(timeTable.batch);
+  //     await _firestore.collection("time_table").add(timeTable.toJson());
+  //   }
+  // }
 
   // -----------------userInfo----------------------//
   Future<UserInfo?> get getUserInfo async {

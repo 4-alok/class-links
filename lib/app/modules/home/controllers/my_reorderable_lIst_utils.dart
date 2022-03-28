@@ -1,4 +1,4 @@
-import 'package:class_link/app/utils/extension.dart';
+import '../../../utils/extension.dart';
 
 import '../../../models/time_table/time_table.dart';
 

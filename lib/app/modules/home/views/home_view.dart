@@ -1,4 +1,4 @@
-import 'package:class_link/app/services/analytics/analytics_service.dart';
+import '../../../services/analytics/analytics_service.dart';
 
 import '../../../services/auth/auth_service.dart';
 
