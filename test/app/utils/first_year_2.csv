@@ -1,0 +1,135 @@
+Monday,OB1,,x,BMS Pr.,BMS Pr.,BMS Pr.,405,Phy.,BEE,M–II,,x,x,x
+Monday,OB2,,x,BMS Pr.,BMS Pr.,BMS Pr.,403,Phy.,M–II,BEE,,x,x,x
+Monday,OB3,,x,BEE. Lab.,BEE. Lab.,***,406,AEC,M–II,BEE,OAT1,x,x,YHC(P)
+Monday,OB4,,x,Phy. Lab.,Phy. Lab.,Phy. Lab.,407,AEC,M–II,Phy.,,x,x,x
+Monday,OB5,303,x,x,AEC,Phy.,303,M–II,BEE,YHC,OAT2,x,x,YHC(P)
+Monday,OB6,302,x,AEC,BEE,M–II,,Phy.,AEC. Lab.,AEC. Lab.,,x,x,x
+Monday,OB7,,x,AEC. Lab.,AEC. Lab.,x,304,AEC,Phy.,M–II,,x,x,x
+Monday,OB8,306,x,AEC,M–II,Phy.,,x,AEC. Lab.,AEC. Lab.,OAT3,x,x,YHC(P)
+Monday,OB9,,x,x,x,x,305,Phy.,M–II,BEE,,Phy. Lab.,Phy. Lab.,Phy. Lab.
+Monday,OB10,304,x,Phy.,BEE,AEC,,Phy. Lab.,Phy. Lab.,Phy. Lab.,,x,x,x
+Monday,OB11,,x,BEE. Lab.,BEE. Lab.,x,306,Phy.,M–II,BEE,,x,x,x
+Monday,OB12,307,x,EVS,EVS,Phy.,,BEE,x,x,,x,x,x
+Monday,OB13,,x,AEC. Lab.,AEC. Lab.,x,404,M–II,AEC,Phy.,,x,x,x
+Monday,OB14,,x,x,x,x,,BMS Pr.,BMS Pr.,BMS Pr.,303,M–II,Phy.,BEE
+Monday,VB15,,x,x,x,x,,BMS Pr.,BMS Pr.,BMS Pr.,,Phy.,AEC,M–II
+Monday,VB16,,x,x,x,x,,BEE. Lab.,x,x,,BEE,EVS,EVS
+Monday,VB17,,YHC(P),x,x,x,,YHC,BEE,Phy.,,x,M–II,AEC
+Monday,VB18,,YHC(P),x,x,x,,BEE,Phy.,M–II,,BMS Pr.,BMS Pr.,BMS Pr.
+Monday,VB19,,x,x,x,x,,Phy.,M–II,AEC,,x,AEC. Lab.,AEC. Lab.
+Monday,VB20,,x,Phy. Lab.,Phy. Lab.,Phy. Lab.,,BEE,EVS,EVS,,x,x,x
+Monday,VB21,,x,x,x,x,,AEC,M–II,Phy.,,BEE,BEE. Lab.,BEE. Lab.
+Monday,VB22,,x,x,x,x,,M–II,Phy.,BEE,,x,AEC. Lab.,AEC. Lab.
+Monday,VB23,,x,x,x,x,,M–II,AEC,Phy.,,x,BEE. Lab.,BEE. Lab.
+Monday,VB24,,x,x,x,x,,M–II,Phy.,BEE,,BMS Pr.,BMS Pr.,BMS Pr.
+Monday,VB25,,x,x,x,x,,M–II,AEC,Phy.,,Phy. Lab.,Phy. Lab.,Phy. Lab.
+Monday,VB26,,x,x,x,x,,BEE. Lab.,BEE. Lab.,Phy.,,M–II,AEC,BEE
+Monday,VB27,,x,x,x,x,,Phy. Lab.,Phy. Lab.,Phy. Lab.,,BEE,Phy.,M–II
+Tuesday,OB1,405,x,EVS,EVS,Phy.,405,AEC,M–II,YHC,OAT1,x,x,YHC(P)
+Tuesday,OB2,,x,AEC. Lab.,AEC. Lab.,x,407,Phy.,M–II,AEC,OAT2,x,x,YHC(P)
+Tuesday,OB3,,x,BMS Pr.,BMS Pr.,BMS Pr.,406,BEE,M–II,Phy.,,x,x,x
+Tuesday,OB4,,x,BMS Pr.,BMS Pr.,BMS Pr.,307,AEC,M–II,Phy.,OAT3,x,x,YHC(P)
+Tuesday,OB5,,x,BEE. Lab.,BEE. Lab.,x,302,M–II,EVS,EVS,,x,x,x
+Tuesday,OB6,407,x,***,M–II,Phy.,,BMS Pr.,BMS Pr.,BMS Pr.,,x,x,x
+Tuesday,OB7,,x,x,x,x,304,BEE,AEC,M–II,,Phy. Lab.,Phy. Lab.,Phy. Lab.
+Tuesday,OB8,303,x,EVS,EVS,YHC,303,Phy.,BEE,x,,x,x,x
+Tuesday,OB9,307,x,Phy.,M–II,AEC,,BMS Pr.,BMS Pr.,BMS Pr.,,x,x,x
+Tuesday,OB10,403,x,BEE. Lab.,BEE. Lab.,YHC(10.20-11.20),,M–II,EVS,EVS,,x,x,x
+Tuesday,OB11,404,x,AEC,M–II,Phy.,,Phy. Lab.,Phy. Lab.,Phy. Lab.,,x,x,x
+Tuesday,OB12,406,x,M–II,AEC,Phy.,,x,BEE. Lab.,BEE. Lab.,,x,x,x
+Tuesday,OB13,,x,Phy. Lab.,Phy. Lab.,Phy. Lab.,404,M–II,Phy.,BEE,,x,x,x
+Tuesday,OB14,,x,x,x,x,305,AEC,BEE,M–II,,x,BEE. Lab.,BEE. Lab.
+Tuesday,VB15,,x,Phy. Lab.,Phy. Lab.,Phy. Lab.,,M–II,BEE,Phy.,,x,x,x
+Tuesday,VB16,,x,x,x,x,,AEC. Lab.,AEC. Lab.,x,,M–II,Phy.,AEC
+Tuesday,VB17,,x,x,x,x,,M–II,AEC,Phy.,,Phy. Lab.,Phy. Lab.,Phy. Lab.
+Tuesday,VB18,,x,x,x,x,,AEC. Lab.,AEC. Lab.,x,,M–II,EVS,
+Tuesday,VB19,,YHC(P),x,x,x,,x,Phy.,BEE,,YHC,M–II,AEC
+Tuesday,VB20,,x,x,x,x,,BEE. Lab.,BEE. Lab.,x,,M–II,Phy.,AEC
+Tuesday,VB21,,x,x,x,x,,x,,M–II,,BMS Pr.,BMS Pr.,BMS Pr.
+Tuesday,VB22,,YHC(P),x,x,x,,Phy.,BEE,YHC,,M–II,AEC,x
+Tuesday,VB23,,x,YHC(P),,,,M–II,Phy.,AEC,,BEE,AEC. Lab.,AEC. Lab.
+Tuesday,VB24,,YHC(P),x,x,x,,BEE,Phy.,YHC,,***,AEC,M–II
+Tuesday,VB25,,x,x,x,x,,M–II,Phy.,AEC,,BMS Pr.,BMS Pr.,BMS Pr.
+Tuesday,VB26,,x,x,x,x,,AEC,Phy.,M–II,,x,AEC. Lab.,AEC. Lab.
+Tuesday,VB27,,x,x,x,x,,M–II,Phy.,BEE,,x,BEE. Lab.,BEE. Lab.
+Wednesday,OB1,405,x,BEE. Lab.,BEE. Lab.,Phy(10.20-11.20),,BEE,AEC,M–II,,x,x,x
+Wednesday,OB2,,x,x,x,x,304,BEE,EVS,EVS,,Phy. Lab.,Phy. Lab.,Phy. Lab.
+Wednesday,OB3,,x,AEC. Lab.,AEC. Lab.,x,406,AEC,Phy.,M–II,,x,x,x
+Wednesday,OB4,303,x,M–II,Phy.,BEE,,x,AEC. Lab.,AEC. Lab.,,x,x,x
+Wednesday,OB5,,x,Phy. Lab.,Phy. Lab.,Phy. Lab.,403,AEC,Phy.,BEE,,x,x,x
+Wednesday,OB6,302,x,YHC,BEE,Phy.,,AEC,x,x,,x,x,x
+Wednesday,OB7,,x,BMS Pr.,BMS Pr.,BMS Pr.,306,Phy.,AEC,x,,x,x,x
+Wednesday,OB8,,x,BMS Pr.,BMS Pr.,BMS Pr.,303,AEC,M–II,Phy.,,x,x,x
+Wednesday,OB9,307,x,BEE. Lab.,BEE. Lab.,BEE(10.20-11.20),,M–II,Phy.,AEC,,x,x,x
+Wednesday,OB10,403,x,AEC,M–II,Phy.,,x,AEC. Lab.,AEC. Lab.,OAT1,x,x,YHC(P)
+Wednesday,OB11,407,x,AEC. Lab.,AEC. Lab.,AEC(10.20-11.20),,Phy.,M–II,YHC,OAT2,x,x,YHC(P)
+Wednesday,OB12,406,x,YHC,AEC,M–II,,Phy. Lab.,Phy. Lab.,Phy. Lab.,OAT3,x,x,YHC(P)
+Wednesday,OB13,404,x,x,YHC,M–II,404,Phy.,BEE,AEC,,x,x,x
+Wednesday,OB14,,YHC(P),x,x,x,305,Phy.,EVS,EVS,,x,AEC. Lab.,AEC. Lab.
+Wednesday,VB15,,x,x,x,x,,Phy.,BEE,YHC,,x,AEC,M–II
+Wednesday,VB16,,x,x,x,x,,BMS Pr.,BMS Pr.,BMS Pr.,,Phy.,M–II,BEE
+Wednesday,VB17,,x,x,x,x,,BMS Pr.,BMS Pr.,BMS Pr.,,BEE,M–II,AEC
+Wednesday,VB18,,x,x,x,x,,BEE. Lab.,BEE. Lab.,x,,AEC,Phy.,M–II
+Wednesday,VB19,,x,x,x,x,,Phy.,M–II,BEE,,Phy. Lab.,Phy. Lab.,Phy. Lab.
+Wednesday,VB20,,x,x,x,x,,M–II,AEC,Phy.,,BMS Pr.,BMS Pr.,BMS Pr.
+Wednesday,VB21,,YHC(P),x,x,x,,M–II,Phy.,BEE,,YHC,AEC. Lab.,AEC. Lab.
+Wednesday,VB22,,x,x,x,x,,M–II,BEE,Phy.,,x,BEE. Lab.,BEE. Lab.
+Wednesday,VB23,,x,x,x,x,,Phy. Lab.,Phy. Lab.,Phy. Lab.,,AEC,EVS,EVS
+Wednesday,VB24,,x,Phy. Lab.,Phy. Lab.,Phy. Lab.,,x,x,x,,AEC,Phy.,BEE
+Wednesday,VB25,,YHC(P),x,x,x,,BEE. Lab.,BEE. Lab.,x,,M–II,Phy.,BEE
+Wednesday,VB26,,YHC(P),x,x,x,,YHC,x,x,,BEE,M–II,AEC
+Wednesday,VB27,,YHC(P),x,x,x,,EVS,EVS,AEC,,YHC,x,x
+Thursday,OB1,,x,AEC. Lab.,AEC. Lab.,x,,Phy. Lab.,Phy. Lab.,Phy. Lab.,,x,x,x
+Thursday,OB2,,x,BEE. Lab.,BEE. Lab.,x,404,AEC,M–II,Phy.,,x,x,x
+Thursday,OB3,406,x,x,EVS,,406,Phy.,BEE,YHC,,x,x,x
+Thursday,OB4,405,x,M–II,Phy.,AEC,,BEE.,x,YHC,,x,x,x
+Thursday,OB5,,x,BMS Pr.,BMS Pr.,BMS Pr.,407,AEC,M–II,Phy.,,x,x,x
+Thursday,OB6,,x,Phy. Lab.,Phy. Lab.,Phy. Lab.,302,EVS,EVS,M–II,OAT1,x,x,YHC(P)
+Thursday,OB7,303,x,M–II,Phy.,BEE,,x,BEE. Lab.,BEE. Lab.,OAT2,x,x,YHC(P)
+Thursday,OB8,,x,BEE. Lab.,BEE. Lab.,x,303,Phy.,M–II,BEE,,x,x,
+Thursday,OB9,304,x,AEC. Lab.,AEC. Lab.,AEC. Lab.,,M–II,EVS,EVS,OAT3,x,x,YHC(P)
+Thursday,OB10,403,x,BEE,AEC,M–II,,Phy.,x,x,,x,x,x
+Thursday,OB11,305,x,BEE,M–II,Phy.,,AEC.,x,x,,x,x,x
+Thursday,OB12,306,x,M–II,Phy.,BEE,,BMS Pr.,BMS Pr.,BMS Pr.,,x,x,x
+Thursday,OB13,404,x,EVS,EVS,BEE,,BMS Pr.,BMS Pr.,BMS Pr.,,x,x,x
+Thursday,OB14,,x,x,x,x,307,AEC,Phy.,M–II,,Phy. Lab.,Phy. Lab.,Phy. Lab.
+Thursday,VB15,,x,x,x,x,,EVS,EVS,x,,M–II,BEE. Lab.,BEE. Lab.
+Thursday,VB16,,YHC(P),x,x,x,,AEC,M–II,YHC,,Phy.,BEE,x
+Thursday,VB17,,x,x,x,x,,BEE. Lab.,BEE. Lab.,x,,Phy.,EVS,EVS
+Thursday,VB18,,x,x,x,x,,AEC,Phy.,BEE,,Phy. Lab.,Phy. Lab.,Phy. Lab.
+Thursday,VB19,,x,x,x,x,,Phy.,M–II,AEC,,x,BEE. Lab.,BEE. Lab.
+Thursday,VB20,,x,x,x,x,,AEC. Lab.,AEC. Lab.,x,,BEE,M–II,Phy.
+Thursday,VB21,,x,x,x,x,,Phy. Lab.,Phy. Lab.,Phy. Lab.,,Phy.,M–II,AEC
+Thursday,VB22,,x,x,x,x,,EVS,EVS,AEC,,BMS Pr.,BMS Pr.,BMS Pr.
+Thursday,VB23,,x,x,x,x,,Phy.,BEE,M–II,,YHC,x,x
+Thursday,VB24,,x,x,x,x,,AEC. Lab.,AEC. Lab.,AEC,,x,M–II,Phy.
+Thursday,VB25,,x,x,x,x,,M–II,BEE,AEC,,x,AEC. Lab.,AEC. Lab.
+Thursday,VB26,,x,Phy. Lab.,Phy. Lab.,Phy. Lab.,,EVS,EVS,Phy.,,x,x,x
+Thursday,VB27,,x,x,x,x,,AEC,M–II,Phy.,,BMS Pr.,BMS Pr.,BMS Pr.
+Friday,OB1,405,x,M–II,BEE,AEC,,Phy.,x,x,,x,x,x
+Friday,OB2,305,x,M–II,AEC,BEE,,Phy.,YHC,x,,x,x,x
+Friday,OB3,406,x,AEC,M–II,Phy.,,Phy. Lab.,Phy. Lab.,Phy. Lab.,,x,x,x
+Friday,OB4,403,x,EVS,,BEE,,x,BEE. Lab.,BEE. Lab.,,x,x,x
+Friday,OB5,,x,AEC. Lab.,,***,406,Phy.,M–II,BEE,,x,x,x
+Friday,OB6,307,x,Phy.,BEE,M–II,,AEC,BEE. Lab.,BEE. Lab.,,x,x,x
+Friday,OB7,407,x,M–II,EVS,EVS,407,Phy.,BEE,YHC,,x,x,x
+Friday,OB8,,x,Phy. Lab.,Phy. Lab.,Phy. Lab.,303,BEE,M–II,AEC,,x,x,x
+Friday,OB9,303,x,BEE,AEC,Phy.,,x,x,x,,x,x,x
+Friday,OB10,,x,BMS Pr.,BMS Pr.,BMS Pr.,403,BEE,M–II,Phy.,,x,x,x
+Friday,OB11,,x,BMS Pr.,BMS Pr.,BMS Pr.,302,BEE,EVS,EVS,,x,x,x
+Friday,OB12,304,x,AEC. Lab.,AEC. Lab.,BEE(10.20-11.20),,M–II,AEC,Phy.,,x,x,x
+Friday,OB13,,x,BEE. Lab.,BEE. Lab.,x,404,M–II,Phy.,AEC,OAT1,x,x,YHC(P)
+Friday,OB14,,x,x,x,x,306,Phy.,BEE,YHC,306,x,M–II,AEC
+Friday,VB15,,YHC(P),x,x,x,,AEC. Lab.,AEC. Lab.,x,,BEE,Phy.,AEC
+Friday,VB16,,x,x,x,x,,Phy. Lab.,Phy. Lab.,Phy. Lab.,,AEC,M–II,Phy.
+Friday,VB17,,x,x,x,x,,M–II,Phy.,BEE,,x,AEC. Lab.,AEC. Lab.
+Friday,VB18,,x,x,x,x,,Phy.,BEE,YHC,,x,AEC,M–II
+Friday,VB19,,x,x,x,x,,BMS Pr.,BMS Pr.,BMS Pr.,,BEE,EVS,EVS
+Friday,VB20,,YHC(P),x,x,x,,BEE,Phy.,YHC,,AEC,M–II,x
+Friday,VB21,,x,EVS,EVS,x,,x,x,x,,Phy.,AEC,BEE
+Friday,VB22,,x,x,x,x,,Phy.,AEC,M–II,,Phy. Lab.,Phy. Lab.,Phy. Lab.
+Friday,VB23,,x,x,x,x,,M–II,BEE,Phy.,,BMS Pr.,BMS Pr.,BMS Pr.
+Friday,VB24,,x,x,x,x,,M–II,EVS,EVS,,x,BEE. Lab.,BEE. Lab.
+Friday,VB25,,x,x,x,x,,YHC,Phy.,BEE,,x,EVS,EVS
+Friday,VB26,,x,x,x,x,,BMS Pr.,BMS Pr.,BMS Pr.,,Phy.,BEE,M–II
+Friday,VB27,,x,x,x,x,,AEC. Lab.,AEC. Lab.,BEE,,M–II,Phy.,AEC

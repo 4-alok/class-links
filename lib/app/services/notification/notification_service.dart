@@ -1,21 +1,15 @@
 import 'dart:convert';
-
-import '../models/subject_info/subject_info.dart';
 import 'package:get/get.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     hide Message;
 
-import '../models/notification_payload.dart/notification_payload.dart';
-import '../models/time_table/time_table.dart';
-import '../modules/subject_info/controllers/subject_info_controller.dart';
-import '../modules/subject_info/views/subject_info_view.dart';
-import '../utils/get_snackbar.dart';
-import 'auth_service.dart';
-import 'firestore_service.dart';
+import '../../models/notification_payload.dart/notification_payload.dart';
+import '../../models/time_table/time_table.dart';
+import 'notification_utils.dart';
 
-class NotificationService extends GetxService {
+class NotificationService extends GetxService with NotificationServiceUtils {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   final initializationSettingsAndroid =
       const AndroidInitializationSettings('app_notification_icon');
@@ -33,10 +27,10 @@ class NotificationService extends GetxService {
         await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
     await flutterLocalNotificationsPlugin.initialize(
         InitializationSettings(android: initializationSettingsAndroid),
-        onSelectNotification: (String? payload) => _openSubject(payload));
+        onSelectNotification: (String? payload) => openSubject(payload));
 
     if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-      _openSubject(notificationAppLaunchDetails!.payload);
+      openSubject(notificationAppLaunchDetails!.payload);
     }
     updateNotificationList();
     super.onInit();
@@ -45,67 +39,6 @@ class NotificationService extends GetxService {
   Future<void> updateNotificationList() async =>
       await checkPendingNotificationsRequest()
           .then((list) => pendingNotification = list);
-
-  Future<void> _openSubject(String? payload) async {
-    if (payload != null) {
-      try {
-        final notificationPayload =
-            NotificationPayload.fromJson(jsonDecode(payload));
-        Get.lazyPut<SubjectInfoController>(
-          () => SubjectInfoController(),
-          tag: SubjectInfoController.TAG,
-        );
-
-        try {
-          final firestoreService = Get.find<FirestoreService>();
-          final userType = Get.find<AuthService>().userType();
-
-          if (userType == UserType.kiitian || userType == UserType.user) {
-            final timetable = await firestoreService.batchTimeTable;
-            final subject = timetable[DateTime.now().weekday - 1]
-                .subjects
-                .where((element) =>
-                    element.startTime.hour == notificationPayload.time.hour)
-                .first;
-            Get.to(() => SubjectInfoView(
-                    subjectInfo: SubjectInfo(
-                  subject: subject,
-                  currentWeek: notificationPayload.currentWeek,
-                )));
-          } else {
-            final timetable = await firestoreService.personalTimeTable;
-            final subject = timetable[DateTime.now().weekday - 1]
-                .subjects
-                .where(
-                    (element) => element.startTime == notificationPayload.time)
-                .first;
-            Get.to(() => SubjectInfoView(
-                    subjectInfo: SubjectInfo(
-                  subject: subject,
-                  currentWeek: notificationPayload.currentWeek,
-                )));
-          }
-        } catch (e) {
-          Message("Unable to fetch subject information", "$e");
-
-          Get.to(
-            () => SubjectInfoView(
-              subjectInfo: SubjectInfo(
-                subject: notificationPayload.subject ??
-                    const Subject(
-                      subjectName: "No Info",
-                      startTime: DayTime(hour: 6, minute: 0),
-                    ),
-                currentWeek: notificationPayload.currentWeek,
-              ),
-            ),
-          );
-        }
-      } catch (e) {
-        Message("Something went wrong", "$e");
-      }
-    }
-  }
 
   Future<void> cancelNotification(int id) async =>
       await flutterLocalNotificationsPlugin.cancel(id);

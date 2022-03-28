@@ -71,7 +71,7 @@ class CurrentClassCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        subjectInfo.subject.startTime.text12HourStartEnd,
+                        subjectInfo.subject.startTime.startEndTimeRange,
                         style: Theme.of(context)
                             .textTheme
                             .subtitle1!
@@ -214,12 +214,15 @@ class CurrentClassCard extends StatelessWidget {
                       height: 30,
                       width: 30,
                     ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                height: 20,
-                width: 2,
-                color: Get.theme.colorScheme.secondaryContainer,
-              ),
+              (subjectInfo.subject.googleClassRoomLink == "") &&
+                      (subjectInfo.subject.zoomLink == "")
+                  ? const SizedBox()
+                  : Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
+                      height: 20,
+                      width: 2,
+                      color: Get.theme.colorScheme.secondaryContainer,
+                    ),
               subjectInfo.subject.roomNo != null
                   ? Text(
                       subjectInfo.subject.roomNo.toString(),

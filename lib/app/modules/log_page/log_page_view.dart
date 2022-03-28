@@ -1,5 +1,5 @@
 import '../../models/log/log.dart';
-import '../../services/log_service.dart';
+import '../../services/log/log_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';

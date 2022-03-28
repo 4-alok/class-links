@@ -9,4 +9,5 @@ class AppInfo {
   static const String github = "https://github.com/DSC-KIIT/class-links";
   static const String appUrl =
       "https://play.google.com/store/apps/details?id=com.application.class_link";
+  static const String instagramURL = "https://www.instagram.com/class_link_/";
 }

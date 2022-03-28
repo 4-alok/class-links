@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'app/global/transition_animation.dart/shared_axis_scale_transition.dart';
 import 'app/routes/app_pages.dart';
-import 'app/services/hive_database.dart';
+import 'app/services/hive/hive_database.dart';
 import 'di.dart' as _di;
 
 Future<void> main() async {

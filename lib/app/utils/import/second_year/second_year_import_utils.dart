@@ -1,29 +1,8 @@
-import 'dart:io';
+import '../../../models/time_table/time_table.dart';
 
-import 'package:get/get.dart';
+class SecondYear {
 
-import '../models/time_table/time_table.dart';
-import 'package:file_picker/file_picker.dart';
-
-import '../services/firestore_service.dart';
-
-class ImportCSV {
-  Future<List<TimeTable>> import(File file) async {
-    try {
-      final rowList = await file.readAsLines();
-      var k = execute(rowList);
-      for (var element in k) {
-        element.week.add(const Day(day: "Saturday", subjects: []));
-        element.week.add(const Day(day: "Sunday", subjects: []));
-      }
-      return k;
-    } catch (e) {
-      print(e);
-      rethrow;
-    }
-  }
-
-  List<TimeTable> execute(List<String> rows) {
+  List<TimeTable> execute2ndYear(List<String> rows) {
     List<TimeTable> timeTables = [];
 
     for (final line in rows) {
@@ -103,32 +82,15 @@ class ImportCSV {
       case 14:
         return row[11];
       case 15:
-        return row[14];
+        return row[12];
       case 16:
-        return row[15];
+        return row[13];
       case 17:
-        return row[16];
+        return row[14];
       default:
         throw "Error ar $i, $row";
     }
   }
 
   String _trim(String s) => s.replaceAll(RegExp(r"\([^)]*\)"), "").trim();
-}
-
-class FileUtils {
-  // static void pickFileTask() async {
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //     type: FileType.custom,
-  //     allowedExtensions: ["csv"],
-  //   );
-
-  //   if (result != null) {
-  //     final file = File(result.files.single.path!);
-  //     final res = await ImportCSV().import(file);
-  //     await Get.find<FirestoreService>().addTimeTables(res);
-  //   } else {
-  //   }
-  //   await FilePicker.platform.clearTemporaryFiles();
-  // }
 }

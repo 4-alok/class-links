@@ -11,10 +11,11 @@ import '../../../../utils/extension.dart';
 import '../../../subject_info/controllers/subject_info_controller.dart';
 import '../../../subject_info/views/subject_info_view.dart';
 import '../../controllers/home_controller.dart';
+import '../../controllers/my_reorderable_lIst_utils.dart';
 import 'current_class_card.dart';
 import 'edit_model_sheet.dart';
 
-class MyReorderableLIst extends StatelessWidget {
+class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils{
   final HomeController homeController;
   final int currentTabIndex;
   final Day currentDay;
@@ -91,7 +92,7 @@ class MyReorderableLIst extends StatelessWidget {
             ),
           ),
           title: Text(item.subjectName),
-          subtitle: Text(item.startTime.text12HourStartEnd),
+          subtitle: Text(item.startTime.startEndTimeRange),
           trailing: IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () => homeController.removeSubject(item, currentDay.day),
@@ -148,28 +149,9 @@ class MyReorderableLIst extends StatelessWidget {
         },
       );
 
-  String displayTileText(Subject item) {
-    List<String> subtitle = [];
-    if (item.googleClassRoomLink != "") subtitle.add("Google Meet");
-    if (item.zoomLink != "") subtitle.add("Zoom Meet");
-    if (item.roomNo != null) {
-      if (item.roomNo != "" && subtitle.isEmpty) {
-        subtitle.add(
-            "Room no: ${item.roomNo!.substring(0, 3) + "-" + item.roomNo!.substring(3, 6)}");
-      }
-    }
-    return subtitle.join(" | ");
-  }
 
-  String trailingText(Subject item) {
-    final _roomNo = item.roomNo;
-    if (_roomNo == null) return "";
-    return (item.googleClassRoomLink == "" && item.zoomLink == "")
-        ? (_roomNo.length == 6)
-            ? _roomNo.substring(3, 6)
-            : _roomNo.substring(3, 6) + " " + _roomNo.substring(3, 6)
-        : _roomNo.substring(0, 3) + "-" + _roomNo.substring(3, 6);
-  }
+
+
 
   Future<void> addSubject(BuildContext context, [Subject? _subject]) async {
     final editBottomSheet = EditBottomSheet();

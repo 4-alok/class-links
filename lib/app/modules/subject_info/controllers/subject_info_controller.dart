@@ -7,7 +7,7 @@ import '../../../models/subject_info/subject_info.dart';
 import '../../../models/time_table/time_table.dart';
 import 'package:get/get.dart';
 
-import '../../../services/notification_service.dart';
+import '../../../services/notification/notification_service.dart';
 
 const emptySubjectInfo = SubjectInfo(
     subject: Subject(

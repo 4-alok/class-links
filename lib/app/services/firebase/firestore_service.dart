@@ -1,14 +1,14 @@
-import '../global/const/const.dart';
-import '../models/time_table/time_table.dart';
-import '../models/user_info/user_info.dart';
-import '../utils/filter_user_by_id.dart';
-import '../utils/get_snackbar.dart';
+import '../../models/time_table/time_table.dart';
+import '../../models/user_info/user_info.dart';
+import '../../utils/filter_user_by_id.dart';
+import '../../utils/get_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'auth_service.dart';
-import 'hive_database.dart';
+import '../auth/auth_service.dart';
+import '../hive/hive_database.dart';
+import 'firestore_utils.dart';
 
-class FirestoreService extends GetxService {
+class FirestoreService extends GetxService with FirestoreServiceUtils {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final hiveDatabase = Get.find<HiveDatabase>();
 
@@ -20,7 +20,7 @@ class FirestoreService extends GetxService {
       .where("batch", isEqualTo: hiveDatabase.userInfo!.batch)
       .snapshots()
       .map((event) => event.docs.isEmpty
-          ? _defaultDays
+          ? defaultDays
           : TimeTable.fromJson(event.docs.first.data()).week);
 
   Future<List<Day>> get batchTimeTable async {
@@ -33,14 +33,14 @@ class FirestoreService extends GetxService {
           .get();
 
       return querySnapshot.docs.isEmpty
-          ? _defaultDays
+          ? defaultDays
           : querySnapshot.docs
               .map((e) => TimeTable.fromJson(e.data()))
               .toList()
               .first
               .week;
     } catch (e) {
-      return _defaultDays;
+      return defaultDays;
     }
   }
 
@@ -64,7 +64,7 @@ class FirestoreService extends GetxService {
       .where("creatorId", isEqualTo: Get.find<AuthService>().user!.email!)
       .snapshots()
       .map((event) => event.docs.isEmpty
-          ? _defaultDays
+          ? defaultDays
           : TimeTable.fromJson(event.docs.first.data()).week);
 
   Future<List<Day>> get personalTimeTable async {
@@ -75,14 +75,14 @@ class FirestoreService extends GetxService {
           .get();
 
       return querySnapshot.docs.isEmpty
-          ? _defaultDays
+          ? defaultDays
           : querySnapshot.docs
               .map((e) => TimeTable.fromJson(e.data()))
               .toList()
               .first
               .week;
     } catch (e) {
-      return _defaultDays;
+      return defaultDays;
     }
   }
 
@@ -117,14 +117,23 @@ class FirestoreService extends GetxService {
   //   }
   // }
 
-  Future<void> delete2year() async {
+  Future<void> deleteTimetable(int year) async {
     final res = await _firestore.collection("time_table").get();
 
-    print(res.docs.length);
     for (final snapshot in res.docs) {
       final timetable = TimeTable.fromJson(snapshot.data());
-      if (timetable.year == 2) {
-        print(timetable.batch);
+      if (timetable.year == year) {
+        snapshot.reference.delete();
+      }
+    }
+  }
+
+  Future<void> deleteUser(int year) async {
+    final res = await _firestore.collection("user").get();
+
+    for (final snapshot in res.docs) {
+      final user = UserInfo.fromJson(snapshot.data());
+      if (user.year == year) {
         snapshot.reference.delete();
       }
     }
@@ -223,11 +232,5 @@ class FirestoreService extends GetxService {
             .docs
             .map((e) => UserInfo.fromJson(e.data()))
             .toList(),
-      );
-
-  // -----------------utils----------------------//
-  List<Day> get _defaultDays => List.generate(
-        7,
-        (index) => Day(day: Days.days[index], subjects: []),
       );
 }

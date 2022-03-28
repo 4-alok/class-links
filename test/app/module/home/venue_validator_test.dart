@@ -29,6 +29,16 @@ void main() {
       final res = VenueValidator.validate("D4");
       expect(res, isNull);
     });
+
+    test("Venue case 6", () {
+      final res = VenueValidator.validate("C123");
+      expect(res, isNull);
+    });
+
+    test("Venue case 7", () {
+      final res = VenueValidator.validate("123");
+      expect(res, isNull);
+    });
   });
 
   group("Invalid Case", () {
@@ -54,6 +64,16 @@ void main() {
 
     test("Invalid Venue case 5", () {
       final res = VenueValidator.validate("AA");
+      expect(res, isNotNull);
+    });
+
+    test("Invalid Venue case 6", () {
+      final res = VenueValidator.validate("C1234");
+      expect(res, isNotNull);
+    });
+
+    test("Invalid Venue case 7", () {
+      final res = VenueValidator.validate("1234");
       expect(res, isNotNull);
     });
   });

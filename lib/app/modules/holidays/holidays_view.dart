@@ -1,3 +1,5 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../utils/extension.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +21,12 @@ class HolidaysView extends StatelessWidget {
     final today = DateTime.now();
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const FaIcon(
+            FontAwesomeIcons.arrowLeft,
+          ),
+          onPressed: () => Get.back(),
+        ),
         title: const Text('Holidays'),
         centerTitle: true,
       ),

@@ -1,0 +1,140 @@
+Monday,OA1,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,CLA1,Chem.,Lang. Lab.,Lang. Lab.,,x,x,x
+Monday,OA2,,x,x,x,CLA2,Bio.,Chem.,M–II,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Monday,OA3,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,CLA3,M–II,P.Com.,Chem.,,x,x,x
+Monday,OA4,,Chem. Lab.,Chem. Lab.,Chem. Lab.,CLA4,x,Bio.,M–II,,x,x,x
+Monday,OA5,,E. Graphics.,E. Graphics.,E. Graphics.,CLA5,M–II,Chem.,P.Com.,,x,x,x
+Monday,VA6,,x,x,x,,Lang. Lab.,Lang. Lab.,M–II,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Monday,VA7,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,Chem.,Bio.,x,,x,x,x
+Monday,VA8,,E. Graphics.,E. Graphics.,E. Graphics.,,x,Chem.,M–II,,x,x,x
+Monday,OA9,,Chem. Lab.,Chem. Lab.,Chem. Lab.,C201,x,Lang. Lab.,Lang. Lab.,,x,x,x
+Monday,OA10,,x,x,x,,E. Graphics.,E. Graphics.,E. Graphics.,C201,Chem.,Lang. Lab.,Lang. Lab.
+Monday,OA11,,x,x,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C202,Chem.,M–II,***
+Monday,OA12,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C203,M–II,P.Com.,x,,x,x,x
+Monday,OA13,C201,Chem.,Bio.,M–II,,x,x,x,,x,x,x
+Monday,OA14,C202,Chem.,M–II,Bio.,,x,x,x,,x,x,x
+Monday,OA15,,x,x,x,,Chem. Lab.,Chem. Lab.,Chem. Lab.,C203,M–II,Bio.,***
+Monday,OA16,,x,x,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C204,***,Chem.,M–II
+Monday,OA17,,x,x,x,,x,x,x,C205,Chem.,M–II,Bio.
+Monday,OA18,,x,x,x,,E. Graphics.,E. Graphics.,E. Graphics.,C206,M–II,Chem.,Bio.
+Monday,OA19,,x,x,x,C202,x,P.Com.,M–II,,Chem. Lab.,Chem. Lab.,Chem. Lab.
+Monday,OA20,,x,x,x,,x,x,x,C301,P.Com.,Chem.,M–II
+Monday,VA21,,x,x,x,,P.Com.,M–II,Bio.,,Chem. Lab.,Chem. Lab.,Chem. Lab.
+Monday,VA22,,x,x,x,,x,x,x,,Bio.,M–II,Chem.
+Monday,VA23,,x,x,x,,Bio.,Chem.,P.Com.,,E. Graphics.,E. Graphics.,E. Graphics.
+Monday,VA24,,x,x,x,,Chem. Lab.,Chem. Lab.,Chem. Lab.,,M–II,Bio.,x
+Monday,VA25,,x,x,x,,M–II,Lang. Lab.,Lang. Lab.,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Monday,VA26,,x,x,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,P.Com.,Chem.,M–II
+Monday,VA27,,x,x,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,x,Bio.,M–II
+Monday,OA28,,x,x,x,C204,Chem.,Lang. Lab.,Lang. Lab.,,E. Graphics.,E. Graphics.,E. Graphics.
+Tuesday,OA1,CLA1,M–II,Bio.,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,x,x,x
+Tuesday,OA2,,Chem. Lab.,Chem. Lab.,Chem. Lab.,CLA1,P.Com.,Chem.,M–II,,x,x,x
+Tuesday,OA3,CLA2,M–II,Lang. Lab.,Lang. Lab.,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,x,x,x
+Tuesday,OA4,CLA3,Chem.,Bio.,M–II,,x,x,x,,x,x,x
+Tuesday,OA5,,Chem. Lab.,Chem. Lab.,Chem. Lab.,CLA2,x,Bio.,M–II,,x,x,x
+Tuesday,VA6,,E. Graphics.,E. Graphics.,E. Graphics.,,Chem.,P.Com.,x,,x,x,x
+Tuesday,VA7,,Lang. Lab.,Lang. Lab.,M–II,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,x,x,x
+Tuesday,VA8,,Chem.,M–II,Bio.,,x,x,x,,x,x,x
+Tuesday,OA9,,E. Graphics.,E. Graphics.,E. Graphics.,C201,x,M–II,Bio.,,x,x,x
+Tuesday,OA10,,x,x,x,,x,x,x,C201,M–II,Chem.,P.Com.
+Tuesday,OA11,,x,x,x,,x,x,x,C202,Bio.,Lang. Lab.,Lang. Lab.
+Tuesday,OA12,,x,x,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C203,Chem.,Lang. Lab.,Lang. Lab.
+Tuesday,OA13,,x,x,x,C202,Chem.,P.Com.,x,,Chem. Lab.,Chem. Lab.,Chem. Lab.
+Tuesday,OA14,,x,x,x,,E. Graphics.,E. Graphics.,E. Graphics.,C204,Bio.,M–II,x
+Tuesday,OA15,,x,x,x,C203,M–II,Chem.,x,,E. Graphics.,E. Graphics.,E. Graphics.
+Tuesday,OA16,,x,x,x,C204,Chem.,P.Com.,M–II,,E. Graphics.,E. Graphics.,E. Graphics.
+Tuesday,OA17,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C205,Bio.,Chem.,P.Com.,,x,x,x
+Tuesday,OA18,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C206,P.Com.,M–II,Chem.,,x,x,x
+Tuesday,OA19,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C301,Bio.,Chem.,M–II,,x,x,x
+Tuesday,OA20,,x,x,x,,Chem. Lab.,Chem. Lab.,Chem. Lab.,C205,M–II,Lang. Lab.,Lang. Lab.
+Tuesday,VA21,,x,x,x,,x,x,x,,Bio.,M–II,Chem.
+Tuesday,VA22,,x,x,x,,M–II,Lang. Lab.,,,Chem. Lab.,Chem. Lab.,Chem. Lab.
+Tuesday,VA23,,x,x,x,,x,x,x,,Chem.,M–II,Bio.
+Tuesday,VA24,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,Chem.,Lang. Lab.,x,,x,x,x
+Tuesday,VA25,,x,x,x,,Chem.,P.Com.,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Tuesday,VA26,,x,x,x,,E. Graphics.,E. Graphics.,E. Graphics.,,M–II,Chem.,x
+Tuesday,VA27,,x,x,x,,Chem. Lab.,Chem. Lab.,Chem. Lab.,,Lang. Lab.,Lang. Lab.,M–II
+Tuesday,OA28,,x,x,x,,x,x,x,C206,Chem.,M–II,Bio.
+Wednesday,OA1,,Chem. Lab.,Chem. Lab.,Chem. Lab.,CLA1,M–II,P.Com.,x,,x,x,x
+Wednesday,OA2,,E. Graphics.,E. Graphics.,E. Graphics.,CLA2,x,Bio.,M–II,,x,x,x
+Wednesday,OA3,,Chem. Lab.,Chem. Lab.,Chem. Lab.,CLA3,Bio.,M–II,x,,x,x,x
+Wednesday,OA4,,x,x,x,CLA4,Lang. Lab.,,Chem.,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Wednesday,OA5,,x,x,x,CLA5,M–II,Chem.,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Wednesday,VA6,,Chem.,M–II,P.Com.,,x,x,x,,x,x,x
+Wednesday,VA7,,P.Com.,M–II,Chem.,,E. Graphics.,E. Graphics.,E. Graphics.,,x,x,x
+Wednesday,VA8,,x,x,x,,P.Com.,Chem.,M–II,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Wednesday,OA9,,x,x,x,C201,M–II,Chem.,P.Com.,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Wednesday,OA10,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C202,M–II,P.Com.,Chem.,,x,x,x
+Wednesday,OA11,,x,x,x,,Chem. Lab.,Chem. Lab.,Chem. Lab.,C201,P.Com.,M–II,Bio.
+Wednesday,OA12,,E. Graphics.,E. Graphics.,E. Graphics.,C203,P.Com.,M–II,Chem.,,x,x,x
+Wednesday,OA13,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C204,M–II,Bio.,Chem.,,x,x,x
+Wednesday,OA14,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C205,Chem.,M–II,P.Com.,,x,x,x
+Wednesday,OA15,,x,x,x,,x,x,x,C202,Lang. Lab.,Lang. Lab.,M–II
+Wednesday,OA16,,x,x,x,C206,x,Bio.,M–II,,Chem. Lab.,Chem. Lab.,
+Wednesday,OA17,,x,x,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C203,x,Chem.,M–II
+Wednesday,OA18,,x,x,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C204,M–II,Chem.,x
+Wednesday,OA19,,x,x,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C205,Bio.,Chem.,x
+Wednesday,OA20,,x,x,x,C301,Bio.,x,P.Com.,,E. Graphics.,E. Graphics.,E. Graphics.
+Wednesday,VA21,,x,x,x,,E. Graphics.,E. Graphics.,E. Graphics.,,Chem.,M–II,x
+Wednesday,VA22,,x,x,x,,P.Com.,x,M–II,,E. Graphics.,E. Graphics.,E. Graphics.
+Wednesday,VA23,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,M–II,P.Com.,x,,x,x,x
+Wednesday,VA24,,x,x,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,x,M–II,P.Com.
+Wednesday,VA25,,x,x,x,,x,x,x,,Bio.,Chem.,M–II
+Wednesday,VA26,,x,x,x,,M–II,Lang. Lab.,Lang. Lab.,,Chem. Lab.,Chem. Lab.,Chem. Lab.
+Wednesday,VA27,,x,x,x,,x,x,x,,P.Com.,Chem.,Bio.
+Wednesday,OA28,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C302,Chem.,M–II,Bio.,,x,x,x
+Thursday,OA1,,E. Graphics.,E. Graphics.,E. Graphics.,CLA2,Chem.,M–II,P.Com.,,x,x,x
+Thursday,OA2,CLA1,P.Com.,Chem.,M–II,,x,x,x,,x,x,x
+Thursday,OA3,CLA2,Chem.,Bio.,x,,E. Graphics.,E. Graphics.,E. Graphics.,,x,x,x
+Thursday,OA4,CLA3,Chem.,P.Com.,M–II,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,x,x,x
+Thursday,OA5,CLA4,Lang. Lab.,Lang. Lab.,M–II,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,x,x,x
+Thursday,VA6,,Chem. Lab.,Chem. Lab.,Chem. Lab.,,Chem.,M–II,Bio.,,x,x,x
+Thursday,VA7,,M–II,Bio.,Chem.,,x,x,x,,x,x,x
+Thursday,VA8,,Bio.,x,P.Com.,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,x,x,x
+Thursday,OA9,C201,P.Com.,Chem.,M–II,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,x,x,x
+Thursday,OA10,,x,x,x,C202,Bio,M–II,x,,Chem. Lab.,Chem. Lab.,Chem. Lab.
+Thursday,OA11,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C201,Chem.,M–II,P.Com.,,x,x,x
+Thursday,OA12,,x,x,x,,Chem. Lab.,Chem. Lab.,Chem. Lab.,C201,Bio.,M–II,***
+Thursday,OA13,,x,x,x,C203,M–II,Lang. Lab.,Lang. Lab.,,E. Graphics.,E. Graphics.,E. Graphics.
+Thursday,OA14,,Chem. Lab.,Chem. Lab.,Chem. Lab.,C204,M–II,Lang. Lab.,Lang. Lab.,,x,x,x
+Thursday,OA15,,x,x,x,C205,P.Com.,Chem.,Bio.,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Thursday,OA16,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C206,Chem.,M–II,P.Com.,,x,x,x
+Thursday,OA17,,x,x,x,,E. Graphics.,E. Graphics.,E. Graphics.,C202,M–II,Lang. Lab.,Lang. Lab.
+Thursday,OA18,,x,x,x,,x,x,x,C203,M–II,Lang. Lab.,Lang. Lab.
+Thursday,OA19,,x,x,x,,x,x,x,C204,P.Com.,M–II,Chem.
+Thursday,OA20,,x,x,x,C301,M–II,Chem.,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Thursday,VA21,,x,x,x,,Chem.,M–II,P.Com.,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Thursday,VA22,,x,x,x,,P.Com.,Bio.,Chem.,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Thursday,VA23,,x,x,x,,M–II,Lang. Lab.,Lang. Lab.,,Chem. Lab.,Chem. Lab.,Chem. Lab.
+Thursday,VA24,,x,x,x,,x,x,x,,Chem.,M–II,P.Com.
+Thursday,VA25,,x,x,x,,Chem. Lab.,Chem. Lab.,Chem. Lab.,,P.Com.,M–II,x
+Thursday,VA26,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,***,Bio.,M–II,,x,x,x
+Thursday,VA27,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,M–II,Chem.,P.Com.,,x,x,x
+Thursday,OA28,,x,x,x,C302,M–II,P.Com.,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Friday,OA1,CLA1,M–II,Chem.,Bio.,,x,x,x,,x,x,x
+Friday,OA2,CLA2,Lang. Lab.,Lang. Lab.,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,x,x,x
+Friday,OA3,CLA3,M–II,Chem.,P.Com.,,x,x,x,,x,x,x
+Friday,OA4,,E. Graphics.,E. Graphics.,E. Graphics.,CLA2,P.Com.,M–II,x,,x,x,x
+Friday,OA5,CLA4,Bio.,Chem.,P.Com.,,x,x,x,,x,x,x
+Friday,VA6,,M–II,Bio.,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,x,x,x
+Friday,VA7,,P.Com.,M–II,x,,Chem. Lab.,Chem. Lab.,Chem. Lab.,,x,x,x
+Friday,VA8,,x,x,x,,Lang. Lab.,Lang. Lab.,M–II,,Chem. Lab.,Chem. Lab.,Chem. Lab.
+Friday,OA9,C201,Chem.,Bio.,M–II,,x,x,x,,x,x,x
+Friday,OA10,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C201,x,M–II,Bio.,,x,x,x
+Friday,OA11,C202,x,Chem.,M–II,,x,x,x,,E. Graphics.,E. Graphics.,E. Graphics.
+Friday,OA12,,x,x,x,C203,M–II,Bio.,Chem.,,x,x,x
+Friday,OA13,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C204,P.Com.,M–II,x,,x,x,x
+Friday,OA14,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,C202,x,Chem.,P.Com.,,x,x,x
+Friday,OA15,,x,x,x,C205,M–II,Chem.,P.Com.,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Friday,OA16,,x,x,x,,x,x,x,C201,Bio.,Lang. Lab.,Lang. Lab.
+Friday,OA17,,x,x,x,C301,x,P.Com.,M–II,,Chem. Lab.,Chem. Lab.,Chem. Lab.
+Friday,OA18,,Chem. Lab.,Chem. Lab.,Chem. Lab.,C302,P.Com.,Bio.,x,,x,x,x
+Friday,OA19,,x,x,x,,E. Graphics.,E. Graphics.,E. Graphics.,C202,Lang. Lab.,Lang. Lab.,M–II
+Friday,OA20,,x,x,x,C206,Bio.,Chem.,M–II,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Friday,VA21,,x,x,x,,x,Lang. Lab.,Lang. Lab.,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Friday,VA22,,x,x,x,,M–II,Chem.,x,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.
+Friday,VA23,,Comp. Prog. Lab.,Comp. Prog. Lab.,Comp. Prog. Lab.,,Chem.,M–II,x,,x,x,x
+Friday,VA24,,E. Graphics.,E. Graphics.,E. Graphics.,,M–II,Chem.,Bio.,,x,x,x
+Friday,VA25,,x,x,x,,Chem.,Bio.,M–II,,E. Graphics.,E. Graphics.,E. Graphics.
+Friday,VA26,,x,x,x,,x,x,x,,Chem.,Bio.,P.Com.
+Friday,VA27,,x,x,x,,E. Graphics.,E. Graphics.,E. Graphics.,,x,Chem.,M–II
+Friday,OA28,,x,x,x,,Chem. Lab.,Chem. Lab.,Chem. Lab.,C203,P.Com.,M–II,x

@@ -4,7 +4,7 @@ import '../../controllers/venue_validator.dart';
 import '../../../../global/widget/meet_link_selector.dart';
 import '../../../../global/widget/time_selector.dart';
 import '../../../../models/time_table/time_table.dart';
-import '../../../../services/auth_service.dart';
+import '../../../../services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
@@ -149,7 +149,7 @@ class EditBottomSheet {
                     TextFormField(
                       controller: _subjectNameController,
                       decoration: InputDecoration(
-                        border: curvedBox(),
+                        border: curvedBox,
                         filled: true,
                         hintText: "Subject",
                       ),
@@ -168,7 +168,7 @@ class EditBottomSheet {
                       maxLength: 250,
                       minLines: 3,
                       decoration: InputDecoration(
-                        border: curvedBox(),
+                        border: curvedBox,
                         filled: true,
                         hintText: "Remark",
                       ),
@@ -181,7 +181,7 @@ class EditBottomSheet {
                       maxLines: 1,
                       textCapitalization: TextCapitalization.characters,
                       decoration: InputDecoration(
-                        border: curvedBox(),
+                        border: curvedBox,
                         filled: true,
                         hintText: "Venue",
                       ),
@@ -210,7 +210,7 @@ class EditBottomSheet {
         ],
       );
 
-  static OutlineInputBorder curvedBox() => OutlineInputBorder(
+  static OutlineInputBorder get curvedBox => OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
         borderSide: const BorderSide(
           width: 0,

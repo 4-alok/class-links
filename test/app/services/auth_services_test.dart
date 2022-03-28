@@ -1,4 +1,4 @@
-import 'package:class_link/app/services/auth_service.dart';
+import 'package:class_link/app/services/auth/auth_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'email_exmple.dart';
 

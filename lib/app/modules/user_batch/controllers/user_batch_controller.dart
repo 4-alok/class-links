@@ -1,8 +1,9 @@
+import '../../../global/const/batch_list.dart' as BatchList;
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
-import '../../../services/auth_service.dart';
-import '../../../services/firestore_service.dart';
-import '../../../services/hive_database.dart';
+import '../../../services/auth/auth_service.dart';
+import '../../../services/firebase/firestore_service.dart';
+import '../../../services/hive/hive_database.dart';
 import 'package:get/get.dart';
 
 class UserBatchController extends GetxController {
@@ -12,8 +13,7 @@ class UserBatchController extends GetxController {
   final currentBatch = Rx<String?>(null);
   final loading = Rx<bool>(false);
 
-  List<String> get firstYearScheme1 =>
-      List.generate(27, (index) => "A${index + 1}");
+  List<String> get firstYearScheme1 => BatchList.firstYearScheme1;
 
   List<String> get firstYearScheme2 =>
       List.generate(30, (index) => "B${index + 1}");
