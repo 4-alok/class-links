@@ -3,7 +3,7 @@
 ## v0.1.8
 
 - Bug fixes
-- Class Link now supports the 1nd year
+- Class Link now supports the 1st year
 
 ## v0.1.7
 
