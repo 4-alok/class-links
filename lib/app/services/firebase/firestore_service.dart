@@ -128,13 +128,13 @@ class FirestoreService extends GetxService with FirestoreServiceUtils {
     }
   }
 
-  Future<void> deleteUser(int year) async {
+  Future<void> deleteUser(UserInfo userInfo) async {
     final res = await _firestore.collection("user").get();
 
     for (final snapshot in res.docs) {
       final user = UserInfo.fromJson(snapshot.data());
-      if (user.year == year) {
-        snapshot.reference.delete();
+      if (user == userInfo) {
+        await snapshot.reference.delete();
       }
     }
   }

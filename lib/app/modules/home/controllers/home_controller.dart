@@ -3,22 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../global/const/const.dart';
-import '../../../models/log/log.dart';
 import '../../../models/time_table/time_table.dart';
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
+import '../../../services/auth/patch.dart';
 import '../../../services/firebase/firestore_service.dart';
 import '../../../services/hive/hive_database.dart';
 import '../../../services/log/log_service.dart';
 import '../../../utils/app_update.dart';
-import '../../../utils/extension.dart';
-import '../../../utils/get_snackbar.dart';
 import '../../subject_info/controllers/subject_info_controller.dart';
+import 'crud_operation.dart';
 
 class HomeController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+    with GetSingleTickerProviderStateMixin, TimeTableCrudOperation {
   late final TabController tabController;
   late final bool personalTimeTable;
   final hideEdit = true.obs;
@@ -30,15 +28,6 @@ class HomeController extends GetxController
 
   StreamSubscription? _hourlyUpdateSubscription;
   StreamSubscription<List<Day>>? _timeTableSubscription;
-
-  // copy of originalList
-  final week = Rx<List<Day>>([]);
-  //  original list
-  List<Day> originalList = List.generate(
-    7,
-    (index) => Day(day: Days.days[index], subjects: []),
-  );
-  List<LogData> logData = [];
 
   @override
   void onInit() async {
@@ -57,7 +46,7 @@ class HomeController extends GetxController
           : null;
     });
 
-    _defaultDays();
+    defaultDays;
     _getUserRole;
     super.onInit();
   }
@@ -65,6 +54,7 @@ class HomeController extends GetxController
   @override
   void onReady() {
     personalTimeTable ? initSubscription() : null;
+    FirstYearPreviousUserPatch().patch;
     AndroidAppUpdate();
     super.onReady();
   }
@@ -88,21 +78,16 @@ class HomeController extends GetxController
       _timeTableSubscription =
           _firestoreService.personalTimeTableStream.listen((event) {
         week.value = List.generate(event.length, (index) => event[index]);
-        originalList = _deepCopyWeek(event);
+        originalList = deepCopyWeek(event);
       });
     } else {
       _timeTableSubscription =
           _firestoreService.batchTimeTableStream.listen((event) {
         week.value = List.generate(event.length, (index) => event[index]);
-        originalList = _deepCopyWeek(event);
+        originalList = deepCopyWeek(event);
       });
     }
   }
-
-  void _defaultDays() => week.value = List.generate(
-        7,
-        (index) => Day(day: Days.days[index], subjects: []),
-      );
 
   Future<UserInfo?> get getUserInfo async {
     final result = Get.find<HiveDatabase>().userInfo;
@@ -122,64 +107,15 @@ class HomeController extends GetxController
     return null;
   }
 
-  void cancleEditMode() {
+  void cancelEditMode() {
     logData = [];
-    week.value = _deepCopyWeek(originalList);
+    week.value = deepCopyWeek(originalList);
     editMode.value = false;
-  }
-
-  void addSubject(Day day, Subject _subject) {
-    if (day.subjects
-        .where((e) => e.startTime.hour == _subject.startTime.hour)
-        .isEmpty) {
-      week.update((val) => week.value
-          .firstWhere((e) => e.day == day.day)
-          .subjects
-          .add(_subject));
-      createLog("${_subject.subjectName} added to ${day.day}");
-    } else {
-      Message("Error", "Subject already exists at this time");
-    }
-  }
-
-  void createLog(String changes) {
-    final user = Get.find<AuthService>().user;
-    logData.add(
-      LogData(
-          name: user?.displayName ?? "",
-          email: user?.email ?? "",
-          log: changes,
-          date: DateTime.now()),
-    );
-  }
-
-  void updateSubject(String day, Subject _oldSubject, Subject _newSubject) {
-    final _day = week.value.firstWhere((e) => e.day == day);
-    week.update((val) => _day.subjects[_day.subjects
-        .indexWhere((element) => element == _oldSubject)] = _newSubject);
-
-    if (_oldSubject.remark != _newSubject.remark) {
-      createLog(
-          "${_newSubject.subjectName} remark changed to '${_newSubject.remark}' for $day");
-    } else {
-      createLog("${_newSubject.subjectName} updated for $day");
-    }
-  }
-
-  void removeSubject(Subject subject, String day) => week.update((val) {
-        createLog("Removed ${subject.subjectName} from $day");
-        week.value.firstWhere((e) => e.day == day).subjects.remove(subject);
-      });
-
-  void finishReorder(Subject _subject, int _from, int _to,
-      List<Subject> _subjects, String day) {
-    week.value.firstWhere((e) => e.day == day).subjects.clear();
-    week.value.firstWhere((e) => e.day == day).subjects.addAll(_subjects);
   }
 
   Future<String?> get toggleEditMode async {
     if (editMode.value) {
-      final _validate = this._validate;
+      final _validate = validate;
       if (_validate == null) {
         isLoading.value = true;
         if (personalTimeTable) {
@@ -200,32 +136,6 @@ class HomeController extends GetxController
       editMode.value = true;
     }
     return null;
-  }
-
-  String? get _validate {
-    if (!_isNotEqual) return "No changes made";
-    for (final day in week.value) {
-      for (int i = 1; i < day.subjects.length; i++) {
-        final beforeSubTime = day.subjects[i - 1].startTime;
-        final startingTime = day.subjects[i].startTime;
-        if (((startingTime.hour * 60) + startingTime.minute) <
-            ((beforeSubTime.hour * 60) + beforeSubTime.minute)) {
-          return "Error at ${day.subjects[i - 1].subjectName}\nArrange subjects in order";
-        }
-      }
-    }
-    return null;
-  }
-
-  bool get _isNotEqual {
-    try {
-      for (int i = 0; i < originalList.length; i++) {
-        if (!originalList[i].equals(week.value[i])) return true;
-      }
-      return false;
-    } catch (e) {
-      return false;
-    }
   }
 
   Future<void> get _addOrUpdateTimeTable async {
@@ -254,9 +164,6 @@ class HomeController extends GetxController
       await Get.find<FirestoreService>().addOrUpdateBatchTimeTable(timeTable);
     }
   }
-
-  List<Day> _deepCopyWeek(List<Day> originList) =>
-      originList.map((e) => Day.fromJson(e.toJson())).toList();
 
   @override
   void onClose() {

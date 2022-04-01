@@ -155,11 +155,11 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils{
 
   Future<void> addSubject(BuildContext context, [Subject? _subject]) async {
     final editBottomSheet = EditBottomSheet();
-    Subject? sub = await editBottomSheet.show(context, _subject);
+    final sub = await editBottomSheet.show(context, _subject);
     if (sub != null) {
       (_subject != null)
-          ? homeController.updateSubject(currentDay.day, _subject, sub)
-          : homeController.addSubject(currentDay, sub);
+          ? homeController.updateSubject(currentDay.day, _subject, sub.subject!, sub.updateAllLink)
+          : homeController.addSubject(currentDay, sub.subject!, sub.updateAllLink);
     }
   }
 }

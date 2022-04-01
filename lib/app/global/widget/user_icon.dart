@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
+import '../../services/auth/auth_service.dart';
 
 class UserIcon extends StatelessWidget {
   const UserIcon({

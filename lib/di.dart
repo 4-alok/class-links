@@ -24,4 +24,5 @@ Future<void> init() async {
   Get.lazyPut(() => NotificationService());
   Get.lazyPut(() => GoogleSheetService());
   Get.lazyPut(() => AnalysisService());
+  
 }

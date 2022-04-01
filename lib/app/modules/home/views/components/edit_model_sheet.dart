@@ -1,13 +1,23 @@
 import 'dart:ui';
-import '../../controllers/venue_validator.dart';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sliding_sheet/sliding_sheet.dart';
 
 import '../../../../global/widget/meet_link_selector.dart';
 import '../../../../global/widget/time_selector.dart';
 import '../../../../models/time_table/time_table.dart';
 import '../../../../services/auth/auth_service.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:sliding_sheet/sliding_sheet.dart';
+import '../../controllers/venue_validator.dart';
+
+class EditModelSheetReturn {
+  final Subject? subject;
+  final bool updateAllLink;
+  EditModelSheetReturn({
+    this.subject,
+    required this.updateAllLink,
+  });
+}
 
 enum ChangesType { roomNo, remark, gClassRoomLink, zoomLink, subjectAddedBy }
 
@@ -36,8 +46,10 @@ class EditBottomSheet {
   final sheetController = SheetController();
   final formGlobalKey = GlobalKey<FormState>();
   final user = Get.find<AuthService>().user!;
+  final updateLink = true.obs;
 
-  Future<Subject?> show(BuildContext context, Subject? subject) async {
+  Future<EditModelSheetReturn?> show(
+      BuildContext context, Subject? subject) async {
     if (subject != null) {
       _subjectNameController.text = subject.subjectName;
       _remarkController.text = subject.remark;
@@ -49,7 +61,7 @@ class EditBottomSheet {
           TimeOfDay(
               minute: subject.startTime.minute, hour: subject.startTime.hour));
     }
-    return await showSlidingBottomSheet<Subject>(
+    return await showSlidingBottomSheet<EditModelSheetReturn>(
       context,
       builder: (context) => SlidingSheetDialog(
           controller: sheetController,
@@ -198,6 +210,15 @@ class EditBottomSheet {
                       meetType: MeetLinkType.zoomLink,
                       controller: _zMeetLinkController,
                     ),
+                    Obx(
+                      () => CheckboxListTile(
+                        title: const Text("Same link for every day"),
+                        value: updateLink.value,
+                        onChanged: (newValue) =>
+                            updateLink.value = newValue ?? true,
+                        controlAffinity: ListTileControlAffinity.trailing,
+                      ),
+                    ),
                     const SizedBox(height: 10),
                     SelectTimeFIeld(
                       dayTimeController: _dayTimeController,
@@ -237,7 +258,15 @@ class EditBottomSheet {
         minute: _dayTimeController.dayTime?.minute ?? 0,
       ),
     );
-    if (formGlobalKey.currentState!.validate()) Navigator.pop(context, sub);
+    if (formGlobalKey.currentState!.validate()) {
+      Navigator.pop(
+        context,
+        EditModelSheetReturn(
+          subject: sub,
+          updateAllLink: updateLink.value,
+        ),
+      );
+    }
   }
 
   String get addedByInfo => "${user.displayName},${user.email}";

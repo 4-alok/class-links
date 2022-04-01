@@ -20,7 +20,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           centerTitle: true,
           leading: homeController.editMode.value
               ? IconButton(
-                  onPressed: () => homeController.cancleEditMode(),
+                  onPressed: () => homeController.cancelEditMode(),
                   icon: const FaIcon(FontAwesomeIcons.times),
                 )
               : null,
