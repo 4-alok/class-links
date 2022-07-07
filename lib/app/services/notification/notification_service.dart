@@ -1,9 +1,10 @@
 import 'dart:convert';
+
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+    hide Message;
 import 'package:get/get.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:flutter_local_notifications/flutter_local_notifications.dart'
-    hide Message;
 
 import '../../models/notification_payload.dart/notification_payload.dart';
 import '../../models/time_table/time_table.dart';

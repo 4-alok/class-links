@@ -4,20 +4,20 @@ import '../../../models/time_table/time_table.dart';
 
 abstract class MyReorderableLIstUtils {
   String trailingText(Subject item) {
-    final _roomNo = item.roomNo;
-    if (_roomNo == null) {
+    final roomNo = item.roomNo;
+    if (roomNo == null) {
       return "";
     } else {
       try {
-        final map = _roomNo.splitString;
+        final map = roomNo.splitString;
 
         final s1 = map.keys.first;
         final s2 = map.values.first;
         return (item.googleClassRoomLink == "" && item.zoomLink == "")
             ? s2
-            : s1 + "-" + s2;
+            : "$s1-$s2";
       } catch (e) {
-        return _roomNo;
+        return roomNo;
       }
     }
   }

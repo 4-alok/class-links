@@ -32,18 +32,24 @@ class TimeTablePage extends StatelessWidget {
   Widget get tabBarView => ValueListenableBuilder<Object>(
       valueListenable: homeController.hourlyUpdate,
       builder: (_, __, ___) => TabBarView(
-            physics: const BouncingScrollPhysics(),
-            controller: homeController.tabController,
-            children: List.generate(
-                7,
-                (index) => Obx(
-                      () => MyReorderableLIst(
-                        homeController: homeController,
-                        currentTabIndex: index,
-                        currentDay: homeController.week.value[index],
-                      ),
-                    )),
-          ));
+          physics: const BouncingScrollPhysics(),
+          controller: homeController.tabController,
+          children: List.generate(7, (index) {
+            switch (index) {
+              // case 6:
+              //   return Container(
+              //     color: Colors.red,
+              //   );
+              default:
+                return Obx(
+                  () => MyReorderableLIst(
+                    homeController: homeController,
+                    currentTabIndex: index,
+                    currentDay: homeController.week.value[index],
+                  ),
+                );
+            }
+          })));
 
   Widget fab(BuildContext context) => Obx(
         () => (homeController.hideEdit.value)

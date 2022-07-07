@@ -16,12 +16,16 @@ import '../../subject_info/controllers/subject_info_controller.dart';
 import 'crud_operation.dart';
 
 class HomeController extends GetxController
-    with GetSingleTickerProviderStateMixin, TimeTableCrudOperation {
+    with
+        GetSingleTickerProviderStateMixin,
+        TimeTableCrudOperationMixin,
+        FirstYearPreviousUserPatchMixin {
   late final TabController tabController;
   late final bool personalTimeTable;
   final hideEdit = true.obs;
   final editMode = false.obs;
   final isLoading = false.obs;
+  final isPostPage = false.obs;
 
   /// value changes every hour, to rebuild [TimeTablePage] body
   final hourlyUpdate = ValueNotifier(DateTime.now().hour);
@@ -54,7 +58,7 @@ class HomeController extends GetxController
   @override
   void onReady() {
     personalTimeTable ? initSubscription() : null;
-    FirstYearPreviousUserPatch().patch;
+    firstYearPreviousUserPatchMixin;
     AndroidAppUpdate();
     super.onReady();
   }
@@ -73,16 +77,16 @@ class HomeController extends GetxController
   }
 
   void initSubscription() {
-    final _firestoreService = Get.find<FirestoreService>();
+    final firestoreService = Get.find<FirestoreService>();
     if (personalTimeTable) {
       _timeTableSubscription =
-          _firestoreService.personalTimeTableStream.listen((event) {
+          firestoreService.personalTimeTableStream.listen((event) {
         week.value = List.generate(event.length, (index) => event[index]);
         originalList = deepCopyWeek(event);
       });
     } else {
       _timeTableSubscription =
-          _firestoreService.batchTimeTableStream.listen((event) {
+          firestoreService.batchTimeTableStream.listen((event) {
         week.value = List.generate(event.length, (index) => event[index]);
         originalList = deepCopyWeek(event);
       });
@@ -115,8 +119,8 @@ class HomeController extends GetxController
 
   Future<String?> get toggleEditMode async {
     if (editMode.value) {
-      final _validate = validate;
-      if (_validate == null) {
+      final isValidate = validate;
+      if (isValidate == null) {
         isLoading.value = true;
         if (personalTimeTable) {
           await _addOrUpdateTimeTable;
@@ -130,7 +134,7 @@ class HomeController extends GetxController
         }
         isLoading.value = false;
       } else {
-        return _validate;
+        return validate;
       }
     } else {
       editMode.value = true;
@@ -152,13 +156,13 @@ class HomeController extends GetxController
       await Get.find<FirestoreService>()
           .addOrUpdatePersonalTimeTable(timeTable);
     } else {
-      final _userInfo = Get.find<HiveDatabase>().userInfo!;
+      final userInfo = Get.find<HiveDatabase>().userInfo!;
       final timeTable = TimeTable(
         week: week.value,
-        creatorId: _userInfo.id,
-        batch: _userInfo.batch,
-        year: _userInfo.year,
-        slot: _userInfo.slot,
+        creatorId: userInfo.id,
+        batch: userInfo.batch,
+        year: userInfo.year,
+        slot: userInfo.slot,
         date: DateTime.now(),
       );
       await Get.find<FirestoreService>().addOrUpdateBatchTimeTable(timeTable);
@@ -170,6 +174,7 @@ class HomeController extends GetxController
     if (_timeTableSubscription != null) _timeTableSubscription!.cancel();
     if (_hourlyUpdateSubscription != null) _hourlyUpdateSubscription!.cancel();
     hourlyUpdate.dispose();
+    week.close();
     Get.delete<SubjectInfoController>(tag: SubjectInfoController.TAG);
     super.onClose();
   }

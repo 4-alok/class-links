@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../global/const/holiday_list.dart';
 import '../models/analytics/analytics_log.dart';
 import '../models/log/log.dart';
 import '../models/time_table/time_table.dart' as timetable;
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get/route_manager.dart';
 import '../models/user_info/user_info.dart';
 import 'gsheets_utils.dart';
@@ -29,16 +30,16 @@ String _timeString(int hour) {
   (hour > 11)
       ? (hour == 12)
           ? start = "12:00 PM"
-          : start = (hour - 12).toString() + ":00 PM"
-      : start = hour.toString() + ":00 AM";
+          : start = "${hour - 12}:00 PM"
+      : start = "$hour:00 AM";
   return start;
 }
 
 extension ColorAlphaBlend on Color {
-  Color alphaBlendColor([Color? _color1, Color? _color2]) => Color.alphaBlend(
-        (_color2 ?? Get.theme.colorScheme.primary)
+  Color alphaBlendColor([Color? color1, Color? color2]) => Color.alphaBlend(
+        (color2 ?? Get.theme.colorScheme.primary)
             .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
-        _color1 ?? Get.theme.cardColor,
+        color1 ?? Get.theme.cardColor,
       );
 }
 
@@ -58,10 +59,10 @@ extension ToListLogData on List<List<dynamic>> {
 }
 
 extension DayEquality on timetable.Day {
-  bool equals(timetable.Day _day, [timetable.Day? _day2]) =>
-      ((_day2?.day ?? day) == _day.day)
+  bool equals(timetable.Day day, [timetable.Day? day2]) =>
+      ((day2?.day ?? day) == day.day)
           ? const ListEquality()
-              .equals(_day2?.subjects ?? subjects, _day.subjects)
+              .equals(day2?.subjects ?? subjects, day.subjects)
           : false;
 }
 
@@ -86,16 +87,16 @@ extension UserAnalyticsLog on UserInfo {
 
 extension StringSplit on String {
   Map<String, String> get splitString {
-    late final int _break;
+    late final int breakPoint;
     for (int i = 0; i < length; i++) {
       final n = int.tryParse(this[i]);
       if (n is int) {
-        _break = i;
+        breakPoint = i;
         break;
       }
     }
-    final string = substring(0, _break);
-    final num = substring(_break);
+    final string = substring(0, breakPoint);
+    final num = substring(breakPoint);
     return {
       string: num,
     };

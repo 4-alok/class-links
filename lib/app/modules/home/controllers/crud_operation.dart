@@ -1,4 +1,4 @@
-import 'package:class_link/app/utils/extension.dart';
+import '../../../utils/extension.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/instance_manager.dart';
 
@@ -8,7 +8,7 @@ import '../../../models/time_table/time_table.dart';
 import '../../../services/auth/auth_service.dart';
 import '../../../utils/get_snackbar.dart';
 
-abstract class TimeTableCrudOperation {
+mixin TimeTableCrudOperationMixin {
   // copy of originalList
   final week = Rx<List<Day>>([]);
   //  original list
@@ -24,16 +24,14 @@ abstract class TimeTableCrudOperation {
         (index) => Day(day: Days.days[index], subjects: []),
       );
 
-  void addSubject(Day day, Subject _subject, bool updateAllLink) {
+  void addSubject(Day day, Subject subject, bool updateAllLink) {
     if (day.subjects
-        .where((e) => e.startTime.hour == _subject.startTime.hour)
+        .where((e) => e.startTime.hour == subject.startTime.hour)
         .isEmpty) {
-      week.update((val) => week.value
-          .firstWhere((e) => e.day == day.day)
-          .subjects
-          .add(_subject));
-      _updateAllLink(_subject);
-      createLog("${_subject.subjectName} added to ${day.day}");
+      week.update((val) =>
+          week.value.firstWhere((e) => e.day == day.day).subjects.add(subject));
+      updateAllLink ? _updateAllLink(subject) : null;
+      createLog("${subject.subjectName} added to ${day.day}");
     } else {
       Message("Error", "Subject already exists at this time");
     }
@@ -50,18 +48,18 @@ abstract class TimeTableCrudOperation {
     );
   }
 
-  void updateSubject(String day, Subject _oldSubject, Subject _newSubject,
+  void updateSubject(String subjectDay, Subject oldSubject, Subject newSubject,
       bool updateAllLink) {
-    final _day = week.value.firstWhere((e) => e.day == day);
-    week.update((val) => _day.subjects[_day.subjects
-        .indexWhere((element) => element == _oldSubject)] = _newSubject);
+    final day = week.value.firstWhere((e) => e.day == subjectDay);
+    week.update((val) => day.subjects[day.subjects
+        .indexWhere((element) => element == oldSubject)] = newSubject);
 
-    _updateAllLink(_newSubject);
-    if (_oldSubject.remark != _newSubject.remark) {
+    updateAllLink ? _updateAllLink(newSubject) : null;
+    if (oldSubject.remark != newSubject.remark) {
       createLog(
-          "${_newSubject.subjectName} remark changed to '${_newSubject.remark}' for $day");
+          "${newSubject.subjectName} remark changed to '${newSubject.remark}' for $subjectDay");
     } else {
-      createLog("${_newSubject.subjectName} updated for $day");
+      createLog("${newSubject.subjectName} updated for $subjectDay");
     }
   }
 
@@ -70,10 +68,10 @@ abstract class TimeTableCrudOperation {
         week.value.firstWhere((e) => e.day == day).subjects.remove(subject);
       });
 
-  void finishReorder(Subject _subject, int _from, int _to,
-      List<Subject> _subjects, String day) {
+  void finishReorder(
+      Subject subject, int from, int to, List<Subject> subjects, String day) {
     week.value.firstWhere((e) => e.day == day).subjects.clear();
-    week.value.firstWhere((e) => e.day == day).subjects.addAll(_subjects);
+    week.value.firstWhere((e) => e.day == day).subjects.addAll(subjects);
   }
 
   bool get _isNotEqual {
@@ -103,16 +101,16 @@ abstract class TimeTableCrudOperation {
   }
 
   void _updateAllLink(Subject subject) => week.value = week.value
-      .map((_day) => _day.copyWith(
-            subjects: _day.subjects
-                .map((_subject) => (_subject.subjectName == subject.subjectName)
-                    ? _subject.copyWith(
+      .map((day) => day.copyWith(
+            subjects: day.subjects
+                .map((subject) => (subject.subjectName == subject.subjectName)
+                    ? subject.copyWith(
                         googleClassRoomLink: subject.googleClassRoomLink,
                         gLinkAddBy: subject.gLinkAddBy,
                         zoomLink: subject.zoomLink,
                         zLinkAddBy: subject.zLinkAddBy,
                       )
-                    : _subject)
+                    : subject)
                 .toList(),
           ))
       .toList();

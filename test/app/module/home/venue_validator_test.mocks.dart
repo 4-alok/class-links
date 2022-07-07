@@ -3,8 +3,8 @@
 // Do not manually edit this file.
 
 import 'package:class_link/app/modules/home/controllers/venue_validator.dart'
-    as _i2;
-import 'package:mockito/mockito.dart' as _i1;
+    as i2;
+import 'package:mockito/mockito.dart' as i1;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -18,8 +18,8 @@ import 'package:mockito/mockito.dart' as _i1;
 /// A class which mocks [VenueValidator].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockVenueValidator extends _i1.Mock implements _i2.VenueValidator {
+class MockVenueValidator extends i1.Mock implements i2.VenueValidator {
   MockVenueValidator() {
-    _i1.throwOnMissingStub(this);
+    i1.throwOnMissingStub(this);
   }
 }

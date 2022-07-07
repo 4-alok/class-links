@@ -15,8 +15,7 @@ class UserBatchController extends GetxController {
 
   List<String> get firstYearScheme1 => BatchList.firstYearScheme1;
 
-  List<String> get firstYearScheme2 =>
-      BatchList.firstYearScheme2;
+  List<String> get firstYearScheme2 => BatchList.firstYearScheme2;
 
   List<String> get secondYearCSE =>
       List.generate(26, (index) => "CSE ${index + 1}");
@@ -52,11 +51,11 @@ class UserBatchController extends GetxController {
       const Duration(milliseconds: 1000),
     );
 
-    final _user = Get.find<AuthService>().user!;
+    final user = Get.find<AuthService>().user!;
 
     final userInfo = UserInfo(
-      id: _user.email!,
-      userName: _user.displayName ?? "",
+      id: user.email!,
+      userName: user.displayName ?? "",
       slot: currentScheme.value ?? 1,
       year: currentYear.value!,
       batch: currentBatch.value!,

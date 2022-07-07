@@ -1,6 +1,8 @@
-import 'package:class_link/app/models/time_table/time_table.dart';
-import 'package:flutter_test/flutter_test.dart';
+// ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:class_link/app/models/time_table/time_table.dart';
 
 import 'compare/timetable.dart';
 

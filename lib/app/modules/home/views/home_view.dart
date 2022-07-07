@@ -21,7 +21,6 @@ class HomeView extends GetView<HomeController> {
         future: controller.getUserInfo,
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
-
             // App open log for google analytics
             Get.find<AnalysisService>().appOpenLogEvent;
 

@@ -21,14 +21,13 @@ class GoogleSheetService extends GetxService {
     try {
       final Spreadsheet spreadsheet = await _gsheet.spreadsheet(
           GSheetUtils.getGSheetsId(SheetCredentials.spreadsheetId));
-      final _userInfo = this._userInfo!;
-      final _worksheetTitle =
-          "${_userInfo.year}-${_userInfo.slot}-${_userInfo.batch}";
+      final userInfo = _userInfo!;
+      final worksheetTitle =
+          "${userInfo.year}-${userInfo.slot}-${userInfo.batch}";
 
-      Worksheet? worksheet = spreadsheet.worksheetByTitle(_worksheetTitle);
-      worksheet ??= await spreadsheet.addWorksheet(_worksheetTitle);
+      Worksheet? worksheet = spreadsheet.worksheetByTitle(worksheetTitle);
+      worksheet ??= await spreadsheet.addWorksheet(worksheetTitle);
       return await worksheet.values.appendRows(logs.toSheetRowList);
-
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -41,11 +40,11 @@ class GoogleSheetService extends GetxService {
   Future<List<LogData>?> get readLog async {
     final Spreadsheet spreadsheet = await _gsheet
         .spreadsheet(GSheetUtils.getGSheetsId(SheetCredentials.spreadsheetId));
-    final _userInfo = this._userInfo!;
-    final _worksheetTitle =
-        "${_userInfo.year}-${_userInfo.slot}-${_userInfo.batch}";
-    Worksheet? worksheet = spreadsheet.worksheetByTitle(_worksheetTitle);
-    worksheet ??= await spreadsheet.addWorksheet(_worksheetTitle);
+    final userInfo = _userInfo!;
+    final worksheetTitle =
+        "${userInfo.year}-${userInfo.slot}-${userInfo.batch}";
+    Worksheet? worksheet = spreadsheet.worksheetByTitle(worksheetTitle);
+    worksheet ??= await spreadsheet.addWorksheet(worksheetTitle);
     return await compute(_listRowToListLog, await worksheet.values.allRows());
   }
 }

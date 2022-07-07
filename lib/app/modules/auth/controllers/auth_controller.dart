@@ -21,10 +21,10 @@ class AuthController extends GetxController {
     if (result == UserType.user) {
       final hiveDatabase = Get.find<HiveDatabase>();
       if (hiveDatabase.userInfo == null) {
-        final _userInfo = await Get.find<FirestoreService>().getUserInfo;
-        if (_userInfo != null) {
-          hiveDatabase.userInfo = _userInfo;
-          await hiveDatabase.setUserInfo(_userInfo);
+        final userInfo = await Get.find<FirestoreService>().getUserInfo;
+        if (userInfo != null) {
+          hiveDatabase.userInfo = userInfo;
+          await hiveDatabase.setUserInfo(userInfo);
         }
       }
       hiveDatabase.userInfo == null

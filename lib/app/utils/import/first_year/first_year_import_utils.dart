@@ -40,7 +40,8 @@ class FirstYearS1 {
   List<Subject> subjects(List<String> row) {
     List<Subject> subjects = [];
     for (int i = 8; i < 18; i++) {
-      if (_subjectName(row, i).toLowerCase() != "x" && _subjectName(row, i) != "") {
+      if (_subjectName(row, i).toLowerCase() != "x" &&
+          _subjectName(row, i) != "") {
         subjects.add(
           Subject(
             subjectName: _subjectName(row, i),

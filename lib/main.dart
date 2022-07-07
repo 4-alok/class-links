@@ -8,12 +8,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app/global/transition_animation.dart/shared_axis_scale_transition.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/hive/hive_database.dart';
-import 'di.dart' as _di;
+import 'di.dart' as di;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runZonedGuarded<Future<void>>(
-    () async => await _di.init().then((_) => runApp(
+    () async => await di.init().then((_) => runApp(
           const ClassLink(),
         )),
     (error, stackTrace) =>
@@ -22,9 +22,7 @@ Future<void> main() async {
 }
 
 class ClassLink extends StatelessWidget {
-  const ClassLink({
-    Key? key,
-  }) : super(key: key);
+  const ClassLink({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +34,12 @@ class ClassLink extends StatelessWidget {
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
         theme: FlexThemeData.light(
-          blendLevel: 40,
-          fontFamily: GoogleFonts.poppins().fontFamily,
-          subThemesData: const FlexSubThemesData(blendTextTheme: false),
-          colors: database.appTheme.value.light,
-          useSubThemes: true,
-          appBarStyle: database.appBarStyle.value,
-        ),
+            blendLevel: 40,
+            fontFamily: GoogleFonts.poppins().fontFamily,
+            subThemesData: const FlexSubThemesData(blendTextTheme: false),
+            colors: database.appTheme.value.light,
+            // useSubThemes: true,
+            appBarStyle: database.appBarStyle.value),
         darkTheme: FlexThemeData.dark(
           blendLevel: 40,
           fontFamily: GoogleFonts.poppins().fontFamily,

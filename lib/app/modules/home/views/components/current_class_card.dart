@@ -14,10 +14,8 @@ import 'package:vibration/vibration.dart';
 
 class CurrentClassCard extends StatelessWidget {
   final SubjectInfo subjectInfo;
-  const CurrentClassCard({
-    Key? key,
-    required this.subjectInfo,
-  }) : super(key: key);
+  const CurrentClassCard({Key? key, required this.subjectInfo})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -131,16 +129,16 @@ class CurrentClassCard extends StatelessWidget {
       showClassDialog(context);
     } else if (subjectInfo.zoomLink == "" &&
         subjectInfo.googleClassRoomLink != "") {
-      launchUrl(context, subjectInfo.googleClassRoomLink);
+      launch(context, subjectInfo.googleClassRoomLink);
     } else if (subjectInfo.zoomLink != "" &&
         subjectInfo.googleClassRoomLink == "") {
-      launchUrl(context, subjectInfo.zoomLink);
+      launch(context, subjectInfo.zoomLink);
     }
   }
 
-  Future<void> launchUrl(BuildContext context, String url) async {
+  Future<void> launch(BuildContext context, String url) async {
     try {
-      await launch(url);
+      await launchUrl(Uri(path: url));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Unable to open"),
@@ -158,8 +156,8 @@ class CurrentClassCard extends StatelessWidget {
               children: [
                 const Spacer(),
                 GestureDetector(
-                  onTap: () => launchUrl(
-                      context, subjectInfo.subject.googleClassRoomLink),
+                  onTap: () =>
+                      launch(context, subjectInfo.subject.googleClassRoomLink),
                   child: SvgPicture.asset(
                     Assets.icons.meet.path,
                     semanticsLabel: 'Google Class Room',
@@ -169,7 +167,7 @@ class CurrentClassCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 80),
                 GestureDetector(
-                  onTap: () => launchUrl(context, subjectInfo.subject.zoomLink),
+                  onTap: () => launch(context, subjectInfo.subject.zoomLink),
                   child: SvgPicture.asset(
                     Assets.icons.zoom.path,
                     semanticsLabel: 'Zoom Meet',

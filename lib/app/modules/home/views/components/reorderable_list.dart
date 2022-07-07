@@ -15,7 +15,7 @@ import '../../controllers/my_reorderable_lIst_utils.dart';
 import 'current_class_card.dart';
 import 'edit_model_sheet.dart';
 
-class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils{
+class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
   final HomeController homeController;
   final int currentTabIndex;
   final Day currentDay;
@@ -149,17 +149,15 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils{
         },
       );
 
-
-
-
-
-  Future<void> addSubject(BuildContext context, [Subject? _subject]) async {
+  Future<void> addSubject(BuildContext context, [Subject? subject]) async {
     final editBottomSheet = EditBottomSheet();
-    final sub = await editBottomSheet.show(context, _subject);
+    final sub = await editBottomSheet.show(context, subject);
     if (sub != null) {
-      (_subject != null)
-          ? homeController.updateSubject(currentDay.day, _subject, sub.subject!, sub.updateAllLink)
-          : homeController.addSubject(currentDay, sub.subject!, sub.updateAllLink);
+      (subject != null)
+          ? homeController.updateSubject(
+              currentDay.day, subject, sub.subject!, sub.updateAllLink)
+          : homeController.addSubject(
+              currentDay, sub.subject!, sub.updateAllLink);
     }
   }
 }

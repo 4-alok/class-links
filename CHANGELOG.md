@@ -1,5 +1,10 @@
 # Change log
 
+## v0.1.9
+
+- Fix for 1st year pervious users
+- Now you can add same link to each subject all at once.
+
 ## v0.1.8
 
 - Bug fixes

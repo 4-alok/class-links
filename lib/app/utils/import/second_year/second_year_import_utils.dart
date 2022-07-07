@@ -1,7 +1,6 @@
 import '../../../models/time_table/time_table.dart';
 
 class SecondYear {
-
   List<TimeTable> execute2ndYear(List<String> rows) {
     List<TimeTable> timeTables = [];
 

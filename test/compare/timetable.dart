@@ -1,10 +1,10 @@
 import 'package:class_link/app/models/time_table/time_table.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 extension DayEquality on Day {
-  bool equal(Day _day, [Day? _day2]) {
-    if ((_day2?.day ?? day) == _day.day) {
-      return const ListEquality().equals(_day2?.subjects ?? subjects, _day.subjects);
+  bool equal(Day day, [Day? day2]) {
+    if ((day2?.day ?? day) == day.day) {
+      return const ListEquality().equals(day2?.subjects ?? subjects, day.subjects);
     } else {
       return false;
     }

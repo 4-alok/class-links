@@ -211,15 +211,16 @@ class EditBottomSheet {
                       controller: _zMeetLinkController,
                     ),
                     Obx(
-                      () => CheckboxListTile(
-                        title: const Text("Same link for every day"),
-                        value: updateLink.value,
-                        onChanged: (newValue) =>
-                            updateLink.value = newValue ?? true,
-                        controlAffinity: ListTileControlAffinity.trailing,
+                      () => Card(
+                        child: CheckboxListTile(
+                          title: const Text("Same link for every day"),
+                          value: updateLink.value,
+                          onChanged: (newValue) =>
+                              updateLink.value = newValue ?? true,
+                          controlAffinity: ListTileControlAffinity.trailing,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 10),
                     SelectTimeFIeld(
                       dayTimeController: _dayTimeController,
                     ),
@@ -240,7 +241,7 @@ class EditBottomSheet {
       );
 
   void submit(BuildContext context, Subject? subject) {
-    final Subject? sub = Subject(
+    final Subject sub = Subject(
       subjectName: _subjectNameController.text,
       subjectAddBy: subject == null
           ? addByInfo(subject, ChangesType.subjectAddedBy)

@@ -13,13 +13,11 @@ class Utils {
     } else if (dateTime.day == currentDate.day - 1 &&
         dateTime.month == currentDate.month) {
       return showTime
-          ? ("Yesterday " + DateFormat('hh:mm a').format(dateTime))
+          ? ("Yesterday ${DateFormat('hh:mm a').format(dateTime)}")
           : 'Yesterday';
     } else {
       return showTime
-          ? DateFormat('MMM dd').format(dateTime) +
-              " " +
-              DateFormat('hh:mm a').format(dateTime)
+          ? "${DateFormat('MMM dd').format(dateTime)} ${DateFormat('hh:mm a').format(dateTime)}"
           : DateFormat('MMM dd').format(dateTime);
     }
   }
