@@ -24,7 +24,7 @@ class AuthService extends GetxService {
     _user.value = _auth.currentUser;
   }
 
-  Future<UserType> login() async {
+  Future<UserType> get login async {
     try {
       final account = await _googleSignIn.signIn();
       if (account == null) {
@@ -62,7 +62,7 @@ class AuthService extends GetxService {
     }
   }
 
-  Future<void> logout() async {
+  Future<void> get logout async {
     await _googleSignIn.signOut();
     await _auth.signOut();
     _user.value = null;

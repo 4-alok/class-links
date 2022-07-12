@@ -42,7 +42,7 @@ class ProfileController extends GetxController {
 
   Future<void> logout() async {
     final authService = Get.find<AuthService>();
-    await authService.logout();
+    await authService.logout;
     await Get.find<HiveDatabase>().clearUserInfo();
     Get.offAllNamed(Routes.AUTH);
   }

@@ -1,3 +1,4 @@
+import 'package:class_link/app/modules/import_timetable/views/import_page.dart';
 import 'package:get/get.dart';
 
 import '../modules/admin/bindings/admin_binding.dart';
@@ -7,6 +8,7 @@ import '../modules/auth/views/auth_view.dart';
 import '../modules/holidays/holidays_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/import_timetable/bindings/import_binding.dart';
 import '../modules/log_page/log_page_view.dart';
 import '../modules/my_batch/bindings/my_batch_binding.dart';
 import '../modules/my_batch/views/my_batch_view.dart';
@@ -70,6 +72,12 @@ class AppPages {
     GetPage(
       name: _Paths.HOLIDAYS,
       page: () => const HolidaysView(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: _Paths.IMPORT,
+      page: () => const ImportPage(),
+      binding: ImportBinding(),
       transition: Transition.cupertino,
     ),
   ];

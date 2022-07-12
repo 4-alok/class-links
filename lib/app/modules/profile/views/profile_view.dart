@@ -51,6 +51,7 @@ class ProfileView extends GetView<ProfileController> {
               blackMode,
               const SizedBox(height: 20),
               adminPanel,
+              import,
               // test,
               logoutCard,
             ],
@@ -220,6 +221,16 @@ class ProfileView extends GetView<ProfileController> {
               ),
             )
           : const SizedBox();
+
+  Widget get import => userInfo?.role == "admin"
+      ? Card(
+          child: ListTile(
+            title: const Text("Import"),
+            trailing: const FaIcon(FontAwesomeIcons.caretRight),
+            onTap: () => Get.toNamed(Routes.IMPORT),
+          ),
+        )
+      : const SizedBox();
 
   Widget get themeSelector => Card(
         child: Padding(

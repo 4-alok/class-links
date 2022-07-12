@@ -16,6 +16,7 @@ abstract class Routes {
   static const SUBJECT_INFO = _Paths.SUBJECT_INFO;
   static const MY_BATCH = _Paths.MY_BATCH;
   static const HOLIDAYS = _Paths.HOLIDAYS;
+  static const IMPORT = _Paths.IMPORT;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const SUBJECT_INFO = '/subject-info';
   static const MY_BATCH = '/my-batch';
   static const HOLIDAYS = '/holidays';
+  static const IMPORT = '/import';
 }

@@ -1,10 +1,10 @@
-import '../../../utils/app_update.dart';
+import 'package:get/get.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
 import '../../../services/firebase/firestore_service.dart';
 import '../../../services/hive/hive_database.dart';
-import 'package:get/get.dart';
+import '../../../utils/app_update.dart';
 
 class AuthController extends GetxController {
   final loading = RxBool(false);
@@ -17,7 +17,7 @@ class AuthController extends GetxController {
 
   Future<void> login() async {
     loading.value = true;
-    final result = await Get.find<AuthService>().login();
+    final result = await Get.find<AuthService>().login;
     if (result == UserType.user) {
       final hiveDatabase = Get.find<HiveDatabase>();
       if (hiveDatabase.userInfo == null) {
