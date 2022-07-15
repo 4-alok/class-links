@@ -1,5 +1,9 @@
 # Change log
 
+## v0.1.10
+
+- New Sessions
+
 ## v0.1.9
 
 - Fix for 1st year pervious users

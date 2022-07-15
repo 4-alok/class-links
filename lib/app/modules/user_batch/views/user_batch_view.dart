@@ -30,9 +30,9 @@ class UserBatchView extends GetView<UserBatchController> {
             selectStreamTitle(context),
             selectStreamWidget(context),
 
-            // Select Scheme
-            selectSchemeTitle(context),
-            selectScheme(context),
+            // // Select Scheme
+            // selectSchemeTitle(context),
+            // selectScheme(context),
 
             // Select Batch
             selectBatchTitle(context),

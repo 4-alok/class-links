@@ -31,18 +31,17 @@ class _$UserInfoTearOff {
       required int year,
       required DateTime date,
       required String userName,
-      String role = 'user'}) {
+      String role = 'viewer'}) {
     return _UserInfo(
-      refId: refId,
-      id: id,
-      slot: slot,
-      batch: batch,
-      stream: stream,
-      year: year,
-      date: date,
-      userName: userName,
-      role: role,
-    );
+        refId: refId,
+        id: id,
+        slot: slot,
+        batch: batch,
+        stream: stream,
+        year: year,
+        date: date,
+        userName: userName,
+        role: role);
   }
 
   UserInfo fromJson(Map<String, Object?> json) {

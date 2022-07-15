@@ -3,7 +3,6 @@ import '../../../global/widget/user_icon.dart';
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
-// import '../../../services/firebase/firestore_service.dart';
 import '../../../services/hive/hive_database.dart';
 import '../../../utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
@@ -43,7 +42,7 @@ class ProfileView extends GetView<ProfileController> {
               email,
               const SizedBox(height: 20),
               batch(context),
-              showLog,
+              // showLog,
               holidays,
               const SizedBox(height: 20),
               themeSelector,
