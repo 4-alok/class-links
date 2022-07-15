@@ -78,6 +78,8 @@ Thanks go to these wonderful people
 <!-- markdownlint-disable -->
 <table>
   <tr>
+    <td align="center"><a href="https://github.com/SanskarKashyap"><img src="https://avatars.githubusercontent.com/u/72290416?v=4" width="100px;" alt=""/><br/><sub><b>Sanskar Kashyap</b></sub></a><br/>
+    </td>
     <td align="center"><a href="https://github.com/akarsh1108"><img src="https://avatars.githubusercontent.com/u/72339474?v=4" width="100px;" alt=""/><br/><sub><b>Akarsh Priyadarshan</b></sub></a><br/>
     </td>
     <td align="center"><a href="https://github.com/amanv8060"><img src="https://avatars.githubusercontent.com/u/33422449?v=4" width="100px;" alt=""/><br/><sub><b>Aman Verma</b></sub></a><br/>
@@ -92,6 +94,7 @@ Thanks go to these wonderful people
     </td>
     <td align="center"><a href="https://github.com/jyotsana279"><img src="https://avatars.githubusercontent.com/u/73690777?v=4" width="100px;" alt=""/><br/><sub><b>Jyotsana Singh</b></sub></a><br/>
     </td>
+
     
   </tr>
   <!-- <tr>
