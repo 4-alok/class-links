@@ -1,7 +1,7 @@
-import '../../routes/app_pages.dart';
-import '../firebase/firestore_service.dart';
 import 'package:get/get.dart';
 
+import '../../routes/app_pages.dart';
+import '../firebase/firestore_service.dart';
 import '../hive/hive_database.dart';
 
 mixin FirstYearPreviousUserPatchMixin {

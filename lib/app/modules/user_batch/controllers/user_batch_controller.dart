@@ -1,4 +1,5 @@
-import '../../../global/const/batch_list.dart' as BatchList;
+import 'package:class_link/app/modules/user_batch/controllers/user_batch_list.dart';
+
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
@@ -6,22 +7,24 @@ import '../../../services/firebase/firestore_service.dart';
 import '../../../services/hive/hive_database.dart';
 import 'package:get/get.dart';
 
-class UserBatchController extends GetxController {
+class UserBatchController extends GetxController with UserBatchList {
   final currentYear = Rx<int?>(null);
   final currentStream = Rx<String?>(null);
   final currentScheme = Rx<int?>(null);
   final currentBatch = Rx<String?>(null);
   final loading = Rx<bool>(false);
 
-  List<String> get firstYearScheme1 => BatchList.firstYearScheme1;
-
-  List<String> get firstYearScheme2 => BatchList.firstYearScheme2;
-
-  List<String> get secondYearCSE =>
-      List.generate(26, (index) => "CSE ${index + 1}");
-
-  List<String> get secondYearIT =>
-      List.generate(7, (index) => "IT ${index + 1}");
+  List<String> get getStreamList {
+    if (currentYear.value == null) {
+      return [];
+    } else if (currentYear.value == 2) {
+      return ['CSE', 'IT'];
+    } else if (currentYear.value == 3) {
+      return ['CSE', 'IT', 'CSSE'];
+    } else {
+      return [];
+    }
+  }
 
   List<String> get batchList {
     if (currentYear.value == 2) {
@@ -37,6 +40,16 @@ class UserBatchController extends GetxController {
         return firstYearScheme1;
       } else if (currentScheme.value == 2) {
         return firstYearScheme2;
+      }
+    } else if (currentYear.value == 3) {
+      if (currentStream.value != null) {
+        if (currentStream.value == "CSE") {
+          return thirdYearCSE;
+        } else if (currentStream.value == "IT") {
+          return thirdYearIT;
+        } else if (currentStream.value == 'CSSE') {
+          return thirdYearCSSE;
+        }
       }
     }
     return [];

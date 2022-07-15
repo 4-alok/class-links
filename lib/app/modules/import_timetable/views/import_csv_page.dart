@@ -1,48 +1,19 @@
-import 'package:class_link/app/modules/import_timetable/controllers/import_controller.dart';
-import 'package:class_link/app/modules/import_timetable/views/batch_shift.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'import_csv_page.dart';
+import '../controllers/import_csv_controller.dart';
 
-class ImportPage extends GetView<ImportController> {
-  const ImportPage({Key? key}) : super(key: key);
+class ImportCsvPage extends StatelessWidget {
+  final ImportCsvController csvController;
+  const ImportCsvPage({Key? key, required this.csvController})
+      : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text("Import Timetable")),
-        body: Obx(
-          () => controller.csvController.field.isEmpty
-              ? selectFile(context)
-              : ImportCsvPage(csvController: controller.csvController),
-        ),
-        floatingActionButton: fab,
-      );
-
-  Widget get fab => Obx(
-        () => controller.csvController.field.isEmpty
-            ? const SizedBox()
-            : ElevatedButton(
-                onPressed: () => controller.import,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Obx(
-                    () => controller.uploading.value
-                        ? const CircularProgressIndicator()
-                        : const Text(
-                            "Import",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                  ),
-                ),
-              ),
-      );
-
-  Widget importView(BuildContext context) => Padding(
+  Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             const SizedBox(height: 12),
             const Padding(
@@ -61,12 +32,12 @@ class ImportPage extends GetView<ImportController> {
                   () => CustomDropdownButton2(
                     hint: 'Day',
                     buttonElevation: 5,
-                    dropdownItems: controller.csvController.field.first
+                    dropdownItems: csvController.field.first
                         .map((e) => e.toString())
                         .toList(),
                     onChanged: (String? value) =>
-                        controller.csvController.day.value = value,
-                    value: controller.csvController.day.value,
+                        csvController.day.value = value,
+                    value: csvController.day.value,
                   ),
                 ),
               ),
@@ -87,12 +58,12 @@ class ImportPage extends GetView<ImportController> {
                   () => CustomDropdownButton2(
                     hint: 'Batch',
                     buttonElevation: 5,
-                    dropdownItems: controller.csvController.field.first
+                    dropdownItems: csvController.field.first
                         .map((e) => e.toString())
                         .toList(),
                     onChanged: (String? value) =>
-                        controller.csvController.batch.value = value,
-                    value: controller.csvController.batch.value,
+                        csvController.batch.value = value,
+                    value: csvController.batch.value,
                   ),
                 ),
               ),
@@ -110,8 +81,7 @@ class ImportPage extends GetView<ImportController> {
                   disabledBorder: InputBorder.none,
                 ),
                 onChanged: (val) => val != ''
-                    ? controller.csvController.year.value =
-                        int.tryParse(val) ?? 2020
+                    ? csvController.year.value = int.tryParse(val) ?? 2020
                     : null,
               ),
             ),
@@ -128,8 +98,7 @@ class ImportPage extends GetView<ImportController> {
                   disabledBorder: InputBorder.none,
                 ),
                 onChanged: (val) => val != ''
-                    ? controller.csvController.slot.value =
-                        int.tryParse(val) ?? 1
+                    ? csvController.slot.value = int.tryParse(val) ?? 1
                     : null,
               ),
             ),
@@ -145,9 +114,8 @@ class ImportPage extends GetView<ImportController> {
                   errorBorder: InputBorder.none,
                   disabledBorder: InputBorder.none,
                 ),
-                onChanged: (val) => val != ''
-                    ? controller.csvController.creatorId.value = val
-                    : null,
+                onChanged: (val) =>
+                    val != '' ? csvController.creatorId.value = val : null,
               ),
             ),
             const SizedBox(height: 12),
@@ -161,7 +129,7 @@ class ImportPage extends GetView<ImportController> {
             ),
             Card(
                 child: Wrap(
-              children: controller.csvController.subjectTimes
+              children: csvController.subjectTimes
                   .map((e) => Card(
                         color: Theme.of(context)
                             .colorScheme
@@ -175,50 +143,6 @@ class ImportPage extends GetView<ImportController> {
                       ))
                   .toList(),
             )),
-          ],
-        ),
-      );
-
-  Widget selectFile(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text(
-                "Import Timetable",
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-            ),
-            Card(
-              color: Theme.of(context).colorScheme.primary.withOpacity(.1),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: double.maxFinite,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "Select csv file",
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                      const SizedBox(height: 6),
-                      ElevatedButton(
-                        child: const Text("Select file"),
-                        onPressed: () => controller.csvController.selectFile,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 12),
-            BatchShift(controller: controller),
           ],
         ),
       );

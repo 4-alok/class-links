@@ -108,8 +108,8 @@ class UserBatchView extends GetView<UserBatchController> {
         ),
       );
 
-  Widget selectStreamTitle(BuildContext context) =>
-      Obx(() => controller.currentYear.value == 2
+  Widget selectStreamTitle(BuildContext context) => Obx(() =>
+      controller.currentYear.value == 2 || controller.currentYear.value == 3
           ? title(context, "Select Stream")
           : const SizedBox());
 
@@ -129,54 +129,53 @@ class UserBatchView extends GetView<UserBatchController> {
         duration: const Duration(milliseconds: 300),
         child: Obx(
           () => GridView.count(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.all(10),
-            crossAxisCount: 2,
-            childAspectRatio: controller.currentYear.value == null ? 1 : 2,
-            children: List.generate(2, (index) {
-              return Obx(
-                () => Card(
-                  color: controller.currentYear.value == index + 1
-                      ? selectedCardColor
-                      : cardColor,
-                  child: InkWell(
-                    onTap: () {
-                      controller.currentYear.value = index + 1;
-                      controller.currentBatch.value = null;
-                    },
-                    child: Center(
-                      child: Text.rich(
-                        TextSpan(
-                          text: (index + 1).toString(),
-                          children: [
-                            TextSpan(
-                              text: intPostfix(index + 1),
-                              style: const TextStyle(
-                                fontSize: 16,
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.all(10),
+              crossAxisCount: 2,
+              childAspectRatio: controller.currentYear.value == null ? 1 : 2,
+              children: List.generate(
+                  3,
+                  (index) => Obx(
+                        () => Card(
+                          color: controller.currentYear.value == index + 1
+                              ? selectedCardColor
+                              : cardColor,
+                          child: InkWell(
+                            onTap: () {
+                              controller.currentYear.value = index + 1;
+                              controller.currentBatch.value = null;
+                            },
+                            child: Center(
+                              child: Text.rich(
+                                TextSpan(
+                                  text: (index + 1).toString(),
+                                  children: [
+                                    TextSpan(
+                                      text: intPostfix(index + 1),
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    const TextSpan(
+                                      text: " Year",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                style: Theme.of(context).textTheme.headline1,
                               ),
                             ),
-                            const TextSpan(
-                              text: " Year",
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                        style: Theme.of(context).textTheme.headline1,
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            }),
-          ),
+                      ))),
         ),
       );
 
-  Widget selectStreamWidget(BuildContext context) =>
-      Obx(() => controller.currentYear.value == 2
+  Widget selectStreamWidget(BuildContext context) => Obx(() =>
+      controller.currentYear.value == 2 || controller.currentYear.value == 3
           ? AnimatedSize(
               curve: Curves.easeInOut,
               duration: const Duration(milliseconds: 300),
@@ -188,16 +187,14 @@ class UserBatchView extends GetView<UserBatchController> {
                   crossAxisCount: 2,
                   childAspectRatio:
                       controller.currentStream.value == null ? 1 : 2,
-                  children: ["CSE", "IT"]
+                  children: controller.getStreamList
                       .map(
                         (e) => Card(
                           color: controller.currentStream.value == e
                               ? selectedCardColor
                               : cardColor,
                           child: InkWell(
-                            onTap: () {
-                              controller.currentStream.value = e;
-                            },
+                            onTap: () => controller.currentStream.value = e,
                             child: Center(
                               child: Text(e,
                                   style: Theme.of(context).textTheme.headline1),

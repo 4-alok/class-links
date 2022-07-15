@@ -1,10 +1,9 @@
-import '../../../services/analytics/analytics_service.dart';
-
-import '../../../services/auth/auth_service.dart';
-
-import '../../../models/user_info/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../models/user_info/user_info.dart';
+import '../../../services/analytics/analytics_service.dart';
+import '../../../services/auth/auth_service.dart';
 import '../controllers/home_controller.dart';
 import 'components/time_table_page.dart';
 
@@ -14,10 +13,10 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) =>
       Get.find<AuthService>().userType() == UserType.user
-          ? batchViseTimetable()
+          ? batchViseTimetable
           : TimeTablePage(homeController: controller);
 
-  FutureBuilder<UserInfo?> batchViseTimetable() => FutureBuilder<UserInfo?>(
+  FutureBuilder<UserInfo?> get batchViseTimetable => FutureBuilder<UserInfo?>(
         future: controller.getUserInfo,
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {

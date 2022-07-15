@@ -44,11 +44,10 @@ class HomeController extends GetxController
         (Get.find<AuthService>().userType() != UserType.user) ? true : false;
 
     _hourlyUpdateSubscription =
-        Stream.periodic(const Duration(seconds: 1), (i) => i).listen((_) {
-      hourlyUpdate.value != DateTime.now().hour
-          ? hourlyUpdate.value = DateTime.now().hour
-          : null;
-    });
+        Stream.periodic(const Duration(seconds: 1), (i) => i).listen((_) =>
+            hourlyUpdate.value != DateTime.now().hour
+                ? hourlyUpdate.value = DateTime.now().hour
+                : null);
 
     defaultDays;
     _getUserRole;
@@ -58,7 +57,7 @@ class HomeController extends GetxController
   @override
   void onReady() {
     personalTimeTable ? initSubscription() : null;
-    firstYearPreviousUserPatchMixin;
+    // firstYearPreviousUserPatchMixin;
     AndroidAppUpdate();
     super.onReady();
   }
