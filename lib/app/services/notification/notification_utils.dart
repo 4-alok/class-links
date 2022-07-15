@@ -9,7 +9,7 @@ import '../../modules/subject_info/controllers/subject_info_controller.dart';
 import '../../modules/subject_info/views/subject_info_view.dart';
 import '../../utils/get_snackbar.dart';
 import '../auth/auth_service.dart';
-import '../firebase/firestore_service.dart';
+import '../firebase/repository/firestore_service.dart';
 
 abstract class NotificationServiceUtils {
   Future<void> openSubject(String? payload) async {
@@ -27,7 +27,8 @@ abstract class NotificationServiceUtils {
           final userType = Get.find<AuthService>().userType();
 
           if (userType == UserType.kiitian || userType == UserType.user) {
-            final timetable = await firestoreService.batchTimeTable;
+            final timetable =
+                await firestoreService.timetableDatasource.batchTimeTable;
             final subject = timetable[DateTime.now().weekday - 1]
                 .subjects
                 .where((element) =>
@@ -39,7 +40,8 @@ abstract class NotificationServiceUtils {
                   currentWeek: notificationPayload.currentWeek,
                 )));
           } else {
-            final timetable = await firestoreService.personalTimeTable;
+            final timetable =
+                await firestoreService.timetableDatasource.personalTimeTable;
             final subject = timetable[DateTime.now().weekday - 1]
                 .subjects
                 .where(

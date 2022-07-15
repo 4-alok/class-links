@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'app/services/analytics/analytics_service.dart';
 import 'app/services/auth/auth_service.dart';
-import 'app/services/firebase/firestore_service.dart';
+import 'app/services/firebase/repository/firestore_service.dart';
 import 'app/services/hive/hive_database.dart';
 import 'app/services/log/log_service.dart';
 import 'app/services/notification/notification_service.dart';

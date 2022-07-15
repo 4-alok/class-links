@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../routes/app_pages.dart';
-import '../firebase/firestore_service.dart';
+import '../firebase/repository/firestore_service.dart';
 import '../hive/hive_database.dart';
 
 mixin FirstYearPreviousUserPatchMixin {
@@ -26,7 +26,7 @@ mixin FirstYearPreviousUserPatchMixin {
   }
 
   Future<void> _recreateUser(HiveDatabase hiveDatabase) async {
-    await Get.find<FirestoreService>().deleteUser(hiveDatabase.userInfo!);
+    await Get.find<FirestoreService>().userInfoDatasources.deleteUser(hiveDatabase.userInfo!);
     await hiveDatabase.clearUserInfo();
 
     Get.offAllNamed(Routes.USER_BATCH);

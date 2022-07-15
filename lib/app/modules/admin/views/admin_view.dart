@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:animations/animations.dart';
 
 import '../../../models/user_info/user_info.dart';
-import '../../../services/firebase/firestore_service.dart';
+import '../../../services/firebase/repository/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -29,8 +29,8 @@ class AdminView extends GetView<AdminController> {
   Widget streamUserList(FirestoreService firestoreService) =>
       StreamBuilder<List<UserInfo>>(
         stream: userInfo?.role == "admin"
-            ? firestoreService.streamAllUserList
-            : firestoreService.streamUserList,
+            ? firestoreService.userInfoDatasources.streamAllUserList
+            : firestoreService.userInfoDatasources.streamUserList,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Obx(() => RawScrollbar(
@@ -113,7 +113,7 @@ class AdminView extends GetView<AdminController> {
                       )
                     : ElevatedButton(
                         onPressed: () async {
-                          final res = await firestoreService.updateUser(
+                          final res = await firestoreService.userInfoDatasources.updateUser(
                               userList[index].copyWith(
                                   role: userList[index].role == "user"
                                       ? "viewer"

@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../models/user_info/user_info.dart';
-import '../../../services/firebase/firestore_service.dart';
+import '../../../services/firebase/repository/firestore_service.dart';
 import '../../../services/hive/hive_database.dart';
 import '../controllers/my_batch_controller.dart';
 
@@ -27,7 +27,7 @@ class MyBatchView extends GetView<MyBatchController> {
         ),
       ),
       body: FutureBuilder<List<UserInfo>>(
-        future: Get.find<FirestoreService>().myBatch,
+        future: Get.find<FirestoreService>().userInfoDatasources.myBatch,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

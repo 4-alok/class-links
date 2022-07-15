@@ -8,7 +8,7 @@ import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
 import '../../../services/auth/patch.dart';
-import '../../../services/firebase/firestore_service.dart';
+import '../../../services/firebase/repository/firestore_service.dart';
 import '../../../services/hive/hive_database.dart';
 import '../../../services/log/log_service.dart';
 import '../../../utils/app_update.dart';
@@ -66,7 +66,7 @@ class HomeController extends GetxController
     if (personalTimeTable) {
       hideEdit.value = false;
     } else {
-      final result2 = await Get.find<FirestoreService>().getUserInfo;
+      final result2 = await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
       if (result2 != null) {
         if (result2.role != "viewer") {
           hideEdit.value = false;
@@ -78,14 +78,16 @@ class HomeController extends GetxController
   void initSubscription() {
     final firestoreService = Get.find<FirestoreService>();
     if (personalTimeTable) {
-      _timeTableSubscription =
-          firestoreService.personalTimeTableStream.listen((event) {
+      _timeTableSubscription = firestoreService
+          .timetableDatasource.personalTimeTableStream
+          .listen((event) {
         week.value = List.generate(event.length, (index) => event[index]);
         originalList = deepCopyWeek(event);
       });
     } else {
-      _timeTableSubscription =
-          firestoreService.batchTimeTableStream.listen((event) {
+      _timeTableSubscription = firestoreService
+          .timetableDatasource.batchTimeTableStream
+          .listen((event) {
         week.value = List.generate(event.length, (index) => event[index]);
         originalList = deepCopyWeek(event);
       });
@@ -98,7 +100,7 @@ class HomeController extends GetxController
       initSubscription();
       return result;
     } else {
-      final result2 = await Get.find<FirestoreService>().getUserInfo;
+      final result2 = await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
       if (result2 != null) {
         await Get.find<HiveDatabase>().setUserInfo(result2);
         initSubscription();
@@ -153,6 +155,7 @@ class HomeController extends GetxController
         year: -1,
       );
       await Get.find<FirestoreService>()
+          .timetableDatasource
           .addOrUpdatePersonalTimeTable(timeTable);
     } else {
       final userInfo = Get.find<HiveDatabase>().userInfo!;
@@ -164,7 +167,9 @@ class HomeController extends GetxController
         slot: userInfo.slot,
         date: DateTime.now(),
       );
-      await Get.find<FirestoreService>().addOrUpdateBatchTimeTable(timeTable);
+      await Get.find<FirestoreService>()
+          .timetableDatasource
+          .addOrUpdateBatchTimeTable(timeTable);
     }
   }
 

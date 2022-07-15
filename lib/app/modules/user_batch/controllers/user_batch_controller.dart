@@ -3,7 +3,7 @@ import 'package:class_link/app/modules/user_batch/controllers/user_batch_list.da
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
-import '../../../services/firebase/firestore_service.dart';
+import '../../../services/firebase/repository/firestore_service.dart';
 import '../../../services/hive/hive_database.dart';
 import 'package:get/get.dart';
 
@@ -76,7 +76,7 @@ class UserBatchController extends GetxController with UserBatchList {
       date: DateTime.now(),
     );
 
-    if (await Get.find<FirestoreService>().addUserInfo(userInfo)) {
+    if (await Get.find<FirestoreService>().userInfoDatasources.addUserInfo(userInfo)) {
       await Get.find<HiveDatabase>().setUserInfo(userInfo);
       Get.offAllNamed(Routes.HOME);
     }

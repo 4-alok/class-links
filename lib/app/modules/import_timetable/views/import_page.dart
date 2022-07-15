@@ -219,6 +219,51 @@ class ImportPage extends GetView<ImportController> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                "Import 3year user section",
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+            Card(
+              color: Theme.of(context).colorScheme.primary.withOpacity(.1),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: double.maxFinite,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Select csv file",
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                      const SizedBox(height: 6),
+                      Obx(
+                        () =>
+                            controller.importUserSectionSection.uploading.value
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white)
+                                : ElevatedButton(
+                                    onPressed: controller
+                                            .importUserSectionSection
+                                            .uploading
+                                            .value
+                                        ? null
+                                        : () => controller
+                                            .importUserSectionSection.importCsv,
+                                    child: const Text("Select file"),
+                                  ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(height: 12),
             BatchShift(controller: controller),
           ],
