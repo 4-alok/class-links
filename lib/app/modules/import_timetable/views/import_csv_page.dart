@@ -16,58 +16,10 @@ class ImportCsvPage extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
             const SizedBox(height: 12),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: Text(
-                "Select day column",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 12),
-              ),
-            ),
-            Card(
-              child: SizedBox(
-                height: 48,
-                width: double.maxFinite,
-                child: Obx(
-                  () => CustomDropdownButton2(
-                    hint: 'Day',
-                    buttonElevation: 5,
-                    dropdownItems: csvController.field.first
-                        .map((e) => e.toString())
-                        .toList(),
-                    onChanged: (String? value) =>
-                        csvController.day.value = value,
-                    value: csvController.day.value,
-                  ),
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: Text(
-                "Select batch column",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 12),
-              ),
-            ),
-            Card(
-              child: SizedBox(
-                height: 48,
-                width: double.maxFinite,
-                child: Obx(
-                  () => CustomDropdownButton2(
-                    hint: 'Batch',
-                    buttonElevation: 5,
-                    dropdownItems: csvController.field.first
-                        .map((e) => e.toString())
-                        .toList(),
-                    onChanged: (String? value) =>
-                        csvController.batch.value = value,
-                    value: csvController.batch.value,
-                  ),
-                ),
-              ),
-            ),
+            dayWidget,
+            batchWidget,
+            room1Widget,
+            room2Widget,
             Card(
               child: TextField(
                 keyboardType: TextInputType.number,
@@ -145,5 +97,134 @@ class ImportCsvPage extends StatelessWidget {
             )),
           ],
         ),
+      );
+
+  Widget get room1Widget => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Text(
+              "Select Room-1 column",
+              textAlign: TextAlign.start,
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
+          Card(
+            child: SizedBox(
+              height: 48,
+              width: double.maxFinite,
+              child: Obx(
+                () => CustomDropdownButton2(
+                  hint: 'Room No',
+                  buttonElevation: 5,
+                  dropdownItems: csvController.field.first
+                      .map((e) => e.toString())
+                      .toList(),
+                  onChanged: (String? value) => csvController.r1.value = value,
+                  value: csvController.r1.value,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+
+  Widget get room2Widget => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Text(
+              "Select Room-2 column",
+              textAlign: TextAlign.start,
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
+          Card(
+            child: SizedBox(
+              height: 48,
+              width: double.maxFinite,
+              child: Obx(
+                () => CustomDropdownButton2(
+                  hint: 'Room No',
+                  buttonElevation: 5,
+                  dropdownItems: csvController.field.first
+                      .map((e) => e.toString())
+                      .toList(),
+                  onChanged: (String? value) => csvController.r2.value = value,
+                  value: csvController.r2.value,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+
+  Widget get batchWidget => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Text(
+              "Select batch column",
+              textAlign: TextAlign.start,
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
+          Card(
+            child: SizedBox(
+              height: 48,
+              width: double.maxFinite,
+              child: Obx(
+                () => CustomDropdownButton2(
+                  hint: 'Batch',
+                  buttonElevation: 5,
+                  dropdownItems: csvController.field.first
+                      .map((e) => e.toString())
+                      .toList(),
+                  onChanged: (String? value) =>
+                      csvController.batch.value = value,
+                  value: csvController.batch.value,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+
+  Widget get dayWidget => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Text(
+              "Select day column",
+              textAlign: TextAlign.start,
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
+          Card(
+            child: SizedBox(
+              height: 48,
+              width: double.maxFinite,
+              child: Obx(
+                () => CustomDropdownButton2(
+                  hint: 'Day',
+                  buttonElevation: 5,
+                  dropdownItems: csvController.field.first
+                      .map((e) => e.toString())
+                      .toList(),
+                  onChanged: (String? value) => csvController.day.value = value,
+                  value: csvController.day.value,
+                ),
+              ),
+            ),
+          ),
+        ],
       );
 }

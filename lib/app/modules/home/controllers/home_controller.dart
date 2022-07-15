@@ -57,7 +57,7 @@ class HomeController extends GetxController
   @override
   void onReady() {
     personalTimeTable ? initSubscription() : null;
-    // firstYearPreviousUserPatchMixin;
+    firstYearPreviousUserPatchMixin;
     AndroidAppUpdate();
     super.onReady();
   }

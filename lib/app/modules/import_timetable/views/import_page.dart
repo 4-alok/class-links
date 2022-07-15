@@ -29,7 +29,9 @@ class ImportPage extends GetView<ImportController> {
                   padding: const EdgeInsets.all(8.0),
                   child: Obx(
                     () => controller.uploading.value
-                        ? const CircularProgressIndicator()
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
                         : const Text(
                             "Import",
                             style: TextStyle(fontWeight: FontWeight.bold),

@@ -15,11 +15,13 @@ mixin FirstYearPreviousUserPatchMixin {
     final hiveDatabase = Get.find<HiveDatabase>();
     final userInfo = hiveDatabase.userInfo;
     if (userInfo != null) {
-      if (_firstYearScheme1.contains(userInfo.batch)) {
-        await _recreateUser(hiveDatabase);
-      } else if (_firstYearScheme2.contains(userInfo.batch)) {
+      if (userInfo.year == 2) {
         await _recreateUser(hiveDatabase);
       }
+      // if (_firstYearScheme1.contains(userInfo.batch)) {
+      // } else if (_firstYearScheme2.contains(userInfo.batch)) {
+      //   await _recreateUser(hiveDatabase);
+      // }
     }
   }
 

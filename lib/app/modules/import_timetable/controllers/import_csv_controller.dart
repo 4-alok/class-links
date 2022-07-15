@@ -15,6 +15,8 @@ class ImportCsvController {
   final batch = Rx<String?>(null);
   final year = Rx<int?>(null);
   final slot = Rx<int?>(null);
+  final r1 = Rx<String?>(null);
+  final r2 = Rx<String?>(null);
   final creatorId = Rx<String?>(null);
 
   List<Day> get defaultDays => List.generate(
@@ -25,6 +27,10 @@ class ImportCsvController {
   int get batchColIndex => field.first.indexWhere((e) => e == batch.value);
 
   int get dayColIndex => field.first.indexWhere((e) => e == day.value);
+
+  int get room1Index => field.first.indexWhere((e) => e == r1.value);
+
+  int get room2Index => field.first.indexWhere((e) => e == r2.value);
 
   List get subjectTimes => field.first.where((e) {
         try {
@@ -44,14 +50,18 @@ class ImportCsvController {
         final subIndex =
             field.first.indexWhere((e) => e == subjectTimes[index]);
 
+        final String roomNo =
+            subIndex > room2Index ? row[room2Index] : row[room1Index];
+
         return Subject(
           subjectName: row[subIndex],
           startTime: DayTime(hour: time, minute: 0),
+          roomNo: roomNo.toLowerCase() == 'x' ? null : roomNo,
         );
       },
     );
 
-    subjectList.removeWhere((e) => e.subjectName == 'x');
+    subjectList.removeWhere((e) => e.subjectName.toLowerCase() == 'x');
     return subjectList;
   }
 
@@ -101,6 +111,7 @@ class ImportCsvController {
       }
     }
     _timeTables = patch(_timeTables);
+
     return _timeTables;
   }
 
@@ -111,7 +122,9 @@ class ImportCsvController {
         (e.week.forEach((e) {
           if (kDebugMode) {
             print(e.day);
-            print(e.subjects.map((e) => e.subjectName).toList());
+            print(e.subjects
+                .map((e) => "${e.subjectName} - ${e.roomNo}")
+                .toList());
           }
         }));
         print("\n\n");
@@ -139,6 +152,8 @@ class ImportCsvController {
     batch.close();
     year.close();
     slot.close();
+    r1.close();
+    r2.close();
     creatorId.close();
   }
 }

@@ -29,7 +29,7 @@ abstract class MyReorderableLIstUtils {
     if (item.roomNo != null) {
       if (item.roomNo != "" && subtitle.isEmpty) {
         final map = item.roomNo!.splitString;
-        subtitle.add("Room no: ${map.keys.first} - ${map.values.first}");
+        subtitle.add("Room no: ${map.keys.first}${map.values.first}");
       }
     }
     return subtitle.join(" | ");
