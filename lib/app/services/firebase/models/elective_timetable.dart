@@ -1,18 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'dart:convert';
 
 import '../../../models/time_table/time_table.dart';
 
 class ElectiveTimetable {
   final String day;
-  final String? section;
+  final String section;
   final List<Subject> subjects;
-  ElectiveTimetable({
-    required this.day,
-    this.section,
-    required this.subjects,
-  });
+  ElectiveTimetable(
+      {required this.day, required this.section, required this.subjects});
 
   Map<String, dynamic> toMap() => <String, dynamic>{
         'day': day,
@@ -23,9 +18,9 @@ class ElectiveTimetable {
   factory ElectiveTimetable.fromMap(Map<String, dynamic> map) =>
       ElectiveTimetable(
         day: map['day'] as String,
-        section: map['section'] != null ? map['section'] as String : null,
+        section: map['section'] as String,
         subjects: List<Subject>.from(
-          (map['subjects'] as List<int>).map<Subject>(
+          (map['subjects'] as List<dynamic>).map<Subject>(
             (x) => Subject.fromJson(x as Map<String, dynamic>),
           ),
         ),

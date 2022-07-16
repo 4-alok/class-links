@@ -12,7 +12,7 @@ class ImportController extends GetxController {
   final fromYear = Rx<int?>(null);
   final toYear = Rx<int?>(null);
   final uploading = RxBool(false);
-  final uploadElectiveTimeTable = RxBool(false);
+  final count = Rx<int?>(null);
 
   Future<List<int>> get getTimetableYearly async {
     List<int> year = [];
@@ -39,15 +39,18 @@ class ImportController extends GetxController {
         await csvController.getTimeTables,
       );
 
-  Future<void> import3YearElectiveTimetable() async {
+  Future<void> get import3YearElectiveTimetable async {
     final import3YearElectiveTimetable = Import3YearElectiveTimetable();
     final electiveTimetables =
         await import3YearElectiveTimetable.electiveTimetable;
-    uploadElectiveTimeTable.value = true;
-    await Get.find<FirestoreService>()
-        .electiveDatasources
-        .importElectiveTimetable(electiveTimetables);
-    uploadElectiveTimeTable.value = false;
+
+    for (int i = 0; i < electiveTimetables.length; i++) {
+      count.value = i;
+      await Get.find<FirestoreService>()
+          .electiveDatasources
+          .importElectiveTimetable(electiveTimetables[i]);
+    }
+    count.value = null;
   }
 
   @override

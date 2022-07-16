@@ -1,5 +1,5 @@
 import 'package:class_link/app/modules/import_timetable/controllers/import_controller.dart';
-import 'package:dropdown_button2/custom_dropdown_button2.dart';
+import 'package:class_link/app/services/firebase/repository/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,146 +40,6 @@ class ImportPage extends GetView<ImportController> {
               ),
       );
 
-  Widget importView(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 12),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: Text(
-                "Select day column",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 12),
-              ),
-            ),
-            Card(
-              child: SizedBox(
-                height: 48,
-                width: double.maxFinite,
-                child: Obx(
-                  () => CustomDropdownButton2(
-                    hint: 'Day',
-                    buttonElevation: 5,
-                    dropdownItems: controller.csvController.field.first
-                        .map((e) => e.toString())
-                        .toList(),
-                    onChanged: (String? value) =>
-                        controller.csvController.day.value = value,
-                    value: controller.csvController.day.value,
-                  ),
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: Text(
-                "Select batch column",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 12),
-              ),
-            ),
-            Card(
-              child: SizedBox(
-                height: 48,
-                width: double.maxFinite,
-                child: Obx(
-                  () => CustomDropdownButton2(
-                    hint: 'Batch',
-                    buttonElevation: 5,
-                    dropdownItems: controller.csvController.field.first
-                        .map((e) => e.toString())
-                        .toList(),
-                    onChanged: (String? value) =>
-                        controller.csvController.batch.value = value,
-                    value: controller.csvController.batch.value,
-                  ),
-                ),
-              ),
-            ),
-            Card(
-              child: TextField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: "Year",
-                  hintText: "2020",
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                ),
-                onChanged: (val) => val != ''
-                    ? controller.csvController.year.value =
-                        int.tryParse(val) ?? 2020
-                    : null,
-              ),
-            ),
-            Card(
-              child: TextField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: "Slot",
-                  hintText: "1",
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                ),
-                onChanged: (val) => val != ''
-                    ? controller.csvController.slot.value =
-                        int.tryParse(val) ?? 1
-                    : null,
-              ),
-            ),
-            Card(
-              child: TextField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: "Creator ID",
-                  hintText: "2005847@kiit.ac.in",
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                ),
-                onChanged: (val) => val != ''
-                    ? controller.csvController.creatorId.value = val
-                    : null,
-              ),
-            ),
-            const SizedBox(height: 12),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: Text(
-                "Timing slot",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 12),
-              ),
-            ),
-            Card(
-                child: Wrap(
-              children: controller.csvController.subjectTimes
-                  .map((e) => Card(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .primary
-                            .withOpacity(.1),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 2),
-                          child: Text(e),
-                        ),
-                      ))
-                  .toList(),
-            )),
-          ],
-        ),
-      );
-
   Widget selectFile(BuildContext context) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
@@ -188,6 +48,15 @@ class ImportPage extends GetView<ImportController> {
             importTimetable(context),
             import3yearUserSection(context),
             import3yearElectiveTimetable(context),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Get.find<FirestoreService>()
+                    .electiveDatasources
+                    .getUserElectiveSubjects;
+              },
+              child: const Text("Test"),
+            ),
           ],
         ),
       );
@@ -224,15 +93,13 @@ class ImportPage extends GetView<ImportController> {
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeInOut,
                       child: Obx(
-                        () => controller.uploadElectiveTimeTable.value
-                            ? const CircularProgressIndicator(
-                                color: Colors.white)
+                        () => controller.count.value != null
+                            ? Text("${controller.count.value}")
                             : ElevatedButton(
-                                onPressed: controller.importUserSectionSection
-                                        .uploading.value
+                                onPressed: controller.count.value != null
                                     ? null
-                                    : () => controller
-                                        .import3YearElectiveTimetable(),
+                                    : () =>
+                                        controller.import3YearElectiveTimetable,
                                 child: const Text("Select file"),
                               ),
                       ),
@@ -274,11 +141,14 @@ class ImportPage extends GetView<ImportController> {
                     ),
                     const SizedBox(height: 6),
                     Obx(
-                      () => controller.importUserSectionSection.uploading.value
-                          ? const CircularProgressIndicator(color: Colors.white)
+                      () => controller.importUserSectionSection.count.value !=
+                              null
+                          ? Text(
+                              "${controller.importUserSectionSection.count.value}")
                           : ElevatedButton(
-                              onPressed: controller
-                                      .importUserSectionSection.uploading.value
+                              onPressed: controller.importUserSectionSection
+                                          .count.value !=
+                                      null
                                   ? null
                                   : () => controller
                                       .importUserSectionSection.importCsv,

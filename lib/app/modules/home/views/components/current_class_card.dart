@@ -1,10 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:animations/animations.dart';
-import '../../../../models/subject_info/subject_info.dart';
-import '../../../../gen/assets.gen.dart';
-import '../../../../models/time_table/time_table.dart';
-import '../../../subject_info/controllers/subject_info_controller.dart';
-import '../../../subject_info/views/subject_info_view.dart';
-import '../../../../utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
@@ -12,9 +7,18 @@ import 'package:get/route_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
 
+import '../../../../gen/assets.gen.dart';
+import '../../../../models/subject_info/subject_info.dart';
+import '../../../../models/time_table/time_table.dart';
+import '../../../../utils/extension.dart';
+import '../../../subject_info/controllers/subject_info_controller.dart';
+import '../../../subject_info/views/subject_info_view.dart';
+
 class CurrentClassCard extends StatelessWidget {
   final SubjectInfo subjectInfo;
-  const CurrentClassCard({Key? key, required this.subjectInfo})
+  final bool elective;
+  const CurrentClassCard(
+      {Key? key, required this.subjectInfo, this.elective = false})
       : super(key: key);
 
   @override
@@ -53,30 +57,47 @@ class CurrentClassCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const SizedBox(height: 8),
-                Container(
-                  padding: const EdgeInsets.only(right: 10),
-                  color: Theme.of(context)
-                      .colorScheme
-                      .secondaryContainer
-                      .withOpacity(.1),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        height: 23,
-                        width: 4,
-                        color: Theme.of(context).colorScheme.secondaryContainer,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(right: 10),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondaryContainer
+                          .withOpacity(.1),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            height: 23,
+                            width: 4,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondaryContainer,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            subjectInfo.subject.startTime.startEndTimeRange,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1!
+                                .copyWith(color: Get.theme.primaryColor),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 8),
-                      Text(
-                        subjectInfo.subject.startTime.startEndTimeRange,
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .copyWith(color: Get.theme.primaryColor),
-                      ),
-                    ],
-                  ),
+                    ),
+                    elective
+                        ? Text(
+                            "Elective Subject",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          )
+                        : const SizedBox()
+                  ],
                 ),
                 const SizedBox(height: 8),
                 Row(
@@ -90,7 +111,7 @@ class CurrentClassCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline2,
                         ),
                       ),
-                      trailingWidget(),
+                      trailingWidget,
                     ]),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -187,7 +208,7 @@ class CurrentClassCard extends StatelessWidget {
         ),
       );
 
-  Widget trailingWidget() => Column(
+  Widget get trailingWidget => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Wrap(

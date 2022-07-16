@@ -6,6 +6,8 @@ import 'package:implicitly_animated_reorderable_list/transitions.dart';
 
 import '../../../../models/subject_info/subject_info.dart';
 import '../../../../models/time_table/time_table.dart';
+import '../../../../services/firebase/models/elective_timetable.dart';
+import '../../../../services/hive/hive_database.dart';
 import '../../../../utils/color.dart';
 import '../../../../utils/extension.dart';
 import '../../../subject_info/controllers/subject_info_controller.dart';
@@ -19,12 +21,12 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
   final HomeController homeController;
   final int currentTabIndex;
   final Day currentDay;
-  const MyReorderableLIst({
-    Key? key,
-    required this.homeController,
-    required this.currentTabIndex,
-    required this.currentDay,
-  }) : super(key: key);
+  const MyReorderableLIst(
+      {Key? key,
+      required this.homeController,
+      required this.currentTabIndex,
+      required this.currentDay})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) =>
@@ -64,17 +66,49 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
         ),
         footer: Obx(
           () => !homeController.editMode.value
-              ? const SizedBox()
+              ? electiveSubject(context)
               : Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                   child: ElevatedButton(
-                    onPressed: () => addSubject(context),
-                    child: const Text('Add Subject'),
-                  ),
+                      onPressed: () => addSubject(context),
+                      child: const Text('Add Subject')),
                 ),
         ),
       );
+
+  Widget electiveSubject(BuildContext context) => Get.find<HiveDatabase>()
+              .userInfo
+              ?.year ==
+          3
+      ? ValueListenableBuilder<List<ElectiveTimetable>>(
+          valueListenable: homeController.electiveSubjects,
+          builder: (context, value, child) => Column(children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Divider(
+                thickness: 1,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Theme.of(context).colorScheme.primary
+                    : Colors.white,
+              ),
+            ),
+            ...value
+                .where((element) => element.day == currentDay.day)
+                .map(
+                  (e) => (e.subjects.first.startTime.isCurrentTime)
+                      ? CurrentClassCard(
+                          subjectInfo: SubjectInfo(
+                              subject: e.subjects.first,
+                              currentWeek: currentTabIndex),
+                          elective: true,
+                        )
+                      : displayTile(context, e.subjects.first, elective: true),
+                )
+                .toList()
+          ]),
+        )
+      : const SizedBox();
 
   Widget editModeTile(BuildContext context, bool inDrag, Subject item) => Card(
         color: inDrag
@@ -101,7 +135,10 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
         ),
       );
 
-  Widget displayTile(BuildContext context, Subject item) => OpenContainer(
+  Widget displayTile(BuildContext context, Subject item,
+          {bool elective = false}) =>
+      OpenContainer(
+        closedElevation: 0,
         closedColor: Theme.of(context).scaffoldBackgroundColor,
         openColor: Theme.of(context).scaffoldBackgroundColor,
         middleColor: Theme.of(context).scaffoldBackgroundColor,
@@ -120,7 +157,22 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
                       .headline4!
                       .copyWith(color: Theme.of(context).colorScheme.primary)),
             ),
-            title: Hero(tag: "subject_name", child: Text(item.subjectName)),
+            title: elective
+                ? Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Hero(tag: "subject_name", child: Text(item.subjectName)),
+                      const SizedBox(width: 5),
+                      Text(
+                        "Elective",
+                        style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor),
+                      )
+                    ],
+                  )
+                : Hero(tag: "subject_name", child: Text(item.subjectName)),
             subtitle: displayTileText(item) != ""
                 ? Text(displayTileText(item))
                 : null,

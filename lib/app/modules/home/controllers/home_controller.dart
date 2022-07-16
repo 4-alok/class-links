@@ -8,6 +8,7 @@ import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
 import '../../../services/auth/patch.dart';
+import '../../../services/firebase/models/elective_timetable.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
 import '../../../services/hive/hive_database.dart';
 import '../../../services/log/log_service.dart';
@@ -33,13 +34,12 @@ class HomeController extends GetxController
   StreamSubscription? _hourlyUpdateSubscription;
   StreamSubscription<List<Day>>? _timeTableSubscription;
 
+  final electiveSubjects = ValueNotifier<List<ElectiveTimetable>>([]);
+
   @override
   void onInit() async {
     tabController = TabController(
-      initialIndex: DateTime.now().weekday - 1,
-      vsync: this,
-      length: 7,
-    );
+        initialIndex: DateTime.now().weekday - 1, vsync: this, length: 7);
     personalTimeTable =
         (Get.find<AuthService>().userType() != UserType.user) ? true : false;
 
@@ -57,9 +57,16 @@ class HomeController extends GetxController
   @override
   void onReady() {
     personalTimeTable ? initSubscription() : null;
+    getElectiveSubjects;
     firstYearPreviousUserPatchMixin;
     AndroidAppUpdate();
     super.onReady();
+  }
+
+  Future<void> get getElectiveSubjects async {
+    electiveSubjects.value = await Get.find<FirestoreService>()
+        .electiveDatasources
+        .getUserElectiveSubjects;
   }
 
   Future<void> get _getUserRole async {
@@ -69,6 +76,8 @@ class HomeController extends GetxController
       final result2 =
           await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
       if (result2 != null) {
+        print("Here");
+        print(result2.role);
         if (result2.role != "viewer") {
           hideEdit.value = false;
         }
@@ -181,6 +190,7 @@ class HomeController extends GetxController
     if (_hourlyUpdateSubscription != null) _hourlyUpdateSubscription!.cancel();
     hourlyUpdate.dispose();
     week.close();
+    electiveSubjects.dispose();
     Get.delete<SubjectInfoController>(tag: SubjectInfoController.TAG);
     super.onClose();
   }

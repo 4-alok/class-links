@@ -5,11 +5,10 @@ import '../../../services/firebase/repository/firestore_service.dart';
 import 'get_csv_file.dart';
 
 class ImportUserSectionSection with GetFile {
-  final uploading = RxBool(false);
+  final count = Rx<int?>(null);
 
   Future<void> get importCsv async {
     final data = await getFileData;
-    uploading.value = true;
     try {
       final userSectoinList = data
           .map((e) => UserSecetion(
@@ -21,16 +20,20 @@ class ImportUserSectionSection with GetFile {
               ))
           .toList();
 
-      await Get.find<FirestoreService>()
-          .electiveDatasources
-          .importUserElectiveSection(userSectoinList);
+      for (int i = 0; i < userSectoinList.length; i++) {
+        count.value = i;
+
+        await Get.find<FirestoreService>()
+            .electiveDatasources
+            .importUserElectiveSection(userSectoinList[i]);
+      }
+      count.value = null;
     } catch (e) {
       null;
     }
-    uploading.value = false;
   }
 
   void get dispose {
-    uploading.close();
+    count.close();
   }
 }

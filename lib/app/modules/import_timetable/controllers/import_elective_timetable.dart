@@ -21,7 +21,7 @@ class Import3YearElectiveTimetable with GetFile {
       subjects.add(
         Subject(
           subjectName: row[5].toString(),
-          startTime: const DayTime(hour: 15, minute: 0),
+          startTime: const DayTime(hour: 16, minute: 0),
           roomNo: row[4].toString(),
         ),
       );
@@ -31,12 +31,11 @@ class Import3YearElectiveTimetable with GetFile {
       subjects.add(
         Subject(
           subjectName: row[7].toString(),
-          startTime: const DayTime(hour: 15, minute: 0),
+          startTime: const DayTime(hour: 17, minute: 0),
           roomNo: row[6].toString(),
         ),
       );
     }
-
     return subjects;
   }
 

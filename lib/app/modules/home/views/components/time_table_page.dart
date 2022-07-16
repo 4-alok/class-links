@@ -36,10 +36,10 @@ class TimeTablePage extends StatelessWidget {
           controller: homeController.tabController,
           children: List.generate(7, (index) {
             switch (index) {
-              // case 6:
-              //   return Container(
-              //     color: Colors.red,
-              //   );
+              case 5:
+                return Container();
+              case 6:
+                return Container();
               default:
                 return Obx(
                   () => MyReorderableLIst(
