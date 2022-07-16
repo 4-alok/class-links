@@ -1,5 +1,5 @@
 name: class_link
-version: 0.1.11+13
+version: 0.1.12+14
 publish_to: none
 description: A new Flutter project.
 environment: 
@@ -29,7 +29,7 @@ dependencies:
   url_launcher: ^6.0.17
   day_night_time_picker: ^1.0.4+1
   gsheets: ^0.4.2
-  # in_app_update: ^3.0.0
+  in_app_update: ^3.0.0
   share_plus: ^4.0.4
   flutter_local_notifications: ^9.2.0
   
@@ -40,6 +40,7 @@ dependencies:
   file_picker: ^3.0.4
   csv: ^5.0.1
   dropdown_button2: ^1.6.3
+  # in_app_update: ^3.0.0
 
 dev_dependencies: 
   flutter_lints: ^2.0.1

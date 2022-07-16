@@ -1,5 +1,10 @@
 # Change log
 
+## v0.1.12
+
+- New Sessions
+- Elective Subject for 3rd year
+
 ## v0.1.10
 
 - New Sessions

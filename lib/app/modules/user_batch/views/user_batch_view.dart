@@ -1,3 +1,5 @@
+import 'package:class_link/app/services/auth/auth_service.dart';
+
 import '../../../global/widget/app_title.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,13 +14,22 @@ class UserBatchView extends GetView<UserBatchController> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-            centerTitle: true,
-            title: const Hero(
-              tag: "app_logo",
-              flightShuttleBuilder: AppTitleWidget.flightShuttleBuilder,
-              transitionOnUserGestures: true,
-              child: Material(child: AppTitleWidget()),
-            )),
+          centerTitle: true,
+          title: const Hero(
+            tag: "app_logo",
+            flightShuttleBuilder: AppTitleWidget.flightShuttleBuilder,
+            transitionOnUserGestures: true,
+            child: Material(child: AppTitleWidget()),
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Get.find<AuthService>().logout;
+              },
+              child: const Text("Logout"),
+            ),
+          ],
+        ),
         body: ListView(
           physics: const BouncingScrollPhysics(),
           children: [

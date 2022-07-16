@@ -1,4 +1,4 @@
-import 'package:class_link/app/services/hive/hive_database.dart';
+import 'package:class_link/app/services/auth/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +29,7 @@ class ElectiveDatasources implements ElectiveUsecase {
     final res = await firestore
         .collection(thirdYearSection)
         .limit(1)
-        .where('rollNo', isEqualTo: await userRollNo)
+        .where('rollNo', isEqualTo: userRollNo)
         .get();
 
     final userSecetion = UserSecetion.fromMap(res.docs.first.data());
@@ -49,7 +49,21 @@ class ElectiveDatasources implements ElectiveUsecase {
     return [...elective2, ...elective1];
   }
 
-  Future<int?> get userRollNo async => int.tryParse(
-        (await Get.find<HiveDatabase>().getUserInfo)?.id.split('@').first ?? '',
+  int? get userRollNo => int.tryParse(
+        (Get.find<AuthService>().user)?.email?.split('@').first ?? '',
       );
+
+  @override
+  Future<UserSecetion?> get getUserSection async {
+    try {
+      final res = await firestore
+          .collection(thirdYearSection)
+          .limit(1)
+          .where('rollNo', isEqualTo: userRollNo)
+          .get();
+      return UserSecetion.fromMap(res.docs.first.data());
+    } catch (e) {
+      return null;
+    }
+  }
 }

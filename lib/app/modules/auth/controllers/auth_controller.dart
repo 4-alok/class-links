@@ -28,9 +28,16 @@ class AuthController extends GetxController {
           await hiveDatabase.setUserInfo(userInfo);
         }
       }
+
+      // final userSection =
+      //     await Get.find<FirestoreService>().electiveDatasources.getUserSection;
+      // if (userSection != null) {
+      //   await autoCreateUserFor3rdYear(userSection);
+      // } else {
       hiveDatabase.userInfo == null
           ? Get.offNamed(Routes.USER_BATCH)
           : Get.offNamed(Routes.HOME);
+      // }
     } else if (result == UserType.kiitian || result == UserType.guest) {
       Get.offNamed(Routes.HOME);
     }

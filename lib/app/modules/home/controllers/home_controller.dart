@@ -73,15 +73,9 @@ class HomeController extends GetxController
     if (personalTimeTable) {
       hideEdit.value = false;
     } else {
-      final result2 =
-          await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
-      if (result2 != null) {
-        print("Here");
-        print(result2.role);
-        if (result2.role != "viewer") {
-          hideEdit.value = false;
-        }
-      }
+      if ((await Get.find<FirestoreService>().userInfoDatasources.getUserInfo)
+              ?.role !=
+          "viewer") hideEdit.value = false;
     }
   }
 
