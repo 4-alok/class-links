@@ -1,37 +1,34 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'dart:convert';
+
+import '../../../models/time_table/time_table.dart';
 
 class ElectiveTimetable {
   final String day;
   final String? section;
-  final String? room1;
-  final String? time1;
-  final String? room2;
-  final String? time2;
-  const ElectiveTimetable(
-      {required this.day,
-      this.section,
-      this.room1,
-      this.time1,
-      this.room2,
-      this.time2});
+  final List<Subject> subjects;
+  ElectiveTimetable({
+    required this.day,
+    this.section,
+    required this.subjects,
+  });
 
   Map<String, dynamic> toMap() => <String, dynamic>{
         'day': day,
         'section': section,
-        'room1': room1,
-        'time1': time1,
-        'room2': room2,
-        'time2': time2,
+        'subjects': subjects.map((x) => x.toJson()).toList(),
       };
 
   factory ElectiveTimetable.fromMap(Map<String, dynamic> map) =>
       ElectiveTimetable(
         day: map['day'] as String,
         section: map['section'] != null ? map['section'] as String : null,
-        room1: map['room1'] != null ? map['room1'] as String : null,
-        time1: map['time1'] != null ? map['time1'] as String : null,
-        room2: map['room2'] != null ? map['room2'] as String : null,
-        time2: map['time2'] != null ? map['time2'] as String : null,
+        subjects: List<Subject>.from(
+          (map['subjects'] as List<int>).map<Subject>(
+            (x) => Subject.fromJson(x as Map<String, dynamic>),
+          ),
+        ),
       );
 
   String toJson() => json.encode(toMap());

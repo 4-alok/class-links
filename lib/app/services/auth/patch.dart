@@ -26,7 +26,9 @@ mixin FirstYearPreviousUserPatchMixin {
   }
 
   Future<void> _recreateUser(HiveDatabase hiveDatabase) async {
-    await Get.find<FirestoreService>().userInfoDatasources.deleteUser(hiveDatabase.userInfo!);
+    await Get.find<FirestoreService>()
+        .userInfoDatasources
+        .deleteUser(hiveDatabase.userInfo!);
     await hiveDatabase.clearUserInfo();
 
     Get.offAllNamed(Routes.USER_BATCH);

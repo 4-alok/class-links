@@ -66,7 +66,8 @@ class HomeController extends GetxController
     if (personalTimeTable) {
       hideEdit.value = false;
     } else {
-      final result2 = await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
+      final result2 =
+          await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
       if (result2 != null) {
         if (result2.role != "viewer") {
           hideEdit.value = false;
@@ -100,7 +101,8 @@ class HomeController extends GetxController
       initSubscription();
       return result;
     } else {
-      final result2 = await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
+      final result2 =
+          await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
       if (result2 != null) {
         await Get.find<HiveDatabase>().setUserInfo(result2);
         initSubscription();

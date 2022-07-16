@@ -1,4 +1,5 @@
-import '../models/elective_timetable.dart';
+import 'package:class_link/app/services/firebase/models/elective_timetable.dart';
+
 import '../models/user_section.dart';
 
 abstract class ElectiveUsecase {

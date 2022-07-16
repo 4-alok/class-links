@@ -1,15 +1,11 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:csv/csv.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../../global/const/const.dart';
 import '../../../models/time_table/time_table.dart';
+import 'get_csv_file.dart';
 
-class ImportCsvController {
+class ImportCsvController with GetFile {
   final field = RxList<List>([]);
   final day = Rx<String?>(null);
   final batch = Rx<String?>(null);
@@ -132,19 +128,7 @@ class ImportCsvController {
     }
   }
 
-  Future<void> get selectFile async {
-    FilePickerResult? result = await FilePicker.platform
-        .pickFiles(type: FileType.custom, allowedExtensions: ["csv"]);
-
-    if (result != null) {
-      final path = result.files.single.path!;
-      final input = File(path).openRead();
-      field.value = await input
-          .transform(utf8.decoder)
-          .transform(const CsvToListConverter())
-          .toList();
-    }
-  }
+  Future<void> get selectFile async => field.value = await getFileData;
 
   void get dispose {
     field.close();

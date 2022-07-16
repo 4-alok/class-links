@@ -96,9 +96,9 @@ class UserInfoDatasources implements UserInfoUsecase {
       return false;
     }
   }
-  
+
   @override
-  Future<void> deleteUser(UserInfo userInfo)async {
+  Future<void> deleteUser(UserInfo userInfo) async {
     final res = await firestore.collection("user").get();
 
     for (final snapshot in res.docs) {

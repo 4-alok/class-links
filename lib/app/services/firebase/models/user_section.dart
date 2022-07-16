@@ -15,7 +15,6 @@ class UserSecetion {
     required this.elective2Section,
   });
 
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'rollNo': rollNo,
@@ -38,5 +37,6 @@ class UserSecetion {
 
   String toJson() => json.encode(toMap());
 
-  factory UserSecetion.fromJson(String source) => UserSecetion.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory UserSecetion.fromJson(String source) =>
+      UserSecetion.fromMap(json.decode(source) as Map<String, dynamic>);
 }

@@ -1,15 +1,10 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:class_link/app/utils/get_snackbar.dart';
-import 'package:csv/csv.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 
 import '../../../services/firebase/models/user_section.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
+import 'get_csv_file.dart';
 
-class ImportUserSectionSection {
+class ImportUserSectionSection with GetFile {
   final uploading = RxBool(false);
 
   Future<void> get importCsv async {
@@ -33,27 +28,6 @@ class ImportUserSectionSection {
       null;
     }
     uploading.value = false;
-  }
-
-  Future<List<List<dynamic>>> get getFileData async {
-    try {
-      FilePickerResult? result = await FilePicker.platform
-          .pickFiles(type: FileType.custom, allowedExtensions: ["csv"]);
-
-      if (result != null) {
-        final path = result.files.single.path!;
-        final input = File(path).openRead();
-        return await input
-            .transform(utf8.decoder)
-            .transform(const CsvToListConverter())
-            .toList();
-      } else {
-        return [];
-      }
-    } catch (e) {
-      Message("Error while import", e.toString());
-      return [];
-    }
   }
 
   void get dispose {

@@ -113,8 +113,8 @@ class AdminView extends GetView<AdminController> {
                       )
                     : ElevatedButton(
                         onPressed: () async {
-                          final res = await firestoreService.userInfoDatasources.updateUser(
-                              userList[index].copyWith(
+                          final res = await firestoreService.userInfoDatasources
+                              .updateUser(userList[index].copyWith(
                                   role: userList[index].role == "user"
                                       ? "viewer"
                                       : "user"));

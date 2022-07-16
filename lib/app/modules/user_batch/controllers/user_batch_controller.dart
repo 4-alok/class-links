@@ -76,7 +76,9 @@ class UserBatchController extends GetxController with UserBatchList {
       date: DateTime.now(),
     );
 
-    if (await Get.find<FirestoreService>().userInfoDatasources.addUserInfo(userInfo)) {
+    if (await Get.find<FirestoreService>()
+        .userInfoDatasources
+        .addUserInfo(userInfo)) {
       await Get.find<HiveDatabase>().setUserInfo(userInfo);
       Get.offAllNamed(Routes.HOME);
     }
