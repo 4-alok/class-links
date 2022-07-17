@@ -21,14 +21,6 @@ class UserBatchView extends GetView<UserBatchController> {
             transitionOnUserGestures: true,
             child: Material(child: AppTitleWidget()),
           ),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                Get.find<AuthService>().logout;
-              },
-              child: const Text("Logout"),
-            ),
-          ],
         ),
         body: ListView(
           physics: const BouncingScrollPhysics(),

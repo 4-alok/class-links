@@ -14,7 +14,8 @@ mixin AutoCreateUser {
     final section = userSection.section;
     final index = section.getFirstNumericIndex;
     final stream = section.substring(0, index);
-    final batch = "$stream-${section.substring(index!, section.length)}";
+    final count = int.parse(section.substring(index!, section.length));
+    final batch = "$stream-$count";
     final userInfo = UserInfo(
       id: user.email!,
       userName: user.displayName ?? "",

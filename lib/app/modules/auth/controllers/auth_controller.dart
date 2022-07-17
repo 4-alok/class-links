@@ -5,8 +5,9 @@ import '../../../services/auth/auth_service.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
 import '../../../services/hive/hive_database.dart';
 import '../../../utils/app_update.dart';
+import 'auto_create_user.dart';
 
-class AuthController extends GetxController {
+class AuthController extends GetxController with AutoCreateUser {
   final loading = RxBool(false);
 
   @override
@@ -29,15 +30,15 @@ class AuthController extends GetxController {
         }
       }
 
-      // final userSection =
-      //     await Get.find<FirestoreService>().electiveDatasources.getUserSection;
-      // if (userSection != null) {
-      //   await autoCreateUserFor3rdYear(userSection);
-      // } else {
+      final userSection =
+          await Get.find<FirestoreService>().electiveDatasources.getUserSection;
+      if (userSection != null) {
+        await autoCreateUserFor3rdYear(userSection);
+      } else {
       hiveDatabase.userInfo == null
           ? Get.offNamed(Routes.USER_BATCH)
           : Get.offNamed(Routes.HOME);
-      // }
+      }
     } else if (result == UserType.kiitian || result == UserType.guest) {
       Get.offNamed(Routes.HOME);
     }
