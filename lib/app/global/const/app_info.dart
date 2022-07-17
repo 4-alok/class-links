@@ -10,4 +10,13 @@ class AppInfo {
   static const String appUrl =
       "https://play.google.com/store/apps/details?id=com.application.class_link";
   static const String instagramURL = "https://www.instagram.com/class_link_/";
+
+  static const Map<String, String> developer = {
+    'Aman Verma,GDSC KIIT LEAD & Moderator':
+        'https://avatars.githubusercontent.com/u/33422449?v=4,https://www.amanverma.dev/',
+    'Sanskar Kashyap, Lead Marketing & Content Management':
+        'https://avatars.githubusercontent.com/u/72290416?v=4,https://www.instagram.com/san22y4x/',
+    'Jyotsana Singh,App Logo':
+        'https://avatars.githubusercontent.com/u/73690777?v=4,https://github.com/jyotsana279',
+  };
 }

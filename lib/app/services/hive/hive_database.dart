@@ -9,7 +9,7 @@ import 'package:hive/hive.dart';
 import 'theme_analytics_log.dart';
 
 class HiveDatabase extends GetxService with ThemeAnalyticsLog {
-  final appTheme = Rx<FlexSchemeData>(AppColor.schemes[1]);
+  final appTheme = Rx<FlexSchemeData>(AppColor.schemes[0]);
   final isBlack = Rx<bool>(true);
   final themeMode = Rx<ThemeMode>(ThemeMode.system);
   final appBarStyle = Rx<FlexAppBarStyle>(FlexAppBarStyle.material);

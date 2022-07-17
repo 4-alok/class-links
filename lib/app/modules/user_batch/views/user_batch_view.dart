@@ -1,11 +1,8 @@
-import 'package:class_link/app/services/auth/auth_service.dart';
-
-import '../../../global/widget/app_title.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:get/get.dart';
 
+import '../../../global/widget/app_title.dart';
 import '../controllers/user_batch_controller.dart';
 
 class UserBatchView extends GetView<UserBatchController> {

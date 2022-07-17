@@ -35,9 +35,9 @@ class AuthController extends GetxController with AutoCreateUser {
       if (userSection != null) {
         await autoCreateUserFor3rdYear(userSection);
       } else {
-      hiveDatabase.userInfo == null
-          ? Get.offNamed(Routes.USER_BATCH)
-          : Get.offNamed(Routes.HOME);
+        hiveDatabase.userInfo == null
+            ? Get.offNamed(Routes.USER_BATCH)
+            : Get.offNamed(Routes.HOME);
       }
     } else if (result == UserType.kiitian || result == UserType.guest) {
       Get.offNamed(Routes.HOME);

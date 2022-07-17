@@ -38,8 +38,8 @@ class HomeController extends GetxController
 
   @override
   void onInit() async {
-    tabController = TabController(
-        initialIndex: DateTime.now().weekday - 1, vsync: this, length: 7);
+    tabController =
+        TabController(initialIndex: initialTab, vsync: this, length: 7);
     personalTimeTable =
         (Get.find<AuthService>().userType() != UserType.user) ? true : false;
 
@@ -53,6 +53,11 @@ class HomeController extends GetxController
     _getUserRole;
     super.onInit();
   }
+
+  int get initialTab =>
+      (DateTime.now().weekday == 7 || DateTime.now().weekday == 6)
+          ? 0
+          : DateTime.now().weekday - 1;
 
   @override
   void onReady() {

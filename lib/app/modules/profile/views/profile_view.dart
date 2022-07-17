@@ -1,19 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
+
 import '../../../global/const/app_info.dart';
+import '../../../global/widget/launcher.dart';
 import '../../../global/widget/user_icon.dart';
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
 import '../../../services/hive/hive_database.dart';
 import '../../../utils/extension.dart';
-import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import '../controllers/profile_controller.dart';
 import 'component/app_bar_style.dart';
 import 'component/app_info_dialog.dart';
 import 'component/theme_selector.dart';
-import 'package:share_plus/share_plus.dart';
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
@@ -42,7 +44,6 @@ class ProfileView extends GetView<ProfileController> {
               email,
               const SizedBox(height: 20),
               batch(context),
-              // showLog,
               holidays,
               const SizedBox(height: 20),
               themeSelector,
@@ -51,11 +52,91 @@ class ProfileView extends GetView<ProfileController> {
               const SizedBox(height: 20),
               adminPanel,
               import,
-              // test,
+              contributer(context),
               logoutCard,
             ],
           ),
         ),
+      );
+
+  Widget contributer(BuildContext context) => Card(
+        child: ListTile(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) => Theme(
+                data: Theme.of(context).copyWith(
+                    cardColor: Color.alphaBlend(
+                        Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
+                        Theme.of(context).cardColor)),
+                child: SimpleDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  contentPadding: EdgeInsets.zero,
+                  children: [
+                    dev(context),
+                    const SizedBox(height: 20),
+                    ...AppInfo.developer.entries.map((e) => ListTile(
+                          onTap: () => Launcher.launchUrl(
+                              context, e.value.split(',').last),
+                          leading: CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              backgroundImage:
+                                  NetworkImage(e.value.split(',').first)),
+                          title: Text(e.key.split(',').first),
+                          subtitle: Text(e.key.split(',').last),
+                        )),
+                  ],
+                ),
+              ),
+            );
+          },
+          title: const Text("Contributer"),
+        ),
+      );
+
+  Widget dev(BuildContext context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 20),
+          GestureDetector(
+            onTap: () => Launcher.launchUrl(
+                context, 'https://www.instagram.com/4_alokk/'),
+            child: CircleAvatar(
+              radius: 35,
+              child: ClipOval(
+                child: SizedBox(
+                  child: Image.network(
+                    'https://avatars.githubusercontent.com/u/29683474?v=4',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () =>
+                Launcher.launchUrl(context, 'https://github.com/4-alok'),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Alok Kumar Patel",
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                      color: Theme.of(context).textTheme.bodyText1!.color),
+                ),
+                Text('Lead Developer & Designer',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontSize: 15)),
+              ],
+            ),
+          )
+        ],
       );
 
   Card get logoutCard => Card(
