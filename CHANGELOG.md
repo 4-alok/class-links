@@ -1,5 +1,11 @@
 # Change log
 
+## v0.1.13
+
+- New Sessions
+- Elective Subject for 3rd year
+- bug fixes
+
 ## v0.1.12
 
 - New Sessions
