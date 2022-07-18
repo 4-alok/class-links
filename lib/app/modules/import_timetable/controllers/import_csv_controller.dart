@@ -13,6 +13,7 @@ class ImportCsvController with GetFile {
   final slot = Rx<int?>(null);
   final r1 = Rx<String?>(null);
   final r2 = Rx<String?>(null);
+  final r3 = Rx<String?>(null);
   final creatorId = Rx<String?>(null);
 
   List<Day> get defaultDays => List.generate(
@@ -27,6 +28,8 @@ class ImportCsvController with GetFile {
   int get room1Index => field.first.indexWhere((e) => e == r1.value);
 
   int get room2Index => field.first.indexWhere((e) => e == r2.value);
+
+  int get room3Index => field.first.indexWhere((e) => e == r3.value);
 
   List get subjectTimes => field.first.where((e) {
         try {
@@ -46,8 +49,14 @@ class ImportCsvController with GetFile {
         final subIndex =
             field.first.indexWhere((e) => e == subjectTimes[index]);
 
-        final String roomNo =
-            subIndex > room2Index ? row[room2Index] : row[room1Index];
+        final String roomNo;
+        if (subIndex > room3Index) {
+          roomNo = row[room3Index];
+        } else if (subIndex > room2Index) {
+          roomNo = row[room2Index];
+        } else {
+          roomNo = row[room1Index];
+        }
 
         return Subject(
           subjectName: row[subIndex],
@@ -112,20 +121,20 @@ class ImportCsvController with GetFile {
   }
 
   void printTimetable(List<TimeTable> timetables) {
-    if (kDebugMode) {
-      for (var e in timetables) {
-        print(e.batch);
-        (e.week.forEach((e) {
-          if (kDebugMode) {
-            print(e.day);
-            print(e.subjects
-                .map((e) => "${e.subjectName} - ${e.roomNo}")
-                .toList());
-          }
-        }));
-        print("\n\n");
-      }
-    }
+    // if (kDebugMode) {
+    //   for (var e in timetables) {
+    //     print(e.batch);
+    //     (e.week.forEach((e) {
+    //       if (kDebugMode) {
+    //         print(e.day);
+    //         print(e.subjects
+    //             .map((e) => "${e.subjectName} - ${e.roomNo}")
+    //             .toList());
+    //       }
+    //     }));
+    //     print("\n\n");
+    //   }
+    // }
   }
 
   Future<void> get selectFile async => field.value = await getFileData;
@@ -138,6 +147,7 @@ class ImportCsvController with GetFile {
     slot.close();
     r1.close();
     r2.close();
+    r3.close();
     creatorId.close();
   }
 }

@@ -22,6 +22,7 @@ mixin AutoCreateUser {
         year: 3,
         batch: "$stream-$count",
         stream: stream,
+        role: 'viewer',
         date: DateTime.now());
 
     final res =

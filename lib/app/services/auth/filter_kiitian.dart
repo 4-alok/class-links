@@ -16,6 +16,16 @@ abstract class FilterKiitian {
         rollNo.isBetween(21051000, 21054000)) {
       return true;
     }
+
+    // 3rd year CSSE
+    else if (rollNo.isBetween(2028001, 2028214)) {
+      return true;
+    }
+
+    // 3rd year CSCE
+    else if (rollNo.isBetween(2029001, 2029214)) {
+      return true;
+    }
     return false;
   }
 }

@@ -35,7 +35,7 @@ class ImportController extends GetxController {
     uploading.value = false;
   }
 
-  Future<void> get _print async => csvController.printTimetable(
+  Future<void> get print async => csvController.printTimetable(
         await csvController.getTimeTables,
       );
 

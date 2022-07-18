@@ -23,7 +23,7 @@ class ImportPage extends GetView<ImportController> {
         () => controller.csvController.field.isEmpty
             ? const SizedBox()
             : ElevatedButton(
-                onPressed: () => controller.import,
+                onPressed: () => controller.print,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Obx(

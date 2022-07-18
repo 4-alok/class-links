@@ -20,6 +20,7 @@ class ImportCsvPage extends StatelessWidget {
             batchWidget,
             room1Widget,
             room2Widget,
+            room3Widget,
             Card(
               child: TextField(
                 keyboardType: TextInputType.number,
@@ -156,6 +157,38 @@ class ImportCsvPage extends StatelessWidget {
                       .toList(),
                   onChanged: (String? value) => csvController.r2.value = value,
                   value: csvController.r2.value,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+
+  Widget get room3Widget => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Text(
+              "Select Room-2 column",
+              textAlign: TextAlign.start,
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
+          Card(
+            child: SizedBox(
+              height: 48,
+              width: double.maxFinite,
+              child: Obx(
+                () => CustomDropdownButton2(
+                  hint: 'Room No',
+                  buttonElevation: 5,
+                  dropdownItems: csvController.field.first
+                      .map((e) => e.toString())
+                      .toList(),
+                  onChanged: (String? value) => csvController.r3.value = value,
+                  value: csvController.r3.value,
                 ),
               ),
             ),
