@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'app/global/transition_animation.dart/shared_axis_scale_transition.dart';
 import 'app/routes/app_pages.dart';
-import 'app/services/hive/hive_database.dart';
+import 'app/services/hive/repository/hive_database.dart';
 import 'di.dart' as di;
 
 Future<void> main() async {
@@ -37,18 +37,18 @@ class ClassLink extends StatelessWidget {
             blendLevel: 40,
             fontFamily: GoogleFonts.poppins().fontFamily,
             subThemesData: const FlexSubThemesData(blendTextTheme: false),
-            colors: database.appTheme.value.light,
+            colors: database.settingBox.appTheme.value.light,
             appBarStyle: database.appBarStyle.value,
             useSubThemes: true),
         darkTheme: FlexThemeData.dark(
             blendLevel: 40,
             fontFamily: GoogleFonts.poppins().fontFamily,
             subThemesData: const FlexSubThemesData(blendTextTheme: false),
-            darkIsTrueBlack: database.isBlack.value,
-            colors: database.appTheme.value.dark,
+            darkIsTrueBlack: database.settingBox.isBlack.value,
+            colors: database.settingBox.appTheme.value.dark,
             appBarStyle: database.appBarStyle.value,
             useSubThemes: true),
-        themeMode: database.themeMode.value,
+        themeMode: database.settingBox.themeMode.value,
         customTransition: SharedAxisScaleTransition(),
       ),
     );

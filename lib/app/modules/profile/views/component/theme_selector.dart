@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../global/theme/app_color.dart.dart';
 import '../../controllers/profile_controller.dart';
-import '../../../../services/hive/hive_database.dart';
+import '../../../../services/hive/repository/hive_database.dart';
 
 class ThemeSelector extends StatelessWidget {
   final ProfileController controller;
@@ -40,8 +40,10 @@ class ThemeSelector extends StatelessWidget {
                   color: Theme.of(context).primaryColorLight,
                   width: 4,
                 ),
-                onSelect: () => database.saveCurrentSchemeIndex(index),
-                selected: database.appTheme.value == AppColor.schemes[index],
+                onSelect: () =>
+                    database.settingBox.saveCurrentSchemeIndex(index),
+                selected: database.settingBox.appTheme.value ==
+                    AppColor.schemes[index],
                 backgroundColor: Theme.of(context).colorScheme.surface,
                 flexSchemeColor: Get.isDarkMode
                     ? AppColor.schemes[index].dark

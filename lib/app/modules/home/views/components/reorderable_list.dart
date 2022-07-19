@@ -7,7 +7,7 @@ import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import '../../../../models/subject_info/subject_info.dart';
 import '../../../../models/time_table/time_table.dart';
 import '../../../../services/firebase/models/elective_timetable.dart';
-import '../../../../services/hive/hive_database.dart';
+import '../../../../services/hive/repository/hive_database.dart';
 import '../../../../utils/color.dart';
 import '../../../../utils/extension.dart';
 import '../../../subject_info/controllers/subject_info_controller.dart';
@@ -50,7 +50,6 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
                   builder: (context, child) => Obx(
                         () => homeController.editMode.value
                             ? editModeTile(context, inDrag, item)
-                            // : true
                             : (item.startTime.isCurrentTime &&
                                     (currentTabIndex ==
                                         DateTime.now().weekday - 1))
@@ -78,7 +77,7 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
       );
 
   Widget electiveSubject(BuildContext context) =>
-      Get.find<HiveDatabase>().userInfo?.year == 3
+      Get.find<HiveDatabase>().userBox.userInfo?.year == 3
           ? ValueListenableBuilder<List<ElectiveTimetable>>(
               valueListenable: homeController.electiveSubjects,
               builder: (context, value, child) => Column(children: [

@@ -10,7 +10,7 @@ import '../../../global/widget/user_icon.dart';
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
-import '../../../services/hive/hive_database.dart';
+import '../../../services/hive/repository/hive_database.dart';
 import '../../../utils/extension.dart';
 import '../controllers/profile_controller.dart';
 import 'component/app_bar_style.dart';
@@ -21,7 +21,7 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
 
   User? get user => Get.find<AuthService>().user;
-  UserInfo? get userInfo => Get.find<HiveDatabase>().userInfo;
+  UserInfo? get userInfo => Get.find<HiveDatabase>().userBox.userInfo;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -181,7 +181,7 @@ class ProfileView extends GetView<ProfileController> {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(Get.find<HiveDatabase>().userInfo?.batch ?? "",
+                  Text(Get.find<HiveDatabase>().userBox.userInfo?.batch ?? "",
                       style: Theme.of(context)
                           .textTheme
                           .headline5!

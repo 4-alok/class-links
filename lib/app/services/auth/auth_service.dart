@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -38,6 +39,11 @@ class AuthService extends GetxService {
       _user.value = _auth.currentUser;
       return userType(_user.value?.email);
     } catch (e) {
+      print(e.runtimeType);
+      final k = e as PlatformException;
+      print(k.details);
+      print(k.message);
+      // print(k.stacktrace);
       Message("Error while signing in", e.toString());
       return UserType.none;
     }

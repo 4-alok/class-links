@@ -6,7 +6,7 @@ import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
 import '../../../services/firebase/models/user_section.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
-import '../../../services/hive/hive_database.dart';
+import '../../../services/hive/repository/hive_database.dart';
 
 mixin AutoCreateUser {
   Future<void> autoCreateUserFor3rdYear(UserSecetion userSection) async {
@@ -31,11 +31,11 @@ mixin AutoCreateUser {
       if (await Get.find<FirestoreService>()
           .userInfoDatasources
           .addUserInfo(userInfo)) {
-        await Get.find<HiveDatabase>().setUserInfo(userInfo);
+        await Get.find<HiveDatabase>().userBox.setUserInfo(userInfo);
         Get.offAllNamed(Routes.HOME);
       }
     } else {
-      await Get.find<HiveDatabase>().setUserInfo(res);
+      await Get.find<HiveDatabase>().userBox.setUserInfo(res);
       Get.offAllNamed(Routes.HOME);
     }
   }

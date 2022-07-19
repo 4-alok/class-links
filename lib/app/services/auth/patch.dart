@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import '../../routes/app_pages.dart';
 import '../firebase/repository/firestore_service.dart';
-import '../hive/hive_database.dart';
+import '../hive/repository/hive_database.dart';
 
 mixin FirstYearPreviousUserPatchMixin {
   List<String> get _firstYearScheme1 =>
@@ -13,7 +13,7 @@ mixin FirstYearPreviousUserPatchMixin {
 
   Future<void> get firstYearPreviousUserPatchMixin async {
     final hiveDatabase = Get.find<HiveDatabase>();
-    final userInfo = hiveDatabase.userInfo;
+    final userInfo = hiveDatabase.userBox.userInfo;
     if (userInfo != null) {
       if (userInfo.year == 2) {
         await _recreateUser(hiveDatabase);
@@ -28,8 +28,8 @@ mixin FirstYearPreviousUserPatchMixin {
   Future<void> _recreateUser(HiveDatabase hiveDatabase) async {
     await Get.find<FirestoreService>()
         .userInfoDatasources
-        .deleteUser(hiveDatabase.userInfo!);
-    await hiveDatabase.clearUserInfo();
+        .deleteUser(hiveDatabase.userBox.userInfo!);
+    await hiveDatabase.userBox.clearUserInfo;
 
     Get.offAllNamed(Routes.USER_BATCH);
   }

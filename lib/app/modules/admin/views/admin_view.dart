@@ -1,21 +1,20 @@
 import 'dart:collection';
 
 import 'package:animations/animations.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 import '../../../models/user_info/user_info.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'package:get/get.dart';
-import '../../../services/hive/hive_database.dart';
+import '../../../services/hive/repository/hive_database.dart';
 import '../../../utils/utils.dart';
 import '../controllers/admin_controller.dart';
 
 class AdminView extends GetView<AdminController> {
   const AdminView({Key? key}) : super(key: key);
 
-  UserInfo? get userInfo => Get.find<HiveDatabase>().userInfo;
+  UserInfo? get userInfo => Get.find<HiveDatabase>().userBox.userInfo;
 
   @override
   Widget build(BuildContext context) {

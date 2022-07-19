@@ -10,7 +10,7 @@ import '../../../services/auth/auth_service.dart';
 import '../../../services/auth/patch.dart';
 import '../../../services/firebase/models/elective_timetable.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
-import '../../../services/hive/hive_database.dart';
+import '../../../services/hive/repository/hive_database.dart';
 import '../../../services/log/log_service.dart';
 import '../../../utils/app_update.dart';
 import '../../subject_info/controllers/subject_info_controller.dart';
@@ -104,7 +104,7 @@ class HomeController extends GetxController
   }
 
   Future<UserInfo?> get getUserInfo async {
-    final result = Get.find<HiveDatabase>().userInfo;
+    final result = Get.find<HiveDatabase>().userBox.userInfo;
     if (result != null) {
       initSubscription();
       return result;
@@ -112,7 +112,7 @@ class HomeController extends GetxController
       final result2 =
           await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
       if (result2 != null) {
-        await Get.find<HiveDatabase>().setUserInfo(result2);
+        await Get.find<HiveDatabase>().userBox.setUserInfo(result2);
         initSubscription();
         return result2;
       } else {
@@ -168,7 +168,7 @@ class HomeController extends GetxController
           .timetableDatasource
           .addOrUpdatePersonalTimeTable(timeTable);
     } else {
-      final userInfo = Get.find<HiveDatabase>().userInfo!;
+      final userInfo = Get.find<HiveDatabase>().userBox.userInfo!;
       final timeTable = TimeTable(
         week: week.value,
         creatorId: userInfo.id,

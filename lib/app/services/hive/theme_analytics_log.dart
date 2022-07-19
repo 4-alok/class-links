@@ -1,5 +1,6 @@
-import '../analytics/analytics_service.dart';
 import 'package:get/get.dart';
+
+import '../analytics/analytics_service.dart';
 
 abstract class ThemeAnalyticsLog {
   Future<void> get addThemeLog async =>

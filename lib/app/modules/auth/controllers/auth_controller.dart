@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
-import '../../../services/hive/hive_database.dart';
+import '../../../services/hive/repository/hive_database.dart';
 import '../../../utils/app_update.dart';
 import 'auto_create_user.dart';
 
@@ -21,12 +21,12 @@ class AuthController extends GetxController with AutoCreateUser {
     final result = await Get.find<AuthService>().login;
     if (result == UserType.user) {
       final hiveDatabase = Get.find<HiveDatabase>();
-      if (hiveDatabase.userInfo == null) {
+      if (hiveDatabase.userBox.userInfo == null) {
         final userInfo =
             await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
         if (userInfo != null) {
-          hiveDatabase.userInfo = userInfo;
-          await hiveDatabase.setUserInfo(userInfo);
+          hiveDatabase.userBox.userInfo = userInfo;
+          await hiveDatabase.userBox.setUserInfo(userInfo);
         }
       }
 
@@ -35,7 +35,7 @@ class AuthController extends GetxController with AutoCreateUser {
       if (userSection != null) {
         await autoCreateUserFor3rdYear(userSection);
       } else {
-        hiveDatabase.userInfo == null
+        hiveDatabase.userBox.userInfo == null
             ? Get.offNamed(Routes.USER_BATCH)
             : Get.offNamed(Routes.HOME);
       }

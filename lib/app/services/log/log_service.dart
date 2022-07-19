@@ -1,7 +1,7 @@
 import '../../global/const/credentials.dart';
 import '../../models/log/log.dart';
 import '../../models/user_info/user_info.dart';
-import '../hive/hive_database.dart';
+import '../hive/repository/hive_database.dart';
 import '../../utils/extension.dart';
 import '../../utils/get_snackbar.dart';
 import '../../utils/gsheets_utils.dart';
@@ -15,7 +15,7 @@ List<LogData> _listRowToListLog(List<List<String>> rowList) =>
 
 class GoogleSheetService extends GetxService {
   final _gsheet = GSheets(SheetCredentials.credentials);
-  UserInfo? get _userInfo => Get.find<HiveDatabase>().userInfo;
+  UserInfo? get _userInfo => Get.find<HiveDatabase>().userBox.userInfo;
 
   Future<bool?> addEntry(List<LogData> logs) async {
     try {

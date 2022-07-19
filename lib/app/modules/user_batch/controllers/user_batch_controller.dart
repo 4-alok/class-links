@@ -4,7 +4,7 @@ import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
-import '../../../services/hive/hive_database.dart';
+import '../../../services/hive/repository/hive_database.dart';
 import 'package:get/get.dart';
 
 class UserBatchController extends GetxController with UserBatchList {
@@ -79,7 +79,7 @@ class UserBatchController extends GetxController with UserBatchList {
     if (await Get.find<FirestoreService>()
         .userInfoDatasources
         .addUserInfo(userInfo)) {
-      await Get.find<HiveDatabase>().setUserInfo(userInfo);
+      await Get.find<HiveDatabase>().userBox.setUserInfo(userInfo);
       Get.offAllNamed(Routes.HOME);
     }
 

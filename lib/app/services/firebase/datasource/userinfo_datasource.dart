@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../../utils/filter_user_by_id.dart';
 import '../../../utils/get_snackbar.dart';
 import '../../auth/auth_service.dart';
-import '../../hive/hive_database.dart';
+import '../../hive/repository/hive_database.dart';
 import '../usecase/userinfo_usecase.dart';
 
 class UserInfoDatasources implements UserInfoUsecase {
@@ -59,7 +59,7 @@ class UserInfoDatasources implements UserInfoUsecase {
         (await firestore
                 .collection("user")
                 .where("batch",
-                    isEqualTo: Get.find<HiveDatabase>().userInfo?.batch ?? "na")
+                    isEqualTo: Get.find<HiveDatabase>().userBox.userInfo?.batch ?? "na")
                 .get())
             .docs
             .map((e) => UserInfo.fromJson(e.data()))
@@ -78,7 +78,7 @@ class UserInfoDatasources implements UserInfoUsecase {
   Stream<List<UserInfo>> get streamUserList => firestore
       .collection("user")
       .where("batch",
-          isEqualTo: Get.find<HiveDatabase>().userInfo?.batch ?? "na")
+          isEqualTo: Get.find<HiveDatabase>().userBox.userInfo?.batch ?? "na")
       .snapshots()
       .map(
         (event) => event.docs.map((e) {
