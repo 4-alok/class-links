@@ -6,10 +6,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../../utils/exceptions.dart';
 import '../../utils/extension.dart';
 import '../../utils/get_snackbar.dart';
+import 'filter_kiitian.dart';
 
 enum UserType { user, kiitian, guest, none }
 
-class AuthService extends GetxService {
+class AuthService extends GetxService with FilterKiitian {
   late final FirebaseAuth _auth;
   final Rx<User?> _user = Rx<User?>(null);
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -28,9 +29,8 @@ class AuthService extends GetxService {
   Future<UserType> get login async {
     try {
       final account = await _googleSignIn.signIn();
-      if (account == null) {
-        throw UserSignInFlowCancelled();
-      }
+      if (account == null) throw UserSignInFlowCancelled();
+
       final authentication = await account.authentication;
       final credential = GoogleAuthProvider.credential(
           accessToken: authentication.accessToken,
@@ -55,13 +55,7 @@ class AuthService extends GetxService {
       return UserType.none;
     } else if (email.endsWith("@kiit.ac.in")) {
       final rollNo = int.tryParse(email.split("@")[0]) ?? -1;
-      if (rollNo.isBetween(2005000, 2005999) ||
-          rollNo.isBetween(20051000, 20052010) ||
-          rollNo.isBetween(2105000, 2105999) ||
-          rollNo.isBetween(21051000, 21053467) ||
-          rollNo.isBetween(2006001, 2006568)) {
-        return UserType.user;
-      }
+      if (isValidRollNo(rollNo)) return UserType.user;
       return UserType.kiitian;
     } else {
       return UserType.guest;

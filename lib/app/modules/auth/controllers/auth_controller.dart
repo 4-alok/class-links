@@ -30,8 +30,9 @@ class AuthController extends GetxController with AutoCreateUser {
         }
       }
 
-      final userSection =
-          await Get.find<FirestoreService>().electiveDatasources.getUserSection(local: true);
+      final userSection = await Get.find<FirestoreService>()
+          .electiveDatasources
+          .getUserSection(local: true);
       if (userSection != null) {
         await autoCreateUserFor3rdYear(userSection);
       } else {

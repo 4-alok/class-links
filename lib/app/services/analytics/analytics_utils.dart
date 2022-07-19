@@ -5,9 +5,10 @@ import 'package:get/get.dart';
 abstract class AnalyticsUtile {
   final hiveDatabase = Get.find<HiveDatabase>();
 
-  bool? get isBlack => (hiveDatabase.settingBox.themeMode.value == ThemeMode.dark)
-      ? hiveDatabase.settingBox.isBlack.value
-      : null;
+  bool? get isBlack =>
+      (hiveDatabase.settingBox.themeMode.value == ThemeMode.dark)
+          ? hiveDatabase.settingBox.isBlack.value
+          : null;
 
   bool? get themeModeLight {
     if (hiveDatabase.settingBox.themeMode.value == ThemeMode.dark) {
