@@ -66,7 +66,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icons/
-    # - images/
+    - assets/database/3rd_year/
 
 
 flutter_native_splash:

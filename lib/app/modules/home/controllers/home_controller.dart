@@ -71,7 +71,7 @@ class HomeController extends GetxController
   Future<void> get getElectiveSubjects async {
     electiveSubjects.value = await Get.find<FirestoreService>()
         .electiveDatasources
-        .getUserElectiveSubjects;
+        .getUserElectiveSubjects(local: true);
   }
 
   Future<void> get _getUserRole async {

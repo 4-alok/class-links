@@ -27,6 +27,7 @@ class AppPages {
 
   static final INITIAL =
       Get.find<AuthService>().user == null ? Routes.AUTH : Routes.HOME;
+  // static const INITIAL = _Paths.IMPORT;
 
   static final routes = [
     GetPage(

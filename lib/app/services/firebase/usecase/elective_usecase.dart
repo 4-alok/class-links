@@ -5,6 +5,7 @@ import '../models/user_section.dart';
 abstract class ElectiveUsecase {
   Future<void> importElectiveTimetable(ElectiveTimetable electiveTimetable);
   Future<void> importUserElectiveSection(UserSecetion userSection);
-  Future<List<ElectiveTimetable>> get getUserElectiveSubjects;
-  Future<UserSecetion?> get getUserSection;
+  Future<List<ElectiveTimetable>> getUserElectiveSubjects(
+      {required bool local});
+  Future<UserSecetion?> getUserSection({required bool local});
 }

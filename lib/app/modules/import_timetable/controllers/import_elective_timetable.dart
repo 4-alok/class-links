@@ -1,61 +1,23 @@
-import 'package:class_link/app/models/time_table/time_table.dart';
+import 'package:get/get.dart';
 
-import '../../../services/firebase/models/elective_timetable.dart';
+import '../../../services/firebase/repository/firestore_service.dart';
 import 'get_csv_file.dart';
 
 class Import3YearElectiveTimetable with GetFile {
-  List<Subject> _generateSubject(List row) {
-    List<Subject> subjects = [];
+  final count = Rx<int?>(null);
 
-    if (row[3] != 'x') {
-      subjects.add(
-        Subject(
-          subjectName: row[3].toString(),
-          startTime: const DayTime(hour: 15, minute: 0),
-          roomNo: row[2].toString(),
-        ),
-      );
-    }
-
-    if (row[5] != 'x') {
-      subjects.add(
-        Subject(
-          subjectName: row[5].toString(),
-          startTime: const DayTime(hour: 16, minute: 0),
-          roomNo: row[4].toString(),
-        ),
-      );
-    }
-
-    if (row[7] != 'x') {
-      subjects.add(
-        Subject(
-          subjectName: row[7].toString(),
-          startTime: const DayTime(hour: 17, minute: 0),
-          roomNo: row[6].toString(),
-        ),
-      );
-    }
-    return subjects;
-  }
-
-  Future<List<ElectiveTimetable>> get electiveTimetable async {
+  Future<void> get uploadOnFirestore async {
     final data = await getFileData;
-    data.removeAt(0);
-    List<ElectiveTimetable> electiveTimetables = [];
+    final electiveTimetables = getElectiveTimetable(data);
 
-    for (var row in data) {
-      final subjects = _generateSubject(row);
-      if (subjects.isNotEmpty) {
-        electiveTimetables.add(
-          ElectiveTimetable(
-            day: row[0].toString(),
-            section: row[1].toString(),
-            subjects: subjects,
-          ),
-        );
-      }
+    for (int i = 0; i < electiveTimetables.length; i++) {
+      count.value = i;
+      await Get.find<FirestoreService>()
+          .electiveDatasources
+          .importElectiveTimetable(electiveTimetables[i]);
     }
-    return electiveTimetables;
+    count.value = null;
   }
+
+  void get dispose => count.close();
 }

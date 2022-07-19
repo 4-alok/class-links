@@ -49,16 +49,24 @@ class ImportPage extends GetView<ImportController> {
             import3yearUserSection(context),
             import3yearElectiveTimetable(context),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Get.find<FirestoreService>()
-                    .electiveDatasources
-                    .getUserElectiveSubjects;
-              },
-              child: const Text("Test"),
-            ),
+            testButtons(context),
           ],
         ),
+      );
+
+  Widget testButtons(BuildContext context) => Row(
+        children: [
+          ElevatedButton(
+              onPressed: () {}, child: const Text("Pint User Batch")),
+          ElevatedButton(
+            onPressed: () {
+              Get.find<FirestoreService>()
+                  .electiveDatasources
+                  .getUserElectiveSubjects;
+            },
+            child: const Text("Test"),
+          ),
+        ],
       );
 
   Widget import3yearElectiveTimetable(BuildContext context) => Column(
@@ -90,20 +98,26 @@ class ImportPage extends GetView<ImportController> {
                     ),
                     const SizedBox(height: 6),
                     AnimatedSize(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                      child: Obx(
-                        () => controller.count.value != null
-                            ? Text("${controller.count.value}")
-                            : ElevatedButton(
-                                onPressed: controller.count.value != null
-                                    ? null
-                                    : () =>
-                                        controller.import3YearElectiveTimetable,
-                                child: const Text("Select file"),
-                              ),
-                      ),
-                    ),
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        child: Obx(
+                          () => controller.import3YearElectiveTimetable.count
+                                      .value !=
+                                  null
+                              ? Text(
+                                  "${controller.import3YearElectiveTimetable.count.value}")
+                              : ElevatedButton(
+                                  onPressed: controller
+                                              .import3YearElectiveTimetable
+                                              .count
+                                              .value !=
+                                          null
+                                      ? null
+                                      : () => controller
+                                          .import3YearElectiveTimetable,
+                                  child: const Text("Select file"),
+                                ),
+                        ))
                   ],
                 ),
               ),
@@ -150,8 +164,8 @@ class ImportPage extends GetView<ImportController> {
                                           .count.value !=
                                       null
                                   ? null
-                                  : () => controller
-                                      .importUserSectionSection.importCsv,
+                                  : () => controller.importUserSectionSection
+                                      .uploadOnFirestore,
                               child: const Text("Select file"),
                             ),
                     ),

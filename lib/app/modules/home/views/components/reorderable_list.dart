@@ -80,32 +80,37 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
       Get.find<HiveDatabase>().userBox.userInfo?.year == 3
           ? ValueListenableBuilder<List<ElectiveTimetable>>(
               valueListenable: homeController.electiveSubjects,
-              builder: (context, value, child) => Column(children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Divider(
-                    thickness: 1,
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Theme.of(context).colorScheme.primary
-                        : Colors.white,
+              builder: (context, value, child) {
+                value.sort((a, b) => a.subjects.first.startTime.hour.compareTo(
+                      b.subjects.first.startTime.hour,
+                    ));
+                return Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Divider(
+                      thickness: 1,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Theme.of(context).colorScheme.primary
+                          : Colors.white,
+                    ),
                   ),
-                ),
-                ...value
-                    .where((element) => element.day == currentDay.day)
-                    .map(
-                      (e) => (e.subjects.first.startTime.isCurrentTime &&
-                              (currentTabIndex == DateTime.now().weekday - 1))
-                          ? CurrentClassCard(
-                              subjectInfo: SubjectInfo(
-                                  subject: e.subjects.first,
-                                  currentWeek: currentTabIndex),
-                              elective: true,
-                            )
-                          : displayTile(context, e.subjects.first,
-                              elective: true),
-                    )
-                    .toList()
-              ]),
+                  ...value
+                      .where((element) => element.day == currentDay.day)
+                      .map(
+                        (e) => (e.subjects.first.startTime.isCurrentTime &&
+                                (currentTabIndex == DateTime.now().weekday - 1))
+                            ? CurrentClassCard(
+                                subjectInfo: SubjectInfo(
+                                    subject: e.subjects.first,
+                                    currentWeek: currentTabIndex),
+                                elective: true,
+                              )
+                            : displayTile(context, e.subjects.first,
+                                elective: true),
+                      )
+                      .toList()
+                ]);
+              },
             )
           : const SizedBox();
 
