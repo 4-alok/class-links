@@ -1,8 +1,10 @@
 import '../../utils/extension.dart';
 
 abstract class FilterKiitian {
-
-
+  static bool exceptions(String email) => [
+        'sanskarkashyap308@gmail.com',
+        'palakhisariya85@gmail.com',
+      ].contains(email);
 
   bool isValidRollNo(int rollNo) {
     // 2020 year CSE

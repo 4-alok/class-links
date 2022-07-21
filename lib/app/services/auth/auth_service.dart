@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../utils/exceptions.dart';
-import '../../utils/extension.dart';
 import '../../utils/get_snackbar.dart';
 import 'filter_kiitian.dart';
 
@@ -39,11 +37,6 @@ class AuthService extends GetxService with FilterKiitian {
       _user.value = _auth.currentUser;
       return userType(_user.value?.email);
     } catch (e) {
-      print(e.runtimeType);
-      final k = e as PlatformException;
-      print(k.details);
-      print(k.message);
-      // print(k.stacktrace);
       Message("Error while signing in", e.toString());
       return UserType.none;
     }
@@ -57,7 +50,10 @@ class AuthService extends GetxService with FilterKiitian {
       final rollNo = int.tryParse(email.split("@")[0]) ?? -1;
       if (isValidRollNo(rollNo)) return UserType.user;
       return UserType.kiitian;
-    } else {
+    } else if (FilterKiitian.exceptions(email)) {
+      return UserType.user;
+    }
+    else  {
       return UserType.guest;
     }
   }

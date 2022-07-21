@@ -3,6 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'time_table.freezed.dart';
 part 'time_table.g.dart';
 
+
+
 @freezed
 class TimeTable with _$TimeTable {
   const factory TimeTable({

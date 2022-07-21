@@ -4,8 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import '../../auth/auth_service.dart';
+import '../models/day_list.dart';
 import '../utils/firestore_utils.dart';
 import '../usecase/timetable_usecase.dart';
+
+// ignore: constant_identifier_names
+const String BATCH_TIMETABLE_KEY = 'batch_timetable';
 
 class TimetableDatasource
     with FirestoreServiceUtils
@@ -54,23 +58,33 @@ class TimetableDatasource
 
   @override
   Future<List<Day>> get batchTimeTable async {
-    try {
-      final querySnapshot = await firestore
-          .collection("time_table")
-          .where("year", isEqualTo: hiveDatabase.userBox.userInfo!.year)
-          .where("slot", isEqualTo: hiveDatabase.userBox.userInfo!.slot)
-          .where("batch", isEqualTo: hiveDatabase.userBox.userInfo!.batch)
-          .get();
+    final hiveDatabase = Get.find<HiveDatabase>();
+    final res =
+        await hiveDatabase.cacheBoxDataSources.getRequest(BATCH_TIMETABLE_KEY);
+    if (res != null) {
+      return DayList.fromMap(res).days;
+    } else {
+      try {
+        final querySnapshot = await firestore
+            .collection("time_table")
+            .where("year", isEqualTo: hiveDatabase.userBox.userInfo!.year)
+            .where("slot", isEqualTo: hiveDatabase.userBox.userInfo!.slot)
+            .where("batch", isEqualTo: hiveDatabase.userBox.userInfo!.batch)
+            .get();
 
-      return querySnapshot.docs.isEmpty
-          ? defaultDays
-          : querySnapshot.docs
-              .map((e) => TimeTable.fromJson(e.data()))
-              .toList()
-              .first
-              .week;
-    } catch (e) {
-      return defaultDays;
+        final dayList = querySnapshot.docs.isEmpty
+            ? defaultDays
+            : querySnapshot.docs
+                .map((e) => TimeTable.fromJson(e.data()))
+                .toList()
+                .first
+                .week;
+        await hiveDatabase.cacheBoxDataSources
+            .saveRequest(BATCH_TIMETABLE_KEY, DayList(days: dayList).toMap);
+        return dayList;
+      } catch (e) {
+        return defaultDays;
+      }
     }
   }
 

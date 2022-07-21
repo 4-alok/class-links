@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -61,39 +62,45 @@ class ProfileView extends GetView<ProfileController> {
 
   Widget contributer(BuildContext context) => Card(
         child: ListTile(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) => Theme(
-                data: Theme.of(context).copyWith(
-                    cardColor: Color.alphaBlend(
-                        Theme.of(context)
-                            .colorScheme
-                            .primary
-                            .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
-                        Theme.of(context).cardColor)),
-                child: SimpleDialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  contentPadding: EdgeInsets.zero,
-                  children: [
-                    dev(context),
-                    const SizedBox(height: 20),
-                    ...AppInfo.developer.entries.map((e) => ListTile(
-                          onTap: () => Launcher.launchUrl(
-                              context, e.value.split(',').last),
-                          leading: CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              backgroundImage:
-                                  NetworkImage(e.value.split(',').first)),
-                          title: Text(e.key.split(',').first),
-                          subtitle: Text(e.key.split(',').last),
-                        )),
-                  ],
-                ),
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) => Theme(
+              data: Theme.of(context).copyWith(
+                  cardColor: Color.alphaBlend(
+                      Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
+                      Theme.of(context).cardColor)),
+              child: SimpleDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                contentPadding: EdgeInsets.zero,
+                children: [
+                  dev(context),
+                  const SizedBox(height: 20),
+                  ...AppInfo.developer.entries.map((e) => ListTile(
+                        onTap: () => Launcher.launchUrl(
+                            context, e.value.split(',').last),
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          child: ClipOval(
+                            child: CachedNetworkImage(
+                              imageUrl: e.value.split(',').first,
+                              placeholder: (context, url) =>
+                                  Container(color: Colors.transparent),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            ),
+                          ),
+                        ),
+                        title: Text(e.key.split(',').first),
+                        subtitle: Text(e.key.split(',').last),
+                      )),
+                ],
               ),
-            );
-          },
+            ),
+          ),
           title: const Text("Contributer"),
         ),
       );
@@ -108,11 +115,12 @@ class ProfileView extends GetView<ProfileController> {
             child: CircleAvatar(
               radius: 35,
               child: ClipOval(
-                child: SizedBox(
-                  child: Image.network(
-                    'https://avatars.githubusercontent.com/u/29683474?v=4',
-                    fit: BoxFit.cover,
-                  ),
+                child: CachedNetworkImage(
+                  imageUrl:
+                      "https://avatars.githubusercontent.com/u/29683474?v=4",
+                  placeholder: (context, url) =>
+                      Container(color: Colors.transparent),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),

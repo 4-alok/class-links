@@ -61,10 +61,10 @@ class HomeController extends GetxController
 
   @override
   void onReady() {
-    personalTimeTable ? initSubscription() : null;
+    personalTimeTable ? initSubscription : null;
     getElectiveSubjects;
     firstYearPreviousUserPatchMixin;
-    AndroidAppUpdate();
+    AndroidAppUpdate().update;
     super.onReady();
   }
 
@@ -84,7 +84,7 @@ class HomeController extends GetxController
     }
   }
 
-  void initSubscription() {
+  Future<void> get initSubscription async {
     final firestoreService = Get.find<FirestoreService>();
     if (personalTimeTable) {
       _timeTableSubscription = firestoreService
@@ -94,26 +94,24 @@ class HomeController extends GetxController
         originalList = deepCopyWeek(event);
       });
     } else {
-      _timeTableSubscription = firestoreService
-          .timetableDatasource.batchTimeTableStream
-          .listen((event) {
-        week.value = List.generate(event.length, (index) => event[index]);
-        originalList = deepCopyWeek(event);
-      });
+      final timetable =
+          await firestoreService.timetableDatasource.batchTimeTable;
+      week.value = List.generate(timetable.length, (index) => timetable[index]);
+      originalList = deepCopyWeek(timetable);
     }
   }
 
   Future<UserInfo?> get getUserInfo async {
     final result = Get.find<HiveDatabase>().userBox.userInfo;
     if (result != null) {
-      initSubscription();
+      initSubscription;
       return result;
     } else {
       final result2 =
           await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
       if (result2 != null) {
         await Get.find<HiveDatabase>().userBox.setUserInfo(result2);
-        initSubscription();
+        initSubscription;
         return result2;
       } else {
         Get.offAllNamed(Routes.USER_BATCH);
