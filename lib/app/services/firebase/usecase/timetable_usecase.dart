@@ -8,6 +8,6 @@ abstract class TimetableUsecase {
   Future<List<Day>> get personalTimeTable;
   Future<void> addOrUpdatePersonalTimeTable(TimeTable timeTable);
   Future<void> deleteTimetable(int year);
-  Future<void> addTimeTables(List<TimeTable> timeTables);
+  Future<void> addTimeTable(TimeTable timeTable);
   Future<List<TimeTable>> get getAllTimetable;
 }

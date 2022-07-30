@@ -28,6 +28,12 @@ class HiveDatabase extends GetxService with ThemeAnalyticsLog {
     await settingBox.setTheme;
   }
 
+  Future<void> get clearBoxes async {
+    await userInfoBox.clear();
+    await settingsBox.clear();
+    await cacheBox.clear();
+  }
+
   @override
   Future<void> onClose() async {
     await userInfoBox.close();

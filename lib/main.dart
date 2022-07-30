@@ -13,7 +13,7 @@ import 'di.dart' as di;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runZonedGuarded<Future<void>>(
-    () async => await di.init().then((_) => runApp(
+    () async => await di.init.then((_) => runApp(
           const ClassLink(),
         )),
     (error, stackTrace) =>
@@ -34,20 +34,22 @@ class ClassLink extends StatelessWidget {
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
         theme: FlexThemeData.light(
-            blendLevel: 40,
-            fontFamily: GoogleFonts.poppins().fontFamily,
-            subThemesData: const FlexSubThemesData(blendTextTheme: false),
-            colors: database.settingBox.appTheme.value.light,
-            appBarStyle: database.appBarStyle.value,
-            useSubThemes: true),
+          blendLevel: 40,
+          fontFamily: GoogleFonts.poppins().fontFamily,
+          subThemesData: const FlexSubThemesData(blendTextTheme: false),
+          colors: database.settingBox.appTheme.value.light,
+          appBarStyle: database.appBarStyle.value,
+          useSubThemes: true,
+        ),
         darkTheme: FlexThemeData.dark(
-            blendLevel: 40,
-            fontFamily: GoogleFonts.poppins().fontFamily,
-            subThemesData: const FlexSubThemesData(blendTextTheme: false),
-            darkIsTrueBlack: database.settingBox.isBlack.value,
-            colors: database.settingBox.appTheme.value.dark,
-            appBarStyle: database.appBarStyle.value,
-            useSubThemes: true),
+          blendLevel: 40,
+          fontFamily: GoogleFonts.poppins().fontFamily,
+          subThemesData: const FlexSubThemesData(blendTextTheme: false),
+          darkIsTrueBlack: database.settingBox.isBlack.value,
+          colors: database.settingBox.appTheme.value.dark,
+          appBarStyle: database.appBarStyle.value,
+          useSubThemes: true,
+        ),
         themeMode: database.settingBox.themeMode.value,
         customTransition: SharedAxisScaleTransition(),
       ),

@@ -50,11 +50,8 @@ class TimetableDatasource
   }
 
   @override
-  Future<void> addTimeTables(List<TimeTable> timeTables) async {
-    for (final timeTable in timeTables) {
+  Future<void> addTimeTable(TimeTable timeTable) async =>
       await firestore.collection("time_table").add(timeTable.toJson());
-    }
-  }
 
   @override
   Future<List<Day>> get batchTimeTable async {

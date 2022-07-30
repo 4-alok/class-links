@@ -18,28 +18,32 @@ class UserBatchController extends GetxController with UserBatchList {
     if (currentYear.value == null) {
       return [];
     } else if (currentYear.value == 2) {
-      return ['CSE', 'IT'];
+      return ['CSE', 'IT', 'CSSE', 'CSCE'];
     } else if (currentYear.value == 3) {
-      return ['CSE', 'IT', 'CSSE'];
+      return ['CSE', 'IT', 'CSSE', 'CSCE'];
     } else {
       return [];
     }
   }
 
   List<String> get batchList {
-    if (currentYear.value == 2) {
+    if (currentYear.value == 1) {
+      if (currentScheme.value == 1) {
+        return firstYearScheme1;
+      } else if (currentScheme.value == 2) {
+        return firstYearScheme2;
+      }
+    } else if (currentYear.value == 2) {
       if (currentStream.value != null) {
         if (currentStream.value == "CSE") {
           return secondYearCSE;
         } else if (currentStream.value == "IT") {
           return secondYearIT;
+        } else if (currentStream.value == "CSSE") {
+          return secondYearCSSE;
+        } else if (currentStream.value == "CSCE") {
+          return secondYearCSCE;
         }
-      }
-    } else if (currentYear.value == 1) {
-      if (currentScheme.value == 1) {
-        return firstYearScheme1;
-      } else if (currentScheme.value == 2) {
-        return firstYearScheme2;
       }
     } else if (currentYear.value == 3) {
       if (currentStream.value != null) {
@@ -74,6 +78,7 @@ class UserBatchController extends GetxController with UserBatchList {
       batch: currentBatch.value!,
       stream: currentStream.value ?? "1st Year",
       date: DateTime.now(),
+      role: 'viewer',
     );
 
     if (await Get.find<FirestoreService>()

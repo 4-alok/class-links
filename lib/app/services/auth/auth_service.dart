@@ -1,3 +1,4 @@
+import 'package:class_link/app/services/hive/repository/hive_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -52,8 +53,7 @@ class AuthService extends GetxService with FilterKiitian {
       return UserType.kiitian;
     } else if (FilterKiitian.exceptions(email)) {
       return UserType.user;
-    }
-    else  {
+    } else {
       return UserType.guest;
     }
   }
@@ -61,6 +61,7 @@ class AuthService extends GetxService with FilterKiitian {
   Future<void> get logout async {
     await _googleSignIn.signOut();
     await _auth.signOut();
+    await Get.find<HiveDatabase>().clearBoxes;
     _user.value = null;
   }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
-import '../../../global/const/const.dart';
+// import '../../../global/const/const.dart';
 import '../../../models/time_table/time_table.dart';
+import '../../../services/firebase/repository/firestore_service.dart';
 import 'get_csv_file.dart';
 
 class ImportCsvController with GetFile {
@@ -15,21 +16,22 @@ class ImportCsvController with GetFile {
   final r2 = Rx<String?>(null);
   final r3 = Rx<String?>(null);
   final creatorId = Rx<String?>(null);
+  final count = Rx<int?>(null);
 
-  List<Day> get defaultDays => List.generate(
-        7,
-        (index) => Day(day: Days.days[index], subjects: []),
-      );
+  // List<Day> get _defaultDays => List.generate(
+  //       7,
+  //       (index) => Day(day: Days.days[index], subjects: []),
+  //     );
 
   int get batchColIndex => field.first.indexWhere((e) => e == batch.value);
 
-  int get dayColIndex => field.first.indexWhere((e) => e == day.value);
+  int get _dayColIndex => field.first.indexWhere((e) => e == day.value);
 
-  int get room1Index => field.first.indexWhere((e) => e == r1.value);
+  int get _room1Index => field.first.indexWhere((e) => e == r1.value);
 
-  int get room2Index => field.first.indexWhere((e) => e == r2.value);
+  int get _room2Index => field.first.indexWhere((e) => e == r2.value);
 
-  int get room3Index => field.first.indexWhere((e) => e == r3.value);
+  int get _room3Index => field.first.indexWhere((e) => e == r3.value);
 
   List get subjectTimes => field.first.where((e) {
         try {
@@ -50,12 +52,12 @@ class ImportCsvController with GetFile {
             field.first.indexWhere((e) => e == subjectTimes[index]);
 
         final String roomNo;
-        if (subIndex > room3Index) {
-          roomNo = row[room3Index];
-        } else if (subIndex > room2Index) {
-          roomNo = row[room2Index];
+        if (subIndex > _room3Index) {
+          roomNo = row[_room3Index];
+        } else if (subIndex > _room2Index) {
+          roomNo = row[_room2Index];
         } else {
-          roomNo = row[room1Index];
+          roomNo = row[_room1Index];
         }
 
         return Subject(
@@ -70,10 +72,10 @@ class ImportCsvController with GetFile {
     return subjectList;
   }
 
-  TimeTable generateTimetable(int index) => TimeTable(
+  TimeTable _generateTimetable(int index) => TimeTable(
         week: [
           Day(
-              day: field[index][dayColIndex],
+              day: field[index][_dayColIndex],
               subjects: getSubjects(field[index]))
         ],
         batch: field[index][batchColIndex],
@@ -83,7 +85,7 @@ class ImportCsvController with GetFile {
         slot: slot.value ?? 1,
       );
 
-  List<TimeTable> patch(List<TimeTable> timetables) {
+  List<TimeTable> _patch(List<TimeTable> timetables) {
     for (TimeTable timetable in timetables) {
       timetable.week.addAll([
         const Day(day: 'Saturday', subjects: []),
@@ -102,39 +104,51 @@ class ImportCsvController with GetFile {
           .isNotEmpty;
       if (i != 0) {
         if (!containBatch) {
-          _timeTables.add(generateTimetable(i));
+          _timeTables.add(_generateTimetable(i));
         } else {
           _timeTables[_timeTables
                   .indexWhere((e) => e.batch == field[i][batchColIndex])]
               .week
               .add(
                 Day(
-                    day: field[i][dayColIndex],
+                    day: field[i][_dayColIndex],
                     subjects: getSubjects(field[i])),
               );
         }
       }
     }
-    _timeTables = patch(_timeTables);
+    _timeTables = _patch(_timeTables);
 
     return _timeTables;
   }
 
-  void printTimetable(List<TimeTable> timetables) {
-    // if (kDebugMode) {
-    //   for (var e in timetables) {
-    //     print(e.batch);
-    //     (e.week.forEach((e) {
-    //       if (kDebugMode) {
-    //         print(e.day);
-    //         print(e.subjects
-    //             .map((e) => "${e.subjectName} - ${e.roomNo}")
-    //             .toList());
-    //       }
-    //     }));
-    //     print("\n\n");
-    //   }
-    // }
+  void get printTimetable async {
+    List<TimeTable> timetables = await getTimeTables;
+    if (kDebugMode) {
+      for (var e in timetables) {
+        print(e.batch);
+        (e.week.forEach((e) {
+          if (kDebugMode) {
+            print(e.day);
+            print(e.subjects
+                .map((e) => "${e.subjectName}|${e.roomNo}|${e.startTime.hour}")
+                .toList());
+          }
+        }));
+        print("\n\n");
+      }
+    }
+  }
+
+  Future<void> get import async {
+    List<TimeTable> timetables = await getTimeTables;
+    for (int i = 0; i < timetables.length; i++) {
+      await Get.find<FirestoreService>().timetableDatasource.addTimeTable(
+            timetables[i],
+          );
+      count.value = i;
+    }
+    count.value = null;
   }
 
   Future<void> get selectFile async => field.value = await getFileData;
@@ -149,5 +163,6 @@ class ImportCsvController with GetFile {
     r2.close();
     r3.close();
     creatorId.close();
+    count.close();
   }
 }

@@ -12,7 +12,6 @@ class ImportController extends GetxController {
   final import3YearElectiveTimetable = Import3YearElectiveTimetable();
   final fromYear = Rx<int?>(null);
   final toYear = Rx<int?>(null);
-  final uploading = RxBool(false);
 
   Future<List<int>> get getTimetableYearly async {
     List<int> year = [];
@@ -26,18 +25,6 @@ class ImportController extends GetxController {
     }
     return year;
   }
-
-  Future<void> get import async {
-    uploading.value = true;
-    await Get.find<FirestoreService>()
-        .timetableDatasource
-        .addTimeTables(await csvController.getTimeTables);
-    uploading.value = false;
-  }
-
-  Future<void> get print async => csvController.printTimetable(
-        await csvController.getTimeTables,
-      );
 
   @override
   void dispose() {

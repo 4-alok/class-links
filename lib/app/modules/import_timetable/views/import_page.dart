@@ -3,10 +3,13 @@ import 'package:class_link/app/services/firebase/repository/firestore_service.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../services/hive/utils/in_app_rating.dart';
 import 'import_csv_page.dart';
 
 class ImportPage extends GetView<ImportController> {
   const ImportPage({Key? key}) : super(key: key);
+
+  FirestoreService get firestoreServices => Get.find<FirestoreService>();
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -23,18 +26,23 @@ class ImportPage extends GetView<ImportController> {
         () => controller.csvController.field.isEmpty
             ? const SizedBox()
             : ElevatedButton(
-                onPressed: () => controller.print,
+                onPressed: () => controller.csvController.import,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Obx(
-                    () => controller.uploading.value
-                        ? const CircularProgressIndicator(
-                            color: Colors.white,
-                          )
-                        : const Text(
-                            "Import",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                  child: AnimatedSize(
+                    duration: const Duration(milliseconds: 200),
+                    child: Obx(
+                      () => controller.csvController.count.value == null
+                          ? const Text(
+                              "Import",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          : Text(
+                              "Import (${controller.csvController.count.value})",
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                    ),
                   ),
                 ),
               ),
@@ -50,21 +58,69 @@ class ImportPage extends GetView<ImportController> {
             import3yearElectiveTimetable(context),
             const SizedBox(height: 20),
             testButtons(context),
+            thirdYearAsViewer,
+            delete2ndYear,
+            get3rdYearBlankRoom,
           ],
         ),
       );
 
+  Widget get get3rdYearBlankRoom => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: ElevatedButton(
+          onPressed: () =>
+              firestoreServices.utilsDataSources.get3rdYearBlankRoom,
+          child: const Text("Get 3rd Year Blank Room"),
+        ),
+      );
+
+  Widget get delete2ndYear => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Obx(
+          () => ElevatedButton(
+            onPressed: firestoreServices.utilsDataSources.dCount.value != null
+                ? null
+                : () async {
+                    await firestoreServices.utilsDataSources.delete2ndYear;
+                    null;
+                  },
+            child: Text(
+              firestoreServices.utilsDataSources.dCount.value == null
+                  ? "Delete 2nd Year"
+                  : "Deleting 2nd Year (${firestoreServices.utilsDataSources.dCount.value})",
+            ),
+          ),
+        ),
+      );
+
+  Widget get thirdYearAsViewer => Obx(() => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: ElevatedButton(
+          onPressed: () =>
+              firestoreServices.utilsDataSources.count.value == null
+                  ? firestoreServices.utilsDataSources.all3rdYearAsViewer
+                  : null,
+          child: Text(
+            firestoreServices.utilsDataSources.count.value == null
+                ? "Convert 3rd year to Viewer"
+                : firestoreServices.utilsDataSources.count.value.toString(),
+          ),
+        ),
+      ));
+
   Widget testButtons(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           ElevatedButton(
               onPressed: () {}, child: const Text("Pint User Batch")),
           ElevatedButton(
-            onPressed: () {
-              Get.find<FirestoreService>()
-                  .electiveDatasources
-                  .getUserElectiveSubjects;
-            },
+            onPressed: () =>
+                firestoreServices.electiveDatasources.getUserElectiveSubjects,
             child: const Text("Test"),
+          ),
+          ElevatedButton(
+            onPressed: () => InAppRating().requestReview,
+            child: const Text("Test review"),
           ),
         ],
       );

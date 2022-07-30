@@ -78,7 +78,8 @@ class ElectiveDatasources implements ElectiveUsecase {
   Future<UserSecetion?> getUserSection({required bool local}) async {
     if (local) {
       final sections = await LocalDatabase().getLocalUserSection;
-      return sections.where((e) => e.rollNo == userRollNo).first;
+      final userSection = sections.where((e) => e.rollNo == userRollNo);
+      return userSection.isNotEmpty ? userSection.first : null;
     } else {
       try {
         final res = await firestore

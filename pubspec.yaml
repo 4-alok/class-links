@@ -40,6 +40,7 @@ dependencies:
   file_picker: ^3.0.4
   csv: ^5.0.1
   dropdown_button2: ^1.6.3
+  in_app_review: ^2.0.4
   # in_app_update: ^3.0.0
 
 dev_dependencies: 

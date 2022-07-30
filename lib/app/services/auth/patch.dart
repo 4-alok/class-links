@@ -4,6 +4,7 @@ import '../../routes/app_pages.dart';
 import '../firebase/repository/firestore_service.dart';
 import '../hive/repository/hive_database.dart';
 
+// TODO: [01]
 mixin FirstYearPreviousUserPatchMixin {
   List<String> get _firstYearScheme1 =>
       List.generate(27, (index) => "A${index + 1}");
@@ -15,9 +16,7 @@ mixin FirstYearPreviousUserPatchMixin {
     final hiveDatabase = Get.find<HiveDatabase>();
     final userInfo = hiveDatabase.userBox.userInfo;
     if (userInfo != null) {
-      if (userInfo.year == 2) {
-        await _recreateUser(hiveDatabase);
-      }
+      
       // if (_firstYearScheme1.contains(userInfo.batch)) {
       // } else if (_firstYearScheme2.contains(userInfo.batch)) {
       //   await _recreateUser(hiveDatabase);

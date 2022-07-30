@@ -11,7 +11,7 @@ import 'app/services/hive/repository/hive_database.dart';
 import 'app/services/log/log_service.dart';
 import 'app/services/notification/notification_service.dart';
 
-Future<void> init() async {
+Future<void> get init async {
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   await Firebase.initializeApp();

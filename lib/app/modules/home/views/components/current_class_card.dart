@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -34,13 +33,9 @@ class CurrentClassCard extends StatelessWidget {
           middleColor: Theme.of(context).scaffoldBackgroundColor,
           closedBuilder: (context, action) => closeTile(action, context),
           openBuilder: (context, action) {
-            Get.lazyPut<SubjectInfoController>(
-              () => SubjectInfoController(),
-              tag: SubjectInfoController.TAG,
-            );
-            return SubjectInfoView(
-              subjectInfo: subjectInfo,
-            );
+            Get.lazyPut<SubjectInfoController>(() => SubjectInfoController(),
+                tag: SubjectInfoController.TAG);
+            return SubjectInfoView(subjectInfo: subjectInfo);
           },
         ),
       );

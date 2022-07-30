@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../datasource/elective_datasource.dart';
 import '../datasource/userinfo_datasource.dart';
+import '../datasource/utils_datasources.dart';
 import '../utils/firestore_utils.dart';
 
 class FirestoreService extends GetxService with FirestoreServiceUtils {
@@ -11,6 +12,7 @@ class FirestoreService extends GetxService with FirestoreServiceUtils {
   late final TimetableDatasource timetableDatasource;
   late final UserInfoDatasources userInfoDatasources;
   late final ElectiveDatasources electiveDatasources;
+  late final UtilsDataSources utilsDataSources;
 
   @override
   void onInit() {
@@ -18,6 +20,14 @@ class FirestoreService extends GetxService with FirestoreServiceUtils {
     timetableDatasource = TimetableDatasource(firestore: _firestore);
     userInfoDatasources = UserInfoDatasources(firestore: _firestore);
     electiveDatasources = ElectiveDatasources(firestore: _firestore);
+    utilsDataSources =
+        UtilsDataSources(firestore: _firestore, firestoreService: this);
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    utilsDataSources.dispose;
+    super.onClose();
   }
 }

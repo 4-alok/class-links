@@ -7,11 +7,21 @@ mixin UserBatchList {
 
   List<String> get firstYearScheme2 => _firstYearScheme2;
 
-  List<String> get secondYearCSE => [];
-  // List.generate(26, (index) => "CSE ${index + 1}");
+  // 2nd Year
 
-  List<String> get secondYearIT => [];
-  // List.generate(7, (index) => "IT ${index + 1}");
+  List<String> get secondYearCSE =>
+      List.generate(40, (index) => "CSE ${index + 1}");
+
+  List<String> get secondYearIT =>
+      List.generate(4, (index) => "IT ${index + 1}");
+
+  List<String> get secondYearCSSE =>
+      List.generate(2, (index) => "CSSE ${index + 1}");
+
+  List<String> get secondYearCSCE =>
+      List.generate(2, (index) => "CSCE ${index + 1}");
+
+  // 3rd Year
 
   List<String> get thirdYearCSE =>
       List.generate(26, (index) => "CSE-${index + 1}");

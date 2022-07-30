@@ -7,7 +7,6 @@ import '../../../models/time_table/time_table.dart';
 import '../../../models/user_info/user_info.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/auth/auth_service.dart';
-import '../../../services/auth/patch.dart';
 import '../../../services/firebase/models/elective_timetable.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
 import '../../../services/hive/repository/hive_database.dart';
@@ -17,10 +16,7 @@ import '../../subject_info/controllers/subject_info_controller.dart';
 import 'crud_operation.dart';
 
 class HomeController extends GetxController
-    with
-        GetSingleTickerProviderStateMixin,
-        TimeTableCrudOperationMixin,
-        FirstYearPreviousUserPatchMixin {
+    with GetSingleTickerProviderStateMixin, TimeTableCrudOperationMixin {
   late final TabController tabController;
   late final bool personalTimeTable;
   final hideEdit = true.obs;
@@ -63,8 +59,10 @@ class HomeController extends GetxController
   void onReady() {
     personalTimeTable ? initSubscription : null;
     getElectiveSubjects;
-    firstYearPreviousUserPatchMixin;
     AndroidAppUpdate().update;
+
+    //TODO: Fix for 3year wrong user id [01]
+    // Get.find<FirestoreService>().utilsDataSources;
     super.onReady();
   }
 

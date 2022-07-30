@@ -96,6 +96,10 @@ class ImportCsvPage extends StatelessWidget {
                       ))
                   .toList(),
             )),
+            ElevatedButton(
+              onPressed: () => csvController.printTimetable,
+              child: const Text("Print"),
+            )
           ],
         ),
       );
