@@ -1,9 +1,9 @@
 class AppInfo {
   static const String appName = "Class Link";
-  static const String appVersion = "v0.1.15";
+  static const String appVersion = "v0.1.16";
   static const String applicationLegalese =
       "Copyright (c) 2024 GDSC TEAM KIIT" "\nMIT License";
-  static const String supportMail = "classlinks@dsckiit.in";
+  static const String supportMail = "2005847@kiit.ac.in";
   static const String appInfo = "Open class-link with a single click. "
       "Easily sync the same batch's schedule and class-link.\n\n";
   static const String github = "https://github.com/DSC-KIIT/class-links";

@@ -1,5 +1,10 @@
 # Change log
 
+## v0.1.16
+
+- New Sessions (3rd and 5th Semester CSE/IT/CSSE/CSCE)
+- Elective Subject for 3rd year
+
 ## v0.1.15
 
 - New Sessions

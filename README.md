@@ -82,8 +82,6 @@ Thanks go to these wonderful people
     </td>
     <td align="center"><a href="https://github.com/akarsh1108"><img src="https://avatars.githubusercontent.com/u/72339474?v=4" width="100px;" alt=""/><br/><sub><b>Akarsh Priyadarshan</b></sub></a><br/>
     </td>
-    <td align="center"><a href="https://github.com/amanv8060"><img src="https://avatars.githubusercontent.com/u/33422449?v=4" width="100px;" alt=""/><br/><sub><b>Aman Verma</b></sub></a><br/>
-    </td>
     <td align="center"><a href="https://github.com/4-alok"><img src="https://avatars.githubusercontent.com/u/29683474?v=4" width="100px;" alt=""/><br /><sub><b>Alok Kumar</b></sub></a><br/>
     </td>
     <td align="center"><a href="https://github.com/lzzy12"><img src="https://avatars.githubusercontent.com/u/26739338?v=4" width="100px;" alt=""/><br /><sub><b>Shivam Jha</b></sub></a><br/>

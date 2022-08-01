@@ -3,24 +3,36 @@ import 'package:get/get.dart';
 import '../../routes/app_pages.dart';
 import '../firebase/repository/firestore_service.dart';
 import '../hive/repository/hive_database.dart';
+import 'auth_service.dart';
 
 // TODO: [01]
-mixin FirstYearPreviousUserPatchMixin {
-  List<String> get _firstYearScheme1 =>
-      List.generate(27, (index) => "A${index + 1}");
 
-  List<String> get _firstYearScheme2 =>
-      List.generate(30, (index) => "B${index + 1}");
+const String emailFix = "email_fix";
 
-  Future<void> get firstYearPreviousUserPatchMixin async {
+mixin UserPatchMixin {
+  Future<void> get thirdYearEmailPatch async {
     final hiveDatabase = Get.find<HiveDatabase>();
-    final userInfo = hiveDatabase.userBox.userInfo;
-    if (userInfo != null) {
-      
-      // if (_firstYearScheme1.contains(userInfo.batch)) {
-      // } else if (_firstYearScheme2.contains(userInfo.batch)) {
-      //   await _recreateUser(hiveDatabase);
-      // }
+    final fixed = hiveDatabase.userInfoBox.get(emailFix, defaultValue: false);
+    if (!fixed) {
+      final firestoreService = Get.find<FirestoreService>();
+      final user = await firestoreService.userInfoDatasources.getUserInfo;
+      if (user != null) {
+        if (user.id.endsWith('@kiit.ac.in')) {
+          await hiveDatabase.userInfoBox.put(emailFix, true);
+        } else {
+          final authService = Get.find<AuthService>();
+          final email = authService.user?.email;
+          if (email != null) {
+            await firestoreService.userInfoDatasources.updateUser(
+              user.copyWith(
+                refId: user.id,
+                id: email,
+              ),
+            );
+          }
+          await hiveDatabase.userInfoBox.put(emailFix, true);
+        }
+      }
     }
   }
 

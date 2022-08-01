@@ -14,6 +14,7 @@ class UtilsDataSources with TimeTableCrudOperationMixin {
 
   final count = Rx<int?>(null);
   final dCount = Rx<int?>(null);
+  final blakRoom = Rx<Map<String, dynamic>?>(null);
 
   Future<void> get all3rdYearAsViewer async {
     final res =
@@ -48,8 +49,6 @@ class UtilsDataSources with TimeTableCrudOperationMixin {
         .where('year', isEqualTo: 3)
         .get();
 
-    print("fetched Data");
-
     final list = res.docs.map((e) => TimeTable.fromJson(e.data())).toList();
 
     List<String> allRoomList = [];
@@ -73,22 +72,22 @@ class UtilsDataSources with TimeTableCrudOperationMixin {
 
     final days = List.generate(5, (index) => Days.days[index]);
 
-    for (final day in days) {
-      for (final time in dayTimeList) {
-        print('$day $time');
-        List<String> roomList = List.from(allRoomList);
+    Map<String, dynamic> data = {};
 
+    for (final day in days) {
+      data[day] = {};
+      for (final time in dayTimeList) {
+        data[day][time] = {};
+        List<String> roomList = List.from(allRoomList);
         for (final t in list) {
           final room = _getRoomNo(time, day, t);
           if (room != null) roomList.remove(room);
         }
-        print(roomList);
-        print('\n\n');
+        data[day][time] = roomList;
       }
     }
 
-    print('\n\n');
-    print('Done');
+    blakRoom.value = data;
   }
 
   String? _getRoomNo(int time, String day, TimeTable timeTable) {
@@ -104,12 +103,11 @@ class UtilsDataSources with TimeTableCrudOperationMixin {
     return null;
   }
 
-  Future<void> get fix3rdYearUser async {
-    
-  }
+  Future<void> get fix3rdYearUser async {}
 
   void get dispose {
     count.close();
     dCount.close();
+    blakRoom.close();
   }
 }
