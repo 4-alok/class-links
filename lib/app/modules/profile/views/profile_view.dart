@@ -1,18 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../../../global/utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../global/const/app_info.dart';
-import '../../../global/widget/launcher.dart';
-import '../../../global/widget/user_icon.dart';
+
+
+import '../../../../global/const/app_info.dart';
+import '../../../../global/widget/launcher.dart';
+import '../../../../global/widget/user_icon.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../../services/auth/models/user_type.dart';
+import '../../../../services/auth/repository/auth_service_repo.dart';
+import '../../../../services/hive/repository/hive_database.dart';
 import '../../../models/user_info/user_info.dart';
-import '../../../routes/app_pages.dart';
-import '../../../services/auth/auth_service.dart';
-import '../../../services/hive/repository/hive_database.dart';
-import '../../../utils/extension.dart';
 import '../controllers/profile_controller.dart';
 import 'component/app_bar_style.dart';
 import 'component/app_info_dialog.dart';
@@ -21,7 +24,7 @@ import 'component/theme_selector.dart';
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
 
-  User? get user => Get.find<AuthService>().user;
+  User? get user => Get.find<AuthService>().getUser;
   UserInfo? get userInfo => Get.find<HiveDatabase>().userBox.userInfo;
 
   @override
@@ -182,7 +185,7 @@ class ProfileView extends GetView<ProfileController> {
       );
 
   Widget batch(BuildContext context) =>
-      Get.find<AuthService>().userType() == UserType.user
+      Get.find<AuthService>().authDatasources.userType() == UserType.user
           ? Card(
               child: ListTile(
               title: const Text("My Batch"),
@@ -270,7 +273,7 @@ class ProfileView extends GetView<ProfileController> {
         ),
       );
 
-  Widget get holidays => Get.find<AuthService>().userType() == UserType.user
+  Widget get holidays => Get.find<AuthService>().authDatasources.userType() == UserType.user
       ? Card(
           child: ListTile(
             title: const Text("Holidays"),
@@ -290,7 +293,7 @@ class ProfileView extends GetView<ProfileController> {
   //       ),
   //     );
 
-  Widget get showLog => Get.find<AuthService>().userType() == UserType.user
+  Widget get showLog => Get.find<AuthService>().authDatasources.userType() == UserType.user
       ? Card(
           child: ListTile(
             title: const Text("Show Log"),
@@ -313,9 +316,9 @@ class ProfileView extends GetView<ProfileController> {
   Widget get import => userInfo?.role == "admin"
       ? Card(
           child: ListTile(
-            title: const Text("Import"),
+            title: const Text("Control Panel"),
             trailing: const FaIcon(FontAwesomeIcons.caretRight),
-            onTap: () => Get.toNamed(Routes.IMPORT),
+            onTap: () => Get.toNamed(Routes.CONTROL_PANEL),
           ),
         )
       : const SizedBox();

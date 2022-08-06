@@ -1,9 +1,9 @@
 import 'dart:collection';
 
-import '../../../utils/filter_user_by_id.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../../../../global/utils/filter_user_by_id.dart';
 import '../../../models/user_info/user_info.dart';
 
 enum UserFilter { id, date }

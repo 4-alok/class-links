@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
-import '../../../../global/widget/meet_link_selector.dart';
-import '../../../../global/widget/time_selector.dart';
+import '../../../../../global/widget/meet_link_selector.dart';
+import '../../../../../global/widget/time_selector.dart';
+import '../../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../../models/time_table/time_table.dart';
-import '../../../../services/auth/auth_service.dart';
 import '../../controllers/venue_validator.dart';
 
 class EditModelSheetReturn {
@@ -45,7 +45,7 @@ class EditBottomSheet {
   final open = RxBool(false);
   final sheetController = SheetController();
   final formGlobalKey = GlobalKey<FormState>();
-  final user = Get.find<AuthService>().user!;
+  final user = Get.find<AuthService>().getUser!;
   final updateLink = true.obs;
 
   Future<EditModelSheetReturn?> show(

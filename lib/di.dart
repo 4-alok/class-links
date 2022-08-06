@@ -4,12 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'app/services/analytics/analytics_service.dart';
-import 'app/services/auth/auth_service.dart';
-import 'app/services/firebase/repository/firestore_service.dart';
-import 'app/services/hive/repository/hive_database.dart';
-import 'app/services/log/log_service.dart';
-import 'app/services/notification/notification_service.dart';
+import 'services/analytics/analytics_service.dart';
+import 'services/auth/repository/auth_service_repo.dart';
+import 'services/firebase/repository/firestore_service.dart';
+import 'services/hive/repository/hive_database.dart';
+import 'services/notification/notification_service.dart';
 
 Future<void> get init async {
   SystemChrome.setSystemUIOverlayStyle(
@@ -22,6 +21,5 @@ Future<void> get init async {
   Get.put(FirestoreService());
   Get.put(AuthService());
   Get.lazyPut(() => NotificationService());
-  Get.lazyPut(() => GoogleSheetService());
   Get.lazyPut(() => AnalysisService());
 }

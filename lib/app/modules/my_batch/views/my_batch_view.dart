@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
+import '../../../../services/firebase/repository/firestore_service.dart';
+import '../../../../services/hive/repository/hive_database.dart';
 import '../../../models/user_info/user_info.dart';
-import '../../../services/firebase/repository/firestore_service.dart';
-import '../../../services/hive/repository/hive_database.dart';
 import '../controllers/my_batch_controller.dart';
 
 class MyBatchView extends GetView<MyBatchController> {

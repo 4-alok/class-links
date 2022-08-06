@@ -1,5 +1,6 @@
-import '../time_table/time_table.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../time_table/time_table.dart';
 
 part 'notification_payload.freezed.dart';
 part 'notification_payload.g.dart';

@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import '../../../../services/notification/notification_service.dart';
 import '../../../models/notification_payload.dart/notification_payload.dart';
 import '../../../models/subject_info/subject_info.dart';
 import '../../../models/time_table/time_table.dart';
 import 'package:get/get.dart';
 
-import '../../../services/notification/notification_service.dart';
 
 const emptySubjectInfo = SubjectInfo(
     subject: Subject(

@@ -1,11 +1,12 @@
 import 'dart:math';
 
-import '../../controllers/subject_info_controller.dart';
 import 'package:day_night_time_picker/lib/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
+
+import '../../controllers/subject_info_controller.dart';
 
 class SubjectInfoAppBar extends StatelessWidget {
   const SubjectInfoAppBar({

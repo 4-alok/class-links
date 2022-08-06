@@ -1,15 +1,15 @@
 import 'package:animations/animations.dart';
+import '../../../../../global/utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 
+import '../../../../../global/utils/color.dart';
+import '../../../../../services/firebase/models/elective_timetable.dart';
+import '../../../../../services/hive/repository/hive_database.dart';
 import '../../../../models/subject_info/subject_info.dart';
 import '../../../../models/time_table/time_table.dart';
-import '../../../../services/firebase/models/elective_timetable.dart';
-import '../../../../services/hive/repository/hive_database.dart';
-import '../../../../utils/color.dart';
-import '../../../../utils/extension.dart';
 import '../../../subject_info/controllers/subject_info_controller.dart';
 import '../../../subject_info/views/subject_info_view.dart';
 import '../../controllers/home_controller.dart';

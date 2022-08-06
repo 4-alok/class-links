@@ -1,12 +1,11 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../utils/extension.dart';
+import '../../../global/utils/extension.dart';
 import 'package:flutter/material.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../../global/const/holiday_list.dart';
-import '../../utils/utils.dart';
+import '../../../global/const/holiday_list.dart';
+import '../../../global/utils/utils.dart';
+
 
 class HolidaysView extends StatelessWidget {
   const HolidaysView({Key? key}) : super(key: key);

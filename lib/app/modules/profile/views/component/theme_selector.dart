@@ -2,9 +2,9 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../global/theme/app_color.dart.dart';
+import '../../../../../global/theme/app_color.dart.dart';
+import '../../../../../services/hive/repository/hive_database.dart';
 import '../../controllers/profile_controller.dart';
-import '../../../../services/hive/repository/hive_database.dart';
 
 class ThemeSelector extends StatelessWidget {
   final ProfileController controller;

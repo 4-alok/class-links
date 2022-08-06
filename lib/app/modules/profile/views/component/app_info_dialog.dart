@@ -1,9 +1,9 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../global/const/app_info.dart';
 
+import '../../../../../global/const/app_info.dart';
+import '../../../../../global/widget/launcher.dart';
 import '../../../../gen/assets.gen.dart';
-import '../../../../global/widget/launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/route_manager.dart';

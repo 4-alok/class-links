@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../services/analytics/analytics_service.dart';
+import '../../../../services/auth/models/user_type.dart';
+import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../models/user_info/user_info.dart';
-import '../../../services/analytics/analytics_service.dart';
-import '../../../services/auth/auth_service.dart';
 import '../controllers/home_controller.dart';
 import 'components/time_table_page.dart';
 
@@ -12,7 +13,7 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) =>
-      Get.find<AuthService>().userType() == UserType.user
+      Get.find<AuthService>().authDatasources.userType() == UserType.user
           ? batchViseTimetable
           : TimeTablePage(homeController: controller);
 

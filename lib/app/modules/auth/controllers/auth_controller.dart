@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
 
-import '../../../routes/app_pages.dart';
-import '../../../services/auth/auth_service.dart';
-import '../../../services/firebase/repository/firestore_service.dart';
-import '../../../services/hive/repository/hive_database.dart';
-import '../../../utils/app_update.dart';
+import '../../../../global/utils/app_update.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../../services/auth/models/user_type.dart';
+import '../../../../services/auth/repository/auth_service_repo.dart';
+import '../../../../services/firebase/repository/firestore_service.dart';
+import '../../../../services/hive/repository/hive_database.dart';
 import 'auto_create_user.dart';
 
 class AuthController extends GetxController with AutoCreateUser {

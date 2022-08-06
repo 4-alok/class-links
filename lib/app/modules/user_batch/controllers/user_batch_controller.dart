@@ -1,10 +1,10 @@
-import 'package:class_link/app/modules/user_batch/controllers/user_batch_list.dart';
+import '../../../../services/auth/repository/auth_service_repo.dart';
+import 'user_batch_list.dart';
 
+import '../../../../routes/app_pages.dart';
+import '../../../../services/firebase/repository/firestore_service.dart';
+import '../../../../services/hive/repository/hive_database.dart';
 import '../../../models/user_info/user_info.dart';
-import '../../../routes/app_pages.dart';
-import '../../../services/auth/auth_service.dart';
-import '../../../services/firebase/repository/firestore_service.dart';
-import '../../../services/hive/repository/hive_database.dart';
 import 'package:get/get.dart';
 
 class UserBatchController extends GetxController with UserBatchList {
@@ -68,7 +68,7 @@ class UserBatchController extends GetxController with UserBatchList {
       const Duration(milliseconds: 1000),
     );
 
-    final user = Get.find<AuthService>().user!;
+    final user = Get.find<AuthService>().getUser!;
 
     final userInfo = UserInfo(
       id: user.email!,

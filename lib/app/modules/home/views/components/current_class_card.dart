@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import '../../../../../global/utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
@@ -9,7 +10,6 @@ import 'package:vibration/vibration.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../models/subject_info/subject_info.dart';
 import '../../../../models/time_table/time_table.dart';
-import '../../../../utils/extension.dart';
 import '../../../subject_info/controllers/subject_info_controller.dart';
 import '../../../subject_info/views/subject_info_view.dart';
 

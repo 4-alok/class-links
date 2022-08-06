@@ -1,4 +1,5 @@
-import '../../../utils/extension.dart';
+
+import '../../../../global/utils/extension.dart';
 
 import '../../../models/time_table/time_table.dart';
 

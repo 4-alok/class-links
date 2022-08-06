@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'app/global/transition_animation.dart/shared_axis_scale_transition.dart';
-import 'app/routes/app_pages.dart';
-import 'app/services/hive/repository/hive_database.dart';
 import 'di.dart' as di;
+import 'global/transition_animation.dart/shared_axis_scale_transition.dart';
+import 'routes/app_pages.dart';
+import 'services/hive/repository/hive_database.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

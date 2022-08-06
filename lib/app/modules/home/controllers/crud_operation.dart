@@ -1,12 +1,12 @@
-import '../../../utils/extension.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/instance_manager.dart';
 
-import '../../../global/const/const.dart';
+import '../../../../global/const/const.dart';
+import '../../../../global/utils/extension.dart';
+import '../../../../global/utils/get_snackbar.dart';
+import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../models/log/log.dart';
 import '../../../models/time_table/time_table.dart';
-import '../../../services/auth/auth_service.dart';
-import '../../../utils/get_snackbar.dart';
 
 mixin TimeTableCrudOperationMixin {
   // copy of originalList
@@ -38,7 +38,7 @@ mixin TimeTableCrudOperationMixin {
   }
 
   void createLog(String changes) {
-    final user = Get.find<AuthService>().user;
+    final user = Get.find<AuthService>().getUser;
     logData.add(
       LogData(
           name: user?.displayName ?? "",

@@ -3,16 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../global/utils/app_update.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../../services/auth/models/user_type.dart';
+import '../../../../services/auth/utils/patch.dart';
+import '../../../../services/auth/repository/auth_service_repo.dart';
+import '../../../../services/firebase/models/elective_timetable.dart';
+import '../../../../services/firebase/repository/firestore_service.dart';
+import '../../../../services/hive/repository/hive_database.dart';
 import '../../../models/time_table/time_table.dart';
 import '../../../models/user_info/user_info.dart';
-import '../../../routes/app_pages.dart';
-import '../../../services/auth/auth_service.dart';
-import '../../../services/auth/patch.dart';
-import '../../../services/firebase/models/elective_timetable.dart';
-import '../../../services/firebase/repository/firestore_service.dart';
-import '../../../services/hive/repository/hive_database.dart';
-import '../../../services/log/log_service.dart';
-import '../../../utils/app_update.dart';
 import '../../subject_info/controllers/subject_info_controller.dart';
 import 'crud_operation.dart';
 
@@ -41,7 +41,7 @@ class HomeController extends GetxController
     tabController =
         TabController(initialIndex: initialTab, vsync: this, length: 7);
     personalTimeTable =
-        (Get.find<AuthService>().userType() != UserType.user) ? true : false;
+        (Get.find<AuthService>().authDatasources.userType() != UserType.user) ? true : false;
 
     _hourlyUpdateSubscription =
         Stream.periodic(const Duration(seconds: 1), (i) => i).listen((_) =>
@@ -64,9 +64,6 @@ class HomeController extends GetxController
     personalTimeTable ? initSubscription : null;
     getElectiveSubjects;
     AndroidAppUpdate().update;
-
-    //TODO: Fix for 3year wrong user id [01]
-    // Get.find<FirestoreService>().utilsDataSources;
     thirdYearEmailPatch;
     super.onReady();
   }
@@ -138,8 +135,10 @@ class HomeController extends GetxController
           await _addOrUpdateTimeTable;
           logData.clear();
           editMode.value = false;
-        } else if (await Get.find<GoogleSheetService>().addEntry(logData) ??
-            false) {
+        } else
+        //  if (await Get.find<GoogleSheetService>().addEntry(logData) ??
+        // false)
+        {
           await _addOrUpdateTimeTable;
           logData.clear();
           editMode.value = false;
@@ -156,7 +155,7 @@ class HomeController extends GetxController
 
   Future<void> get _addOrUpdateTimeTable async {
     if (personalTimeTable) {
-      final email = Get.find<AuthService>().user!.email!;
+      final email = Get.find<AuthService>().getUser!.email!;
       final timeTable = TimeTable(
         week: week.value,
         creatorId: email,
