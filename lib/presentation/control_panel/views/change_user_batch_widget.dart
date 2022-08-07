@@ -1,4 +1,3 @@
-import 'package:class_link/global/utils/get_snackbar.dart';
 import 'package:class_link/services/auth/repository/auth_service_repo.dart';
 import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,7 @@ class _ChangeUserBatchState extends State<ChangeUserBatch> {
   final TextEditingController year = TextEditingController();
   final loading = ValueNotifier<bool>(false);
 
-  final userInfo = Get.find<HiveDatabase>().userBox.userInfo;
+  final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo;
 
   @override
   void initState() {
@@ -109,7 +108,6 @@ class _ChangeUserBatchState extends State<ChangeUserBatch> {
                                   loading.value = false;
                                   await Get.find<AuthService>().logout;
                                   Get.offAllNamed(Routes.AUTH);
-                                  
                                 },
                           child: value
                               ? const Center(

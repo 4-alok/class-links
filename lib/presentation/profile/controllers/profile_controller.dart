@@ -10,13 +10,13 @@ class ProfileController extends GetxController {
   final scrollController = ScrollController();
   final hiveDatabase = Get.find<HiveDatabase>();
 
-  bool get isBlack => hiveDatabase.settingBox.isBlack.value;
+  bool get isBlack => hiveDatabase.settingBoxDatasources.isBlack.value;
 
   static const double _kWidthOfScrollItem = 67.2;
 
   @override
   void onReady() {
-    final appTheme = hiveDatabase.settingBox.appTheme.value;
+    final appTheme = hiveDatabase.settingBoxDatasources.appTheme.value;
     final index = AppColor.schemes.indexWhere((element) => element == appTheme);
     if ((AppColor.schemes.length - index) >=
         (Get.width / _kWidthOfScrollItem) - 1) {
@@ -33,24 +33,27 @@ class ProfileController extends GetxController {
   }
 
   Future<void> toggleThemeMode() async {
-    await hiveDatabase.settingBox
+    await hiveDatabase.settingBoxDatasources
         .saveCurrentTheme(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark)
         .then((value) {
-      hiveDatabase.settingBox.themeMode.update((val) => hiveDatabase.settingBox
-          .themeMode.value = Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+      hiveDatabase.settingBoxDatasources.themeMode.update((val) => hiveDatabase
+          .settingBoxDatasources
+          .themeMode
+          .value = Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
     });
   }
 
   Future<void> logout() async {
     final authService = Get.find<AuthService>();
     await authService.logout;
-    await Get.find<HiveDatabase>().userBox.clearUserInfo;
+    await Get.find<HiveDatabase>().userBoxDatasources.clearUserInfo;
     Get.offAllNamed(Routes.AUTH);
   }
 
-  Future<void> blackModeOnChange(bool _) async => await hiveDatabase.settingBox
-      .saveIsBlackMode(!isBlack)
-      .then((value) => hiveDatabase.settingBox.isBlack.value = !isBlack);
+  Future<void> blackModeOnChange(bool _) async =>
+      await hiveDatabase.settingBoxDatasources.saveIsBlackMode(!isBlack).then(
+          (value) =>
+              hiveDatabase.settingBoxDatasources.isBlack.value = !isBlack);
 
   @override
   void onClose() {

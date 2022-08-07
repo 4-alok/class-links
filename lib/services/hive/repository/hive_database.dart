@@ -13,19 +13,19 @@ class HiveDatabase extends GetxService with ThemeAnalyticsLog {
   late final Box settingsBox;
   late final Box cacheBox;
 
-  late final SettingBoxDatasources settingBox;
-  late final UserBoxDatasourcse userBox;
+  late final SettingBoxDatasources settingBoxDatasources;
+  late final UserBoxDatasourcse userBoxDatasources;
   late final CacheBoxDataSources cacheBoxDataSources;
 
   Future<void> get initDatabase async {
     userInfoBox = await Hive.openBox('userInfo');
     settingsBox = await Hive.openBox('settings');
     cacheBox = await Hive.openBox('cache');
-    settingBox = SettingBoxDatasources(settingsBox);
-    userBox = UserBoxDatasourcse(userInfoBox);
+    settingBoxDatasources = SettingBoxDatasources(settingsBox);
+    userBoxDatasources = UserBoxDatasourcse(userInfoBox);
     cacheBoxDataSources = CacheBoxDataSources(cacheBox);
-    await userBox.init;
-    await settingBox.setTheme;
+    await userBoxDatasources.init;
+    await settingBoxDatasources.setTheme;
   }
 
   Future<void> get clearBoxes async {
@@ -39,7 +39,7 @@ class HiveDatabase extends GetxService with ThemeAnalyticsLog {
     await userInfoBox.close();
     await settingsBox.close();
     await cacheBox.close();
-    settingBox.dispose;
+    settingBoxDatasources.dispose;
     super.onClose();
   }
 }

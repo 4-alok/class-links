@@ -17,15 +17,18 @@ class TimetableDatasource
   final hiveDatabase = Get.find<HiveDatabase>();
 
   String get batchTimeTableKey =>
-      'batch_timetable_${hiveDatabase.userBox.userInfo?.year ?? -1}';
+      'batch_timetable_${hiveDatabase.userBoxDatasources.userInfo?.year ?? -1}';
 
   @override
   Future<void> addOrUpdateBatchTimeTable(TimeTable timeTable) async {
     final result = await firestore
         .collection(batchTimeTableKey)
-        .where("year", isEqualTo: hiveDatabase.userBox.userInfo!.year)
-        .where("slot", isEqualTo: hiveDatabase.userBox.userInfo!.slot)
-        .where("batch", isEqualTo: hiveDatabase.userBox.userInfo!.batch)
+        .where("year",
+            isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.year)
+        .where("slot",
+            isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.slot)
+        .where("batch",
+            isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.batch)
         .get();
 
     if (result.docs.isEmpty) {
@@ -64,9 +67,12 @@ class TimetableDatasource
       try {
         final querySnapshot = await firestore
             .collection(batchTimeTableKey)
-            .where("year", isEqualTo: hiveDatabase.userBox.userInfo!.year)
-            .where("slot", isEqualTo: hiveDatabase.userBox.userInfo!.slot)
-            .where("batch", isEqualTo: hiveDatabase.userBox.userInfo!.batch)
+            .where("year",
+                isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.year)
+            .where("slot",
+                isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.slot)
+            .where("batch",
+                isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.batch)
             .get();
 
         final dayList = querySnapshot.docs.isEmpty
@@ -88,9 +94,10 @@ class TimetableDatasource
   @override
   Stream<List<Day>> get batchTimeTableStream => firestore
       .collection(batchTimeTableKey)
-      .where("year", isEqualTo: hiveDatabase.userBox.userInfo!.year)
-      .where("slot", isEqualTo: hiveDatabase.userBox.userInfo!.slot)
-      .where("batch", isEqualTo: hiveDatabase.userBox.userInfo!.batch)
+      .where("year", isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.year)
+      .where("slot", isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.slot)
+      .where("batch",
+          isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.batch)
       .snapshots()
       .map((event) => event.docs.isEmpty
           ? defaultDays

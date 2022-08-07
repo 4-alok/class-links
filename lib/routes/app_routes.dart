@@ -31,5 +31,4 @@ abstract class _Paths {
   static const MY_BATCH = '/my-batch';
   static const HOLIDAYS = '/holidays';
   static const CONTROL_PANEL = '/control_panel';
-  
 }

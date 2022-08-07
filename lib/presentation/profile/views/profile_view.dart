@@ -23,7 +23,8 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
 
   User? get user => Get.find<AuthService>().getUser;
-  UserInfo? get userInfo => Get.find<HiveDatabase>().userBox.userInfo;
+  UserInfo? get userInfo =>
+      Get.find<HiveDatabase>().userBoxDatasources.userInfo;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -190,7 +191,12 @@ class ProfileView extends GetView<ProfileController> {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(Get.find<HiveDatabase>().userBox.userInfo?.batch ?? "",
+                  Text(
+                      Get.find<HiveDatabase>()
+                              .userBoxDatasources
+                              .userInfo
+                              ?.batch ??
+                          "",
                       style: Theme.of(context)
                           .textTheme
                           .headline5!

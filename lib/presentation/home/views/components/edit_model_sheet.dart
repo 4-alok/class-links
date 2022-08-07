@@ -8,7 +8,6 @@ import '../../../../../global/widget/meet_link_selector.dart';
 import '../../../../../global/widget/time_selector.dart';
 import '../../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../../global/models/time_table/time_table.dart';
-import '../../controllers/venue_validator.dart';
 
 class EditModelSheetReturn {
   final Subject? subject;
@@ -195,7 +194,7 @@ class EditBottomSheet {
                         hintText: "Venue",
                       ),
                       textInputAction: TextInputAction.done,
-                      validator: VenueValidator.validate,
+                      // validator: VenueValidator.validate,
                     ),
                     const SizedBox(height: 10),
                     MeetLinkSelector(

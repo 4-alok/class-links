@@ -31,11 +31,11 @@ mixin AutoCreateUser {
       if (await Get.find<FirestoreService>()
           .userInfoDatasources
           .addUserInfo(userInfo)) {
-        await Get.find<HiveDatabase>().userBox.setUserInfo(userInfo);
+        await Get.find<HiveDatabase>().userBoxDatasources.setUserInfo(userInfo);
         Get.offAllNamed(Routes.HOME);
       }
     } else {
-      await Get.find<HiveDatabase>().userBox.setUserInfo(res);
+      await Get.find<HiveDatabase>().userBoxDatasources.setUserInfo(res);
       Get.offAllNamed(Routes.HOME);
     }
   }

@@ -44,7 +44,7 @@ class UtilsDataSources with TimeTableCrudOperationMixin {
 
   Future<void> changeMyBatch(
       {required String myBatch, required int year}) async {
-    final userInfo = Get.find<HiveDatabase>().userBox.userInfo;
+    final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo;
     final res = await firestore
         .collection('user')
         .where('id', isEqualTo: userInfo?.id ?? '')

@@ -40,9 +40,9 @@ class ThemeSelector extends StatelessWidget {
                   color: Theme.of(context).primaryColorLight,
                   width: 4,
                 ),
-                onSelect: () =>
-                    database.settingBox.saveCurrentSchemeIndex(index),
-                selected: database.settingBox.appTheme.value ==
+                onSelect: () => database.settingBoxDatasources
+                    .saveCurrentSchemeIndex(index),
+                selected: database.settingBoxDatasources.appTheme.value ==
                     AppColor.schemes[index],
                 backgroundColor: Theme.of(context).colorScheme.surface,
                 flexSchemeColor: Get.isDarkMode

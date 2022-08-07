@@ -77,7 +77,7 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
       );
 
   Widget electiveSubject(BuildContext context) =>
-      Get.find<HiveDatabase>().userBox.userInfo?.year == 3
+      Get.find<HiveDatabase>().userBoxDatasources.userInfo?.year == 3
           ? ValueListenableBuilder<List<ElectiveTimetable>>(
               valueListenable: homeController.electiveSubjects,
               builder: (context, value, child) {

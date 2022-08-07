@@ -104,7 +104,7 @@ class HomeController extends GetxController
   }
 
   Future<UserInfo?> get getUserInfo async {
-    final result = Get.find<HiveDatabase>().userBox.userInfo;
+    final result = Get.find<HiveDatabase>().userBoxDatasources.userInfo;
     if (result != null) {
       initSubscription;
       return result;
@@ -112,7 +112,7 @@ class HomeController extends GetxController
       final result2 =
           await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
       if (result2 != null) {
-        await Get.find<HiveDatabase>().userBox.setUserInfo(result2);
+        await Get.find<HiveDatabase>().userBoxDatasources.setUserInfo(result2);
         initSubscription;
         return result2;
       } else {
@@ -170,7 +170,7 @@ class HomeController extends GetxController
           .timetableDatasource
           .addOrUpdatePersonalTimeTable(timeTable);
     } else {
-      final userInfo = Get.find<HiveDatabase>().userBox.userInfo!;
+      final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo!;
       final timeTable = TimeTable(
         week: week.value,
         creatorId: userInfo.id,

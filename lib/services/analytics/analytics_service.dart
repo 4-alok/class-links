@@ -14,7 +14,7 @@ class AnalysisService extends GetxService with AnalyticsUtile {
   final firebaseAnalytics = FirebaseAnalytics.instance;
 
   Future<void> get appOpenLogEvent async {
-    final userInfo = hiveDatabase.userBox.userInfo;
+    final userInfo = hiveDatabase.userBoxDatasources.userInfo;
     if (userInfo != null) {
       await firebaseAnalytics.logEvent(
         name: APP_OPENED,
@@ -26,12 +26,12 @@ class AnalysisService extends GetxService with AnalyticsUtile {
   }
 
   Future<void> themeUsageAnalysis() async {
-    final userInfo = hiveDatabase.userBox.userInfo;
+    final userInfo = hiveDatabase.userBoxDatasources.userInfo;
     if (userInfo != null) {
       final themeData = ThemeUsageLog(
         isBlack: isBlack,
         themeModeLight: themeModeLight,
-        themeName: hiveDatabase.settingBox.appTheme.value.name,
+        themeName: hiveDatabase.settingBoxDatasources.appTheme.value.name,
       );
       await firebaseAnalytics.logEvent(
         name: THEME_DATA,

@@ -59,8 +59,11 @@ class UserInfoDatasources implements UserInfoUsecase {
     final userList = (await firestore
             .collection("user")
             .where("batch",
-                isEqualTo:
-                    Get.find<HiveDatabase>().userBox.userInfo?.batch ?? "na")
+                isEqualTo: Get.find<HiveDatabase>()
+                        .userBoxDatasources
+                        .userInfo
+                        ?.batch ??
+                    "na")
             .get())
         .docs
         .map((e) => UserInfo.fromJson(e.data()))
@@ -85,7 +88,9 @@ class UserInfoDatasources implements UserInfoUsecase {
   Stream<List<UserInfo>> get streamUserList => firestore
       .collection("user")
       .where("batch",
-          isEqualTo: Get.find<HiveDatabase>().userBox.userInfo?.batch ?? "na")
+          isEqualTo:
+              Get.find<HiveDatabase>().userBoxDatasources.userInfo?.batch ??
+                  "na")
       .snapshots()
       .map(
         (event) => event.docs.map((e) {

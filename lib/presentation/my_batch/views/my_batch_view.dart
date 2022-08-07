@@ -14,7 +14,7 @@ class MyBatchView extends GetView<MyBatchController> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text(
-            Get.find<HiveDatabase>().userBox.userInfo?.batch ?? "",
+            Get.find<HiveDatabase>().userBoxDatasources.userInfo?.batch ?? "",
             style: Get.textTheme.headline4,
           ),
           centerTitle: true,
@@ -57,17 +57,20 @@ class MyBatchView extends GetView<MyBatchController> {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: ListTile(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          tileColor: Color.alphaBlend(
-              Theme.of(context)
-                  .colorScheme
-                  .primary
-                  .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
-              Theme.of(context).cardColor),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          tileColor: controller.isMe(users[index].userName)
+              ? Theme.of(context).primaryColor.withAlpha(80)
+              : Color.alphaBlend(
+                  Theme.of(context)
+                      .colorScheme
+                      .primary
+                      .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
+                  Theme.of(context).cardColor),
           leading: Text((index + 1).toString()),
           title: Text(users[index].userName),
+          trailing:
+              controller.isMe(users[index].userName) ? const Text("😋") : null,
         ),
       );
 

@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 
 import '../../../../services/firebase/repository/firestore_service.dart';
 import '../../../../services/hive/utils/in_app_rating.dart';
+import '../../../services/auth/utils/patch.dart';
 import '../controllers/controller_panel_controller.dart';
 import 'change_user_batch_widget.dart';
 
-class ControlPanelPage extends StatelessWidget {
+class ControlPanelPage extends StatelessWidget with UserPatchMixin {
   final ControlPanelController controller;
   const ControlPanelPage({Key? key, required this.controller})
       : super(key: key);
@@ -23,6 +24,7 @@ class ControlPanelPage extends StatelessWidget {
             import3yearUserSection(context),
             import3yearElectiveTimetable(context),
             const ChangeUserBatch(),
+            emailPatchTool(context),
             const SizedBox(height: 20),
             testButtons(context),
             thirdYearAsViewer,
@@ -78,7 +80,9 @@ class ControlPanelPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           ElevatedButton(
-              onPressed: () {}, child: const Text("Pint User Batch")),
+            onPressed: () {},
+            child: const Text("Pint User Batch"),
+          ),
           ElevatedButton(
             onPressed: () =>
                 firestoreServices.electiveDatasources.getUserElectiveSubjects,
@@ -87,6 +91,58 @@ class ControlPanelPage extends StatelessWidget {
           ElevatedButton(
             onPressed: () => InAppRating().requestReview,
             child: const Text("Test review"),
+          ),
+        ],
+      );
+
+  Widget emailPatchTool(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              "Email patch tool",
+              style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          ),
+          Card(
+            color: Theme.of(context).colorScheme.primary.withOpacity(.1),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Wrap(
+                children: [
+                  ElevatedButton(
+                    onPressed: () => print(emailFixed),
+                    child: const Text("Box value"),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () => setEmailFixed(false),
+                    child: const Text("set false"),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () =>
+                        print(hiveDatabase.userBoxDatasources.userInfo?.id),
+                    child: const Text("print id"),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () async => print((await firestoreServices
+                            .userInfoDatasources.getUserInfo)
+                        ?.id),
+                    child: const Text("fb id"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => addDublicate,
+                    child: const Text("Add dublicate"),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       );

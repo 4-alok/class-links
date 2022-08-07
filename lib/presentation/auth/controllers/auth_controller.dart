@@ -22,12 +22,12 @@ class AuthController extends GetxController with AutoCreateUser {
     final result = await Get.find<AuthService>().login;
     if (result == UserType.user) {
       final hiveDatabase = Get.find<HiveDatabase>();
-      if (hiveDatabase.userBox.userInfo == null) {
+      if (hiveDatabase.userBoxDatasources.userInfo == null) {
         final userInfo =
             await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
         if (userInfo != null) {
-          hiveDatabase.userBox.userInfo = userInfo;
-          await hiveDatabase.userBox.setUserInfo(userInfo);
+          hiveDatabase.userBoxDatasources.userInfo = userInfo;
+          await hiveDatabase.userBoxDatasources.setUserInfo(userInfo);
         }
       }
 
@@ -37,7 +37,7 @@ class AuthController extends GetxController with AutoCreateUser {
       if (userSection != null) {
         await autoCreateUserFor3rdYear(userSection);
       } else {
-        hiveDatabase.userBox.userInfo == null
+        hiveDatabase.userBoxDatasources.userInfo == null
             ? Get.offNamed(Routes.USER_BATCH)
             : Get.offNamed(Routes.HOME);
       }

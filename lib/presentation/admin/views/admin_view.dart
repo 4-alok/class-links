@@ -14,7 +14,8 @@ import '../controllers/admin_controller.dart';
 class AdminView extends GetView<AdminController> {
   const AdminView({Key? key}) : super(key: key);
 
-  UserInfo? get userInfo => Get.find<HiveDatabase>().userBox.userInfo;
+  UserInfo? get userInfo =>
+      Get.find<HiveDatabase>().userBoxDatasources.userInfo;
 
   @override
   Widget build(BuildContext context) {

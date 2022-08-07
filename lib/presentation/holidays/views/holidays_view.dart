@@ -34,9 +34,13 @@ class HolidaysView extends GetView<HolidayController> {
             monthsBuilder(month, year, context),
         dayBuilder: (context, date) {
           if (DateUtils.isSameDay(date, today)) {
-            return Card(
-              color: Theme.of(context).colorScheme.secondary,
-              child: Center(child: Text(date.day.toString())),
+            return Tooltip(
+              triggerMode: TooltipTriggerMode.tap,
+              message: "Today",
+              child: Card(
+                color: Theme.of(context).colorScheme.secondary,
+                child: Center(child: Text(date.day.toString())),
+              ),
             );
           } else if (controller.isHoliday(date)) {
             return Tooltip(
