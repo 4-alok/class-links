@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-import '../../../app/models/user_info/user_info.dart';
 import '../../../global/utils/filter_user_by_id.dart';
 import '../../../global/utils/get_snackbar.dart';
 import '../../auth/repository/auth_service_repo.dart';
+import '../../hive/models/user_info.dart';
 import '../../hive/repository/hive_database.dart';
 import '../usecase/userinfo_usecase.dart';
 

@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import '../datasource/cache_box_datasources.dart';
 import '../datasource/setting_box_datasources.dart';
 import '../datasource/user_box_datasources.dart';
-import '../theme_analytics_log.dart';
+import '../utils/theme_analytics_log.dart';
 
 class HiveDatabase extends GetxService with ThemeAnalyticsLog {
   final appBarStyle = Rx<FlexAppBarStyle>(FlexAppBarStyle.material);

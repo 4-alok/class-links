@@ -1,4 +1,4 @@
-import 'package:class_link/app/modules/home/controllers/venue_validator.dart';
+import 'package:class_link/presentation/home/controllers/venue_validator.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 

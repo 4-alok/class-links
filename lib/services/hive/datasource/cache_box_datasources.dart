@@ -13,7 +13,9 @@ class CacheBoxDataSources implements ChacheBoxUsecase {
   CacheBoxDataSources(this.chacheBox);
 
   int get cacheExpiresHour =>
-      Get.find<AuthService>().getUser?.email?.startsWith('21') ?? false ? 1 : 12;
+      Get.find<AuthService>().getUser?.email?.startsWith('21') ?? false
+          ? 1
+          : 12;
 
   @override
   Future<Map<String, dynamic>?> getRequest(String key,

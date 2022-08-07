@@ -14,9 +14,8 @@ class AuthDatasources with FilterKiitian implements AuthServiceUsecase {
   final FirebaseAuth auth;
   final Rx<User?> user;
   final GoogleSignIn googleSignIn;
-  AuthDatasources({required this.auth,
-    required this.user,
-    required this.googleSignIn});
+  AuthDatasources(
+      {required this.auth, required this.user, required this.googleSignIn});
 
   @override
   bool get isAuthenticated => user.value != null;

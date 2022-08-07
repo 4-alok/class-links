@@ -1,4 +1,4 @@
-import '../../app/models/user_info/user_info.dart';
+import '../../services/hive/models/user_info.dart';
 
 List<UserInfo> filterById(List<UserInfo> userList) {
   final shortRolls = userList

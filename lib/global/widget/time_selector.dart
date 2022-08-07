@@ -2,7 +2,7 @@ import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../app/models/time_table/time_table.dart';
+import '../models/time_table/time_table.dart';
 
 class TimeFieldController {
   final _dayTime = Rx<DayTime?>(null);

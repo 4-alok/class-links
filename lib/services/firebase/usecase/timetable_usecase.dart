@@ -1,5 +1,4 @@
-
-import '../../../app/models/time_table/time_table.dart';
+import '../../../global/models/time_table/time_table.dart';
 
 abstract class TimetableUsecase {
   Stream<List<Day>> get batchTimeTableStream;

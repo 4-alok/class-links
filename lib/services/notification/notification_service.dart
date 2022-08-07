@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../../app/models/notification_payload.dart/notification_payload.dart';
-import '../../app/models/time_table/time_table.dart';
+import '../../global/models/notification_payload.dart/notification_payload.dart';
+import '../../global/models/time_table/time_table.dart';
 import 'notification_utils.dart';
 
 class NotificationService extends GetxService with NotificationServiceUtils {

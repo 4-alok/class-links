@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
 import '../../../global/theme/app_color.dart.dart';
-import '../theme_analytics_log.dart';
+import '../utils/theme_analytics_log.dart';
 import '../usecase/setting_usecase.dart';
 
 class SettingBoxDatasources

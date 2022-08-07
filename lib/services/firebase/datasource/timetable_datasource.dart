@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-import '../../../app/models/time_table/time_table.dart';
+import '../../../global/models/time_table/time_table.dart';
 import '../../auth/repository/auth_service_repo.dart';
 import '../../hive/repository/hive_database.dart';
 import '../models/day_list.dart';
 import '../usecase/timetable_usecase.dart';
 import '../utils/firestore_utils.dart';
-
-// const String batchTimeTableKey = 'batch_timetable';
 
 class TimetableDatasource
     with FirestoreServiceUtils

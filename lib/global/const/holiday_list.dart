@@ -1,3 +1,18 @@
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 const List<Holiday> holidayList = [
   Holiday(2022, 01, 26, "REPUBLIC DAY"),
   Holiday(2022, 03, 01, "MAHA SHIVRATRI"),

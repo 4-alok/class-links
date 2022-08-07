@@ -1,21 +1,22 @@
 import 'package:get/get.dart';
 
-import '../app/modules/admin/bindings/admin_binding.dart';
-import '../app/modules/admin/views/admin_view.dart';
-import '../app/modules/auth/bindings/auth_binding.dart';
-import '../app/modules/auth/views/auth_view.dart';
-import '../app/modules/holidays/holidays_view.dart';
-import '../app/modules/home/bindings/home_binding.dart';
-import '../app/modules/home/views/home_view.dart';
-import '../app/modules/control_panel/bindings/control_panel_binding.dart';
-import '../app/modules/control_panel/views/import_page.dart';
-import '../app/modules/my_batch/bindings/my_batch_binding.dart';
-import '../app/modules/my_batch/views/my_batch_view.dart';
-import '../app/modules/profile/bindings/profile_binding.dart';
-import '../app/modules/profile/views/profile_view.dart';
-import '../app/modules/subject_info/views/subject_info_view.dart';
-import '../app/modules/user_batch/bindings/user_batch_binding.dart';
-import '../app/modules/user_batch/views/user_batch_view.dart';
+import '../presentation/admin/bindings/admin_binding.dart';
+import '../presentation/admin/views/admin_view.dart';
+import '../presentation/auth/bindings/auth_binding.dart';
+import '../presentation/auth/views/auth_view.dart';
+import '../presentation/control_panel/bindings/control_panel_binding.dart';
+import '../presentation/control_panel/views/import_csv_page.dart';
+import '../presentation/holidays/bindings/holiday_bindings.dart';
+import '../presentation/holidays/views/holidays_view.dart';
+import '../presentation/home/bindings/home_binding.dart';
+import '../presentation/home/views/home_view.dart';
+import '../presentation/my_batch/bindings/my_batch_binding.dart';
+import '../presentation/my_batch/views/my_batch_view.dart';
+import '../presentation/profile/bindings/profile_binding.dart';
+import '../presentation/profile/views/profile_view.dart';
+import '../presentation/subject_info/views/subject_info_view.dart';
+import '../presentation/user_batch/bindings/user_batch_binding.dart';
+import '../presentation/user_batch/views/user_batch_view.dart';
 import '../services/auth/repository/auth_service_repo.dart';
 
 // ignore_for_file: non_constant_identifier_names
@@ -66,6 +67,7 @@ class AppPages {
     GetPage(
       name: _Paths.HOLIDAYS,
       page: () => const HolidaysView(),
+      binding: HolidayBindings(),
       transition: Transition.cupertino,
     ),
     GetPage(

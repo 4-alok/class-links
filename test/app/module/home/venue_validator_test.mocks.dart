@@ -2,7 +2,7 @@
 // in class_link/test/app/module/home/venue_validator_test.dart.
 // Do not manually edit this file.
 
-import 'package:class_link/app/modules/home/controllers/venue_validator.dart'
+import 'package:class_link/presentation/home/controllers/venue_validator.dart'
     as i2;
 import 'package:mockito/mockito.dart' as i1;
 

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../../../app/models/time_table/time_table.dart';
+import '../../../global/models/time_table/time_table.dart';
 
 class ElectiveTimetable {
   final String day;
@@ -12,7 +12,7 @@ class ElectiveTimetable {
   Map<String, dynamic> toMap() => <String, dynamic>{
         'day': day,
         'section': section,
-        'subjects': subjects.map((x) => x.toJson()).toList(),
+        'subjects': subjects.map((x) => x.toJson).toList(),
       };
 
   factory ElectiveTimetable.fromMap(Map<String, dynamic> map) =>

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import '../../../app/models/user_info/user_info.dart';
 import 'package:hive/hive.dart';
 
+import '../models/user_info.dart';
 import '../usecase/user_usecase.dart';
 
 class UserBoxDatasourcse implements UserBoxUsecase {

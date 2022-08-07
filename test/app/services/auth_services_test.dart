@@ -10,7 +10,8 @@ void main() {
   group("Authenticated UserType test", () {
     test("should return UserType.user if email belongs to CSE", () {
       for (String email in testValidCSEEmailList) {
-        final res = authService.authDatasources.userType(email) == UserType.user;
+        final res =
+            authService.authDatasources.userType(email) == UserType.user;
         expect(res, true);
       }
     });
@@ -26,7 +27,8 @@ void main() {
     });
 
     test("should return UserType.guest if email doesn't belongs to KIIT", () {
-      final type = authService.authDatasources.userType("kumaralok344@gmail.com");
+      final type =
+          authService.authDatasources.userType("kumaralok344@gmail.com");
       final res = type == UserType.guest;
       expect(res, true);
     });

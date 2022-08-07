@@ -41,6 +41,7 @@ dependencies:
   csv: ^5.0.1
   dropdown_button2: ^1.6.3
   in_app_review: ^2.0.4
+  paged_vertical_calendar: ^1.1.3
   # in_app_update: ^3.0.0
 
 dev_dependencies: 

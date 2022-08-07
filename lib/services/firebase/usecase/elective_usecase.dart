@@ -1,4 +1,3 @@
-
 import '../models/elective_timetable.dart';
 import '../models/user_section.dart';
 

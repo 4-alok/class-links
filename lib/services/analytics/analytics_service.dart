@@ -4,7 +4,7 @@ import 'package:class_link/global/utils/extension.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get/get.dart';
 
-import '../../app/models/analytics/analytics_log.dart';
+import '../../global/models/analytics/analytics_log.dart';
 import 'analytics_utils.dart';
 
 const APP_OPENED = "app_opened";

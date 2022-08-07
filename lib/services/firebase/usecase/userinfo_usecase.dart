@@ -1,5 +1,4 @@
-
-import '../../../app/models/user_info/user_info.dart';
+import '../../hive/models/user_info.dart';
 
 abstract class UserInfoUsecase {
   Future<UserInfo?> get getUserInfo;

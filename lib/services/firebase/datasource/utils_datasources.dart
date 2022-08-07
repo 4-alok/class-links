@@ -1,8 +1,9 @@
+import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get.dart';
 
-import '../../../app/models/user_info/user_info.dart';
-import '../../../app/modules/home/controllers/crud_operation.dart';
+import '../../../presentation/home/controllers/crud_operation.dart';
+import '../../hive/models/user_info.dart';
 import '../repository/firestore_service.dart';
 
 class UtilsDataSources with TimeTableCrudOperationMixin {
@@ -39,6 +40,18 @@ class UtilsDataSources with TimeTableCrudOperationMixin {
       dCount.value = i;
     }
     dCount.value = null;
+  }
+
+  Future<void> changeMyBatch(
+      {required String myBatch, required int year}) async {
+    final userInfo = Get.find<HiveDatabase>().userBox.userInfo;
+    final res = await firestore
+        .collection('user')
+        .where('id', isEqualTo: userInfo?.id ?? '')
+        .get();
+
+    await res.docs.first.reference
+        .update(userInfo!.copyWith(batch: myBatch, year: year).toJson());
   }
 
   /*

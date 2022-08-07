@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
-import '../../app/models/analytics/analytics_log.dart';
-import '../../app/models/log/log.dart';
-import '../../app/models/time_table/time_table.dart' as timetable;
-import '../../app/models/user_info/user_info.dart';
+import '../../services/hive/models/user_info.dart';
 import '../const/holiday_list.dart';
+import '../models/analytics/analytics_log.dart';
+import '../models/log/log.dart';
+import '../models/time_table/time_table.dart' as timetable;
 import 'gsheets_utils.dart';
 
 extension IsCurrentTime on timetable.DayTime {
