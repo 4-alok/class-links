@@ -52,7 +52,7 @@ class AdminController extends GetxController {
 
     switch (userFilter.value) {
       case UserFilter.id:
-        return filterById(users);
+        return filterUserById(users);
       case UserFilter.date:
         users.sort((a, b) => b.date.compareTo(a.date));
         return users;

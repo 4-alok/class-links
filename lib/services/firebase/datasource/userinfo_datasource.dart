@@ -55,15 +55,23 @@ class UserInfoDatasources implements UserInfoUsecase {
   }
 
   @override
-  Future<List<UserInfo>> get myBatch async => filterById((await firestore
-          .collection("user")
-          .where("batch",
-              isEqualTo:
-                  Get.find<HiveDatabase>().userBox.userInfo?.batch ?? "na")
-          .get())
-      .docs
-      .map((e) => UserInfo.fromJson(e.data()))
-      .toList());
+  Future<List<UserInfo>> myBatch([bool filterById = true]) async {
+    final userList = (await firestore
+            .collection("user")
+            .where("batch",
+                isEqualTo:
+                    Get.find<HiveDatabase>().userBox.userInfo?.batch ?? "na")
+            .get())
+        .docs
+        .map((e) => UserInfo.fromJson(e.data()))
+        .toList();
+    if (filterById) {
+      return filterUserById(userList);
+    } else {
+      userList.sort((a, b) => a.userName.compareTo(b.userName));
+      return userList;
+    }
+  }
 
   @override
   Stream<List<UserInfo>> get streamAllUserList =>

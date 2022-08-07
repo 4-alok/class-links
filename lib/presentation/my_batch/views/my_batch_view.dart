@@ -12,21 +12,24 @@ class MyBatchView extends GetView<MyBatchController> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-        title: Text(
-          Get.find<HiveDatabase>().userBox.userInfo?.batch ?? "",
-          style: Get.textTheme.headline4,
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const FaIcon(
-            FontAwesomeIcons.arrowLeft,
+        appBar: AppBar(
+          title: Text(
+            Get.find<HiveDatabase>().userBox.userInfo?.batch ?? "",
+            style: Get.textTheme.headline4,
           ),
-          onPressed: () => Get.back(),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const FaIcon(
+              FontAwesomeIcons.arrowLeft,
+            ),
+            onPressed: () => Get.back(),
+          ),
         ),
-      ),
-      body: FutureBuilder<List<UserInfo>>(
-        future: Get.find<FirestoreService>().userInfoDatasources.myBatch,
+        body: listWithEmail,
+      );
+
+  Widget get listWithEmail => FutureBuilder<List<UserInfo>>(
+        future: Get.find<FirestoreService>().userInfoDatasources.myBatch(false),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -38,13 +41,9 @@ class MyBatchView extends GetView<MyBatchController> {
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: users.length,
-                itemBuilder: (context, index) => ListTile(
-                  title: Text(users[index].userName),
-                  subtitle: Text(
-                    users[index].id,
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                  ),
-                ),
+                itemBuilder: (context, index) => controller.is3rdYear
+                    ? tileWithName(users, index, context)
+                    : tileWithNameAndEmail(users, index, context),
               );
             }
           } else if (snapshot.hasError) {
@@ -52,5 +51,33 @@ class MyBatchView extends GetView<MyBatchController> {
           }
           return Container();
         },
-      ));
+      );
+
+  Widget tileWithName(List<UserInfo> users, int index, BuildContext context) =>
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: ListTile(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          tileColor: Color.alphaBlend(
+              Theme.of(context)
+                  .colorScheme
+                  .primary
+                  .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
+              Theme.of(context).cardColor),
+          leading: Text((index + 1).toString()),
+          title: Text(users[index].userName),
+        ),
+      );
+
+  ListTile tileWithNameAndEmail(
+          List<UserInfo> users, int index, BuildContext context) =>
+      ListTile(
+        title: Text(users[index].userName),
+        subtitle: Text(
+          users[index].id,
+          style: TextStyle(color: Theme.of(context).primaryColor),
+        ),
+      );
 }
