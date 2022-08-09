@@ -12,28 +12,7 @@ part of 'log.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$LogDataTearOff {
-  const _$LogDataTearOff();
-
-  _LogData call(
-      {required String name,
-      required String email,
-      required String log,
-      required DateTime date}) {
-    return _LogData(
-      name: name,
-      email: email,
-      log: log,
-      date: date,
-    );
-  }
-}
-
-/// @nodoc
-const $LogData = _$LogDataTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$LogData {
@@ -90,21 +69,22 @@ class _$LogDataCopyWithImpl<$Res> implements $LogDataCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$LogDataCopyWith<$Res> implements $LogDataCopyWith<$Res> {
-  factory _$LogDataCopyWith(_LogData value, $Res Function(_LogData) then) =
-      __$LogDataCopyWithImpl<$Res>;
+abstract class _$$_LogDataCopyWith<$Res> implements $LogDataCopyWith<$Res> {
+  factory _$$_LogDataCopyWith(
+          _$_LogData value, $Res Function(_$_LogData) then) =
+      __$$_LogDataCopyWithImpl<$Res>;
   @override
   $Res call({String name, String email, String log, DateTime date});
 }
 
 /// @nodoc
-class __$LogDataCopyWithImpl<$Res> extends _$LogDataCopyWithImpl<$Res>
-    implements _$LogDataCopyWith<$Res> {
-  __$LogDataCopyWithImpl(_LogData _value, $Res Function(_LogData) _then)
-      : super(_value, (v) => _then(v as _LogData));
+class __$$_LogDataCopyWithImpl<$Res> extends _$LogDataCopyWithImpl<$Res>
+    implements _$$_LogDataCopyWith<$Res> {
+  __$$_LogDataCopyWithImpl(_$_LogData _value, $Res Function(_$_LogData) _then)
+      : super(_value, (v) => _then(v as _$_LogData));
 
   @override
-  _LogData get _value => super._value as _LogData;
+  _$_LogData get _value => super._value as _$_LogData;
 
   @override
   $Res call({
@@ -113,7 +93,7 @@ class __$LogDataCopyWithImpl<$Res> extends _$LogDataCopyWithImpl<$Res>
     Object? log = freezed,
     Object? date = freezed,
   }) {
-    return _then(_LogData(
+    return _then(_$_LogData(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -161,7 +141,7 @@ class _$_LogData implements _LogData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _LogData &&
+            other is _$_LogData &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.log, log) &&
@@ -178,16 +158,16 @@ class _$_LogData implements _LogData {
 
   @JsonKey(ignore: true)
   @override
-  _$LogDataCopyWith<_LogData> get copyWith =>
-      __$LogDataCopyWithImpl<_LogData>(this, _$identity);
+  _$$_LogDataCopyWith<_$_LogData> get copyWith =>
+      __$$_LogDataCopyWithImpl<_$_LogData>(this, _$identity);
 }
 
 abstract class _LogData implements LogData {
   const factory _LogData(
-      {required String name,
-      required String email,
-      required String log,
-      required DateTime date}) = _$_LogData;
+      {required final String name,
+      required final String email,
+      required final String log,
+      required final DateTime date}) = _$_LogData;
 
   @override
   String get name;
@@ -199,6 +179,6 @@ abstract class _LogData implements LogData {
   DateTime get date;
   @override
   @JsonKey(ignore: true)
-  _$LogDataCopyWith<_LogData> get copyWith =>
+  _$$_LogDataCopyWith<_$_LogData> get copyWith =>
       throw _privateConstructorUsedError;
 }

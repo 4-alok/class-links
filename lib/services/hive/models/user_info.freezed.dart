@@ -12,45 +12,11 @@ part of 'user_info.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 UserInfo _$UserInfoFromJson(Map<String, dynamic> json) {
   return _UserInfo.fromJson(json);
 }
-
-/// @nodoc
-class _$UserInfoTearOff {
-  const _$UserInfoTearOff();
-
-  _UserInfo call(
-      {String? refId = null,
-      required String id,
-      int slot = 1,
-      required String batch,
-      required String stream,
-      required int year,
-      required DateTime date,
-      required String userName,
-      String role = 'viewer'}) {
-    return _UserInfo(
-        refId: refId,
-        id: id,
-        slot: slot,
-        batch: batch,
-        stream: stream,
-        year: year,
-        date: date,
-        userName: userName,
-        role: role);
-  }
-
-  UserInfo fromJson(Map<String, Object?> json) {
-    return UserInfo.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $UserInfo = _$UserInfoTearOff();
 
 /// @nodoc
 mixin _$UserInfo {
@@ -148,9 +114,10 @@ class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
-  factory _$UserInfoCopyWith(_UserInfo value, $Res Function(_UserInfo) then) =
-      __$UserInfoCopyWithImpl<$Res>;
+abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
+  factory _$$_UserInfoCopyWith(
+          _$_UserInfo value, $Res Function(_$_UserInfo) then) =
+      __$$_UserInfoCopyWithImpl<$Res>;
   @override
   $Res call(
       {String? refId,
@@ -165,13 +132,14 @@ abstract class _$UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
-    implements _$UserInfoCopyWith<$Res> {
-  __$UserInfoCopyWithImpl(_UserInfo _value, $Res Function(_UserInfo) _then)
-      : super(_value, (v) => _then(v as _UserInfo));
+class __$$_UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
+    implements _$$_UserInfoCopyWith<$Res> {
+  __$$_UserInfoCopyWithImpl(
+      _$_UserInfo _value, $Res Function(_$_UserInfo) _then)
+      : super(_value, (v) => _then(v as _$_UserInfo));
 
   @override
-  _UserInfo get _value => super._value as _UserInfo;
+  _$_UserInfo get _value => super._value as _$_UserInfo;
 
   @override
   $Res call({
@@ -185,7 +153,7 @@ class __$UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
     Object? userName = freezed,
     Object? role = freezed,
   }) {
-    return _then(_UserInfo(
+    return _then(_$_UserInfo(
       refId: refId == freezed
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
@@ -238,18 +206,18 @@ class _$_UserInfo implements _UserInfo {
       required this.year,
       required this.date,
       required this.userName,
-      this.role = 'user'});
+      this.role = 'viewer'});
 
   factory _$_UserInfo.fromJson(Map<String, dynamic> json) =>
       _$$_UserInfoFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String? refId;
   @override
   final String id;
-  @JsonKey()
   @override
+  @JsonKey()
   final int slot;
   @override
   final String batch;
@@ -261,8 +229,8 @@ class _$_UserInfo implements _UserInfo {
   final DateTime date;
   @override
   final String userName;
-  @JsonKey()
   @override
+  @JsonKey()
   final String role;
 
   @override
@@ -274,7 +242,7 @@ class _$_UserInfo implements _UserInfo {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _UserInfo &&
+            other is _$_UserInfo &&
             const DeepCollectionEquality().equals(other.refId, refId) &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.slot, slot) &&
@@ -286,6 +254,7 @@ class _$_UserInfo implements _UserInfo {
             const DeepCollectionEquality().equals(other.role, role));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -301,26 +270,28 @@ class _$_UserInfo implements _UserInfo {
 
   @JsonKey(ignore: true)
   @override
-  _$UserInfoCopyWith<_UserInfo> get copyWith =>
-      __$UserInfoCopyWithImpl<_UserInfo>(this, _$identity);
+  _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>
+      __$$_UserInfoCopyWithImpl<_$_UserInfo>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserInfoToJson(this);
+    return _$$_UserInfoToJson(
+      this,
+    );
   }
 }
 
 abstract class _UserInfo implements UserInfo {
   const factory _UserInfo(
-      {String? refId,
-      required String id,
-      int slot,
-      required String batch,
-      required String stream,
-      required int year,
-      required DateTime date,
-      required String userName,
-      String role}) = _$_UserInfo;
+      {final String? refId,
+      required final String id,
+      final int slot,
+      required final String batch,
+      required final String stream,
+      required final int year,
+      required final DateTime date,
+      required final String userName,
+      final String role}) = _$_UserInfo;
 
   factory _UserInfo.fromJson(Map<String, dynamic> json) = _$_UserInfo.fromJson;
 
@@ -344,6 +315,6 @@ abstract class _UserInfo implements UserInfo {
   String get role;
   @override
   @JsonKey(ignore: true)
-  _$UserInfoCopyWith<_UserInfo> get copyWith =>
+  _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }

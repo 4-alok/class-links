@@ -12,42 +12,11 @@ part of 'analytics_log.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 AnalyticsLog _$AnalyticsLogFromJson(Map<String, dynamic> json) {
   return _AnalyticsLog.fromJson(json);
 }
-
-/// @nodoc
-class _$AnalyticsLogTearOff {
-  const _$AnalyticsLogTearOff();
-
-  _AnalyticsLog call(
-      {String? refId = null,
-      required String id,
-      int slot = 1,
-      required String batch,
-      required String stream,
-      required int year,
-      required DateTime date}) {
-    return _AnalyticsLog(
-      refId: refId,
-      id: id,
-      slot: slot,
-      batch: batch,
-      stream: stream,
-      year: year,
-      date: date,
-    );
-  }
-
-  AnalyticsLog fromJson(Map<String, Object?> json) {
-    return AnalyticsLog.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $AnalyticsLog = _$AnalyticsLogTearOff();
 
 /// @nodoc
 mixin _$AnalyticsLog {
@@ -132,11 +101,11 @@ class _$AnalyticsLogCopyWithImpl<$Res> implements $AnalyticsLogCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$AnalyticsLogCopyWith<$Res>
+abstract class _$$_AnalyticsLogCopyWith<$Res>
     implements $AnalyticsLogCopyWith<$Res> {
-  factory _$AnalyticsLogCopyWith(
-          _AnalyticsLog value, $Res Function(_AnalyticsLog) then) =
-      __$AnalyticsLogCopyWithImpl<$Res>;
+  factory _$$_AnalyticsLogCopyWith(
+          _$_AnalyticsLog value, $Res Function(_$_AnalyticsLog) then) =
+      __$$_AnalyticsLogCopyWithImpl<$Res>;
   @override
   $Res call(
       {String? refId,
@@ -149,14 +118,15 @@ abstract class _$AnalyticsLogCopyWith<$Res>
 }
 
 /// @nodoc
-class __$AnalyticsLogCopyWithImpl<$Res> extends _$AnalyticsLogCopyWithImpl<$Res>
-    implements _$AnalyticsLogCopyWith<$Res> {
-  __$AnalyticsLogCopyWithImpl(
-      _AnalyticsLog _value, $Res Function(_AnalyticsLog) _then)
-      : super(_value, (v) => _then(v as _AnalyticsLog));
+class __$$_AnalyticsLogCopyWithImpl<$Res>
+    extends _$AnalyticsLogCopyWithImpl<$Res>
+    implements _$$_AnalyticsLogCopyWith<$Res> {
+  __$$_AnalyticsLogCopyWithImpl(
+      _$_AnalyticsLog _value, $Res Function(_$_AnalyticsLog) _then)
+      : super(_value, (v) => _then(v as _$_AnalyticsLog));
 
   @override
-  _AnalyticsLog get _value => super._value as _AnalyticsLog;
+  _$_AnalyticsLog get _value => super._value as _$_AnalyticsLog;
 
   @override
   $Res call({
@@ -168,7 +138,7 @@ class __$AnalyticsLogCopyWithImpl<$Res> extends _$AnalyticsLogCopyWithImpl<$Res>
     Object? year = freezed,
     Object? date = freezed,
   }) {
-    return _then(_AnalyticsLog(
+    return _then(_$_AnalyticsLog(
       refId: refId == freezed
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
@@ -216,13 +186,13 @@ class _$_AnalyticsLog implements _AnalyticsLog {
   factory _$_AnalyticsLog.fromJson(Map<String, dynamic> json) =>
       _$$_AnalyticsLogFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String? refId;
   @override
   final String id;
-  @JsonKey()
   @override
+  @JsonKey()
   final int slot;
   @override
   final String batch;
@@ -242,7 +212,7 @@ class _$_AnalyticsLog implements _AnalyticsLog {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _AnalyticsLog &&
+            other is _$_AnalyticsLog &&
             const DeepCollectionEquality().equals(other.refId, refId) &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.slot, slot) &&
@@ -252,6 +222,7 @@ class _$_AnalyticsLog implements _AnalyticsLog {
             const DeepCollectionEquality().equals(other.date, date));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -265,24 +236,26 @@ class _$_AnalyticsLog implements _AnalyticsLog {
 
   @JsonKey(ignore: true)
   @override
-  _$AnalyticsLogCopyWith<_AnalyticsLog> get copyWith =>
-      __$AnalyticsLogCopyWithImpl<_AnalyticsLog>(this, _$identity);
+  _$$_AnalyticsLogCopyWith<_$_AnalyticsLog> get copyWith =>
+      __$$_AnalyticsLogCopyWithImpl<_$_AnalyticsLog>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AnalyticsLogToJson(this);
+    return _$$_AnalyticsLogToJson(
+      this,
+    );
   }
 }
 
 abstract class _AnalyticsLog implements AnalyticsLog {
   const factory _AnalyticsLog(
-      {String? refId,
-      required String id,
-      int slot,
-      required String batch,
-      required String stream,
-      required int year,
-      required DateTime date}) = _$_AnalyticsLog;
+      {final String? refId,
+      required final String id,
+      final int slot,
+      required final String batch,
+      required final String stream,
+      required final int year,
+      required final DateTime date}) = _$_AnalyticsLog;
 
   factory _AnalyticsLog.fromJson(Map<String, dynamic> json) =
       _$_AnalyticsLog.fromJson;
@@ -303,36 +276,13 @@ abstract class _AnalyticsLog implements AnalyticsLog {
   DateTime get date;
   @override
   @JsonKey(ignore: true)
-  _$AnalyticsLogCopyWith<_AnalyticsLog> get copyWith =>
+  _$$_AnalyticsLogCopyWith<_$_AnalyticsLog> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 ThemeUsageLog _$ThemeUsageLogFromJson(Map<String, dynamic> json) {
   return _ThemeUsageLog.fromJson(json);
 }
-
-/// @nodoc
-class _$ThemeUsageLogTearOff {
-  const _$ThemeUsageLogTearOff();
-
-  _ThemeUsageLog call(
-      {bool? isBlack = null,
-      bool? themeModeLight = null,
-      required String themeName}) {
-    return _ThemeUsageLog(
-      isBlack: isBlack,
-      themeModeLight: themeModeLight,
-      themeName: themeName,
-    );
-  }
-
-  ThemeUsageLog fromJson(Map<String, Object?> json) {
-    return ThemeUsageLog.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $ThemeUsageLog = _$ThemeUsageLogTearOff();
 
 /// @nodoc
 mixin _$ThemeUsageLog {
@@ -387,25 +337,25 @@ class _$ThemeUsageLogCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$ThemeUsageLogCopyWith<$Res>
+abstract class _$$_ThemeUsageLogCopyWith<$Res>
     implements $ThemeUsageLogCopyWith<$Res> {
-  factory _$ThemeUsageLogCopyWith(
-          _ThemeUsageLog value, $Res Function(_ThemeUsageLog) then) =
-      __$ThemeUsageLogCopyWithImpl<$Res>;
+  factory _$$_ThemeUsageLogCopyWith(
+          _$_ThemeUsageLog value, $Res Function(_$_ThemeUsageLog) then) =
+      __$$_ThemeUsageLogCopyWithImpl<$Res>;
   @override
   $Res call({bool? isBlack, bool? themeModeLight, String themeName});
 }
 
 /// @nodoc
-class __$ThemeUsageLogCopyWithImpl<$Res>
+class __$$_ThemeUsageLogCopyWithImpl<$Res>
     extends _$ThemeUsageLogCopyWithImpl<$Res>
-    implements _$ThemeUsageLogCopyWith<$Res> {
-  __$ThemeUsageLogCopyWithImpl(
-      _ThemeUsageLog _value, $Res Function(_ThemeUsageLog) _then)
-      : super(_value, (v) => _then(v as _ThemeUsageLog));
+    implements _$$_ThemeUsageLogCopyWith<$Res> {
+  __$$_ThemeUsageLogCopyWithImpl(
+      _$_ThemeUsageLog _value, $Res Function(_$_ThemeUsageLog) _then)
+      : super(_value, (v) => _then(v as _$_ThemeUsageLog));
 
   @override
-  _ThemeUsageLog get _value => super._value as _ThemeUsageLog;
+  _$_ThemeUsageLog get _value => super._value as _$_ThemeUsageLog;
 
   @override
   $Res call({
@@ -413,7 +363,7 @@ class __$ThemeUsageLogCopyWithImpl<$Res>
     Object? themeModeLight = freezed,
     Object? themeName = freezed,
   }) {
-    return _then(_ThemeUsageLog(
+    return _then(_$_ThemeUsageLog(
       isBlack: isBlack == freezed
           ? _value.isBlack
           : isBlack // ignore: cast_nullable_to_non_nullable
@@ -441,11 +391,11 @@ class _$_ThemeUsageLog implements _ThemeUsageLog {
   factory _$_ThemeUsageLog.fromJson(Map<String, dynamic> json) =>
       _$$_ThemeUsageLogFromJson(json);
 
-  @JsonKey()
   @override
+  @JsonKey()
   final bool? isBlack;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool? themeModeLight;
   @override
   final String themeName;
@@ -459,13 +409,14 @@ class _$_ThemeUsageLog implements _ThemeUsageLog {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ThemeUsageLog &&
+            other is _$_ThemeUsageLog &&
             const DeepCollectionEquality().equals(other.isBlack, isBlack) &&
             const DeepCollectionEquality()
                 .equals(other.themeModeLight, themeModeLight) &&
             const DeepCollectionEquality().equals(other.themeName, themeName));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -475,20 +426,22 @@ class _$_ThemeUsageLog implements _ThemeUsageLog {
 
   @JsonKey(ignore: true)
   @override
-  _$ThemeUsageLogCopyWith<_ThemeUsageLog> get copyWith =>
-      __$ThemeUsageLogCopyWithImpl<_ThemeUsageLog>(this, _$identity);
+  _$$_ThemeUsageLogCopyWith<_$_ThemeUsageLog> get copyWith =>
+      __$$_ThemeUsageLogCopyWithImpl<_$_ThemeUsageLog>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ThemeUsageLogToJson(this);
+    return _$$_ThemeUsageLogToJson(
+      this,
+    );
   }
 }
 
 abstract class _ThemeUsageLog implements ThemeUsageLog {
   const factory _ThemeUsageLog(
-      {bool? isBlack,
-      bool? themeModeLight,
-      required String themeName}) = _$_ThemeUsageLog;
+      {final bool? isBlack,
+      final bool? themeModeLight,
+      required final String themeName}) = _$_ThemeUsageLog;
 
   factory _ThemeUsageLog.fromJson(Map<String, dynamic> json) =
       _$_ThemeUsageLog.fromJson;
@@ -501,6 +454,6 @@ abstract class _ThemeUsageLog implements ThemeUsageLog {
   String get themeName;
   @override
   @JsonKey(ignore: true)
-  _$ThemeUsageLogCopyWith<_ThemeUsageLog> get copyWith =>
+  _$$_ThemeUsageLogCopyWith<_$_ThemeUsageLog> get copyWith =>
       throw _privateConstructorUsedError;
 }

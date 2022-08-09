@@ -1,7 +1,9 @@
+import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:get/get.dart';
 
 import '../../../../services/firebase/repository/firestore_service.dart';
 import '../../../global/models/time_table/time_table.dart';
+import '../../../services/firebase/models/report_models/report.dart';
 import 'import_csv_controller.dart';
 import 'import_elective_timetable.dart';
 import 'import_user_sectoin_csv.dart';
@@ -24,6 +26,18 @@ class ControlPanelController extends GetxController {
       }
     }
     return year;
+  }
+
+  Future<void> get submitTestReport async {
+    final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo!;
+    final report = Report(
+      id: userInfo.id,
+      userId: userInfo.userName,
+      reportType: ReportType.other,
+      dateTime: DateTime.now(),
+      description: "Test Report",
+    );
+    await Get.find<FirestoreService>().reportDatasources.submitReport(report);
   }
 
   @override

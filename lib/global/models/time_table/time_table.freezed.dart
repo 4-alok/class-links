@@ -12,40 +12,11 @@ part of 'time_table.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 TimeTable _$TimeTableFromJson(Map<String, dynamic> json) {
   return _TimeTable.fromJson(json);
 }
-
-/// @nodoc
-class _$TimeTableTearOff {
-  const _$TimeTableTearOff();
-
-  _TimeTable call(
-      {required List<Day> week,
-      required String creatorId,
-      required String batch,
-      required int year,
-      required int slot,
-      required DateTime date}) {
-    return _TimeTable(
-      week: week,
-      creatorId: creatorId,
-      batch: batch,
-      year: year,
-      slot: slot,
-      date: date,
-    );
-  }
-
-  TimeTable fromJson(Map<String, Object?> json) {
-    return TimeTable.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $TimeTable = _$TimeTableTearOff();
 
 /// @nodoc
 mixin _$TimeTable {
@@ -122,10 +93,10 @@ class _$TimeTableCopyWithImpl<$Res> implements $TimeTableCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$TimeTableCopyWith<$Res> implements $TimeTableCopyWith<$Res> {
-  factory _$TimeTableCopyWith(
-          _TimeTable value, $Res Function(_TimeTable) then) =
-      __$TimeTableCopyWithImpl<$Res>;
+abstract class _$$_TimeTableCopyWith<$Res> implements $TimeTableCopyWith<$Res> {
+  factory _$$_TimeTableCopyWith(
+          _$_TimeTable value, $Res Function(_$_TimeTable) then) =
+      __$$_TimeTableCopyWithImpl<$Res>;
   @override
   $Res call(
       {List<Day> week,
@@ -137,13 +108,14 @@ abstract class _$TimeTableCopyWith<$Res> implements $TimeTableCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$TimeTableCopyWithImpl<$Res> extends _$TimeTableCopyWithImpl<$Res>
-    implements _$TimeTableCopyWith<$Res> {
-  __$TimeTableCopyWithImpl(_TimeTable _value, $Res Function(_TimeTable) _then)
-      : super(_value, (v) => _then(v as _TimeTable));
+class __$$_TimeTableCopyWithImpl<$Res> extends _$TimeTableCopyWithImpl<$Res>
+    implements _$$_TimeTableCopyWith<$Res> {
+  __$$_TimeTableCopyWithImpl(
+      _$_TimeTable _value, $Res Function(_$_TimeTable) _then)
+      : super(_value, (v) => _then(v as _$_TimeTable));
 
   @override
-  _TimeTable get _value => super._value as _TimeTable;
+  _$_TimeTable get _value => super._value as _$_TimeTable;
 
   @override
   $Res call({
@@ -154,9 +126,9 @@ class __$TimeTableCopyWithImpl<$Res> extends _$TimeTableCopyWithImpl<$Res>
     Object? slot = freezed,
     Object? date = freezed,
   }) {
-    return _then(_TimeTable(
+    return _then(_$_TimeTable(
       week: week == freezed
-          ? _value.week
+          ? _value._week
           : week // ignore: cast_nullable_to_non_nullable
               as List<Day>,
       creatorId: creatorId == freezed
@@ -187,18 +159,24 @@ class __$TimeTableCopyWithImpl<$Res> extends _$TimeTableCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TimeTable implements _TimeTable {
   const _$_TimeTable(
-      {required this.week,
+      {required final List<Day> week,
       required this.creatorId,
       required this.batch,
       required this.year,
       required this.slot,
-      required this.date});
+      required this.date})
+      : _week = week;
 
   factory _$_TimeTable.fromJson(Map<String, dynamic> json) =>
       _$$_TimeTableFromJson(json);
 
+  final List<Day> _week;
   @override
-  final List<Day> week;
+  List<Day> get week {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_week);
+  }
+
   @override
   final String creatorId;
   @override
@@ -219,8 +197,8 @@ class _$_TimeTable implements _TimeTable {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TimeTable &&
-            const DeepCollectionEquality().equals(other.week, week) &&
+            other is _$_TimeTable &&
+            const DeepCollectionEquality().equals(other._week, _week) &&
             const DeepCollectionEquality().equals(other.creatorId, creatorId) &&
             const DeepCollectionEquality().equals(other.batch, batch) &&
             const DeepCollectionEquality().equals(other.year, year) &&
@@ -228,10 +206,11 @@ class _$_TimeTable implements _TimeTable {
             const DeepCollectionEquality().equals(other.date, date));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(week),
+      const DeepCollectionEquality().hash(_week),
       const DeepCollectionEquality().hash(creatorId),
       const DeepCollectionEquality().hash(batch),
       const DeepCollectionEquality().hash(year),
@@ -240,23 +219,25 @@ class _$_TimeTable implements _TimeTable {
 
   @JsonKey(ignore: true)
   @override
-  _$TimeTableCopyWith<_TimeTable> get copyWith =>
-      __$TimeTableCopyWithImpl<_TimeTable>(this, _$identity);
+  _$$_TimeTableCopyWith<_$_TimeTable> get copyWith =>
+      __$$_TimeTableCopyWithImpl<_$_TimeTable>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TimeTableToJson(this);
+    return _$$_TimeTableToJson(
+      this,
+    );
   }
 }
 
 abstract class _TimeTable implements TimeTable {
   const factory _TimeTable(
-      {required List<Day> week,
-      required String creatorId,
-      required String batch,
-      required int year,
-      required int slot,
-      required DateTime date}) = _$_TimeTable;
+      {required final List<Day> week,
+      required final String creatorId,
+      required final String batch,
+      required final int year,
+      required final int slot,
+      required final DateTime date}) = _$_TimeTable;
 
   factory _TimeTable.fromJson(Map<String, dynamic> json) =
       _$_TimeTable.fromJson;
@@ -275,32 +256,13 @@ abstract class _TimeTable implements TimeTable {
   DateTime get date;
   @override
   @JsonKey(ignore: true)
-  _$TimeTableCopyWith<_TimeTable> get copyWith =>
+  _$$_TimeTableCopyWith<_$_TimeTable> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 Day _$DayFromJson(Map<String, dynamic> json) {
   return _Day.fromJson(json);
 }
-
-/// @nodoc
-class _$DayTearOff {
-  const _$DayTearOff();
-
-  _Day call({required String day, required List<Subject> subjects}) {
-    return _Day(
-      day: day,
-      subjects: subjects,
-    );
-  }
-
-  Day fromJson(Map<String, Object?> json) {
-    return Day.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Day = _$DayTearOff();
 
 /// @nodoc
 mixin _$Day {
@@ -346,34 +308,34 @@ class _$DayCopyWithImpl<$Res> implements $DayCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$DayCopyWith<$Res> implements $DayCopyWith<$Res> {
-  factory _$DayCopyWith(_Day value, $Res Function(_Day) then) =
-      __$DayCopyWithImpl<$Res>;
+abstract class _$$_DayCopyWith<$Res> implements $DayCopyWith<$Res> {
+  factory _$$_DayCopyWith(_$_Day value, $Res Function(_$_Day) then) =
+      __$$_DayCopyWithImpl<$Res>;
   @override
   $Res call({String day, List<Subject> subjects});
 }
 
 /// @nodoc
-class __$DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res>
-    implements _$DayCopyWith<$Res> {
-  __$DayCopyWithImpl(_Day _value, $Res Function(_Day) _then)
-      : super(_value, (v) => _then(v as _Day));
+class __$$_DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res>
+    implements _$$_DayCopyWith<$Res> {
+  __$$_DayCopyWithImpl(_$_Day _value, $Res Function(_$_Day) _then)
+      : super(_value, (v) => _then(v as _$_Day));
 
   @override
-  _Day get _value => super._value as _Day;
+  _$_Day get _value => super._value as _$_Day;
 
   @override
   $Res call({
     Object? day = freezed,
     Object? subjects = freezed,
   }) {
-    return _then(_Day(
+    return _then(_$_Day(
       day: day == freezed
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
               as String,
       subjects: subjects == freezed
-          ? _value.subjects
+          ? _value._subjects
           : subjects // ignore: cast_nullable_to_non_nullable
               as List<Subject>,
     ));
@@ -383,14 +345,19 @@ class __$DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Day implements _Day {
-  const _$_Day({required this.day, required this.subjects});
+  const _$_Day({required this.day, required final List<Subject> subjects})
+      : _subjects = subjects;
 
   factory _$_Day.fromJson(Map<String, dynamic> json) => _$$_DayFromJson(json);
 
   @override
   final String day;
+  final List<Subject> _subjects;
   @override
-  final List<Subject> subjects;
+  List<Subject> get subjects {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_subjects);
+  }
 
   @override
   String toString() {
@@ -401,31 +368,35 @@ class _$_Day implements _Day {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Day &&
+            other is _$_Day &&
             const DeepCollectionEquality().equals(other.day, day) &&
-            const DeepCollectionEquality().equals(other.subjects, subjects));
+            const DeepCollectionEquality().equals(other._subjects, _subjects));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(day),
-      const DeepCollectionEquality().hash(subjects));
+      const DeepCollectionEquality().hash(_subjects));
 
   @JsonKey(ignore: true)
   @override
-  _$DayCopyWith<_Day> get copyWith =>
-      __$DayCopyWithImpl<_Day>(this, _$identity);
+  _$$_DayCopyWith<_$_Day> get copyWith =>
+      __$$_DayCopyWithImpl<_$_Day>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DayToJson(this);
+    return _$$_DayToJson(
+      this,
+    );
   }
 }
 
 abstract class _Day implements Day {
-  const factory _Day({required String day, required List<Subject> subjects}) =
-      _$_Day;
+  const factory _Day(
+      {required final String day,
+      required final List<Subject> subjects}) = _$_Day;
 
   factory _Day.fromJson(Map<String, dynamic> json) = _$_Day.fromJson;
 
@@ -435,51 +406,12 @@ abstract class _Day implements Day {
   List<Subject> get subjects;
   @override
   @JsonKey(ignore: true)
-  _$DayCopyWith<_Day> get copyWith => throw _privateConstructorUsedError;
+  _$$_DayCopyWith<_$_Day> get copyWith => throw _privateConstructorUsedError;
 }
 
 Subject _$SubjectFromJson(Map<String, dynamic> json) {
   return _Subject.fromJson(json);
 }
-
-/// @nodoc
-class _$SubjectTearOff {
-  const _$SubjectTearOff();
-
-  _Subject call(
-      {required String subjectName,
-      String subjectAddBy = "",
-      String remark = "",
-      String remarkAddBy = "",
-      String googleClassRoomLink = "",
-      String gLinkAddBy = "",
-      String? roomNo = null,
-      String roomNoAddBy = "",
-      String zoomLink = "",
-      String zLinkAddBy = "",
-      required DayTime startTime}) {
-    return _Subject(
-      subjectName: subjectName,
-      subjectAddBy: subjectAddBy,
-      remark: remark,
-      remarkAddBy: remarkAddBy,
-      googleClassRoomLink: googleClassRoomLink,
-      gLinkAddBy: gLinkAddBy,
-      roomNo: roomNo,
-      roomNoAddBy: roomNoAddBy,
-      zoomLink: zoomLink,
-      zLinkAddBy: zLinkAddBy,
-      startTime: startTime,
-    );
-  }
-
-  Subject fromJson(Map<String, Object?> json) {
-    return Subject.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Subject = _$SubjectTearOff();
 
 /// @nodoc
 mixin _$Subject {
@@ -599,9 +531,10 @@ class _$SubjectCopyWithImpl<$Res> implements $SubjectCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
-  factory _$SubjectCopyWith(_Subject value, $Res Function(_Subject) then) =
-      __$SubjectCopyWithImpl<$Res>;
+abstract class _$$_SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
+  factory _$$_SubjectCopyWith(
+          _$_Subject value, $Res Function(_$_Subject) then) =
+      __$$_SubjectCopyWithImpl<$Res>;
   @override
   $Res call(
       {String subjectName,
@@ -621,13 +554,13 @@ abstract class _$SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
-    implements _$SubjectCopyWith<$Res> {
-  __$SubjectCopyWithImpl(_Subject _value, $Res Function(_Subject) _then)
-      : super(_value, (v) => _then(v as _Subject));
+class __$$_SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
+    implements _$$_SubjectCopyWith<$Res> {
+  __$$_SubjectCopyWithImpl(_$_Subject _value, $Res Function(_$_Subject) _then)
+      : super(_value, (v) => _then(v as _$_Subject));
 
   @override
-  _Subject get _value => super._value as _Subject;
+  _$_Subject get _value => super._value as _$_Subject;
 
   @override
   $Res call({
@@ -643,7 +576,7 @@ class __$SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
     Object? zLinkAddBy = freezed,
     Object? startTime = freezed,
   }) {
-    return _then(_Subject(
+    return _then(_$_Subject(
       subjectName: subjectName == freezed
           ? _value.subjectName
           : subjectName // ignore: cast_nullable_to_non_nullable
@@ -713,32 +646,32 @@ class _$_Subject implements _Subject {
 
   @override
   final String subjectName;
-  @JsonKey()
   @override
+  @JsonKey()
   final String subjectAddBy;
-  @JsonKey()
   @override
+  @JsonKey()
   final String remark;
-  @JsonKey()
   @override
+  @JsonKey()
   final String remarkAddBy;
-  @JsonKey()
   @override
+  @JsonKey()
   final String googleClassRoomLink;
-  @JsonKey()
   @override
+  @JsonKey()
   final String gLinkAddBy;
-  @JsonKey()
   @override
+  @JsonKey()
   final String? roomNo;
-  @JsonKey()
   @override
+  @JsonKey()
   final String roomNoAddBy;
-  @JsonKey()
   @override
+  @JsonKey()
   final String zoomLink;
-  @JsonKey()
   @override
+  @JsonKey()
   final String zLinkAddBy;
   @override
   final DayTime startTime;
@@ -752,7 +685,7 @@ class _$_Subject implements _Subject {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Subject &&
+            other is _$_Subject &&
             const DeepCollectionEquality()
                 .equals(other.subjectName, subjectName) &&
             const DeepCollectionEquality()
@@ -773,6 +706,7 @@ class _$_Subject implements _Subject {
             const DeepCollectionEquality().equals(other.startTime, startTime));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -790,28 +724,30 @@ class _$_Subject implements _Subject {
 
   @JsonKey(ignore: true)
   @override
-  _$SubjectCopyWith<_Subject> get copyWith =>
-      __$SubjectCopyWithImpl<_Subject>(this, _$identity);
+  _$$_SubjectCopyWith<_$_Subject> get copyWith =>
+      __$$_SubjectCopyWithImpl<_$_Subject>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SubjectToJson(this);
+    return _$$_SubjectToJson(
+      this,
+    );
   }
 }
 
 abstract class _Subject implements Subject {
   const factory _Subject(
-      {required String subjectName,
-      String subjectAddBy,
-      String remark,
-      String remarkAddBy,
-      String googleClassRoomLink,
-      String gLinkAddBy,
-      String? roomNo,
-      String roomNoAddBy,
-      String zoomLink,
-      String zLinkAddBy,
-      required DayTime startTime}) = _$_Subject;
+      {required final String subjectName,
+      final String subjectAddBy,
+      final String remark,
+      final String remarkAddBy,
+      final String googleClassRoomLink,
+      final String gLinkAddBy,
+      final String? roomNo,
+      final String roomNoAddBy,
+      final String zoomLink,
+      final String zLinkAddBy,
+      required final DayTime startTime}) = _$_Subject;
 
   factory _Subject.fromJson(Map<String, dynamic> json) = _$_Subject.fromJson;
 
@@ -839,32 +775,13 @@ abstract class _Subject implements Subject {
   DayTime get startTime;
   @override
   @JsonKey(ignore: true)
-  _$SubjectCopyWith<_Subject> get copyWith =>
+  _$$_SubjectCopyWith<_$_Subject> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 DayTime _$DayTimeFromJson(Map<String, dynamic> json) {
   return _DayTime.fromJson(json);
 }
-
-/// @nodoc
-class _$DayTimeTearOff {
-  const _$DayTimeTearOff();
-
-  _DayTime call({required int hour, required int minute}) {
-    return _DayTime(
-      hour: hour,
-      minute: minute,
-    );
-  }
-
-  DayTime fromJson(Map<String, Object?> json) {
-    return DayTime.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $DayTime = _$DayTimeTearOff();
 
 /// @nodoc
 mixin _$DayTime {
@@ -910,28 +827,29 @@ class _$DayTimeCopyWithImpl<$Res> implements $DayTimeCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$DayTimeCopyWith<$Res> implements $DayTimeCopyWith<$Res> {
-  factory _$DayTimeCopyWith(_DayTime value, $Res Function(_DayTime) then) =
-      __$DayTimeCopyWithImpl<$Res>;
+abstract class _$$_DayTimeCopyWith<$Res> implements $DayTimeCopyWith<$Res> {
+  factory _$$_DayTimeCopyWith(
+          _$_DayTime value, $Res Function(_$_DayTime) then) =
+      __$$_DayTimeCopyWithImpl<$Res>;
   @override
   $Res call({int hour, int minute});
 }
 
 /// @nodoc
-class __$DayTimeCopyWithImpl<$Res> extends _$DayTimeCopyWithImpl<$Res>
-    implements _$DayTimeCopyWith<$Res> {
-  __$DayTimeCopyWithImpl(_DayTime _value, $Res Function(_DayTime) _then)
-      : super(_value, (v) => _then(v as _DayTime));
+class __$$_DayTimeCopyWithImpl<$Res> extends _$DayTimeCopyWithImpl<$Res>
+    implements _$$_DayTimeCopyWith<$Res> {
+  __$$_DayTimeCopyWithImpl(_$_DayTime _value, $Res Function(_$_DayTime) _then)
+      : super(_value, (v) => _then(v as _$_DayTime));
 
   @override
-  _DayTime get _value => super._value as _DayTime;
+  _$_DayTime get _value => super._value as _$_DayTime;
 
   @override
   $Res call({
     Object? hour = freezed,
     Object? minute = freezed,
   }) {
-    return _then(_DayTime(
+    return _then(_$_DayTime(
       hour: hour == freezed
           ? _value.hour
           : hour // ignore: cast_nullable_to_non_nullable
@@ -966,11 +884,12 @@ class _$_DayTime implements _DayTime {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _DayTime &&
+            other is _$_DayTime &&
             const DeepCollectionEquality().equals(other.hour, hour) &&
             const DeepCollectionEquality().equals(other.minute, minute));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -979,17 +898,20 @@ class _$_DayTime implements _DayTime {
 
   @JsonKey(ignore: true)
   @override
-  _$DayTimeCopyWith<_DayTime> get copyWith =>
-      __$DayTimeCopyWithImpl<_DayTime>(this, _$identity);
+  _$$_DayTimeCopyWith<_$_DayTime> get copyWith =>
+      __$$_DayTimeCopyWithImpl<_$_DayTime>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DayTimeToJson(this);
+    return _$$_DayTimeToJson(
+      this,
+    );
   }
 }
 
 abstract class _DayTime implements DayTime {
-  const factory _DayTime({required int hour, required int minute}) = _$_DayTime;
+  const factory _DayTime({required final int hour, required final int minute}) =
+      _$_DayTime;
 
   factory _DayTime.fromJson(Map<String, dynamic> json) = _$_DayTime.fromJson;
 
@@ -999,6 +921,6 @@ abstract class _DayTime implements DayTime {
   int get minute;
   @override
   @JsonKey(ignore: true)
-  _$DayTimeCopyWith<_DayTime> get copyWith =>
+  _$$_DayTimeCopyWith<_$_DayTime> get copyWith =>
       throw _privateConstructorUsedError;
 }

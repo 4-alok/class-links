@@ -12,42 +12,11 @@ part of 'notification_payload.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 NotificationPayload _$NotificationPayloadFromJson(Map<String, dynamic> json) {
   return _NotificationPayload.fromJson(json);
 }
-
-/// @nodoc
-class _$NotificationPayloadTearOff {
-  const _$NotificationPayloadTearOff();
-
-  _NotificationPayload call(
-      {required String title,
-      required String body,
-      required int currentWeek,
-      LinkType? type = null,
-      required DayTime time,
-      String? roomNo = null,
-      Subject? subject = null}) {
-    return _NotificationPayload(
-      title: title,
-      body: body,
-      currentWeek: currentWeek,
-      type: type,
-      time: time,
-      roomNo: roomNo,
-      subject: subject,
-    );
-  }
-
-  NotificationPayload fromJson(Map<String, Object?> json) {
-    return NotificationPayload.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $NotificationPayload = _$NotificationPayloadTearOff();
 
 /// @nodoc
 mixin _$NotificationPayload {
@@ -154,11 +123,11 @@ class _$NotificationPayloadCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$NotificationPayloadCopyWith<$Res>
+abstract class _$$_NotificationPayloadCopyWith<$Res>
     implements $NotificationPayloadCopyWith<$Res> {
-  factory _$NotificationPayloadCopyWith(_NotificationPayload value,
-          $Res Function(_NotificationPayload) then) =
-      __$NotificationPayloadCopyWithImpl<$Res>;
+  factory _$$_NotificationPayloadCopyWith(_$_NotificationPayload value,
+          $Res Function(_$_NotificationPayload) then) =
+      __$$_NotificationPayloadCopyWithImpl<$Res>;
   @override
   $Res call(
       {String title,
@@ -176,15 +145,15 @@ abstract class _$NotificationPayloadCopyWith<$Res>
 }
 
 /// @nodoc
-class __$NotificationPayloadCopyWithImpl<$Res>
+class __$$_NotificationPayloadCopyWithImpl<$Res>
     extends _$NotificationPayloadCopyWithImpl<$Res>
-    implements _$NotificationPayloadCopyWith<$Res> {
-  __$NotificationPayloadCopyWithImpl(
-      _NotificationPayload _value, $Res Function(_NotificationPayload) _then)
-      : super(_value, (v) => _then(v as _NotificationPayload));
+    implements _$$_NotificationPayloadCopyWith<$Res> {
+  __$$_NotificationPayloadCopyWithImpl(_$_NotificationPayload _value,
+      $Res Function(_$_NotificationPayload) _then)
+      : super(_value, (v) => _then(v as _$_NotificationPayload));
 
   @override
-  _NotificationPayload get _value => super._value as _NotificationPayload;
+  _$_NotificationPayload get _value => super._value as _$_NotificationPayload;
 
   @override
   $Res call({
@@ -196,7 +165,7 @@ class __$NotificationPayloadCopyWithImpl<$Res>
     Object? roomNo = freezed,
     Object? subject = freezed,
   }) {
-    return _then(_NotificationPayload(
+    return _then(_$_NotificationPayload(
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -250,16 +219,16 @@ class _$_NotificationPayload implements _NotificationPayload {
   final String body;
   @override
   final int currentWeek;
-  @JsonKey()
   @override
+  @JsonKey()
   final LinkType? type;
   @override
   final DayTime time;
-  @JsonKey()
   @override
+  @JsonKey()
   final String? roomNo;
-  @JsonKey()
   @override
+  @JsonKey()
   final Subject? subject;
 
   @override
@@ -271,7 +240,7 @@ class _$_NotificationPayload implements _NotificationPayload {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _NotificationPayload &&
+            other is _$_NotificationPayload &&
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality().equals(other.body, body) &&
             const DeepCollectionEquality()
@@ -282,6 +251,7 @@ class _$_NotificationPayload implements _NotificationPayload {
             const DeepCollectionEquality().equals(other.subject, subject));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -295,25 +265,27 @@ class _$_NotificationPayload implements _NotificationPayload {
 
   @JsonKey(ignore: true)
   @override
-  _$NotificationPayloadCopyWith<_NotificationPayload> get copyWith =>
-      __$NotificationPayloadCopyWithImpl<_NotificationPayload>(
+  _$$_NotificationPayloadCopyWith<_$_NotificationPayload> get copyWith =>
+      __$$_NotificationPayloadCopyWithImpl<_$_NotificationPayload>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_NotificationPayloadToJson(this);
+    return _$$_NotificationPayloadToJson(
+      this,
+    );
   }
 }
 
 abstract class _NotificationPayload implements NotificationPayload {
   const factory _NotificationPayload(
-      {required String title,
-      required String body,
-      required int currentWeek,
-      LinkType? type,
-      required DayTime time,
-      String? roomNo,
-      Subject? subject}) = _$_NotificationPayload;
+      {required final String title,
+      required final String body,
+      required final int currentWeek,
+      final LinkType? type,
+      required final DayTime time,
+      final String? roomNo,
+      final Subject? subject}) = _$_NotificationPayload;
 
   factory _NotificationPayload.fromJson(Map<String, dynamic> json) =
       _$_NotificationPayload.fromJson;
@@ -334,6 +306,6 @@ abstract class _NotificationPayload implements NotificationPayload {
   Subject? get subject;
   @override
   @JsonKey(ignore: true)
-  _$NotificationPayloadCopyWith<_NotificationPayload> get copyWith =>
+  _$$_NotificationPayloadCopyWith<_$_NotificationPayload> get copyWith =>
       throw _privateConstructorUsedError;
 }

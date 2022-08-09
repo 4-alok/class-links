@@ -27,13 +27,28 @@ class HolidaysView extends GetView<HolidayController> {
 
   PagedVerticalCalendar pageVertivalCalendar(DateTime today, Color color) =>
       PagedVerticalCalendar(
+        physics: const BouncingScrollPhysics(),
         minDate: DateTime(2022, 1, 1),
         maxDate: DateTime(2022, 12, 31),
         initialDate: DateTime(today.year, today.month, today.day),
         monthBuilder: (context, month, year) =>
             monthsBuilder(month, year, context),
         dayBuilder: (context, date) {
-          if (DateUtils.isSameDay(date, today)) {
+          if (controller.isHoliday(date) && DateUtils.isSameDay(date, today)) {
+            return Tooltip(
+              triggerMode: TooltipTriggerMode.tap,
+              message: controller.getHolidayName(date),
+              child: Card(
+                color: Theme.of(context).colorScheme.secondary,
+                child: Padding(
+                  padding: const EdgeInsets.all(.01),
+                  child: Card(
+                      color: Theme.of(context).primaryColor,
+                      child: Center(child: Text(date.day.toString()))),
+                ),
+              ),
+            );
+          } else if (DateUtils.isSameDay(date, today)) {
             return Tooltip(
               triggerMode: TooltipTriggerMode.tap,
               message: "Today",
@@ -79,15 +94,9 @@ class HolidaysView extends GetView<HolidayController> {
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                weekText('Mon'),
-                weekText('Tue'),
-                weekText('Wed'),
-                weekText('Thu'),
-                weekText('Fri'),
-                weekText('Sat'),
-                weekText('Sun'),
-              ],
+              children: controller.getDays
+                  .map((e) => weekText(e.substring(0, 3)))
+                  .toList(),
             ),
           ),
         ],

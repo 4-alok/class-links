@@ -15,7 +15,7 @@ _$_UserInfo _$$_UserInfoFromJson(Map<String, dynamic> json) => _$_UserInfo(
       year: json['year'] as int,
       date: DateTime.parse(json['date'] as String),
       userName: json['userName'] as String,
-      role: json['role'] as String? ?? 'user',
+      role: json['role'] as String? ?? 'viewer',
     );
 
 Map<String, dynamic> _$$_UserInfoToJson(_$_UserInfo instance) =>

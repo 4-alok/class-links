@@ -6,6 +6,7 @@ import '../presentation/auth/bindings/auth_binding.dart';
 import '../presentation/auth/views/auth_view.dart';
 import '../presentation/control_panel/bindings/control_panel_binding.dart';
 import '../presentation/control_panel/views/import_csv_page.dart';
+import '../presentation/control_panel/views/pages/reports_page.dart';
 import '../presentation/holidays/bindings/holiday_bindings.dart';
 import '../presentation/holidays/views/holidays_view.dart';
 import '../presentation/home/bindings/home_binding.dart';
@@ -74,6 +75,11 @@ class AppPages {
       name: _Paths.CONTROL_PANEL,
       page: () => const ControlPanel(),
       binding: ControlPanelBinding(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: _Paths.REPORT,
+      page: () => const ReportsPage(),
       transition: Transition.cupertino,
     ),
   ];

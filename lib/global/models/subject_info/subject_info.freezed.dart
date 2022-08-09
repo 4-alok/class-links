@@ -12,22 +12,7 @@ part of 'subject_info.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$SubjectInfoTearOff {
-  const _$SubjectInfoTearOff();
-
-  _SubjectInfo call({required Subject subject, required int currentWeek}) {
-    return _SubjectInfo(
-      subject: subject,
-      currentWeek: currentWeek,
-    );
-  }
-}
-
-/// @nodoc
-const $SubjectInfo = _$SubjectInfoTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$SubjectInfo {
@@ -83,11 +68,11 @@ class _$SubjectInfoCopyWithImpl<$Res> implements $SubjectInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SubjectInfoCopyWith<$Res>
+abstract class _$$_SubjectInfoCopyWith<$Res>
     implements $SubjectInfoCopyWith<$Res> {
-  factory _$SubjectInfoCopyWith(
-          _SubjectInfo value, $Res Function(_SubjectInfo) then) =
-      __$SubjectInfoCopyWithImpl<$Res>;
+  factory _$$_SubjectInfoCopyWith(
+          _$_SubjectInfo value, $Res Function(_$_SubjectInfo) then) =
+      __$$_SubjectInfoCopyWithImpl<$Res>;
   @override
   $Res call({Subject subject, int currentWeek});
 
@@ -96,21 +81,21 @@ abstract class _$SubjectInfoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SubjectInfoCopyWithImpl<$Res> extends _$SubjectInfoCopyWithImpl<$Res>
-    implements _$SubjectInfoCopyWith<$Res> {
-  __$SubjectInfoCopyWithImpl(
-      _SubjectInfo _value, $Res Function(_SubjectInfo) _then)
-      : super(_value, (v) => _then(v as _SubjectInfo));
+class __$$_SubjectInfoCopyWithImpl<$Res> extends _$SubjectInfoCopyWithImpl<$Res>
+    implements _$$_SubjectInfoCopyWith<$Res> {
+  __$$_SubjectInfoCopyWithImpl(
+      _$_SubjectInfo _value, $Res Function(_$_SubjectInfo) _then)
+      : super(_value, (v) => _then(v as _$_SubjectInfo));
 
   @override
-  _SubjectInfo get _value => super._value as _SubjectInfo;
+  _$_SubjectInfo get _value => super._value as _$_SubjectInfo;
 
   @override
   $Res call({
     Object? subject = freezed,
     Object? currentWeek = freezed,
   }) {
-    return _then(_SubjectInfo(
+    return _then(_$_SubjectInfo(
       subject: subject == freezed
           ? _value.subject
           : subject // ignore: cast_nullable_to_non_nullable
@@ -142,7 +127,7 @@ class _$_SubjectInfo implements _SubjectInfo {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SubjectInfo &&
+            other is _$_SubjectInfo &&
             const DeepCollectionEquality().equals(other.subject, subject) &&
             const DeepCollectionEquality()
                 .equals(other.currentWeek, currentWeek));
@@ -156,13 +141,14 @@ class _$_SubjectInfo implements _SubjectInfo {
 
   @JsonKey(ignore: true)
   @override
-  _$SubjectInfoCopyWith<_SubjectInfo> get copyWith =>
-      __$SubjectInfoCopyWithImpl<_SubjectInfo>(this, _$identity);
+  _$$_SubjectInfoCopyWith<_$_SubjectInfo> get copyWith =>
+      __$$_SubjectInfoCopyWithImpl<_$_SubjectInfo>(this, _$identity);
 }
 
 abstract class _SubjectInfo implements SubjectInfo {
   const factory _SubjectInfo(
-      {required Subject subject, required int currentWeek}) = _$_SubjectInfo;
+      {required final Subject subject,
+      required final int currentWeek}) = _$_SubjectInfo;
 
   @override
   Subject get subject;
@@ -170,6 +156,6 @@ abstract class _SubjectInfo implements SubjectInfo {
   int get currentWeek;
   @override
   @JsonKey(ignore: true)
-  _$SubjectInfoCopyWith<_SubjectInfo> get copyWith =>
+  _$$_SubjectInfoCopyWith<_$_SubjectInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
