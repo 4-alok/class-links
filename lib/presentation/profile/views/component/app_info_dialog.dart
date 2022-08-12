@@ -50,11 +50,11 @@ class AppInfoBox {
       applicationLegalese: AppInfo.applicationLegalese,
       children: <Widget>[
         Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 10),
             aboutText(aboutTextStyle, footerStyle, context),
             socialLink(context),
-            // developer(context),
           ],
         ),
       ],
@@ -62,17 +62,11 @@ class AppInfoBox {
   }
 
   static Padding socialLink(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            socialWidget(
-              context,
-              FontAwesomeIcons.github,
-              "Github",
-              () => Launcher.launchUrl(context, AppInfo.github),
-            ),
             socialWidget(
               context,
               FontAwesomeIcons.instagram,
@@ -89,19 +83,6 @@ class AppInfoBox {
           ],
         ),
       );
-
-  static Widget developer(BuildContext context) => GestureDetector(
-      onTap: () => Launcher.launchUrl(context, 'https://github.com/4-alok'),
-      child: ListTile(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-        onTap: () {},
-        leading: const CircleAvatar(),
-        title: const Text("Developer", style: TextStyle(fontSize: 10)),
-        subtitle: const Text("Alok Kumar Patel"),
-      ));
 
   static Widget socialWidget(BuildContext context, IconData? icon, String text,
           VoidCallback onTap) =>
