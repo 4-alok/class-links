@@ -5,14 +5,14 @@ import 'package:get/get.dart';
 import '../../../../global/utils/utils.dart';
 import '../../../../services/firebase/models/report_models/report.dart';
 
-class ReportsPage extends StatefulWidget {
-  const ReportsPage({Key? key}) : super(key: key);
+class AdminReportsPage extends StatefulWidget {
+  const AdminReportsPage({Key? key}) : super(key: key);
 
   @override
-  State<ReportsPage> createState() => _ReportsPageState();
+  State<AdminReportsPage> createState() => _ReportsPageState();
 }
 
-class _ReportsPageState extends State<ReportsPage> {
+class _ReportsPageState extends State<AdminReportsPage> {
   final replyController = TextEditingController();
   final submitting = ValueNotifier<bool>(false);
 
@@ -36,10 +36,7 @@ class _ReportsPageState extends State<ReportsPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Reports'),
-        ),
+        appBar: AppBar(centerTitle: true, title: const Text('Reports')),
         body: FutureBuilder<List<Report>>(
           future: Get.find<FirestoreService>().reportDatasources.getAllReports,
           builder: (context, snapshot) {
@@ -62,23 +59,26 @@ class _ReportsPageState extends State<ReportsPage> {
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
           itemCount: reports.length,
-          itemBuilder: (context, index) => ListTile(
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8))),
-            tileColor: Theme.of(context).primaryColor.withAlpha(80),
-            title: Text(reports[index].reportType.toString()),
-            subtitle: Text(reports[index].description),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () async =>
-                  await deleteReportDialog(context, reports[index].docId!),
+          itemBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
+              tileColor: Theme.of(context).primaryColor.withAlpha(80),
+              title: Text(reports[index].reportType.toString()),
+              subtitle: Text(reports[index].description),
+              trailing: IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () async =>
+                    await deleteReportDialog(context, reports[index].docId!),
+              ),
+              onTap: () {
+                replyController.text = reports[index].reply ?? '';
+                replySheet(context, reports[index])
+                    .closed
+                    .then((value) => replyController.clear());
+              },
             ),
-            onTap: () {
-              replyController.text = reports[index].reply ?? '';
-              replySheet(context, reports[index])
-                  .closed
-                  .then((value) => replyController.clear());
-            },
           ),
         ),
       );

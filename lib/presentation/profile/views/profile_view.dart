@@ -57,7 +57,20 @@ class ProfileView extends GetView<ProfileController> {
               import,
               contributer(context),
               logoutCard,
+              const SizedBox(height: 20),
+              reportProblem,
+              const SizedBox(height: 10),
             ],
+          ),
+        ),
+      );
+
+  Widget get reportProblem => SizedBox(
+        width: double.maxFinite,
+        child: Center(
+          child: TextButton(
+            onPressed: () => Get.toNamed(Routes.REPORT),
+            child: const Text("Report porblem"),
           ),
         ),
       );

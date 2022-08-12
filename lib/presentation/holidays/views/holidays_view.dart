@@ -54,7 +54,12 @@ class HolidaysView extends GetView<HolidayController> {
               message: "Today",
               child: Card(
                 color: Theme.of(context).colorScheme.secondary,
-                child: Center(child: Text(date.day.toString())),
+                child: Center(
+                    child: Text(
+                  date.day.toString(),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSecondary),
+                )),
               ),
             );
           } else if (controller.isHoliday(date)) {
@@ -63,7 +68,12 @@ class HolidaysView extends GetView<HolidayController> {
               message: controller.getHolidayName(date),
               child: Card(
                 color: Theme.of(context).primaryColor,
-                child: Center(child: Text(date.day.toString())),
+                child: Center(
+                    child: Text(
+                  date.day.toString(),
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                )),
               ),
             );
           } else if (date.weekday == 6 || date.weekday == 7) {

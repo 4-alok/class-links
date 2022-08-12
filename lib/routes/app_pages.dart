@@ -15,6 +15,9 @@ import '../presentation/my_batch/bindings/my_batch_binding.dart';
 import '../presentation/my_batch/views/my_batch_view.dart';
 import '../presentation/profile/bindings/profile_binding.dart';
 import '../presentation/profile/views/profile_view.dart';
+import '../presentation/report/binding/report_binding.dart';
+import '../presentation/report/view/my_reports.dart';
+import '../presentation/report/view/report_view.dart';
 import '../presentation/subject_info/views/subject_info_view.dart';
 import '../presentation/user_batch/bindings/user_batch_binding.dart';
 import '../presentation/user_batch/views/user_batch_view.dart';
@@ -78,9 +81,14 @@ class AppPages {
       transition: Transition.cupertino,
     ),
     GetPage(
-      name: _Paths.REPORT,
-      page: () => const ReportsPage(),
+      name: _Paths.ADMIN_REPORT_PAGE,
+      page: () => const AdminReportsPage(),
       transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: _Paths.REPORT,
+      binding: ReportBinding(),
+      page: () => const ReportView(),
     ),
   ];
 }

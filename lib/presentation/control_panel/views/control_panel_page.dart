@@ -75,7 +75,7 @@ class ControlPanelPage extends StatelessWidget with UserPatchMixin {
             onPressed: () => controller.submitTestReport,
             icon: const Icon(Icons.abc),
           ),
-          onTap: () => Get.toNamed(Routes.REPORT),
+          onTap: () => Get.toNamed(Routes.ADMIN_REPORT_PAGE),
         ),
       );
 
