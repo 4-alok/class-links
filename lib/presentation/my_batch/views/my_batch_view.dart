@@ -18,11 +18,14 @@ class MyBatchView extends GetView<MyBatchController> {
             style: Get.textTheme.headline4,
           ),
           centerTitle: true,
-          leading: IconButton(
-            icon: const FaIcon(
-              FontAwesomeIcons.arrowLeft,
+          leading: Hero(
+            tag: "back",
+            child: IconButton(
+              icon: const FaIcon(
+                FontAwesomeIcons.arrowLeft,
+              ),
+              onPressed: () => Get.back(),
             ),
-            onPressed: () => Get.back(),
           ),
         ),
         body: listWithEmail,

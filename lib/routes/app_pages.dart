@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-import '../presentation/admin/bindings/admin_binding.dart';
-import '../presentation/admin/views/admin_view.dart';
+import '../presentation/app_users/binding/app_user_binding.dart';
+import '../presentation/app_users/view/app_user_view.dart';
 import '../presentation/auth/bindings/auth_binding.dart';
 import '../presentation/auth/views/auth_view.dart';
 import '../presentation/control_panel/bindings/control_panel_binding.dart';
@@ -16,7 +16,6 @@ import '../presentation/my_batch/views/my_batch_view.dart';
 import '../presentation/profile/bindings/profile_binding.dart';
 import '../presentation/profile/views/profile_view.dart';
 import '../presentation/report/binding/report_binding.dart';
-import '../presentation/report/view/my_reports.dart';
 import '../presentation/report/view/report_view.dart';
 import '../presentation/subject_info/views/subject_info_view.dart';
 import '../presentation/user_batch/bindings/user_batch_binding.dart';
@@ -45,8 +44,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ADMIN,
-      page: () => const AdminView(),
-      binding: AdminBinding(),
+      page: () => const AppUserView(),
+      binding: AppUsersBindings(),
     ),
     GetPage(
       name: _Paths.PROFILE,

@@ -53,7 +53,7 @@ class ProfileView extends GetView<ProfileController> {
               themeMode,
               blackMode,
               const SizedBox(height: 20),
-              adminPanel,
+              appUsers,
               import,
               contributer(context),
               logoutCard,
@@ -248,11 +248,14 @@ class ProfileView extends GetView<ProfileController> {
   AppBar appBar(context) => AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: IconButton(
-            icon: const FaIcon(
-              FontAwesomeIcons.arrowLeft,
+          leading: Hero(
+            tag: "back",
+            child: IconButton(
+              icon: const FaIcon(
+                FontAwesomeIcons.arrowLeft,
+              ),
+              onPressed: () => Get.back(),
             ),
-            onPressed: () => Get.back(),
           ),
           actions: [
             IconButton(
@@ -322,15 +325,14 @@ class ProfileView extends GetView<ProfileController> {
             )
           : const SizedBox();
 
-  Widget get adminPanel =>
-      (userInfo?.role == "admin" || userInfo?.role == "mod")
-          ? Card(
-              child: ListTile(
-                title: const Text("Admin Panel"),
-                onTap: () => Get.toNamed(Routes.ADMIN),
-              ),
-            )
-          : const SizedBox();
+  Widget get appUsers => (userInfo?.role == "admin" || userInfo?.role == "mod")
+      ? Card(
+          child: ListTile(
+            title: const Text("App Users"),
+            onTap: () => Get.toNamed(Routes.ADMIN),
+          ),
+        )
+      : const SizedBox();
 
   Widget get import => userInfo?.role == "admin"
       ? Card(
