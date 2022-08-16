@@ -1,5 +1,13 @@
 # Change log
 
+## v0.1.18
+
+- View all App Users
+- New Holiday calendar
+- In app report/bugs/suggestions
+- New Sessions (3rd and 5th Semester CSE/IT/CSSE/CSCE)
+- Elective Subject for 3rd year
+
 ## v0.1.17
 
 - New Holiday calendar

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:class_link/services/firebase/repository/firestore_service.dart';
+import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:get/get.dart';
 
 import '../../../services/hive/models/user_info.dart';
@@ -19,18 +20,41 @@ class AppUsersController extends GetxController {
   late final StreamSubscription<List<UserInfo>> subscription;
   List<UserInfo> allUsersList = [];
   List<UserInfo> _filteredUsersList = [];
+  final loading = true.obs;
 
   LinkedHashMap<String, int> batches = LinkedHashMap<String, int>();
 
   @override
   void onReady() {
-    subscription = firestoreService.userInfoDatasources.streamAllUserList
-        .listen((event) => _subscriptionUpdate(event));
+    (Get.find<HiveDatabase>().userBoxDatasources.userInfo?.role == "admin")
+        ? subscription = firestoreService.userInfoDatasources.streamAllUserList
+            .listen((event) => _subscriptionUpdate(event))
+        : _getUsers;
     selectedYear.listen((_) => update());
     userSortType.listen((_) => update());
     selectedBatch.listen((_) => update());
     super.onReady();
   }
+
+  Future<void> get _getUsers async {
+    allUsersList = await firestoreService.userInfoDatasources.getAllUserList;
+    _updateYearWiseUserCount;
+    loading.value = false;
+    update();
+  }
+
+  void _subscriptionUpdate(List<UserInfo> users) {
+    allUsersList = users;
+    _updateYearWiseUserCount;
+    loading.value == true ? loading.value = false : null;
+    update();
+  }
+
+  void get _updateYearWiseUserCount => yearWiseUserCount.value = [
+        allUsersList.where((element) => element.year == 1).length,
+        allUsersList.where((element) => element.year == 2).length,
+        allUsersList.where((element) => element.year == 3).length
+      ];
 
   List<UserInfo> get getUserList {
     _filteredUsersList = allUsersList
@@ -69,18 +93,6 @@ class AppUsersController extends GetxController {
     }
     Get.back();
   }
-
-  void _subscriptionUpdate(List<UserInfo> users) {
-    allUsersList = users;
-    _updateYearWiseUserCount;
-    update();
-  }
-
-  void get _updateYearWiseUserCount => yearWiseUserCount.value = [
-        allUsersList.where((element) => element.year == 1).length,
-        allUsersList.where((element) => element.year == 2).length,
-        allUsersList.where((element) => element.year == 3).length
-      ];
 
   LinkedHashMap<String, int> batchList(List<UserInfo> users) {
     Map<String, int> batchWiseStudentCount = {" Show All": users.length};

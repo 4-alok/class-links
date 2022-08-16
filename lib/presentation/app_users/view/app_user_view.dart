@@ -17,9 +17,11 @@ class AppUserView extends GetView<AppUsersController> {
       appBar: AppBar(
           leading: Hero(
             tag: "back",
-            child: IconButton(
-                icon: const FaIcon(FontAwesomeIcons.arrowLeft),
-                onPressed: () => Get.back()),
+            child: Material(
+              child: IconButton(
+                  icon: const FaIcon(FontAwesomeIcons.arrowLeft),
+                  onPressed: () => Get.back()),
+            ),
           ),
           centerTitle: true,
           title: const Text('App Users')),
@@ -27,9 +29,17 @@ class AppUserView extends GetView<AppUsersController> {
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(12),
         children: [
+          progressIndicator(),
           userCountCard(context),
           userListCard(context),
         ],
+      ));
+
+  Widget progressIndicator() => Obx(() => AnimatedSize(
+        duration: const Duration(milliseconds: 500),
+        child: controller.loading.value
+            ? const LinearProgressIndicator()
+            : const SizedBox(),
       ));
 
   Future<String?> showBatchList(

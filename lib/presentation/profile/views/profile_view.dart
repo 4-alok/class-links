@@ -250,11 +250,13 @@ class ProfileView extends GetView<ProfileController> {
           elevation: 0,
           leading: Hero(
             tag: "back",
-            child: IconButton(
-              icon: const FaIcon(
-                FontAwesomeIcons.arrowLeft,
+            child: Material(
+              child: IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.arrowLeft,
+                ),
+                onPressed: () => Get.back(),
               ),
-              onPressed: () => Get.back(),
             ),
           ),
           actions: [
@@ -325,14 +327,12 @@ class ProfileView extends GetView<ProfileController> {
             )
           : const SizedBox();
 
-  Widget get appUsers => (userInfo?.role == "admin" || userInfo?.role == "mod")
-      ? Card(
-          child: ListTile(
-            title: const Text("App Users"),
-            onTap: () => Get.toNamed(Routes.ADMIN),
-          ),
-        )
-      : const SizedBox();
+  Widget get appUsers => Card(
+        child: ListTile(
+          title: const Text("App Users"),
+          onTap: () => Get.toNamed(Routes.ADMIN),
+        ),
+      );
 
   Widget get import => userInfo?.role == "admin"
       ? Card(

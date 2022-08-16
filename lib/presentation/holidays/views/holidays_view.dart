@@ -115,9 +115,11 @@ class HolidaysView extends GetView<HolidayController> {
   AppBar get appBar => AppBar(
         leading: Hero(
           tag: "back",
-          child: IconButton(
-              icon: const FaIcon(FontAwesomeIcons.arrowLeft),
-              onPressed: () => Get.back()),
+          child: Material(
+            child: IconButton(
+                icon: const FaIcon(FontAwesomeIcons.arrowLeft),
+                onPressed: () => Get.back()),
+          ),
         ),
         title: const Text('Holidays'),
         centerTitle: true,

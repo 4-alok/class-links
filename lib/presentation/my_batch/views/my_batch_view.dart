@@ -20,11 +20,13 @@ class MyBatchView extends GetView<MyBatchController> {
           centerTitle: true,
           leading: Hero(
             tag: "back",
-            child: IconButton(
-              icon: const FaIcon(
-                FontAwesomeIcons.arrowLeft,
+            child: Material(
+              child: IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.arrowLeft,
+                ),
+                onPressed: () => Get.back(),
               ),
-              onPressed: () => Get.back(),
             ),
           ),
         ),
