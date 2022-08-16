@@ -236,29 +236,33 @@ class AppUserView extends GetView<AppUsersController> {
                   Theme.of(context).textTheme.headline4!.copyWith(fontSize: 20),
             ),
           ),
-          ListTile(
-            title: const Text("Role"),
-            subtitle: Text(
-              user.role,
-              style:
-                  Theme.of(context).textTheme.headline4!.copyWith(fontSize: 20),
-            ),
-            trailing: Wrap(
-              children: [
-                user.role == "admin"
-                    ? const Tooltip(
-                        message: "Only owner can change admin role",
-                        child: FaIcon(FontAwesomeIcons.shieldAlt),
-                      )
-                    : ElevatedButton(
-                        onPressed: () async {},
-                        child: Text(
-                          user.role == "user" ? "Viewer" : "User",
-                        ),
-                      ),
-              ],
-            ),
-          )
+          user.role == "admin" || user.role == "mod"
+              ? ListTile(
+                  title: const Text("Role"),
+                  subtitle: Text(
+                    user.role,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontSize: 20),
+                  ),
+                  trailing: Wrap(
+                    children: [
+                      user.role == "admin"
+                          ? const Tooltip(
+                              message: "Only owner can change admin role",
+                              child: FaIcon(FontAwesomeIcons.shieldAlt),
+                            )
+                          : ElevatedButton(
+                              onPressed: () async {},
+                              child: Text(
+                                user.role == "user" ? "Viewer" : "User",
+                              ),
+                            ),
+                    ],
+                  ),
+                )
+              : const SizedBox()
         ],
       );
 }

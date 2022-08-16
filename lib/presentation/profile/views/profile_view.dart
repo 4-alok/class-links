@@ -70,7 +70,7 @@ class ProfileView extends GetView<ProfileController> {
         child: Center(
           child: TextButton(
             onPressed: () => Get.toNamed(Routes.REPORT),
-            child: const Text("Report porblem"),
+            child: const Text("Report problem"),
           ),
         ),
       );
