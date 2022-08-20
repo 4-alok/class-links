@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:class_link/global/models/event/event.dart';
+import 'package:class_link/services/firebase/repository/firestore_service.dart';
+import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:get/get.dart';
 
 const imgList = [
@@ -17,19 +19,44 @@ const imgList = [
 ];
 
 class EventsController extends GetxController {
-  
+  final loading = true.obs;
   final eventsDemoData = List.generate(
-      10,
-      (index) => Event(
-          title: "Demo Title $index",
-          description:
-              "Something interesting about the event title $index and description $index for the event title $index, Description is used by writers in order to encourage their audiences to have a more specific reading of a text. An adjective modifies a noun; that is, it provides more detail about a noun. This can be anything from color to size to temperature to personality. Adjectives usually occur just before the nouns they modify.",
-          creatorId: '2005847@kiit.ac.in',
-          imgUrl: imgList[Random().nextInt(imgList.length)],
-          dateTime: DateTime.now(),
-          verified: false,
-          logoUrl:
-              "https://freepngimg.com/thumb/mask/9-2-anonymous-mask-free-download-png.png"));
+    10,
+    (index) => Event(
+      title: "Demo Title $index",
+      description:
+          "Something interesting about the event title $index and description $index for the event title $index, Description is used by writers in order to encourage their audiences to have a more specific reading of a text. An adjective modifies a noun; that is, it provides more detail about a noun. This can be anything from color to size to temperature to personality. Adjectives usually occur just before the nouns they modify.",
+      creatorId: '2005847@kiit.ac.in',
+      imgUrl: imgList[Random().nextInt(imgList.length)],
+      createdAt: DateTime.now(),
+      dateTime: DateTime.now(),
+      verified: false,
+      creatorName: "Alok",
+      logoUrl:
+          "https://freepngimg.com/thumb/mask/9-2-anonymous-mask-free-download-png.png",
+      launchURL: "https://www.google.com",
+    ),
+  );
 
-  
+  List<Event> events = [];
+
+  @override
+  void onReady() {
+    getEventList;
+    super.onReady();
+  }
+
+  HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
+  FirestoreService get firestoreService => Get.find<FirestoreService>();
+
+  Future<List<Event>> get getEventList async {
+    final res = await firestoreService.eventDatasources.getAllEvents;
+    events = res;
+    loading.value = false;
+    return res;
+  }
+
+  bool get canSendEvent =>
+      hiveDatabase.userBoxDatasources.userInfo?.role == 'admin' ||
+      hiveDatabase.userBoxDatasources.userInfo?.role == 'mod';
 }

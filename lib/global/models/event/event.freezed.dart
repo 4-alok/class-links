@@ -24,9 +24,11 @@ mixin _$Event {
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get creatorId => throw _privateConstructorUsedError;
+  String get creatorName => throw _privateConstructorUsedError;
   String get imgUrl => throw _privateConstructorUsedError;
-  String? get logoUrl => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  String? get logoUrl => throw _privateConstructorUsedError;
   List<int> get interested => throw _privateConstructorUsedError;
   bool get verified => throw _privateConstructorUsedError;
   String? get launchURL => throw _privateConstructorUsedError;
@@ -45,9 +47,11 @@ abstract class $EventCopyWith<$Res> {
       String title,
       String description,
       String creatorId,
+      String creatorName,
       String imgUrl,
-      String? logoUrl,
       DateTime dateTime,
+      DateTime createdAt,
+      String? logoUrl,
       List<int> interested,
       bool verified,
       String? launchURL});
@@ -67,9 +71,11 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
     Object? title = freezed,
     Object? description = freezed,
     Object? creatorId = freezed,
+    Object? creatorName = freezed,
     Object? imgUrl = freezed,
-    Object? logoUrl = freezed,
     Object? dateTime = freezed,
+    Object? createdAt = freezed,
+    Object? logoUrl = freezed,
     Object? interested = freezed,
     Object? verified = freezed,
     Object? launchURL = freezed,
@@ -91,18 +97,26 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
           ? _value.creatorId
           : creatorId // ignore: cast_nullable_to_non_nullable
               as String,
+      creatorName: creatorName == freezed
+          ? _value.creatorName
+          : creatorName // ignore: cast_nullable_to_non_nullable
+              as String,
       imgUrl: imgUrl == freezed
           ? _value.imgUrl
           : imgUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      logoUrl: logoUrl == freezed
-          ? _value.logoUrl
-          : logoUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      logoUrl: logoUrl == freezed
+          ? _value.logoUrl
+          : logoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       interested: interested == freezed
           ? _value.interested
           : interested // ignore: cast_nullable_to_non_nullable
@@ -129,9 +143,11 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       String title,
       String description,
       String creatorId,
+      String creatorName,
       String imgUrl,
-      String? logoUrl,
       DateTime dateTime,
+      DateTime createdAt,
+      String? logoUrl,
       List<int> interested,
       bool verified,
       String? launchURL});
@@ -152,9 +168,11 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? creatorId = freezed,
+    Object? creatorName = freezed,
     Object? imgUrl = freezed,
-    Object? logoUrl = freezed,
     Object? dateTime = freezed,
+    Object? createdAt = freezed,
+    Object? logoUrl = freezed,
     Object? interested = freezed,
     Object? verified = freezed,
     Object? launchURL = freezed,
@@ -176,18 +194,26 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
           ? _value.creatorId
           : creatorId // ignore: cast_nullable_to_non_nullable
               as String,
+      creatorName: creatorName == freezed
+          ? _value.creatorName
+          : creatorName // ignore: cast_nullable_to_non_nullable
+              as String,
       imgUrl: imgUrl == freezed
           ? _value.imgUrl
           : imgUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      logoUrl: logoUrl == freezed
-          ? _value.logoUrl
-          : logoUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      logoUrl: logoUrl == freezed
+          ? _value.logoUrl
+          : logoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       interested: interested == freezed
           ? _value._interested
           : interested // ignore: cast_nullable_to_non_nullable
@@ -212,11 +238,13 @@ class _$_Event implements _Event {
       required this.title,
       required this.description,
       required this.creatorId,
+      required this.creatorName,
       required this.imgUrl,
-      this.logoUrl = null,
       required this.dateTime,
+      required this.createdAt,
+      this.logoUrl = null,
       final List<int> interested = const [],
-      required this.verified,
+      this.verified = false,
       this.launchURL = null})
       : _interested = interested;
 
@@ -233,12 +261,16 @@ class _$_Event implements _Event {
   @override
   final String creatorId;
   @override
+  final String creatorName;
+  @override
   final String imgUrl;
+  @override
+  final DateTime dateTime;
+  @override
+  final DateTime createdAt;
   @override
   @JsonKey()
   final String? logoUrl;
-  @override
-  final DateTime dateTime;
   final List<int> _interested;
   @override
   @JsonKey()
@@ -248,6 +280,7 @@ class _$_Event implements _Event {
   }
 
   @override
+  @JsonKey()
   final bool verified;
   @override
   @JsonKey()
@@ -255,7 +288,7 @@ class _$_Event implements _Event {
 
   @override
   String toString() {
-    return 'Event(refId: $refId, title: $title, description: $description, creatorId: $creatorId, imgUrl: $imgUrl, logoUrl: $logoUrl, dateTime: $dateTime, interested: $interested, verified: $verified, launchURL: $launchURL)';
+    return 'Event(refId: $refId, title: $title, description: $description, creatorId: $creatorId, creatorName: $creatorName, imgUrl: $imgUrl, dateTime: $dateTime, createdAt: $createdAt, logoUrl: $logoUrl, interested: $interested, verified: $verified, launchURL: $launchURL)';
   }
 
   @override
@@ -268,9 +301,12 @@ class _$_Event implements _Event {
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
             const DeepCollectionEquality().equals(other.creatorId, creatorId) &&
+            const DeepCollectionEquality()
+                .equals(other.creatorName, creatorName) &&
             const DeepCollectionEquality().equals(other.imgUrl, imgUrl) &&
-            const DeepCollectionEquality().equals(other.logoUrl, logoUrl) &&
             const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.logoUrl, logoUrl) &&
             const DeepCollectionEquality()
                 .equals(other._interested, _interested) &&
             const DeepCollectionEquality().equals(other.verified, verified) &&
@@ -285,9 +321,11 @@ class _$_Event implements _Event {
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(creatorId),
+      const DeepCollectionEquality().hash(creatorName),
       const DeepCollectionEquality().hash(imgUrl),
-      const DeepCollectionEquality().hash(logoUrl),
       const DeepCollectionEquality().hash(dateTime),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(logoUrl),
       const DeepCollectionEquality().hash(_interested),
       const DeepCollectionEquality().hash(verified),
       const DeepCollectionEquality().hash(launchURL));
@@ -311,11 +349,13 @@ abstract class _Event implements Event {
       required final String title,
       required final String description,
       required final String creatorId,
+      required final String creatorName,
       required final String imgUrl,
-      final String? logoUrl,
       required final DateTime dateTime,
+      required final DateTime createdAt,
+      final String? logoUrl,
       final List<int> interested,
-      required final bool verified,
+      final bool verified,
       final String? launchURL}) = _$_Event;
 
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
@@ -329,11 +369,15 @@ abstract class _Event implements Event {
   @override
   String get creatorId;
   @override
+  String get creatorName;
+  @override
   String get imgUrl;
   @override
-  String? get logoUrl;
-  @override
   DateTime get dateTime;
+  @override
+  DateTime get createdAt;
+  @override
+  String? get logoUrl;
   @override
   List<int> get interested;
   @override

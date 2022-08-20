@@ -10,11 +10,13 @@ class Event with _$Event {
     required String title,
     required String description,
     required String creatorId,
+    required String creatorName,
     required String imgUrl,
-    @Default(null) String? logoUrl,
     required DateTime dateTime,
+    required DateTime createdAt,
+    @Default(null) String? logoUrl,
     @Default([]) List<int> interested,
-    required bool verified,
+    @Default(false) bool verified,
     @Default(null) String? launchURL,
   }) = _Event;
 

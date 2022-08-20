@@ -17,11 +17,11 @@ class ContentTile extends StatelessWidget {
           closedShape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           closedElevation: 2,
-          closedColor: Theme.of(context).primaryColor.withAlpha(80),
+          closedColor: Theme.of(context).scaffoldBackgroundColor,
           openColor: Theme.of(context).scaffoldBackgroundColor,
           middleColor: Theme.of(context).scaffoldBackgroundColor,
           openBuilder: (context, action) =>
-              EventPageTile(action: action, event: event),
+              EventTilePage(action: action, event: event),
           closedBuilder: (context, action) => InkWell(
             onTap: () => action(),
             child: Ink(

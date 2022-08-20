@@ -9,7 +9,7 @@ import '../../../global/models/subject_info/subject_info.dart';
 import '../../../global/models/time_table/time_table.dart';
 
 class SubjectInfoController extends GetxController {
-  final emptySubjectInfo = SubjectInfo(
+  final emptySubjectInfo = const SubjectInfo(
       subject: Subject(
         subjectName: "No Info",
         startTime: DayTime(hour: 6, minute: 0),

@@ -18,7 +18,7 @@ mixin GetFile {
       subjects.add(
         Subject(
           subjectName: row[3].toString(),
-          startTime: DayTime(hour: 15, minute: 0),
+          startTime: const DayTime(hour: 15, minute: 0),
           roomNo: row[2].toString(),
         ),
       );
@@ -28,7 +28,7 @@ mixin GetFile {
       subjects.add(
         Subject(
           subjectName: row[5].toString(),
-          startTime: DayTime(hour: 16, minute: 0),
+          startTime: const DayTime(hour: 16, minute: 0),
           roomNo: row[4].toString(),
         ),
       );
@@ -38,7 +38,7 @@ mixin GetFile {
       subjects.add(
         Subject(
           subjectName: row[7].toString(),
-          startTime: DayTime(hour: 17, minute: 0),
+          startTime: const DayTime(hour: 17, minute: 0),
           roomNo: row[6].toString(),
         ),
       );

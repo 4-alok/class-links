@@ -1,3 +1,4 @@
+import 'package:class_link/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -12,10 +13,21 @@ class EventPage extends GetView<EventsController> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: appBar(),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: eventTimeline(context),
+        body: Obx(
+          () => controller.loading.value
+              ? const LinearProgressIndicator()
+              : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: eventTimeline(context),
+                ),
         ),
+        floatingActionButton: controller.canSendEvent
+            ? FloatingActionButton.extended(
+                onPressed: () => Get.toNamed(Routes.CREATE_EVENT),
+                icon: const FaIcon(FontAwesomeIcons.paperPlane),
+                label: const Text("Add Event"),
+              )
+            : const SizedBox(),
       );
 
   Widget eventTimeline(BuildContext context) => Timeline.tileBuilder(
@@ -31,7 +43,7 @@ class EventPage extends GetView<EventsController> {
         physics: const BouncingScrollPhysics(),
         builder: TimelineTileBuilder.connected(
           contentsAlign: ContentsAlign.basic,
-          itemCount: controller.eventsDemoData.length,
+          itemCount: controller.events.length,
           connectorBuilder: (context, index, type) => index < 3 - 1
               ? SolidLineConnector(
                   color: Theme.of(context).secondaryHeaderColor)
@@ -46,7 +58,7 @@ class EventPage extends GetView<EventsController> {
               : OutlinedDotIndicator(
                   size: 20, color: Theme.of(context).primaryColor),
           contentsBuilder: (context, index) =>
-              ContentTile(event: controller.eventsDemoData[index]),
+              ContentTile(event: controller.events[index]),
         ),
       );
 

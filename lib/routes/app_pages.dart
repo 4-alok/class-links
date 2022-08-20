@@ -7,6 +7,8 @@ import '../presentation/auth/views/auth_view.dart';
 import '../presentation/control_panel/bindings/control_panel_binding.dart';
 import '../presentation/control_panel/views/import_csv_page.dart';
 import '../presentation/control_panel/views/pages/reports_page.dart';
+import '../presentation/create_event/binding/create_event_binding.dart';
+import '../presentation/create_event/view/create_event_view.dart';
 import '../presentation/events/bindings/events_binding.dart';
 import '../presentation/events/view/event_page.dart';
 import '../presentation/holidays/bindings/holiday_bindings.dart';
@@ -97,5 +99,11 @@ class AppPages {
       binding: EventsBinding(),
       transition: Transition.cupertino,
     ),
+    GetPage(
+      name: _Paths.CREATE_EVENT,
+      page: () => const CreateEventPage(),
+      binding: CreateEventBinding(),
+      transition: Transition.cupertino,
+    )
   ];
 }

@@ -11,14 +11,16 @@ _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
       title: json['title'] as String,
       description: json['description'] as String,
       creatorId: json['creatorId'] as String,
+      creatorName: json['creatorName'] as String,
       imgUrl: json['imgUrl'] as String,
-      logoUrl: json['logoUrl'] as String? ?? null,
       dateTime: DateTime.parse(json['dateTime'] as String),
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      logoUrl: json['logoUrl'] as String? ?? null,
       interested: (json['interested'] as List<dynamic>?)
               ?.map((e) => e as int)
               .toList() ??
           const [],
-      verified: json['verified'] as bool,
+      verified: json['verified'] as bool? ?? false,
       launchURL: json['launchURL'] as String? ?? null,
     );
 
@@ -27,9 +29,11 @@ Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
       'title': instance.title,
       'description': instance.description,
       'creatorId': instance.creatorId,
+      'creatorName': instance.creatorName,
       'imgUrl': instance.imgUrl,
-      'logoUrl': instance.logoUrl,
       'dateTime': instance.dateTime.toIso8601String(),
+      'createdAt': instance.createdAt.toIso8601String(),
+      'logoUrl': instance.logoUrl,
       'interested': instance.interested,
       'verified': instance.verified,
       'launchURL': instance.launchURL,
