@@ -47,6 +47,7 @@ class ProfileView extends GetView<ProfileController> {
               email,
               const SizedBox(height: 20),
               batch(context),
+              events,
               holidays,
               const SizedBox(height: 20),
               themeSelector,
@@ -302,6 +303,17 @@ class ProfileView extends GetView<ProfileController> {
                 title: const Text("Holidays"),
                 trailing: const FaIcon(FontAwesomeIcons.caretRight),
                 onTap: () => Get.toNamed(Routes.HOLIDAYS),
+              ),
+            )
+          : const SizedBox();
+
+  Widget get events =>
+      Get.find<AuthService>().authDatasources.userType() == UserType.user
+          ? Card(
+              child: ListTile(
+                title: const Text("Events"),
+                trailing: const FaIcon(FontAwesomeIcons.caretRight),
+                onTap: () => Get.toNamed(Routes.EVENTS),
               ),
             )
           : const SizedBox();

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import '../datasource/elective_datasource.dart';
+import '../datasource/event_datasources.dart';
 import '../datasource/report_datasources.dart';
 import '../datasource/timetable_datasource.dart';
 import '../datasource/userinfo_datasource.dart';
@@ -15,6 +16,7 @@ class FirestoreService extends GetxService with FirestoreServiceUtils {
   late final ElectiveDatasources electiveDatasources;
   late final ReportDatasources reportDatasources;
   late final UtilsDataSources utilsDataSources;
+  late final EventDatasources eventDatasources;
 
   @override
   void onInit() {
@@ -25,6 +27,7 @@ class FirestoreService extends GetxService with FirestoreServiceUtils {
     reportDatasources = ReportDatasources(firestore: _firestore);
     utilsDataSources =
         UtilsDataSources(firestore: _firestore, firestoreService: this);
+    eventDatasources = EventDatasources(firestore: _firestore);
     super.onInit();
   }
 

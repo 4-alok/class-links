@@ -1,5 +1,5 @@
 name: class_link
-version: 0.1.18+20
+version: 0.1.19+21
 publish_to: none
 description: A new Flutter project.
 environment: 
@@ -42,6 +42,7 @@ dependencies:
   dropdown_button2: ^1.6.3
   in_app_review: ^2.0.4
   paged_vertical_calendar: ^1.1.4
+  timelines: ^0.1.0
   # in_app_update: ^3.0.0
 
 dev_dependencies: 
