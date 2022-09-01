@@ -10,7 +10,7 @@ dependencies:
   google_fonts: ^3.0.1
   flutter_svg: ^1.0.0
   get: ^4.6.1
-  firebase_core: ^1.10.6
+  firebase_core: ^1.12.0
   firebase_auth: ^3.3.4
   google_sign_in: ^5.2.1
   cloud_firestore: ^3.1.5
@@ -43,6 +43,7 @@ dependencies:
   in_app_review: ^2.0.4
   paged_vertical_calendar: ^1.1.4
   timelines: ^0.1.0
+  firebase_messaging: ^12.0.3
   # in_app_update: ^3.0.0
 
 dev_dependencies: 

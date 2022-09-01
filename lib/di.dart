@@ -14,12 +14,14 @@ Future<void> get init async {
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   await Firebase.initializeApp();
+
   await Hive.initFlutter();
   final database = HiveDatabase();
   Get.put<HiveDatabase>(database);
   await database.initDatabase;
   Get.put(FirestoreService());
   Get.put(AuthService());
-  Get.lazyPut(() => NotificationService());
+  final notificationService = NotificationService();
+  Get.lazyPut(() => notificationService);
   Get.lazyPut(() => AnalysisService());
 }

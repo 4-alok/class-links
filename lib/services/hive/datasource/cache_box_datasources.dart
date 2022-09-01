@@ -1,31 +1,61 @@
 import 'dart:convert';
 
-import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 
-import '../../auth/repository/auth_service_repo.dart';
 import '../usecase/cache_usecase.dart';
 
-// const int cacheExpiresHour = 12;
+const int cacheExpiresHour = 12;
 
-class CacheBoxDataSources implements ChacheBoxUsecase {
-  final Box chacheBox;
-  CacheBoxDataSources(this.chacheBox);
+class CacheBoxDataSources implements CacheBoxUsecase {
+  final Box cacheBox;
+  CacheBoxDataSources(this.cacheBox);
 
-  int get cacheExpiresHour =>
-      Get.find<AuthService>().getUser?.email?.startsWith('21') ?? false
-          ? 1
-          : 12;
+  Future<List<Map<String, dynamic>>> autoCacheQuerySnapshot(
+      {required Future<QuerySnapshot<Map<String, dynamic>>> Function()
+          querySnapshot,
+      required String key,
+      int? expirationHour}) async {
+    final cacheData = await getRequest(key, delete: false);
+    if (cacheData == null) {
+      try {
+        final data = await querySnapshot();
+        await deleteRequest(key);
+        await saveRequest(key, {for (final d in data.docs) d.id: d.data()});
+        return data.docs.map((e) => e.data()).toList();
+      } catch (e) {
+        rethrow;
+      }
+    } else {
+      if (await isExpired(key)) {
+        try {
+          final data = await querySnapshot();
+          await deleteRequest(key);
+          await saveRequest(key, {for (final d in data.docs) d.id: d.data()});
+          return data.docs.map((e) => e.data()).toList();
+        } catch (e) {
+          return cacheData.entries
+              .map<Map<String, dynamic>>((e) => e.value)
+              .toList();
+        }
+      } else {
+        final data = cacheData.entries
+            .map<Map<String, dynamic>>((e) => e.value)
+            .toList();
+        return data;
+      }
+    }
+  }
 
   @override
   Future<Map<String, dynamic>?> getRequest(String key,
-      [int? expirationHour]) async {
-    final value = await chacheBox.get(key);
+      {int? expirationHour, required bool delete}) async {
+    final value = await cacheBox.get(key);
     if (value == null) return null;
-    final data = jsonDecode(await chacheBox.get(key));
+    final data = jsonDecode(value);
     if ((DateTime.parse(data['date'])).difference(DateTime.now()).inHours >
         (expirationHour ?? cacheExpiresHour)) {
-      await chacheBox.delete(key);
+      if (delete) await cacheBox.delete(key);
       return null;
     } else {
       return jsonDecode(data['data']);
@@ -34,9 +64,33 @@ class CacheBoxDataSources implements ChacheBoxUsecase {
 
   @override
   Future<void> saveRequest(String key, Map<String, dynamic> map) async =>
-      await chacheBox.put(
+      await cacheBox.put(
+          key,
+          jsonEncode({
+            "data": jsonEncode(map),
+            "date": DateTime.now().toIso8601String()
+          }));
+
+  Future<void> makeExpired(String key) async {
+    final res = await getRequest(key, delete: false);
+    if (res != null) {
+      await cacheBox.put(
           key,
           jsonEncode(
-            {"data": jsonEncode(map), "date": DateTime.now().toIso8601String()},
+            {"data": jsonEncode(res), "date": DateTime(1947).toIso8601String()},
           ));
+    }
+  }
+
+  @override
+  Future<void> deleteRequest(String key) async => await cacheBox.delete(key);
+
+  @override
+  Future<bool> isExpired(String key) async {
+    final value = await cacheBox.get(key);
+    if (value == null) return true;
+    final date = DateTime.parse(jsonDecode(value)['date'])
+        .add(const Duration(hours: cacheExpiresHour));
+    return date.difference(DateTime.now()).inHours.isNegative;
+  }
 }

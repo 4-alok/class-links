@@ -1,14 +1,26 @@
 import 'dart:convert';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     hide Message;
+
 import 'package:get/get.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../firebase_options.dart';
 import '../../global/models/notification_payload.dart/notification_payload.dart';
 import '../../global/models/time_table/time_table.dart';
+import '../../global/utils/get_snackbar.dart';
 import 'notification_utils.dart';
+
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'high_importance_channel',
+  'High Importance Notifications',
+  description: 'This channel is used for important notifications.',
+  importance: Importance.high,
+);
 
 class NotificationService extends GetxService with NotificationServiceUtils {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -17,10 +29,23 @@ class NotificationService extends GetxService with NotificationServiceUtils {
   late final InitializationSettings initializationSettings;
   late final NotificationAppLaunchDetails? notificationAppLaunchDetails;
 
-  var pendingNotification = <PendingNotificationRequest>[];
+  List<PendingNotificationRequest> pendingNotification = [];
 
   @override
   Future<void> onInit() async {
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
     tz.initializeTimeZones();
     initializationSettings =
         InitializationSettings(android: initializationSettingsAndroid);
@@ -35,6 +60,15 @@ class NotificationService extends GetxService with NotificationServiceUtils {
     }
     updateNotificationList();
     super.onInit();
+  }
+
+  Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+    await Future.delayed(const Duration(seconds: 30));
+    Message("Background message", message.data.toString());
+    print("Message data: ${message.data}");
+    print('Handling a background Notification, id:${message.messageId}');
   }
 
   Future<void> updateNotificationList() async =>

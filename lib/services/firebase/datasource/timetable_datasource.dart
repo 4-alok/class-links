@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../../global/models/time_table/time_table.dart';
 import '../../auth/repository/auth_service_repo.dart';
 import '../../hive/repository/hive_database.dart';
-import '../models/day_list.dart';
 import '../usecase/timetable_usecase.dart';
 import '../utils/firestore_utils.dart';
 
@@ -58,37 +57,23 @@ class TimetableDatasource
 
   @override
   Future<List<Day>> get batchTimeTable async {
-    final hiveDatabase = Get.find<HiveDatabase>();
-    final res =
-        await hiveDatabase.cacheBoxDataSources.getRequest(batchTimeTableKey);
-    if (res != null) {
-      return DayList.fromMap(res).days;
-    } else {
-      try {
-        final querySnapshot = await firestore
-            .collection(batchTimeTableKey)
-            .where("year",
-                isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.year)
-            .where("slot",
-                isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.slot)
-            .where("batch",
-                isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.batch)
-            .get();
-
-        final dayList = querySnapshot.docs.isEmpty
-            ? defaultDays
-            : querySnapshot.docs
-                .map((e) => TimeTable.fromJson(e.data()))
-                .toList()
-                .first
-                .week;
-        await hiveDatabase.cacheBoxDataSources
-            .saveRequest(batchTimeTableKey, DayList(days: dayList).toMap);
-        return dayList;
-      } catch (e) {
-        return defaultDays;
-      }
+    final res = await hiveDatabase.cacheBoxDataSources.autoCacheQuerySnapshot(
+      querySnapshot: firestore
+          .collection(batchTimeTableKey)
+          .where("year",
+              isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.year)
+          .where("slot",
+              isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.slot)
+          .where("batch",
+              isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.batch)
+          .get,
+      key: batchTimeTableKey,
+    );
+    if (res.isEmpty) {
+      await hiveDatabase.cacheBoxDataSources.deleteRequest(batchTimeTableKey);
+      return defaultDays;
     }
+    return res.map((e) => TimeTable.fromJson(e)).toList().first.week;
   }
 
   @override

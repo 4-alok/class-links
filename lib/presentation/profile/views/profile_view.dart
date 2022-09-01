@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../../../global/utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../global/const/app_info.dart';
+import '../../../../global/utils/extension.dart';
 import '../../../../global/widget/launcher.dart';
 import '../../../../global/widget/user_icon.dart';
 import '../../../../routes/app_pages.dart';
@@ -14,6 +14,7 @@ import '../../../../services/auth/models/user_type.dart';
 import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../../services/hive/repository/hive_database.dart';
 import '../../../services/hive/models/user_info.dart';
+import '../../test_page/views/test_page.dart';
 import '../controllers/profile_controller.dart';
 import 'component/app_bar_style.dart';
 import 'component/app_info_dialog.dart';
@@ -57,6 +58,7 @@ class ProfileView extends GetView<ProfileController> {
               appUsers,
               import,
               contributer(context),
+              test,
               logoutCard,
               const SizedBox(height: 20),
               reportProblem,
@@ -318,15 +320,12 @@ class ProfileView extends GetView<ProfileController> {
             )
           : const SizedBox();
 
-  // Widget get test => Card(
-  //       child: ListTile(
-  //         title: const Text("Test"),
-  //         onTap: () {
-  //           Get.find<FirestoreService>().deleteUser(1);
-  //           // FileUtils.pickFileTask();
-  //         },
-  //       ),
-  //     );
+  Widget get test => Card(
+        child: ListTile(
+          title: const Text("Testing"),
+          onTap: () => Get.to(const TestPage()),
+        ),
+      );
 
   Widget get showLog =>
       Get.find<AuthService>().authDatasources.userType() == UserType.user
