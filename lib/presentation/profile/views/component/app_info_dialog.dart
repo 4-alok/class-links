@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/route_manager.dart';
 
 import '../../../../../global/const/app_info.dart';
-import '../../../../../global/gen/assets.gen.dart';
 import '../../../../../global/widget/launcher.dart';
 
 class AppInfoBox {
@@ -24,24 +22,12 @@ class AppInfoBox {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SvgPicture.asset(
-                  Assets.icons.dsc.path,
-                  height: 40,
-                  width: 40,
+                Image.asset(
+                  "assets/icons/app_logo.png",
+                  height: 100,
+                  width: 100,
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  "GDSC TEAM",
-                  style: aboutTextStyle.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  "KIIT",
-                  style: aboutTextStyle.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
               ],
             ),
           ),

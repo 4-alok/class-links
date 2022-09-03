@@ -21,6 +21,8 @@ import '../presentation/profile/bindings/profile_binding.dart';
 import '../presentation/profile/views/profile_view.dart';
 import '../presentation/report/binding/report_binding.dart';
 import '../presentation/report/view/report_view.dart';
+import '../presentation/resources/binding/resources_binding.dart';
+import '../presentation/resources/view/resources_view.dart';
 import '../presentation/subject_info/views/subject_info_view.dart';
 import '../presentation/user_batch/bindings/user_batch_binding.dart';
 import '../presentation/user_batch/views/user_batch_view.dart';
@@ -103,6 +105,12 @@ class AppPages {
       name: _Paths.CREATE_EVENT,
       page: () => const CreateEventPage(),
       binding: CreateEventBinding(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: _Paths.RESOURCES,
+      page: () => const ResourcesView(),
+      binding: ResourcesBinding(),
       transition: Transition.cupertino,
     )
   ];

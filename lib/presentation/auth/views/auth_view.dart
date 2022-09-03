@@ -27,19 +27,19 @@ class AuthView extends GetView<AuthController> {
             () => Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: Text(
-                    "by GDSC TEAM KIIT",
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(fontSize: 12),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 10),
+                //   child: Text(
+                //     "by GDSC TEAM KIIT",
+                //     style: Theme.of(context)
+                //         .textTheme
+                //         .subtitle1!
+                //         .copyWith(fontSize: 12),
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
                 ElevatedButton(
                   onPressed: controller.loading.value
                       ? null

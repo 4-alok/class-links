@@ -43,8 +43,8 @@ dependencies:
   in_app_review: ^2.0.4
   paged_vertical_calendar: ^1.1.4
   timelines: ^0.1.0
-  firebase_messaging: ^12.0.3
-  # in_app_update: ^3.0.0
+  webview_flutter: ^3.0.4
+  flutter_staggered_animations: ^1.1.1
 
 dev_dependencies: 
   flutter_lints: ^2.0.1

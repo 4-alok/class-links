@@ -1,5 +1,13 @@
 # Change log
 
+## v0.1.20
+
+- Added Resources (Notes,Question paper, etc.)
+- View all App Users
+- New Holiday calendar
+- In app report/bugs/suggestions
+- Elective Subject for 3rd year
+
 ## v0.1.19
 
 - View all App Users

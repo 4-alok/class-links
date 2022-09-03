@@ -22,6 +22,7 @@ abstract class Routes {
   static const String MY_REPORT = _Paths.MY_REPORTS;
   static const String EVENTS = _Paths.EVENTS;
   static const String CREATE_EVENT = _Paths.CREATE_EVENT;
+  static const String RESOURCES = _Paths.RESOURCES;
 }
 
 abstract class _Paths {
@@ -41,4 +42,5 @@ abstract class _Paths {
   static const String MY_REPORTS = '/my_reports';
   static const String EVENTS = '/events';
   static const String CREATE_EVENT = '/create_event';
+  static const String RESOURCES = '/resources';
 }
