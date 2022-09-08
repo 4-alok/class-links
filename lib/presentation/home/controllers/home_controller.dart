@@ -122,7 +122,7 @@ class HomeController extends GetxController
     return null;
   }
 
-  void cancelEditMode() {
+  void get cancelEditMode {
     logData = [];
     week.value = deepCopyWeek(originalList);
     editMode.value = false;

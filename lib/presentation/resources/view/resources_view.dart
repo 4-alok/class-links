@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:class_link/global/widget/launcher.dart';
+import 'package:class_link/presentation/home/views/components/ads_contrainer.dart';
 import 'package:class_link/presentation/resources/controler/resources_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -41,6 +42,7 @@ class ResourcesView extends GetView<ResourcesController> {
                 ? bodyBuilder(context)
                 : const Center(child: CircularProgressIndicator()),
           ),
+          bottomNavigationBar: const AdsContainer(),
         ),
       );
 
@@ -55,34 +57,37 @@ class ResourcesView extends GetView<ResourcesController> {
             }
             return AnimationLimiter(
               key: UniqueKey(),
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: list.length,
-                itemBuilder: (context, index) =>
-                    AnimationConfiguration.staggeredList(
-                  duration: const Duration(milliseconds: 300),
-                  position: index,
-                  child: SlideAnimation(
-                    child: FadeInAnimation(
-                      child: Card(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .primary
-                            .withOpacity(.1),
-                        child: ListTile(
-                          onTap: () => (list[index] is IndexFolder)
-                              ? controller.currentPath.value =
-                                  "${list[index].path}/"
-                              : onFileClick(context, list[index] as IndexFile),
-                          leading: leadingIcon(
-                            isfolder: list[index] is IndexFolder,
-                            fileName: list[index].name,
+              child: Scrollbar(
+                child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: list.length,
+                  itemBuilder: (context, index) =>
+                      AnimationConfiguration.staggeredList(
+                    duration: const Duration(milliseconds: 300),
+                    position: index,
+                    child: SlideAnimation(
+                      child: FadeInAnimation(
+                        child: Card(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(.1),
+                          child: ListTile(
+                            onTap: () => (list[index] is IndexFolder)
+                                ? controller.currentPath.value =
+                                    "${list[index].path}/"
+                                : onFileClick(
+                                    context, list[index] as IndexFile),
+                            leading: leadingIcon(
+                              isfolder: list[index] is IndexFolder,
+                              fileName: list[index].name,
+                            ),
+                            title: Text(list[index].name),
+                            trailing: list[index] is IndexFolder
+                                ? null
+                                : Text(controller.kiloBytesToString(
+                                    (list[index] as IndexFile).size)),
                           ),
-                          title: Text(list[index].name),
-                          trailing: list[index] is IndexFolder
-                              ? null
-                              : Text(controller.kiloBytesToString(
-                                  (list[index] as IndexFile).size)),
                         ),
                       ),
                     ),

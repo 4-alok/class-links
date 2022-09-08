@@ -50,7 +50,7 @@ class ProfileView extends GetView<ProfileController> {
               batch(context),
               // events,
               holidays,
-              resources,
+              // resources,
               const SizedBox(height: 20),
               themeSelector,
               themeMode,
@@ -59,7 +59,7 @@ class ProfileView extends GetView<ProfileController> {
               appUsers,
               import,
               contributer(context),
-              test,
+              // test,
               logoutCard,
               const SizedBox(height: 20),
               reportProblem,
@@ -310,16 +310,16 @@ class ProfileView extends GetView<ProfileController> {
             )
           : const SizedBox();
 
-  Widget get resources =>
-      Get.find<AuthService>().authDatasources.userType() == UserType.user
-          ? Card(
-              child: ListTile(
-                title: const Text("Resources"),
-                trailing: const FaIcon(FontAwesomeIcons.caretRight),
-                onTap: () => Get.toNamed(Routes.RESOURCES),
-              ),
-            )
-          : const SizedBox();
+  // Widget get resources =>
+  //     Get.find<AuthService>().authDatasources.userType() == UserType.user
+  //         ? Card(
+  //             child: ListTile(
+  //               title: const Text("Resources"),
+  //               trailing: const FaIcon(FontAwesomeIcons.caretRight),
+  //               onTap: () => Get.toNamed(Routes.RESOURCES),
+  //             ),
+  //           )
+  //         : const SizedBox();
 
   Widget get events =>
       Get.find<AuthService>().authDatasources.userType() == UserType.user

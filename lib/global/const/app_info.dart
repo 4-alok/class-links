@@ -1,6 +1,6 @@
 class AppInfo {
   static const String appName = "Class Link";
-  static const String appVersion = "v0.1.20";
+  static const String appVersion = "v0.1.22";
   static const String applicationLegalese =
       "Copyright (c) 2024 Class Link" "\nMIT License";
   static const String supportMail = "app.classlink@gmail.com";

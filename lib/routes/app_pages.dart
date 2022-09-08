@@ -111,7 +111,7 @@ class AppPages {
       name: _Paths.RESOURCES,
       page: () => const ResourcesView(),
       binding: ResourcesBinding(),
-      transition: Transition.cupertino,
+      // transition: Transition.cupertino,
     )
   ];
 }
