@@ -1,5 +1,5 @@
 name: class_link
-version: 0.1.22+24
+version: 0.1.24+26
 publish_to: none
 description: A new Flutter project.
 environment: 
@@ -43,9 +43,9 @@ dependencies:
   in_app_review: ^2.0.4
   paged_vertical_calendar: ^1.1.4
   timelines: ^0.1.0
-  webview_flutter: ^3.0.4
   flutter_staggered_animations: ^1.1.1
   google_mobile_ads: ^2.0.1
+  flutter_custom_tabs: ^1.0.4
 
 dev_dependencies: 
   flutter_lints: ^2.0.1

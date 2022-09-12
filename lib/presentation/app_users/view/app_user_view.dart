@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:animations/animations.dart';
+import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
 import 'package:class_link/services/hive/models/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,16 +16,17 @@ class AppUserView extends GetView<AppUsersController> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-          leading: Hero(
-            tag: "back",
-            child: Material(
-              child: IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.arrowLeft),
-                  onPressed: () => Get.back()),
-            ),
+        leading: Hero(
+          tag: "back",
+          child: Material(
+            child: IconButton(
+                icon: const FaIcon(FontAwesomeIcons.arrowLeft),
+                onPressed: () => Get.back()),
           ),
-          centerTitle: true,
-          title: const Text('App Users')),
+        ),
+        centerTitle: true,
+        title: const Text('App Users'),
+      ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(12),

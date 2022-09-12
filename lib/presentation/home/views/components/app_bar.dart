@@ -22,12 +22,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           leading: homeController.editMode.value
               ? IconButton(
                   onPressed: () => homeController.cancelEditMode,
-                  icon: const FaIcon(FontAwesomeIcons.times),
+                  icon: const FaIcon(FontAwesomeIcons.xmark),
                 )
-              : IconButton(
-                  onPressed: () => Get.toNamed(Routes.RESOURCES),
-                  icon: const FaIcon(FontAwesomeIcons.book),
-                ),
+              : null,
           title: AnimatedCrossFade(
             firstCurve: Curves.easeInOut,
             secondCurve: Curves.easeInOut,

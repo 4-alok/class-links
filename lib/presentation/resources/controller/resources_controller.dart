@@ -1,7 +1,7 @@
-import 'package:class_link/services/hive/repository/hive_database.dart';
+import 'package:class_link/global/utils/get_snackbar.dart';
+import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:gsheets/gsheets.dart';
 
 import '../../../global/const/credentials.dart';
 import '../../../global/models/resources/resources_entities.dart';
@@ -45,19 +45,25 @@ List<IndexEntity> _sortList(List<IndexEntity> list) {
 }
 
 class ResourcesController extends GetxController {
-  final gsheets = GSheets(credentials);
   final hasData = ValueNotifier<bool>(false);
   final processing = ValueNotifier<bool>(false);
   List<List<String>>? data;
   final currentEntity = ValueNotifier<List<IndexEntity>>([]);
-
   final currentPath = ValueNotifier<String>(baseFolder);
 
   @override
-  void onReady() {
-    getData;
+  void onReady() async {
+    data = await gsheetService.resourcesDatasources.getSheetRowsList
+        .onError((error, stackTrace) {
+      Message("GSheet Error", error.toString());
+      return [];
+    });
+    hasData.value = true;
+    currentEntity.value = getEntities;
     super.onReady();
   }
+
+  GSheetService get gsheetService => Get.find<GSheetService>();
 
   Future<List<IndexEntity>> getList(String path) async {
     processing.value = true;
@@ -86,26 +92,15 @@ class ResourcesController extends GetxController {
                 ),
         );
 
-  Future<void> get getData async => await readSheetData('index').then((value) {
-        data = value;
-        hasData.value = true;
-      });
-
-  String get getGSheetsId =>
-      sheetURL.contains("/") ? sheetURL.split("/")[5] : sheetURL;
-
-  Future<List<List<String>>> readSheetData(String sheetTitle) async =>
-      await gsheets.spreadsheet(getGSheetsId).then(
-          (value) => value.worksheetByTitle(sheetTitle)!.values.allRows());
-
   bool get backButtonController {
     if (currentPath.value != baseFolder) {
       final k =
           currentPath.value.substring(0, currentPath.value.lastIndexOf('/'));
       currentPath.value = "${k.substring(0, k.lastIndexOf('/'))}/";
       return false;
+    } else {
+      return true;
     }
-    return true;
   }
 
   String kiloBytesToString(double size) {
@@ -120,7 +115,6 @@ class ResourcesController extends GetxController {
 
   @override
   void dispose() {
-    gsheets.close();
     hasData.dispose();
     processing.dispose();
     currentPath.dispose();

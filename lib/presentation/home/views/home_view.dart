@@ -6,6 +6,7 @@ import '../../../../services/auth/models/user_type.dart';
 import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../controllers/home_controller.dart';
+import 'components/page_switcher.dart';
 import 'components/time_table_page.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -24,7 +25,7 @@ class HomeView extends GetView<HomeController> {
             // App open log for google analytics
             Get.find<AnalysisService>().appOpenLogEvent;
 
-            return TimeTablePage(homeController: controller);
+            return PageSwitcher(controller: controller);
           } else if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
           } else if (snapshot.connectionState == ConnectionState.waiting) {

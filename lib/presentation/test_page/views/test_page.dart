@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'pages/cache_test.dart';
+import 'pages/sheet_test.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({Key? key}) : super(key: key);
@@ -22,6 +23,7 @@ class TestPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             children: const [
               CacheTest(),
+              SheetTest(),
             ],
           ),
         ),

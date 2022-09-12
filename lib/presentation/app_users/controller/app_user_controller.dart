@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:collection';
 
+import 'package:class_link/global/utils/get_snackbar.dart';
 import 'package:class_link/services/firebase/repository/firestore_service.dart';
+import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
 import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:get/get.dart';
 
@@ -37,7 +39,13 @@ class AppUsersController extends GetxController {
   }
 
   Future<void> get _getUsers async {
-    allUsersList = await firestoreService.userInfoDatasources.getAllUserList;
+    allUsersList = await Get.find<GSheetService>()
+        .gSheetUserInfoDatasources
+        .getAllUserList
+        .onError((error, stackTrace) {
+      Message("Error", error.toString());
+      return [];
+    });
     _updateYearWiseUserCount;
     loading.value = false;
     update();

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:class_link/services/auth/models/user_type.dart';
@@ -23,17 +25,31 @@ class AuthDatasources with FilterKiitian implements AuthServiceUsecase {
   @override
   Future<UserType> get login async {
     try {
-      final account = await googleSignIn.signIn();
+      final account = await googleSignIn.signIn().onError((error, stackTrace) {
+        log("Error# $error ");
+        log("StackTrace# $stackTrace");
+        Message(
+          "Error",
+          "Something went wrong, please try again later",
+        );
+      });
+      print(0);
+
       if (account == null) throw UserSignInFlowCancelled();
 
       final authentication = await account.authentication;
+      print(1);
       final credential = GoogleAuthProvider.credential(
           accessToken: authentication.accessToken,
           idToken: authentication.idToken);
+      print(2);
       await auth.signInWithCredential(credential);
+      print(3);
       user.value = auth.currentUser;
       return userType(user.value?.email);
     } catch (e) {
+      log(e.toString());
+      log(e.runtimeType.toString());
       Message("Error while signing in", e.toString());
       return UserType.none;
     }

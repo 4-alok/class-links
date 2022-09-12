@@ -14,14 +14,15 @@ class _AdsContainerState extends State<AdsContainer> {
     // adUnitId: "ca-app-pub-3940256099942544/6300978111",
     size: AdSize.banner,
     request: const AdRequest(
-      keywords: [
-        'Bhubaneswar',
-        'btech',
-        'univeresity',
-        'college',
-        'computer science'
-      ],
-    ),
+        // nonPersonalizedAds: false,
+        // keywords: [
+        //   'Bhubaneswar',
+        //   'btech',
+        //   'univeresity',
+        //   'college',
+        //   'computer science'
+        // ],
+        ),
     listener: const BannerAdListener(),
   );
 

@@ -1,5 +1,23 @@
 # Change log
 
+## v0.1.24
+
+- Long press to preview resources document
+- Open resources in appropriate app
+- Added Resources (Notes,Question paper, etc.)
+- View all App Users
+- New Holiday calendar
+- In app report/bugs/suggestions
+- Elective Subject for 3rd year
+
+## v0.1.23
+
+- Added Resources (Notes,Question paper, etc.)
+- View all App Users
+- New Holiday calendar
+- In app report/bugs/suggestions
+- Elective Subject for 3rd year
+
 ## v0.1.22
 
 - Added Resources (Notes,Question paper, etc.)

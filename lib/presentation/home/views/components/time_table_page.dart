@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/home_controller.dart';
-import 'ads_contrainer.dart';
 import 'app_bar.dart';
 import 'reorderable_list.dart';
 
@@ -26,7 +25,7 @@ class TimeTablePage extends StatelessWidget {
           child: Scaffold(
             appBar: MyAppBar(homeController: homeController),
             body: tabBarView,
-            bottomNavigationBar: const AdsContainer(),
+            // bottomNavigationBar: const AdsContainer(),
             // floatingActionButton: fab(context),
           ),
         ),

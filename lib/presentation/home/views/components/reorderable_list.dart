@@ -10,6 +10,7 @@ import '../../../../../services/firebase/models/elective_timetable.dart';
 import '../../../../../services/hive/repository/hive_database.dart';
 import '../../../../global/models/subject_info/subject_info.dart';
 import '../../../../global/models/time_table/time_table.dart';
+import '../../../../global/widget/ads_contrainer.dart';
 import '../../../subject_info/controllers/subject_info_controller.dart';
 import '../../../subject_info/views/subject_info_view.dart';
 import '../../controllers/home_controller.dart';
@@ -108,7 +109,12 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
                             : displayTile(context, e.subjects.first,
                                 elective: true),
                       )
-                      .toList()
+                      .toList(),
+                  const SizedBox(height: 10),
+                  const SizedBox(
+                      height: 80,
+                      width: double.maxFinite,
+                      child: AdsContainer()),
                 ]);
               },
             )

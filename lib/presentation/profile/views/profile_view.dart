@@ -57,9 +57,9 @@ class ProfileView extends GetView<ProfileController> {
               blackMode,
               const SizedBox(height: 20),
               appUsers,
-              import,
+              controlPanel,
               contributer(context),
-              // test,
+              test,
               logoutCard,
               const SizedBox(height: 20),
               reportProblem,
@@ -332,12 +332,14 @@ class ProfileView extends GetView<ProfileController> {
             )
           : const SizedBox();
 
-  Widget get test => Card(
-        child: ListTile(
-          title: const Text("Testing"),
-          onTap: () => Get.to(const TestPage()),
-        ),
-      );
+  Widget get test => userInfo?.role == "admin"
+      ? Card(
+          child: ListTile(
+            title: const Text("Testing"),
+            onTap: () => Get.to(const TestPage()),
+          ),
+        )
+      : const SizedBox();
 
   Widget get showLog =>
       Get.find<AuthService>().authDatasources.userType() == UserType.user
@@ -357,7 +359,7 @@ class ProfileView extends GetView<ProfileController> {
         ),
       );
 
-  Widget get import => userInfo?.role == "admin"
+  Widget get controlPanel => userInfo?.role == "admin"
       ? Card(
           child: ListTile(
             title: const Text("Control Panel"),
