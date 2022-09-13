@@ -39,7 +39,7 @@ class GSheetUserInfoDatasources
     }
   }
 
-  Future<void> _addAllList(List<UserInfo> users) async {
+  Future<void> addUsersList(List<UserInfo> users) async {
     final spreadsheet = gSheetService.spreadsheet;
     if (spreadsheet != null) {
       final workSheet = spreadsheet.worksheetByTitle(sheetName);

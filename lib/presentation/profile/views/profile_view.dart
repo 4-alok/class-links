@@ -176,7 +176,7 @@ class ProfileView extends GetView<ProfileController> {
         child: ListTile(
           title: Row(
             children: const [
-              Icon(FontAwesomeIcons.signOutAlt, color: Colors.red),
+              Icon(FontAwesomeIcons.rightFromBracket, color: Colors.red),
               SizedBox(width: 10),
               Text('Logout', style: TextStyle(color: Colors.red)),
             ],
@@ -269,7 +269,7 @@ class ProfileView extends GetView<ProfileController> {
                       'Download Class Link form Google Play Store ${AppInfo.appUrl}',
                       subject: 'Class Link',
                     ),
-                icon: const FaIcon(FontAwesomeIcons.shareAlt)),
+                icon: const FaIcon(FontAwesomeIcons.shareNodes)),
             IconButton(
                 onPressed: () => AppInfoBox.showAppAboutDialog(context),
                 icon: const FaIcon(FontAwesomeIcons.info)),

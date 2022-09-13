@@ -38,6 +38,31 @@ class AppUsersController extends GetxController {
     super.onReady();
   }
 
+  Future<void> get syncGSheetUsers async {
+    final gsheetUserList = await Get.find<GSheetService>()
+        .gSheetUserInfoDatasources
+        .getAllUserList
+        .onError((error, stackTrace) {
+      Message("Error", error.toString());
+      return [];
+    });
+
+    List<UserInfo> listToAddInGsheet = [];
+    for (UserInfo userInfo in allUsersList) {
+      if (gsheetUserList
+          .where((element) => element.id == userInfo.id)
+          .isEmpty) {
+        listToAddInGsheet.add(userInfo);
+      }
+    }
+
+    await Get.find<GSheetService>()
+        .gSheetUserInfoDatasources
+        .addUsersList(listToAddInGsheet);
+
+    Message("Synced Successfully", "Added ${listToAddInGsheet.length} users");
+  }
+
   Future<void> get _getUsers async {
     allUsersList = await Get.find<GSheetService>()
         .gSheetUserInfoDatasources

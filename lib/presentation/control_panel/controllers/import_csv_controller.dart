@@ -90,13 +90,23 @@ class ImportCsvController with GetFile {
       );
 
   List<TimeTable> _patch(List<TimeTable> timetables) {
-    for (TimeTable timetable in timetables) {
-      timetable.week.addAll([
-        const Day(day: 'Saturday', subjects: []),
-        const Day(day: 'Sunday', subjects: []),
-      ]);
-    }
-    return timetables;
+    var _timetables = timetables;
+    _timetables = timetables
+        .map((e) => e.copyWith(
+              week: [
+                ...e.week,
+                const Day(day: 'Saturday', subjects: []),
+                const Day(day: 'Sunday', subjects: []),
+              ],
+            ))
+        .toList();
+    // for (TimeTable timetable in timetables) {
+    //   timetable.week.addAll([
+    //     const Day(day: 'Saturday', subjects: []),
+    //     const Day(day: 'Sunday', subjects: []),
+    //   ]);
+    // }
+    return _timetables;
   }
 
   Future<List<TimeTable>> get getTimeTables async {
@@ -110,14 +120,15 @@ class ImportCsvController with GetFile {
         if (!containBatch) {
           _timeTables.add(_generateTimetable(i));
         } else {
-          _timeTables[_timeTables
-                  .indexWhere((e) => e.batch == field[i][batchColIndex])]
-              .week
-              .add(
-                Day(
-                    day: field[i][_dayColIndex],
-                    subjects: getSubjects(field[i])),
-              );
+          final index =
+              _timeTables.indexWhere((e) => e.batch == field[i][batchColIndex]);
+          final t = _timeTables[index];
+          _timeTables[index] = t.copyWith(
+            week: [
+              ...t.week,
+              Day(day: field[i][_dayColIndex], subjects: getSubjects(field[i]))
+            ],
+          );
         }
       }
     }

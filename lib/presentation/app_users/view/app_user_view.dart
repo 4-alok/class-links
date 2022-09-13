@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import 'package:animations/animations.dart';
-import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
 import 'package:class_link/services/hive/models/user_info.dart';
+import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -24,6 +24,14 @@ class AppUserView extends GetView<AppUsersController> {
                 onPressed: () => Get.back()),
           ),
         ),
+        actions: [
+          Get.find<HiveDatabase>().userBoxDatasources.userInfo?.role == "admin"
+              ? IconButton(
+                  icon: const FaIcon(FontAwesomeIcons.arrowsRotate),
+                  onPressed: () => controller.syncGSheetUsers,
+                )
+              : const SizedBox(),
+        ],
         centerTitle: true,
         title: const Text('App Users'),
       ),
@@ -263,7 +271,7 @@ class AppUserView extends GetView<AppUsersController> {
                       user.role == "admin"
                           ? const Tooltip(
                               message: "Only owner can change admin role",
-                              child: FaIcon(FontAwesomeIcons.shieldAlt),
+                              child: FaIcon(FontAwesomeIcons.shieldHalved),
                             )
                           : ElevatedButton(
                               onPressed: () async {},

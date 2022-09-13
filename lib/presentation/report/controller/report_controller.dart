@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../services/firebase/models/report_models/report.dart';
-import '../../../services/firebase/repository/firestore_service.dart';
 
 const List<String> reportTypeText = [
   'Bug',
