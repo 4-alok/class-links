@@ -255,6 +255,11 @@ class AppUserView extends GetView<AppUsersController> {
               style:
                   Theme.of(context).textTheme.headline4!.copyWith(fontSize: 20),
             ),
+            trailing: user.role == "admin"
+                ? IconButton(
+                    onPressed: () => controller.deleteUser(user),
+                    icon: const FaIcon(FontAwesomeIcons.xmark))
+                : const SizedBox(),
           ),
           user.role == "admin" || user.role == "mod"
               ? ListTile(

@@ -28,15 +28,24 @@ class AppUsersController extends GetxController {
 
   @override
   void onReady() {
-    (Get.find<HiveDatabase>().userBoxDatasources.userInfo?.role == "admin")
-        ? subscription = firestoreService.userInfoDatasources.streamAllUserList
-            .listen((event) => _subscriptionUpdate(event))
-        : _getUsers;
+    // (Get.find<HiveDatabase>().userBoxDatasources.userInfo?.role == "admin")
+    //     ? subscription = firestoreService.userInfoDatasources.streamAllUserList
+    //         .listen((event) => _subscriptionUpdate(event))
+    //     : _getUsers;
+
+    _getUsers;
     selectedYear.listen((_) => update());
     userSortType.listen((_) => update());
     selectedBatch.listen((_) => update());
     super.onReady();
   }
+
+  Future<void> deleteUser(UserInfo userInfo) async => firestoreService
+      .userInfoDatasources
+      .deleteUser(userInfo)
+      .then((value) => Message("Deleted", "User Deleted Successfully"))
+      .onError(
+          (error, stackTrace) => Message("Error", "Error while deleting user"));
 
   Future<void> get syncGSheetUsers async {
     final gsheetUserList = await Get.find<GSheetService>()

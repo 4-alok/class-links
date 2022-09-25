@@ -103,15 +103,11 @@ class ResourcesController extends GetxController {
     }
   }
 
-  String kiloBytesToString(double size) {
-    if (size < 0) {
-      return "Unknown";
-    } else if (size < 1024) {
-      return "${size.toStringAsFixed(2)} KB";
-    } else {
-      return "${(size / 1024).toStringAsFixed(2)} MB";
-    }
-  }
+  String kiloBytesToString(double size) => size < 0
+      ? "Unknown"
+      : size < 1024
+          ? "${size.toStringAsFixed(2)} KB"
+          : "${(size / 1024).toStringAsFixed(2)} MB";
 
   @override
   void dispose() {
