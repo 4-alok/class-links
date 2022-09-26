@@ -4,11 +4,13 @@ import 'package:gsheets/gsheets.dart';
 import '../../../global/const/credentials.dart';
 import '../datasources/ghseet_user_info_datasources.dart';
 import '../datasources/resources_datasources.dart';
+import '../datasources/sheet_timetable_datasources.dart';
 import '../usecase/sheet_usecase.dart';
 
 class GSheetService extends GetxService implements SheetUsecase {
   late final ResourcesDatasources resourcesDatasources;
   late final GSheetUserInfoDatasources gSheetUserInfoDatasources;
+  late final SheetTimetableDatasources sheetTimetableDatasources;
   final gsheets = GSheets(credentials);
   final spreadsheetLoaded = false.obs;
   Spreadsheet? spreadsheet;
@@ -17,6 +19,7 @@ class GSheetService extends GetxService implements SheetUsecase {
   void onInit() {
     resourcesDatasources = ResourcesDatasources(gSheetService: this);
     gSheetUserInfoDatasources = GSheetUserInfoDatasources(gSheetService: this);
+    sheetTimetableDatasources = SheetTimetableDatasources(gSheetService: this);
     super.onInit();
   }
 

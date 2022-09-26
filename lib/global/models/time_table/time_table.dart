@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'time_table.freezed.dart';
 part 'time_table.g.dart';
 
-@freezed
+@Freezed(makeCollectionsUnmodifiable: false)
 class TimeTable with _$TimeTable {
   const factory TimeTable({
     required List<Day> week,
@@ -18,7 +18,7 @@ class TimeTable with _$TimeTable {
       _$TimeTableFromJson(json);
 }
 
-@freezed
+@Freezed(makeCollectionsUnmodifiable: false)
 class Day with _$Day {
   const factory Day({
     required String day,
@@ -28,7 +28,7 @@ class Day with _$Day {
   factory Day.fromJson(Map<String, dynamic> json) => _$DayFromJson(json);
 }
 
-@freezed
+@Freezed(makeCollectionsUnmodifiable: false)
 class Subject with _$Subject {
   const factory Subject({
     required String subjectName,
@@ -48,7 +48,7 @@ class Subject with _$Subject {
       _$SubjectFromJson(json);
 }
 
-@freezed
+@Freezed(makeCollectionsUnmodifiable: false)
 class DayTime with _$DayTime {
   const factory DayTime({
     required int hour,
