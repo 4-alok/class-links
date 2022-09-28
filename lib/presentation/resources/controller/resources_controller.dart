@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
-import '../../../global/const/credentials.dart';
+import '../../../global/const/app_credentials.dart';
 import '../../../global/models/resources/resources_entities.dart';
 import '../../../services/gsheet/datasources/resources_datasources.dart';
 import '../../../services/gsheet/repository/gsheet_service.dart';

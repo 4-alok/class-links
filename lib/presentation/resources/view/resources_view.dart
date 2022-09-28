@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../../../global/models/resources/resources_entities.dart';
 import '../../../global/widget/user_icon.dart';
 import '../../../routes/app_pages.dart';
+import '../../home/views/components/loading_database_icon.dart';
 
 class ResourcesView extends GetView<ResourcesController> {
   const ResourcesView({Key? key}) : super(key: key);
@@ -134,19 +135,21 @@ class ResourcesView extends GetView<ResourcesController> {
   }
 
   AppBar appBar(BuildContext context) => AppBar(
-        leading: ValueListenableBuilder<String>(
-          valueListenable: controller.currentPath,
-          builder: (_, __, ___) =>
-              "/".allMatches(controller.currentPath.value).length > 1
-                  ? IconButton(
-                      onPressed: () => (controller.backButtonController)
-                          ? Navigator.canPop(context)
-                              ? Navigator.pop(context)
-                              : null
-                          : null,
-                      icon: const FaIcon(FontAwesomeIcons.arrowLeft),
-                    )
-                  : const SizedBox(),
+        leading: LoadingDatabaseIcon(
+          icon: ValueListenableBuilder<String>(
+            valueListenable: controller.currentPath,
+            builder: (_, __, ___) =>
+                "/".allMatches(controller.currentPath.value).length > 1
+                    ? IconButton(
+                        onPressed: () => (controller.backButtonController)
+                            ? Navigator.canPop(context)
+                                ? Navigator.pop(context)
+                                : null
+                            : null,
+                        icon: const FaIcon(FontAwesomeIcons.arrowLeft),
+                      )
+                    : const SizedBox(),
+          ),
         ),
         actions: [userIcon(context)],
         centerTitle: true,

@@ -1,7 +1,8 @@
+import 'package:class_link/global/utils/get_snackbar.dart';
 import 'package:get/get.dart';
 import 'package:gsheets/gsheets.dart';
 
-import '../../../global/const/credentials.dart';
+import '../../../global/const/app_credentials.dart';
 import '../datasources/ghseet_user_info_datasources.dart';
 import '../datasources/resources_datasources.dart';
 import '../datasources/sheet_timetable_datasources.dart';
@@ -27,6 +28,9 @@ class GSheetService extends GetxService implements SheetUsecase {
   Future<void> get loadSpreadSheet async =>
       await gsheets.spreadsheet(getGSheetsId).then((value) {
         spreadsheet = value;
+        spreadsheetLoaded.value = true;
+      }).onError((error, stackTrace) {
+        Message("Error while loading spreadsheet", error.toString());
         spreadsheetLoaded.value = true;
       });
 

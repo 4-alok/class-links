@@ -7,6 +7,7 @@ import '../../../../../global/widget/app_title.dart';
 import '../../../../../global/widget/user_icon.dart';
 import '../../../../../routes/app_pages.dart';
 import '../../controllers/home_controller.dart';
+import 'loading_database_icon.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final HomeController homeController;
@@ -24,7 +25,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   onPressed: () => homeController.cancelEditMode,
                   icon: const FaIcon(FontAwesomeIcons.xmark),
                 )
-              : null,
+              : const LoadingDatabaseIcon(),
           title: AnimatedCrossFade(
             firstCurve: Curves.easeInOut,
             secondCurve: Curves.easeInOut,
