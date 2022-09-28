@@ -46,7 +46,16 @@ class _SheetTestState extends State<SheetTest> with TestWidget {
             ElevatedButton(
               onPressed: () async =>
                   gsheetService.sheetTimetableDatasources.getTimetableData,
-              child: const Text("Test Timetable"),
+              child: const Text("Test Timetable List"),
+            ),
+            ElevatedButton(
+              onPressed: () async =>
+                  gsheetService.sheetTimetableDatasources.getMyTimetable,
+              child: const Text("Test My Timetable"),
+            ),
+            ElevatedButton(
+              onPressed: () async => {},
+              child: const Text("Test Row List Json"),
             ),
           ],
         ),

@@ -16,7 +16,7 @@ class CacheBoxDataSources implements CacheBoxUsecase {
           querySnapshot,
       required String key,
       int? expirationHour}) async {
-    final cacheData = await getRequest(key, delete: false);
+    final cacheData = await getRequest(key);
     if (cacheData == null) {
       try {
         final data = await querySnapshot();
@@ -48,18 +48,11 @@ class CacheBoxDataSources implements CacheBoxUsecase {
   }
 
   @override
-  Future<Map<String, dynamic>?> getRequest(String key,
-      {int? expirationHour, required bool delete}) async {
+  Future<Map<String, dynamic>?> getRequest(String key) async {
     final value = await cacheBox.get(key);
     if (value == null) return null;
     final data = jsonDecode(value);
-    if ((DateTime.parse(data['date'])).difference(DateTime.now()).inHours >
-        (expirationHour ?? cacheExpiresHour)) {
-      if (delete) await cacheBox.delete(key);
-      return null;
-    } else {
-      return jsonDecode(data['data']);
-    }
+    return jsonDecode(data['data']);
   }
 
   @override
@@ -72,7 +65,7 @@ class CacheBoxDataSources implements CacheBoxUsecase {
           }));
 
   Future<void> makeExpired(String key) async {
-    final res = await getRequest(key, delete: false);
+    final res = await getRequest(key);
     if (res != null) {
       await cacheBox.put(
           key,
@@ -84,6 +77,13 @@ class CacheBoxDataSources implements CacheBoxUsecase {
 
   @override
   Future<void> deleteRequest(String key) async => await cacheBox.delete(key);
+
+  @override
+  Future<DateTime> getLastUpdated(String key) async {
+    final value = await cacheBox.get(key);
+    if (value == null) return DateTime(1947);
+    return DateTime.parse(jsonDecode(value)['date']);
+  }
 
   @override
   Future<bool> isExpired(String key) async {

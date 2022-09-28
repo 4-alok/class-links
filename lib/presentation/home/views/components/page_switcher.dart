@@ -28,6 +28,7 @@ class _PageSwitcherState extends State<PageSwitcher> {
   @override
   void dispose() {
     Get.delete<ResourcesController>();
+    lib.close();
     super.dispose();
   }
 

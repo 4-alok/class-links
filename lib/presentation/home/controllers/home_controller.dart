@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +13,7 @@ import '../../../../services/firebase/models/elective_timetable.dart';
 import '../../../../services/firebase/repository/firestore_service.dart';
 import '../../../../services/hive/repository/hive_database.dart';
 import '../../../global/models/time_table/time_table.dart';
+import '../../../services/gsheet/datasources/sheet_timetable_datasources.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../../subject_info/controllers/subject_info_controller.dart';
 import 'crud_operation.dart';
@@ -35,6 +37,9 @@ class HomeController extends GetxController
   StreamSubscription<List<Day>>? _timeTableSubscription;
 
   final electiveSubjects = ValueNotifier<List<ElectiveTimetable>>([]);
+
+  SheetTimetableDatasources get timetableDatasource =>
+      Get.find<GSheetService>().sheetTimetableDatasources;
 
   @override
   void onInit() async {
@@ -96,10 +101,16 @@ class HomeController extends GetxController
         originalList = deepCopyWeek(event);
       });
     } else {
-      final timetable =
-          await firestoreService.timetableDatasource.batchTimeTable;
-      week.value = List.generate(timetable.length, (index) => timetable[index]);
-      originalList = deepCopyWeek(timetable);
+      final timetableCache = await timetableDatasource.getMyTimetableCache;
+      if (timetableCache != null) {
+        week.value = List.generate(
+            timetableCache.week.length, (index) => timetableCache.week[index]);
+        originalList = deepCopyWeek(timetableCache.week);
+      }
+      final timetable = await timetableDatasource.getMyTimetable;
+      week.value = List.generate(
+          timetable.week.length, (index) => timetable.week[index]);
+      originalList = deepCopyWeek(timetable.week);
     }
   }
 
