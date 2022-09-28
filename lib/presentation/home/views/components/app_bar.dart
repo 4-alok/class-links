@@ -74,7 +74,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: Get.isDarkMode
                   ? Colors.white
                   : Theme.of(context).colorScheme.primary,
-              // color: Colors.white,
             ),
           ),
           isScrollable: true,

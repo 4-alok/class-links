@@ -7,6 +7,18 @@ mixin UserBatchList {
 
   List<String> get firstYearScheme2 => _firstYearScheme2;
 
+  // 1st Year
+
+  List<String> get firstYear => [..._firstYearA, ..._firstYearB];
+
+  List<String> get _firstYearA => List.generate(35, (index) => "A${index + 1}")
+      .map((e) => e.length == 2 ? e.replaceAll("A", "A0") : e)
+      .toList();
+
+  List<String> get _firstYearB => List.generate(31, (index) => "B${index + 1}")
+      .map((e) => e.length == 2 ? e.replaceAll("B", "B0") : e)
+      .toList();
+
   // 2nd Year
 
   List<String> get secondYearCSE =>
@@ -31,4 +43,7 @@ mixin UserBatchList {
 
   List<String> get thirdYearCSSE =>
       List.generate(3, (index) => "CSSE-${index + 1}");
+
+  List<String> get thirdYearCSCE =>
+      List.generate(3, (index) => "CSCE-${index + 1}");
 }

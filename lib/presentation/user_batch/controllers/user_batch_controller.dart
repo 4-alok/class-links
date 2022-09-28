@@ -28,11 +28,7 @@ class UserBatchController extends GetxController with UserBatchList {
 
   List<String> get batchList {
     if (currentYear.value == 1) {
-      if (currentScheme.value == 1) {
-        return firstYearScheme1;
-      } else if (currentScheme.value == 2) {
-        return firstYearScheme2;
-      }
+      return firstYear;
     } else if (currentYear.value == 2) {
       if (currentStream.value != null) {
         if (currentStream.value == "CSE") {
@@ -53,6 +49,8 @@ class UserBatchController extends GetxController with UserBatchList {
           return thirdYearIT;
         } else if (currentStream.value == 'CSSE') {
           return thirdYearCSSE;
+        } else if (currentStream.value == 'CSCE') {
+          return thirdYearCSCE;
         }
       }
     }
