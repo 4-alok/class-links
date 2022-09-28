@@ -114,19 +114,19 @@ class ResourcesView extends GetView<ResourcesController> {
     if (isfolder) {
       return const FaIcon(FontAwesomeIcons.solidFolder);
     } else {
-      if (fileName.endsWith('.pdf')) {
+      if (fileName.toLowerCase().endsWith('.pdf')) {
         return const FaIcon(FontAwesomeIcons.solidFilePdf);
       } else if (fileName.toLowerCase().endsWith('.pptx') ||
           fileName.toLowerCase().endsWith('.ppt')) {
         return const FaIcon(FontAwesomeIcons.solidFilePowerpoint);
       } else if (fileName.toLowerCase().endsWith('.docx') ||
-          fileName.endsWith('.doc')) {
+          fileName.toLowerCase().endsWith('.doc')) {
         return const FaIcon(FontAwesomeIcons.solidFileWord);
       } else if (fileName.toLowerCase().endsWith('.xlsx') ||
-          fileName.endsWith('.xls')) {
+          fileName.toLowerCase().endsWith('.xls')) {
         return const FaIcon(FontAwesomeIcons.solidFileExcel);
       } else if (fileName.toLowerCase().endsWith('.png') ||
-          fileName.endsWith('.jpg')) {
+          fileName.toLowerCase().endsWith('.jpg')) {
         return const FaIcon(FontAwesomeIcons.solidFileImage);
       }
       return const FaIcon(FontAwesomeIcons.solidFile);

@@ -1,10 +1,10 @@
-import 'package:class_link/global/utils/get_snackbar.dart';
-import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../../global/const/credentials.dart';
 import '../../../global/models/resources/resources_entities.dart';
+import '../../../services/gsheet/datasources/resources_datasources.dart';
+import '../../../services/gsheet/repository/gsheet_service.dart';
 
 const String indexKey = "index_key";
 
@@ -47,23 +47,22 @@ List<IndexEntity> _sortList(List<IndexEntity> list) {
 class ResourcesController extends GetxController {
   final hasData = ValueNotifier<bool>(false);
   final processing = ValueNotifier<bool>(false);
-  List<List<String>>? data;
+  final data = Rx<List<List<String>>?>(null);
   final currentEntity = ValueNotifier<List<IndexEntity>>([]);
   final currentPath = ValueNotifier<String>(baseFolder);
 
+  ResourcesDatasources get resourcesReop =>
+      Get.find<GSheetService>().resourcesDatasources;
+
   @override
   void onReady() async {
-    data = await gsheetService.resourcesDatasources.getSheetRowsList
-        .onError((error, stackTrace) {
-      Message("GSheet Error", error.toString());
-      return [];
-    });
+    data.value = (await resourcesReop.getResourcesListCache)?.rowList;
+    if (data.value != null) hasData.value = true;
+    data.value = (await resourcesReop.getResourcesList).rowList;
     hasData.value = true;
     currentEntity.value = getEntities;
     super.onReady();
   }
-
-  GSheetService get gsheetService => Get.find<GSheetService>();
 
   Future<List<IndexEntity>> getList(String path) async {
     processing.value = true;
@@ -73,22 +72,24 @@ class ResourcesController extends GetxController {
     return currentEntity.value;
   }
 
-  List<IndexEntity> get getEntities => data == null
+  List<IndexEntity> get getEntities => data.value == null
       ? []
       : List.generate(
-          data!.length,
-          (index) => data![index][2] == "Folder"
+          data.value!.length,
+          (index) => data.value![index][2] == "Folder"
               ? IndexFolder(
-                  name: data![index][1],
-                  path: data![index][0],
-                  lastUpdate: data![index][5])
+                  name: data.value![index][1],
+                  path: data.value![index][0],
+                  lastUpdate: data.value![index][5])
               : IndexFile(
-                  name: data![index][1],
-                  path: data![index][0],
-                  lastUpdate: data![index][5],
-                  id: data![index][4],
-                  description: data![index][6] == "" ? null : data![index][6],
-                  size: double.tryParse(data![index][7]) ?? -1,
+                  name: data.value![index][1],
+                  path: data.value![index][0],
+                  lastUpdate: data.value![index][5],
+                  id: data.value![index][4],
+                  description: data.value![index][6] == ""
+                      ? null
+                      : data.value![index][6],
+                  size: double.tryParse(data.value![index][7]) ?? -1,
                 ),
         );
 
@@ -114,6 +115,7 @@ class ResourcesController extends GetxController {
     hasData.dispose();
     processing.dispose();
     currentPath.dispose();
+    data.close();
     super.dispose();
   }
 }

@@ -100,12 +100,6 @@ class ImportCsvController with GetFile {
               ],
             ))
         .toList();
-    // for (TimeTable timetable in timetables) {
-    //   timetable.week.addAll([
-    //     const Day(day: 'Saturday', subjects: []),
-    //     const Day(day: 'Sunday', subjects: []),
-    //   ]);
-    // }
     return _timetables;
   }
 

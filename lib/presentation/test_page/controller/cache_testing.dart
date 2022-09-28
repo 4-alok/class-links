@@ -22,7 +22,7 @@ class CacheTestingController {
   final isExpired = Rx<bool?>(null);
 
   Future<void> get isCacheBoxEmpty async =>
-      isEmpty.value = await cache.getRequest(testKey, delete: false) == null;
+      isEmpty.value = await cache.getRequest(testKey) == null;
 
   Future<void> get isCacheExpired async =>
       isExpired.value = await cache.isExpired(testKey);

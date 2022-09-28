@@ -128,7 +128,7 @@ class __$$_TimeTableCopyWithImpl<$Res> extends _$TimeTableCopyWithImpl<$Res>
   }) {
     return _then(_$_TimeTable(
       week: week == freezed
-          ? _value._week
+          ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as List<Day>,
       creatorId: creatorId == freezed
@@ -159,24 +159,18 @@ class __$$_TimeTableCopyWithImpl<$Res> extends _$TimeTableCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TimeTable implements _TimeTable {
   const _$_TimeTable(
-      {required final List<Day> week,
+      {required this.week,
       required this.creatorId,
       required this.batch,
       required this.year,
       required this.slot,
-      required this.date})
-      : _week = week;
+      required this.date});
 
   factory _$_TimeTable.fromJson(Map<String, dynamic> json) =>
       _$$_TimeTableFromJson(json);
 
-  final List<Day> _week;
   @override
-  List<Day> get week {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_week);
-  }
-
+  final List<Day> week;
   @override
   final String creatorId;
   @override
@@ -198,7 +192,7 @@ class _$_TimeTable implements _TimeTable {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TimeTable &&
-            const DeepCollectionEquality().equals(other._week, _week) &&
+            const DeepCollectionEquality().equals(other.week, week) &&
             const DeepCollectionEquality().equals(other.creatorId, creatorId) &&
             const DeepCollectionEquality().equals(other.batch, batch) &&
             const DeepCollectionEquality().equals(other.year, year) &&
@@ -210,7 +204,7 @@ class _$_TimeTable implements _TimeTable {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_week),
+      const DeepCollectionEquality().hash(week),
       const DeepCollectionEquality().hash(creatorId),
       const DeepCollectionEquality().hash(batch),
       const DeepCollectionEquality().hash(year),
@@ -335,7 +329,7 @@ class __$$_DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res>
           : day // ignore: cast_nullable_to_non_nullable
               as String,
       subjects: subjects == freezed
-          ? _value._subjects
+          ? _value.subjects
           : subjects // ignore: cast_nullable_to_non_nullable
               as List<Subject>,
     ));
@@ -345,19 +339,14 @@ class __$$_DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Day implements _Day {
-  const _$_Day({required this.day, required final List<Subject> subjects})
-      : _subjects = subjects;
+  const _$_Day({required this.day, required this.subjects});
 
   factory _$_Day.fromJson(Map<String, dynamic> json) => _$$_DayFromJson(json);
 
   @override
   final String day;
-  final List<Subject> _subjects;
   @override
-  List<Subject> get subjects {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_subjects);
-  }
+  final List<Subject> subjects;
 
   @override
   String toString() {
@@ -370,7 +359,7 @@ class _$_Day implements _Day {
         (other.runtimeType == runtimeType &&
             other is _$_Day &&
             const DeepCollectionEquality().equals(other.day, day) &&
-            const DeepCollectionEquality().equals(other._subjects, _subjects));
+            const DeepCollectionEquality().equals(other.subjects, subjects));
   }
 
   @JsonKey(ignore: true)
@@ -378,7 +367,7 @@ class _$_Day implements _Day {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(day),
-      const DeepCollectionEquality().hash(_subjects));
+      const DeepCollectionEquality().hash(subjects));
 
   @JsonKey(ignore: true)
   @override
