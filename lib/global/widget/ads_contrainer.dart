@@ -14,15 +14,15 @@ class _AdsContainerState extends State<AdsContainer> {
     // adUnitId: "ca-app-pub-3940256099942544/6300978111",
     size: AdSize.banner,
     request: const AdRequest(
-        // nonPersonalizedAds: false,
-        // keywords: [
-        //   'Bhubaneswar',
-        //   'btech',
-        //   'univeresity',
-        //   'college',
-        //   'computer science'
-        // ],
-        ),
+      // nonPersonalizedAds: false,
+      keywords: [
+        'Bhubaneswar',
+        'btech',
+        'univeresity',
+        'college',
+        'computer science'
+      ],
+    ),
     listener: const BannerAdListener(),
   );
 
@@ -33,10 +33,11 @@ class _AdsContainerState extends State<AdsContainer> {
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-        width: double.infinity,
-        height: 60,
-        color: Colors.transparent,
-        child: AdWidget(ad: bannerAds),
-      );
+  Widget build(BuildContext context) => const SizedBox();
+  // Widget build(BuildContext context) => Container(
+  // width: double.infinity,
+  // height: 60,
+  // color: Colors.transparent,
+  // child: AdWidget(ad: bannerAds),
+  // );
 }

@@ -1,5 +1,15 @@
 # Change log
 
+## v0.1.26
+
+- 1st/2nd/3rd Year TimeTable and Resources (CS/IT/CSSE/CSCE)
+- Resources (Notes,Question paper, etc.)
+- Long press to preview resources document
+- Open resources in appropriate app
+- View all App Users
+- New Holiday calendar
+- In app report/bugs/suggestions
+
 ## v0.1.25
 
 - Added Resources (Notes,Question paper, etc.)

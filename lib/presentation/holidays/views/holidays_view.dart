@@ -39,12 +39,20 @@ class HolidaysView extends GetView<HolidayController> {
               triggerMode: TooltipTriggerMode.tap,
               message: controller.getHolidayName(date),
               child: Card(
-                color: Theme.of(context).colorScheme.secondary,
+                elevation: 10,
+                color: Theme.of(context).colorScheme.secondary.withAlpha(100),
                 child: Padding(
                   padding: const EdgeInsets.all(.01),
                   child: Card(
-                      color: Theme.of(context).primaryColor,
-                      child: Center(child: Text(date.day.toString()))),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      color: Theme.of(context).primaryColor.withAlpha(200),
+                      child: Center(
+                          child: Text(
+                        date.day.toString(),
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary),
+                      ))),
                 ),
               ),
             );
@@ -67,7 +75,8 @@ class HolidaysView extends GetView<HolidayController> {
               triggerMode: TooltipTriggerMode.tap,
               message: controller.getHolidayName(date),
               child: Card(
-                color: Theme.of(context).primaryColor,
+                elevation: 5,
+                color: Theme.of(context).primaryColor.withAlpha(200),
                 child: Center(
                     child: Text(
                   date.day.toString(),

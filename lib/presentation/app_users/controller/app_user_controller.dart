@@ -4,7 +4,7 @@ import 'dart:collection';
 import 'package:class_link/global/utils/get_snackbar.dart';
 import 'package:class_link/services/firebase/repository/firestore_service.dart';
 import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
-import 'package:class_link/services/hive/repository/hive_database.dart';
+// import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:get/get.dart';
 
 import '../../../services/hive/models/user_info.dart';
