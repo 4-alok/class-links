@@ -7,6 +7,8 @@ import '../../../../services/hive/repository/hive_database.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../controllers/my_batch_controller.dart';
 
+final shape = RoundedRectangleBorder(borderRadius: BorderRadius.circular(10));
+
 class MyBatchView extends GetView<MyBatchController> {
   const MyBatchView({Key? key}) : super(key: key);
 
@@ -46,9 +48,8 @@ class MyBatchView extends GetView<MyBatchController> {
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: users.length,
-                itemBuilder: (context, index) => controller.is3rdYear
-                    ? tileWithName(users, index, context)
-                    : tileWithNameAndEmail(users, index, context),
+                itemBuilder: (context, index) =>
+                    tileWithName(users, index, context),
               );
             }
           } else if (snapshot.hasError) {
@@ -61,31 +62,28 @@ class MyBatchView extends GetView<MyBatchController> {
   Widget tileWithName(List<UserInfo> users, int index, BuildContext context) =>
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: ListTile(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          tileColor: controller.isMe(users[index].userName)
-              ? Theme.of(context).primaryColor.withAlpha(80)
-              : Color.alphaBlend(
-                  Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
-                  Theme.of(context).cardColor),
-          leading: Text((index + 1).toString()),
-          title: Text(users[index].userName),
-          trailing:
-              controller.isMe(users[index].userName) ? const Text("😋") : null,
-        ),
-      );
-
-  ListTile tileWithNameAndEmail(
-          List<UserInfo> users, int index, BuildContext context) =>
-      ListTile(
-        title: Text(users[index].userName),
-        subtitle: Text(
-          users[index].id,
-          style: TextStyle(color: Theme.of(context).primaryColor),
+        child: Tooltip(
+          message: users[index].id,
+          child: Material(
+            shape: shape,
+            elevation: controller.isMe(users[index].userName) ? 5 : 0,
+            child: ListTile(
+              shape: shape,
+              tileColor: controller.isMe(users[index].userName)
+                  ? Theme.of(context).primaryColor.withAlpha(80)
+                  : Color.alphaBlend(
+                      Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
+                      Theme.of(context).cardColor),
+              leading: Text((index + 1).toString()),
+              title: Text(users[index].userName),
+              trailing: controller.isMe(users[index].userName)
+                  ? const Text("😋")
+                  : null,
+            ),
+          ),
         ),
       );
 }

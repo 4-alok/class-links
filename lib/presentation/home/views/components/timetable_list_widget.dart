@@ -1,10 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
-import 'package:implicitly_animated_reorderable_list/transitions.dart';
 
-import '../../../../../global/utils/color.dart';
 import '../../../../../global/utils/extension.dart';
 import '../../../../../services/firebase/models/elective_timetable.dart';
 import '../../../../../services/hive/repository/hive_database.dart';
@@ -14,15 +11,15 @@ import '../../../../global/widget/ads_contrainer.dart';
 import '../../../subject_info/controllers/subject_info_controller.dart';
 import '../../../subject_info/views/subject_info_view.dart';
 import '../../controllers/home_controller.dart';
-import '../../controllers/my_reorderable_list_utils.dart';
+import '../../controllers/timetable_list_utils.dart';
 import 'current_class_card.dart';
-import 'edit_model_sheet.dart';
 
-class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
+class TimetableListWidget extends StatelessWidget
+    with TimetableListWidgetUtils {
   final HomeController homeController;
   final int currentTabIndex;
   final Day currentDay;
-  const MyReorderableLIst(
+  const TimetableListWidget(
       {Key? key,
       required this.homeController,
       required this.currentTabIndex,
@@ -30,51 +27,17 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) =>
-      ImplicitlyAnimatedReorderableList<Subject>(
+  Widget build(BuildContext context) => ListView(
         physics: const BouncingScrollPhysics(),
-        areItemsTheSame: (a, b) => a.subjectName == b.subjectName,
-        onReorderFinished: (a, b, c, d) =>
-            homeController.finishReorder(a, b, c, d, currentDay.day),
-        items: currentDay.subjects,
-        itemBuilder: (context, animation, item, index) => Reorderable(
-          key: ValueKey(item),
-          builder: (context, dragAnimation, inDrag) => SizeFadeTransition(
-            animation: animation,
-            sizeFraction: 0.7,
-            curve: Curves.easeInOut,
-            child: AnimatedSize(
-              curve: Curves.easeInOut,
-              duration: const Duration(milliseconds: 200),
-              child: AnimatedBuilder(
-                  animation: dragAnimation,
-                  builder: (context, child) => Obx(
-                        () => homeController.editMode.value
-                            ? editModeTile(context, inDrag, item)
-                            : (item.startTime.isCurrentTime &&
-                                    (currentTabIndex ==
-                                        DateTime.now().weekday - 1))
-                                ? CurrentClassCard(
-                                    subjectInfo: SubjectInfo(
-                                        subject: item,
-                                        currentWeek: currentTabIndex),
-                                  )
-                                : displayTile(context, item),
-                      )),
-            ),
-          ),
-        ),
-        footer: Obx(
-          () => !homeController.editMode.value
-              ? electiveSubject(context)
-              : Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                  child: ElevatedButton(
-                      onPressed: () => addSubject(context),
-                      child: const Text('Add Subject')),
-                ),
-        ),
+        children: [
+          ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: currentDay.subjects.length,
+              shrinkWrap: true,
+              itemBuilder: ((context, index) =>
+                  displayTile(context, currentDay.subjects[index]))),
+          electiveSubject(context),
+        ],
       );
 
   Widget electiveSubject(BuildContext context) =>
@@ -119,31 +82,6 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
               },
             )
           : const SizedBox();
-
-  Widget editModeTile(BuildContext context, bool inDrag, Subject item) => Card(
-        color: inDrag
-            ? Theme.of(context).secondaryHeaderColor
-            : BlendColor.cardColor(context),
-        elevation: inDrag ? 2 : .5,
-        child: ListTile(
-          leading: Handle(
-            child: CircleAvatar(
-              backgroundColor: Colors.transparent,
-              child: Icon(
-                Icons.drag_indicator,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-          ),
-          title: Text(item.subjectName),
-          subtitle: Text(item.startTime.startEndTimeRange),
-          trailing: IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: () => homeController.removeSubject(item, currentDay.day),
-          ),
-          onTap: () => addSubject(context, item),
-        ),
-      );
 
   Widget displayTile(BuildContext context, Subject item,
           {bool elective = false}) =>
@@ -210,16 +148,4 @@ class MyReorderableLIst extends StatelessWidget with MyReorderableLIstUtils {
           );
         },
       );
-
-  Future<void> addSubject(BuildContext context, [Subject? subject]) async {
-    final editBottomSheet = EditBottomSheet();
-    final sub = await editBottomSheet.show(context, subject);
-    if (sub != null) {
-      (subject != null)
-          ? homeController.updateSubject(
-              currentDay.day, subject, sub.subject!, sub.updateAllLink)
-          : homeController.addSubject(
-              currentDay, sub.subject!, sub.updateAllLink);
-    }
-  }
 }

@@ -61,7 +61,7 @@ abstract class NotificationServiceUtils {
             () => SubjectInfoView(
               subjectInfo: SubjectInfo(
                 subject: notificationPayload.subject ??
-                    Subject(
+                    const Subject(
                       subjectName: "No Info",
                       startTime: DayTime(hour: 6, minute: 0),
                     ),

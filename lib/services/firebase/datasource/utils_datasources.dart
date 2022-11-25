@@ -2,11 +2,10 @@ import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-import '../../../presentation/home/controllers/crud_operation.dart';
 import '../../hive/models/user_info.dart';
 import '../repository/firestore_service.dart';
 
-class UtilsDataSources with TimeTableCrudOperationMixin {
+class UtilsDataSources {
   final FirebaseFirestore firestore;
   final FirestoreService firestoreService;
   UtilsDataSources({required this.firestore, required this.firestoreService});

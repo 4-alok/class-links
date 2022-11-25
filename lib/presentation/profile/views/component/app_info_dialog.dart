@@ -55,6 +55,12 @@ class AppInfoBox {
           children: [
             socialWidget(
               context,
+              FontAwesomeIcons.github,
+              "Github",
+              () => Launcher.launchUrl(context, AppInfo.github),
+            ),
+            socialWidget(
+              context,
               FontAwesomeIcons.instagram,
               "Instagram",
               () => Launcher.launchUrl(context, AppInfo.instagramURL),

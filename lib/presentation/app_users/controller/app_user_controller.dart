@@ -85,12 +85,12 @@ class AppUsersController extends GetxController {
     update();
   }
 
-  void _subscriptionUpdate(List<UserInfo> users) {
-    allUsersList = users;
-    _updateYearWiseUserCount;
-    loading.value == true ? loading.value = false : null;
-    update();
-  }
+  // void _subscriptionUpdate(List<UserInfo> users) {
+  //   allUsersList = users;
+  //   _updateYearWiseUserCount;
+  //   loading.value == true ? loading.value = false : null;
+  //   update();
+  // }
 
   void get _updateYearWiseUserCount => yearWiseUserCount.value = [
         allUsersList.where((element) => element.year == 1).length,

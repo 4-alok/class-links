@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../../../global/const/const.dart';
@@ -17,34 +17,16 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height * 2);
 
   @override
-  Widget build(BuildContext context) => Obx(
-        () => AppBar(
-          centerTitle: true,
-          leading: homeController.editMode.value
-              ? IconButton(
-                  onPressed: () => homeController.cancelEditMode,
-                  icon: const FaIcon(FontAwesomeIcons.xmark),
-                )
-              : const LoadingDatabaseIcon(),
-          title: AnimatedCrossFade(
-            firstCurve: Curves.easeInOut,
-            secondCurve: Curves.easeInOut,
-            firstChild: appTitle(context),
-            secondChild: editAppTitle(context),
-            duration: const Duration(milliseconds: 200),
-            crossFadeState: !homeController.editMode.value
-                ? CrossFadeState.showFirst
-                : CrossFadeState.showSecond,
-          ),
-          actions: homeController.editMode.value ? null : [userIcon(context)],
-          bottom: PreferredSize(
-            preferredSize: AppBar().preferredSize,
-            child: tabBar(context),
-          ),
+  Widget build(BuildContext context) => AppBar(
+        centerTitle: true,
+        leading: const LoadingDatabaseIcon(),
+        title: appTitle(context),
+        actions: [userIcon(context)],
+        bottom: PreferredSize(
+          preferredSize: AppBar().preferredSize,
+          child: tabBar(context),
         ),
       );
-
-  Widget editAppTitle(BuildContext context) => const Text('Edit TimeTable');
 
   Widget appTitle(BuildContext context) => Theme(
         data: Theme.of(context),

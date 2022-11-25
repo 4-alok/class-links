@@ -61,6 +61,7 @@ class HolidaysView extends GetView<HolidayController> {
               triggerMode: TooltipTriggerMode.tap,
               message: "Today",
               child: Card(
+                elevation: 5,
                 color: Theme.of(context).colorScheme.secondary,
                 child: Center(
                     child: Text(

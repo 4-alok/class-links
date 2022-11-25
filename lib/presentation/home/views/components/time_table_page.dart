@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/home_controller.dart';
 import 'app_bar.dart';
-import 'reorderable_list.dart';
+import 'timetable_list_widget.dart';
 
 class TimeTablePage extends StatelessWidget {
   final HomeController homeController;
@@ -12,22 +11,13 @@ class TimeTablePage extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () async {
-          if (homeController.editMode.value) {
-            homeController.editMode.value = false;
-            return false;
-          }
-          return true;
-        },
-        child: DefaultTabController(
-          length: 7,
-          child: Scaffold(
-            appBar: MyAppBar(homeController: homeController),
-            body: tabBarView,
-            // bottomNavigationBar: const AdsContainer(),
-            // floatingActionButton: fab(context),
-          ),
+  Widget build(BuildContext context) => DefaultTabController(
+        length: 7,
+        child: Scaffold(
+          appBar: MyAppBar(homeController: homeController),
+          body: tabBarView,
+          // bottomNavigationBar: const AdsContainer(),
+          // floatingActionButton: fab(context),
         ),
       );
 
@@ -44,7 +34,7 @@ class TimeTablePage extends StatelessWidget {
                 return Container();
               default:
                 return Obx(
-                  () => MyReorderableLIst(
+                  () => TimetableListWidget(
                     homeController: homeController,
                     currentTabIndex: index,
                     currentDay: homeController.week.value[index],
@@ -52,47 +42,4 @@ class TimeTablePage extends StatelessWidget {
                 );
             }
           })));
-
-  Widget fab(BuildContext context) => Obx(
-        () => (homeController.hideEdit.value)
-            ? const SizedBox()
-            : FloatingActionButton.extended(
-                onPressed: homeController.isLoading.value
-                    ? null
-                    : () async => await toggleEditMode(context),
-                icon: Obx(
-                  () => homeController.isLoading.value
-                      ? const Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      : !homeController.editMode.value
-                          ? const Icon(Icons.edit)
-                          : const FaIcon(FontAwesomeIcons.check),
-                ),
-                label: AnimatedSize(
-                  duration: const Duration(milliseconds: 200),
-                  child: Obx(() => homeController.isLoading.value
-                      ? const SizedBox()
-                      : !homeController.editMode.value
-                          ? const Text("Edit")
-                          : const Text("Submit")),
-                ),
-              ),
-      );
-
-  Future<void> toggleEditMode(BuildContext context) async {
-    final res = await homeController.toggleEditMode;
-    if (res != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(res)),
-      );
-    }
-  }
 }

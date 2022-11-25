@@ -90,8 +90,8 @@ class ImportCsvController with GetFile {
       );
 
   List<TimeTable> _patch(List<TimeTable> timetables) {
-    var _timetables = timetables;
-    _timetables = timetables
+    List<TimeTable> t = timetables;
+    t = timetables
         .map((e) => e.copyWith(
               week: [
                 ...e.week,
@@ -100,10 +100,11 @@ class ImportCsvController with GetFile {
               ],
             ))
         .toList();
-    return _timetables;
+    return t;
   }
 
   Future<List<TimeTable>> get getTimeTables async {
+    // ignore: no_leading_underscores_for_local_identifiers
     List<TimeTable> _timeTables = [];
 
     for (int i = 0; i < field.length; i++) {
@@ -136,6 +137,7 @@ class ImportCsvController with GetFile {
     if (kDebugMode) {
       for (var e in timetables) {
         print(e.batch);
+        // ignore: avoid_function_literals_in_foreach_calls
         (e.week.forEach((e) {
           if (kDebugMode) {
             print(e.day);

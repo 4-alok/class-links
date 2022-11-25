@@ -1,24 +1,34 @@
 import '../../../global/utils/extension.dart';
 
 abstract class FilterKiitian {
-  static bool exceptions(String email) => [
-        'sanskarkashyap308@gmail.com',
-        'palakhisariya85@gmail.com',
-      ].contains(email);
+  static bool exceptions(String email) => [].contains(email);
 
   bool isValidRollNo(int rollNo) {
+    // 2022 CSE and IT
+    if (rollNo.isBetween(2205000, 2205999) ||
+        rollNo.isBetween(22051000, 22054400)) {
+      return true;
+    }
+
+    // 2021 CSE and IT
+    else if (rollNo.isBetween(2105000, 2106322) ||
+        rollNo.isBetween(21051000, 21054000)) {
+      return true;
+    }
+
+    // 2021 CSCE and CSSE
+    else if (rollNo.isBetween(2129001, 2129160) ||
+        rollNo.isBetween(2128001, 2128141)) {
+      return true;
+    }
+
     // 2020 year CSE
-    if (rollNo.isBetween(2005000, 2005999) ||
+    else if (rollNo.isBetween(2005000, 2005999) ||
         rollNo.isBetween(20051000, 20052010)) {
       return true;
     }
     // 2020 year IT
     else if (rollNo.isBetween(2006001, 2006568)) {
-      return true;
-    }
-    // 2021 CSE and IT
-    else if (rollNo.isBetween(2105000, 2105999) ||
-        rollNo.isBetween(21051000, 21054000)) {
       return true;
     }
 

@@ -1,5 +1,9 @@
 # Change log
 
+## v0.1.27
+
+- added 1st/2nd year student range
+
 ## v0.1.26
 
 - 1st/2nd/3rd Year TimeTable and Resources (CS/IT/CSSE/CSCE)

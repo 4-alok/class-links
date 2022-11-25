@@ -6,29 +6,30 @@ import 'package:get/get.dart';
 
 import '../../../../global/utils/app_update.dart';
 import '../../../../routes/app_pages.dart';
-import '../../../../services/auth/models/user_type.dart';
-import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../../services/auth/utils/patch.dart';
 import '../../../../services/firebase/models/elective_timetable.dart';
 import '../../../../services/firebase/repository/firestore_service.dart';
 import '../../../../services/hive/repository/hive_database.dart';
+import '../../../global/const/const.dart';
 import '../../../global/models/time_table/time_table.dart';
 import '../../../services/gsheet/datasources/sheet_timetable_datasources.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../../subject_info/controllers/subject_info_controller.dart';
-import 'crud_operation.dart';
+// import 'crud_operation.dart';
 
 class HomeController extends GetxController
-    with
-        GetSingleTickerProviderStateMixin,
-        TimeTableCrudOperationMixin,
-        UserPatchMixin {
+    with GetSingleTickerProviderStateMixin, UserPatchMixin {
   late final TabController tabController;
-  late final bool personalTimeTable;
-  final hideEdit = true.obs;
-  final editMode = false.obs;
+
   final isLoading = false.obs;
-  final isPostPage = false.obs;
+
+  // copy of originalList
+  final week = Rx<List<Day>>([]);
+  //  original list
+  List<Day> originalList = List.generate(
+    7,
+    (index) => Day(day: Days.days[index], subjects: []),
+  );
 
   /// value changes every hour, to rebuild [TimeTablePage] body
   final hourlyUpdate = ValueNotifier(DateTime.now().hour);
@@ -45,10 +46,6 @@ class HomeController extends GetxController
   void onInit() async {
     tabController =
         TabController(initialIndex: initialTab, vsync: this, length: 7);
-    personalTimeTable =
-        (Get.find<AuthService>().authDatasources.userType() != UserType.user)
-            ? true
-            : false;
 
     _hourlyUpdateSubscription =
         Stream.periodic(const Duration(seconds: 1), (i) => i).listen((_) =>
@@ -57,9 +54,14 @@ class HomeController extends GetxController
                 : null);
 
     defaultDays;
-    _getUserRole;
+    // _getUserRole;
     super.onInit();
   }
+
+  void get defaultDays => week.value = List.generate(
+        7,
+        (index) => Day(day: Days.days[index], subjects: []),
+      );
 
   int get initialTab =>
       (DateTime.now().weekday == 7 || DateTime.now().weekday == 6)
@@ -68,7 +70,8 @@ class HomeController extends GetxController
 
   @override
   void onReady() {
-    personalTimeTable ? initSubscription : null;
+    // personalTimeTable ? initSubscription : null;
+    loadTimetable;
     getElectiveSubjects;
     AndroidAppUpdate().update;
     thirdYearEmailPatch;
@@ -81,119 +84,39 @@ class HomeController extends GetxController
         .getUserElectiveSubjects(local: true);
   }
 
-  Future<void> get _getUserRole async {
-    if (personalTimeTable) {
-      hideEdit.value = false;
-    } else {
-      if ((await Get.find<FirestoreService>().userInfoDatasources.getUserInfo)
-              ?.role !=
-          "viewer") hideEdit.value = false;
+  Future<void> get loadTimetable async {
+    final timetableCache = await timetableDatasource.getMyTimetableCache;
+    if (timetableCache != null) {
+      week.value = List.generate(
+          timetableCache.week.length, (index) => timetableCache.week[index]);
+      originalList = deepCopyWeek(timetableCache.week);
     }
+    final timetable = await timetableDatasource.getMyTimetable;
+    week.value =
+        List.generate(timetable.week.length, (index) => timetable.week[index]);
+    originalList = deepCopyWeek(timetable.week);
   }
 
-  Future<void> get initSubscription async {
-    final firestoreService = Get.find<FirestoreService>();
-    if (personalTimeTable) {
-      _timeTableSubscription = firestoreService
-          .timetableDatasource.personalTimeTableStream
-          .listen((event) {
-        week.value = List.generate(event.length, (index) => event[index]);
-        originalList = deepCopyWeek(event);
-      });
-    } else {
-      final timetableCache = await timetableDatasource.getMyTimetableCache;
-      if (timetableCache != null) {
-        week.value = List.generate(
-            timetableCache.week.length, (index) => timetableCache.week[index]);
-        originalList = deepCopyWeek(timetableCache.week);
-      }
-      final timetable = await timetableDatasource.getMyTimetable;
-      week.value = List.generate(
-          timetable.week.length, (index) => timetable.week[index]);
-      originalList = deepCopyWeek(timetable.week);
-    }
-  }
+  List<Day> deepCopyWeek(List<Day> originList) =>
+      originList.map((e) => Day.fromJson(e.toJson())).toList();
 
   Future<UserInfo?> get getUserInfo async {
     final result = Get.find<HiveDatabase>().userBoxDatasources.userInfo;
     if (result != null) {
-      initSubscription;
+      // initSubscription;
       return result;
     } else {
       final result2 =
           await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
       if (result2 != null) {
         await Get.find<HiveDatabase>().userBoxDatasources.setUserInfo(result2);
-        initSubscription;
+        // initSubscription;
         return result2;
       } else {
         Get.offAllNamed(Routes.USER_BATCH);
       }
     }
     return null;
-  }
-
-  void get cancelEditMode {
-    logData = [];
-    week.value = deepCopyWeek(originalList);
-    editMode.value = false;
-  }
-
-  Future<String?> get toggleEditMode async {
-    if (editMode.value) {
-      final isValidate = validate;
-      if (isValidate == null) {
-        isLoading.value = true;
-        if (personalTimeTable) {
-          await _addOrUpdateTimeTable;
-          logData.clear();
-          editMode.value = false;
-        } else
-        //  if (await Get.find<GoogleSheetService>().addEntry(logData) ??
-        // false)
-        {
-          await _addOrUpdateTimeTable;
-          logData.clear();
-          editMode.value = false;
-        }
-        isLoading.value = false;
-      } else {
-        return validate;
-      }
-    } else {
-      editMode.value = true;
-    }
-    return null;
-  }
-
-  Future<void> get _addOrUpdateTimeTable async {
-    if (personalTimeTable) {
-      final email = Get.find<AuthService>().getUser!.email!;
-      final timeTable = TimeTable(
-        week: week.value,
-        creatorId: email,
-        batch: '',
-        date: DateTime.now(),
-        slot: -1,
-        year: -1,
-      );
-      await Get.find<FirestoreService>()
-          .timetableDatasource
-          .addOrUpdatePersonalTimeTable(timeTable);
-    } else {
-      final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo!;
-      final timeTable = TimeTable(
-        week: week.value,
-        creatorId: userInfo.id,
-        batch: userInfo.batch,
-        year: userInfo.year,
-        slot: userInfo.slot,
-        date: DateTime.now(),
-      );
-      await Get.find<FirestoreService>()
-          .timetableDatasource
-          .addOrUpdateBatchTimeTable(timeTable);
-    }
   }
 
   @override

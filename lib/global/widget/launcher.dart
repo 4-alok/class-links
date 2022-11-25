@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// ignore: library_prefixes
 import 'package:url_launcher/url_launcher.dart' as LA;
 
 class Launcher {

@@ -266,7 +266,8 @@ class SubjectInfoBody {
         () => ElevatedButton(
           style: controller.notificationAdded.value
               ? null
-              : ElevatedButton.styleFrom(primary: Theme.of(context).cardColor),
+              : ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).cardColor),
           onPressed: () => controller.notificationAdded.value
               ? controller.removeReminder
               : controller.addReminder(controller.subjectInfo, context),

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../global/widget/sliding_switch.dart';
+import '../../../../services/auth/models/user_type.dart';
+import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../resources/controller/resources_controller.dart';
 import '../../../resources/view/resources_view.dart';
 import '../../controllers/home_controller.dart';
@@ -32,6 +34,8 @@ class _PageSwitcherState extends State<PageSwitcher> {
     super.dispose();
   }
 
+  UserType get userType => Get.find<AuthService>().authDatasources.userType();
+
   @override
   Widget build(BuildContext context) => Stack(
         children: [
@@ -50,7 +54,7 @@ class _PageSwitcherState extends State<PageSwitcher> {
                   : const ResourcesView(),
             ),
           ),
-          switchWidget,
+          userType == UserType.user ? switchWidget : const SizedBox(),
         ],
       );
 

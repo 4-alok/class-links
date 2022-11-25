@@ -130,7 +130,7 @@ class ProfileView extends GetView<ProfileController> {
           const SizedBox(height: 20),
           GestureDetector(
             onTap: () => Launcher.launchUrl(
-                context, 'https://www.instagram.com/4_alokk/'),
+                context, 'https://www.linkedin.com/in/4-alok/'),
             child: CircleAvatar(
               radius: 35,
               child: ClipOval(
