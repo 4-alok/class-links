@@ -31,11 +31,21 @@ class TimetableListWidget extends StatelessWidget
         physics: const BouncingScrollPhysics(),
         children: [
           ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: currentDay.subjects.length,
-              shrinkWrap: true,
-              itemBuilder: ((context, index) =>
-                  displayTile(context, currentDay.subjects[index]))),
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: currentDay.subjects.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) =>
+                currentDay.subjects[index].startTime.isCurrentTime &&
+                        (currentTabIndex == DateTime.now().weekday - 1)
+                    ? CurrentClassCard(
+                        subjectInfo: SubjectInfo(
+                            subject: currentDay.subjects[index],
+                            currentWeek: currentTabIndex))
+                    : displayTile(
+                        context,
+                        currentDay.subjects[index],
+                      ),
+          ),
           electiveSubject(context),
         ],
       );
