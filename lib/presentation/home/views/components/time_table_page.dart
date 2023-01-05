@@ -16,30 +16,33 @@ class TimeTablePage extends StatelessWidget {
         child: Scaffold(
           appBar: MyAppBar(homeController: homeController),
           body: tabBarView,
-          // bottomNavigationBar: const AdsContainer(),
-          // floatingActionButton: fab(context),
         ),
       );
 
   Widget get tabBarView => ValueListenableBuilder<Object>(
-      valueListenable: homeController.hourlyUpdate,
-      builder: (_, __, ___) => TabBarView(
+        valueListenable: homeController.hourlyUpdate,
+        builder: (_, __, ___) => TabBarView(
           physics: const BouncingScrollPhysics(),
           controller: homeController.tabController,
-          children: List.generate(7, (index) {
-            switch (index) {
-              case 5:
-                return Container();
-              case 6:
-                return Container();
-              default:
-                return Obx(
-                  () => TimetableListWidget(
-                    homeController: homeController,
-                    currentTabIndex: index,
-                    currentDay: homeController.week.value[index],
-                  ),
-                );
-            }
-          })));
+          children: List.generate(
+            7,
+            (index) {
+              switch (index) {
+                case 5:
+                  return Container();
+                case 6:
+                  return Container();
+                default:
+                  return Obx(
+                    () => TimetableListWidget(
+                      homeController: homeController,
+                      currentTabIndex: index,
+                      currentDay: homeController.week.value[index],
+                    ),
+                  );
+              }
+            },
+          ),
+        ),
+      );
 }

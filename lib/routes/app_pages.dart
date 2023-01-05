@@ -77,12 +77,12 @@ class AppPages {
       binding: HolidayBindings(),
       transition: Transition.cupertino,
     ),
-    // GetPage(
-    //   name: _Paths.CONTROL_PANEL,
-    //   page: () => const ControlPanel(),
-    //   binding: ControlPanelBinding(),
-    //   transition: Transition.cupertino,
-    // ),
+    GetPage(
+      name: _Paths.CONTROL_PANEL,
+      page: () => const ControlPanel(),
+      binding: ControlPanelBinding(),
+      transition: Transition.cupertino,
+    ),
     GetPage(
       name: _Paths.ADMIN_REPORT_PAGE,
       page: () => const AdminReportsPage(),

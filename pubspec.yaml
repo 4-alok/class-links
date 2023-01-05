@@ -70,6 +70,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/database/3rd_year/
+    - assets/svg/background_image.svg
 
 
 flutter_native_splash:

@@ -1,309 +1,176 @@
-// import 'package:dropdown_button2/custom_dropdown_button2.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-// import '../controllers/controller_panel_controller.dart';
-// import 'control_panel_page.dart';
+import '../../../routes/app_pages.dart';
+import '../../../services/auth/utils/patch.dart';
+import '../../../services/firebase/repository/firestore_service.dart';
+import '../../../services/hive/utils/in_app_rating.dart';
+import '../controllers/controller_panel_controller.dart';
+import 'change_user_batch_widget.dart';
 
-// class ControlPanel extends GetView<ControlPanelController> {
-//   const ControlPanel({Key? key}) : super(key: key);
+class ControlPanel extends GetView<ControlPanelController> with UserPatchMixin {
+  const ControlPanel({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) => Scaffold(
-//         appBar: AppBar(title: const Text("Control Panel")),
-//         body: Obx(
-//           () => controller.csvController.field.isEmpty
-//               ? ControlPanelPage(controller: controller)
-//               : importCsvPage(context),
-//         ),
-//         floatingActionButton: fab,
-//       );
+  FirestoreService get firestoreServices => Get.find<FirestoreService>();
 
-//   Widget importCsvPage(BuildContext context) => Padding(
-//         padding: const EdgeInsets.all(12.0),
-//         child: ListView(
-//           physics: const BouncingScrollPhysics(),
-//           children: [
-//             const SizedBox(height: 12),
-//             dayWidget,
-//             batchWidget,
-//             room1Widget,
-//             room2Widget,
-//             room3Widget,
-//             Card(
-//               child: TextField(
-//                 keyboardType: TextInputType.number,
-//                 decoration: const InputDecoration(
-//                   labelText: "Year",
-//                   hintText: "2020",
-//                   border: InputBorder.none,
-//                   focusedBorder: InputBorder.none,
-//                   enabledBorder: InputBorder.none,
-//                   errorBorder: InputBorder.none,
-//                   disabledBorder: InputBorder.none,
-//                 ),
-//                 onChanged: (val) => val != ''
-//                     ? controller.csvController.year.value =
-//                         int.tryParse(val) ?? 2020
-//                     : null,
-//               ),
-//             ),
-//             Card(
-//               child: TextField(
-//                 keyboardType: TextInputType.number,
-//                 decoration: const InputDecoration(
-//                   labelText: "Slot",
-//                   hintText: "1",
-//                   border: InputBorder.none,
-//                   focusedBorder: InputBorder.none,
-//                   enabledBorder: InputBorder.none,
-//                   errorBorder: InputBorder.none,
-//                   disabledBorder: InputBorder.none,
-//                 ),
-//                 onChanged: (val) => val != ''
-//                     ? controller.csvController.slot.value =
-//                         int.tryParse(val) ?? 1
-//                     : null,
-//               ),
-//             ),
-//             Card(
-//               child: TextField(
-//                 keyboardType: TextInputType.number,
-//                 decoration: const InputDecoration(
-//                   labelText: "Creator ID",
-//                   hintText: "2005847@kiit.ac.in",
-//                   border: InputBorder.none,
-//                   focusedBorder: InputBorder.none,
-//                   enabledBorder: InputBorder.none,
-//                   errorBorder: InputBorder.none,
-//                   disabledBorder: InputBorder.none,
-//                 ),
-//                 onChanged: (val) => val != ''
-//                     ? controller.csvController.creatorId.value = val
-//                     : null,
-//               ),
-//             ),
-//             const SizedBox(height: 12),
-//             const Padding(
-//               padding: EdgeInsets.symmetric(horizontal: 12),
-//               child: Text(
-//                 "Timing slot",
-//                 textAlign: TextAlign.start,
-//                 style: TextStyle(fontSize: 12),
-//               ),
-//             ),
-//             Card(
-//                 child: Wrap(
-//               children: controller.csvController.subjectTimes
-//                   .map((e) => Card(
-//                         color: Theme.of(context)
-//                             .colorScheme
-//                             .primary
-//                             .withOpacity(.1),
-//                         child: Padding(
-//                           padding: const EdgeInsets.symmetric(
-//                               horizontal: 10, vertical: 2),
-//                           child: Text(e),
-//                         ),
-//                       ))
-//                   .toList(),
-//             )),
-//             ElevatedButton(
-//               onPressed: () => controller.csvController.printTimetable,
-//               child: const Text("Print"),
-//             )
-//           ],
-//         ),
-//       );
+  Widget _panelItem(BuildContext context, String title, Widget child) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          ),
+          Card(
+            color: Theme.of(context).colorScheme.primary.withOpacity(.1),
+            child: SizedBox(
+              width: double.maxFinite,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: child,
+              ),
+            ),
+          )
+        ],
+      );
 
-//   Widget get room1Widget => Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         mainAxisSize: MainAxisSize.min,
-//         children: [
-//           const Padding(
-//             padding: EdgeInsets.symmetric(horizontal: 12),
-//             child: Text(
-//               "Select Room-1 column",
-//               textAlign: TextAlign.start,
-//               style: TextStyle(fontSize: 12),
-//             ),
-//           ),
-//           Card(
-//             child: SizedBox(
-//               height: 48,
-//               width: double.maxFinite,
-//               child: Obx(
-//                 () => CustomDropdownButton2(
-//                   hint: 'Room No',
-//                   buttonElevation: 5,
-//                   dropdownItems: controller.csvController.field.first
-//                       .map((e) => e.toString())
-//                       .toList(),
-//                   onChanged: (String? value) =>
-//                       controller.csvController.r1.value = value,
-//                   value: controller.csvController.r1.value,
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       );
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Control Panel'),
+          centerTitle: true,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: [
+              reportTile(context),
+              const ChangeUserBatch(),
+              emailPatchTool(context),
+              const SizedBox(height: 20),
+              testButtons(context),
+              thirdYearAsViewer,
+              delete2ndYear,
+              get3rdYearBlankRoom,
+            ],
+          ),
+        ),
+      );
 
-//   Widget get room2Widget => Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         mainAxisSize: MainAxisSize.min,
-//         children: [
-//           const Padding(
-//             padding: EdgeInsets.symmetric(horizontal: 12),
-//             child: Text(
-//               "Select Room-2 column",
-//               textAlign: TextAlign.start,
-//               style: TextStyle(fontSize: 12),
-//             ),
-//           ),
-//           Card(
-//             child: SizedBox(
-//               height: 48,
-//               width: double.maxFinite,
-//               child: Obx(
-//                 () => CustomDropdownButton2(
-//                   hint: 'Room No',
-//                   buttonElevation: 5,
-//                   dropdownItems: controller.csvController.field.first
-//                       .map((e) => e.toString())
-//                       .toList(),
-//                   onChanged: (String? value) =>
-//                       controller.csvController.r2.value = value,
-//                   value: controller.csvController.r2.value,
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       );
+  Widget reportTile(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: ListTile(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          tileColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
+          title: const Text('Reports'),
+          trailing: IconButton(
+            onPressed: () => controller.submitTestReport,
+            icon: const Icon(Icons.abc),
+          ),
+          onTap: () => Get.toNamed(Routes.ADMIN_REPORT_PAGE),
+        ),
+      );
 
-//   Widget get room3Widget => Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         mainAxisSize: MainAxisSize.min,
-//         children: [
-//           const Padding(
-//             padding: EdgeInsets.symmetric(horizontal: 12),
-//             child: Text(
-//               "Select Room-2 column",
-//               textAlign: TextAlign.start,
-//               style: TextStyle(fontSize: 12),
-//             ),
-//           ),
-//           Card(
-//             child: SizedBox(
-//               height: 48,
-//               width: double.maxFinite,
-//               child: Obx(
-//                 () => CustomDropdownButton2(
-//                   hint: 'Room No',
-//                   buttonElevation: 5,
-//                   dropdownItems: controller.csvController.field.first
-//                       .map((e) => e.toString())
-//                       .toList(),
-//                   onChanged: (String? value) =>
-//                       controller.csvController.r3.value = value,
-//                   value: controller.csvController.r3.value,
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       );
+  Widget get get3rdYearBlankRoom => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: ElevatedButton(
+          onPressed: () {},
+          child: const Text("Get 3rd Year Blank Room"),
+        ),
+      );
 
-//   Widget get batchWidget => Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         mainAxisSize: MainAxisSize.min,
-//         children: [
-//           const Padding(
-//             padding: EdgeInsets.symmetric(horizontal: 12),
-//             child: Text(
-//               "Select batch column",
-//               textAlign: TextAlign.start,
-//               style: TextStyle(fontSize: 12),
-//             ),
-//           ),
-//           Card(
-//             child: SizedBox(
-//               height: 48,
-//               width: double.maxFinite,
-//               child: Obx(
-//                 () => CustomDropdownButton2(
-//                   hint: 'Batch',
-//                   buttonElevation: 5,
-//                   dropdownItems: controller.csvController.field.first
-//                       .map((e) => e.toString())
-//                       .toList(),
-//                   onChanged: (String? value) =>
-//                       controller.csvController.batch.value = value,
-//                   value: controller.csvController.batch.value,
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       );
+  Widget get delete2ndYear => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Obx(
+          () => ElevatedButton(
+            onPressed: firestoreServices.utilsDataSources.dCount.value != null
+                ? null
+                : () async {
+                    await firestoreServices.utilsDataSources.delete2ndYear;
+                    null;
+                  },
+            child: Text(
+              firestoreServices.utilsDataSources.dCount.value == null
+                  ? "Delete 2nd Year"
+                  : "Deleting 2nd Year (${firestoreServices.utilsDataSources.dCount.value})",
+            ),
+          ),
+        ),
+      );
 
-//   Widget get dayWidget => Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         mainAxisSize: MainAxisSize.min,
-//         children: [
-//           const Padding(
-//             padding: EdgeInsets.symmetric(horizontal: 12),
-//             child: Text(
-//               "Select day column",
-//               textAlign: TextAlign.start,
-//               style: TextStyle(fontSize: 12),
-//             ),
-//           ),
-//           Card(
-//             child: SizedBox(
-//               height: 48,
-//               width: double.maxFinite,
-//               child: Obx(
-//                 () => CustomDropdownButton2(
-//                   hint: 'Day',
-//                   buttonElevation: 5,
-//                   dropdownItems: controller.csvController.field.first
-//                       .map((e) => e.toString())
-//                       .toList(),
-//                   onChanged: (String? value) =>
-//                       controller.csvController.day.value = value,
-//                   value: controller.csvController.day.value,
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       );
+  Widget get thirdYearAsViewer => Obx(() => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: ElevatedButton(
+          onPressed: () =>
+              firestoreServices.utilsDataSources.count.value == null
+                  ? firestoreServices.utilsDataSources.all3rdYearAsViewer
+                  : null,
+          child: Text(
+            firestoreServices.utilsDataSources.count.value == null
+                ? "Convert 3rd year to Viewer"
+                : firestoreServices.utilsDataSources.count.value.toString(),
+          ),
+        ),
+      ));
 
-//   Widget get fab => Obx(
-//         () => controller.csvController.field.isEmpty
-//             ? const SizedBox()
-//             : ElevatedButton(
-//                 onPressed: () => controller.csvController.import,
-//                 child: Padding(
-//                   padding: const EdgeInsets.all(8.0),
-//                   child: AnimatedSize(
-//                     duration: const Duration(milliseconds: 200),
-//                     child: Obx(
-//                       () => controller.csvController.count.value == null
-//                           ? const Text(
-//                               "Import",
-//                               style: TextStyle(fontWeight: FontWeight.bold),
-//                             )
-//                           : Text(
-//                               "Import (${controller.csvController.count.value})",
-//                               style:
-//                                   const TextStyle(fontWeight: FontWeight.bold),
-//                             ),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//       );
-// }
+  Widget testButtons(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text("Pint User Batch"),
+          ),
+          ElevatedButton(
+            onPressed: () =>
+                firestoreServices.electiveDatasources.getUserElectiveSubjects,
+            child: const Text("Test"),
+          ),
+          ElevatedButton(
+            onPressed: () => InAppRating().requestReview,
+            child: const Text("Test review"),
+          ),
+        ],
+      );
+
+  Widget emailPatchTool(BuildContext context) => _panelItem(
+      context,
+      "Email Patch Tool",
+      Wrap(
+        children: [
+          ElevatedButton(
+            onPressed: () => print(emailFixed),
+            child: const Text("Box value"),
+          ),
+          const SizedBox(width: 10),
+          ElevatedButton(
+            onPressed: () => setEmailFixed(false),
+            child: const Text("set false"),
+          ),
+          const SizedBox(width: 10),
+          ElevatedButton(
+            onPressed: () =>
+                print(hiveDatabase.userBoxDatasources.userInfo?.id),
+            child: const Text("print id"),
+          ),
+          const SizedBox(width: 10),
+          ElevatedButton(
+            onPressed: () async => print(
+                (await firestoreServices.userInfoDatasources.getUserInfo)?.id),
+            child: const Text("fb id"),
+          ),
+          const SizedBox(width: 10),
+          ElevatedButton(
+            onPressed: () => addDublicate,
+            child: const Text("Add dublicate"),
+          ),
+        ],
+      ));
+}

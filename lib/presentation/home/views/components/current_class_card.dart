@@ -41,7 +41,7 @@ class CurrentClassCard extends StatelessWidget {
       );
 
   Widget closeTile(VoidCallback action, BuildContext context) => Container(
-        color: Theme.of(context).colorScheme.secondaryContainer.withOpacity(.1),
+        color: Theme.of(context).colorScheme.secondaryContainer.withOpacity(.2),
         child: InkWell(
           onLongPress: () => _onLongPress(action),
           onTap: () => onTap(context, action, subjectInfo.subject),

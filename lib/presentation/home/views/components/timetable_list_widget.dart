@@ -7,7 +7,6 @@ import '../../../../../services/firebase/models/elective_timetable.dart';
 import '../../../../../services/hive/repository/hive_database.dart';
 import '../../../../global/models/subject_info/subject_info.dart';
 import '../../../../global/models/time_table/time_table.dart';
-import '../../../../global/widget/ads_contrainer.dart';
 import '../../../subject_info/controllers/subject_info_controller.dart';
 import '../../../subject_info/views/subject_info_view.dart';
 import '../../controllers/home_controller.dart';
@@ -83,11 +82,6 @@ class TimetableListWidget extends StatelessWidget
                                 elective: true),
                       )
                       .toList(),
-                  // const SizedBox(height: 10),
-                  // const SizedBox(
-                  //     height: 80,
-                  //     width: double.maxFinite,
-                  //     child: AdsContainer()),
                 ]);
               },
             )
@@ -96,12 +90,13 @@ class TimetableListWidget extends StatelessWidget
   Widget displayTile(BuildContext context, Subject item,
           {bool elective = false}) =>
       OpenContainer(
+        transitionType: ContainerTransitionType.fade,
         closedElevation: 0,
-        closedColor: Get.theme.scaffoldBackgroundColor,
+        closedColor: Colors.transparent,
         openColor: Get.theme.scaffoldBackgroundColor,
         middleColor: Get.theme.scaffoldBackgroundColor,
         closedBuilder: (context, action) => ColoredBox(
-            color: Get.theme.scaffoldBackgroundColor,
+            color: Colors.transparent,
             child: closeBuilder(item, context, elective, action)),
         openBuilder: (context, action) {
           Get.lazyPut<SubjectInfoController>(
