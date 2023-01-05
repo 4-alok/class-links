@@ -217,28 +217,29 @@ class ProfileView extends GetView<ProfileController> {
       );
 
   AppBar appBar(context) => AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: Hero(
-            tag: "back",
-            child: IconButton(
-              icon: const FaIcon(
-                FontAwesomeIcons.arrowLeft,
-              ),
-              onPressed: () => Get.back(),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Hero(
+          tag: "back",
+          child: IconButton(
+            icon: const FaIcon(
+              FontAwesomeIcons.arrowLeft,
             ),
+            onPressed: () => Get.back(),
           ),
-          actions: [
-            IconButton(
-                onPressed: () => Share.share(
-                      'Download Class Link form Google Play Store ${AppInfo.appUrl}',
-                      subject: 'Class Link',
-                    ),
-                icon: const FaIcon(FontAwesomeIcons.shareNodes)),
-            IconButton(
-                onPressed: () => AppInfoBox.showAppAboutDialog(context),
-                icon: const FaIcon(FontAwesomeIcons.info)),
-          ]);
+        ),
+        actions: [
+          IconButton(
+              onPressed: () => Share.share(
+                    'Download Class Link form Google Play Store ${AppInfo.appUrl}',
+                    subject: 'Class Link',
+                  ),
+              icon: const FaIcon(FontAwesomeIcons.shareNodes)),
+          IconButton(
+              onPressed: () => AppInfoBox.showAppAboutDialog(context),
+              icon: const FaIcon(FontAwesomeIcons.info)),
+        ],
+      );
 
   Widget get blackMode => AnimatedSize(
         duration: const Duration(milliseconds: 200),

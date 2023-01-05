@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -25,6 +26,34 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         bottom: PreferredSize(
           preferredSize: AppBar().preferredSize,
           child: tabBar(context),
+        ),
+        // flexibleSpace: Padding(
+        //   padding: const EdgeInsets.all(12.0),
+        //   child: SvgPicture.asset(
+        //     "assets/svg/app_bar_leaf.svg",
+        //     color: Theme.of(context).primaryColor.withOpacity(.2),
+        //     // fit: BoxFit.fitWidth,
+        //     width: MediaQuery.of(context).size.width,
+        //     // height: 150,
+        //   ),
+        // ),
+        flexibleSpace: Align(
+          alignment: Alignment.bottomLeft,
+          child: Stack(
+            children: [
+              Positioned(
+                right: MediaQuery.of(context).size.width / 2,
+                bottom: 0,
+                child: SvgPicture.asset(
+                  "assets/svg/app_bar_leaf.svg",
+                  color: Theme.of(context).primaryColor.withOpacity(.2),
+                  fit: BoxFit.fitHeight,
+                  // height: 150,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ),
+            ],
+          ),
         ),
       );
 

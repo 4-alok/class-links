@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vibration/vibration.dart';
 
 import '../../../../../global/gen/assets.gen.dart';
 import '../../../../global/models/subject_info/subject_info.dart';
@@ -43,8 +42,9 @@ class CurrentClassCard extends StatelessWidget {
   Widget closeTile(VoidCallback action, BuildContext context) => Container(
         color: Theme.of(context).colorScheme.secondaryContainer.withOpacity(.2),
         child: InkWell(
-          onLongPress: () => _onLongPress(action),
-          onTap: () => onTap(context, action, subjectInfo.subject),
+          // onLongPress: () => _onLongPress(action),
+          // onTap: () => onTap(context, action, subjectInfo.subject),
+          onTap: () => action(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
             child: Column(
@@ -123,16 +123,6 @@ class CurrentClassCard extends StatelessWidget {
           ),
         ),
       );
-
-  Future<void> _onLongPress(void Function() action) async {
-    if ((await Vibration.hasVibrator()) ?? false) {
-      Vibration.vibrate();
-      if ((await Vibration.hasAmplitudeControl()) ?? false) {
-        Vibration.vibrate(duration: 20, amplitude: 200);
-      }
-    }
-    action();
-  }
 
   void onTap(BuildContext context, Function action, Subject subjectInfo) {
     if (subjectInfo.zoomLink == "" && subjectInfo.googleClassRoomLink == "") {

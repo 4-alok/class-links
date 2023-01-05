@@ -3,6 +3,7 @@ import 'package:class_link/presentation/resources/controller/resources_controlle
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -154,6 +155,24 @@ class ResourcesView extends GetView<ResourcesController> {
         title: const Text(
           'Resources',
           style: TextStyle(fontSize: 30),
+        ),
+        flexibleSpace: Align(
+          alignment: Alignment.bottomLeft,
+          child: Stack(
+            children: [
+              Positioned(
+                left: MediaQuery.of(context).size.width / 2,
+                bottom: 0,
+                child: SvgPicture.asset(
+                  "assets/svg/app_bar_leaf.svg",
+                  color: Theme.of(context).primaryColor.withOpacity(.2),
+                  fit: BoxFit.fitHeight,
+                  // height: 150,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ),
+            ],
+          ),
         ),
       );
 
