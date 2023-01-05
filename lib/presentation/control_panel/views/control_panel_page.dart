@@ -51,9 +51,9 @@ class ControlPanelPage extends StatelessWidget with UserPatchMixin {
           physics: const BouncingScrollPhysics(),
           children: [
             reportTile(context),
-            importTimetable(context),
-            import3yearUserSection(context),
-            import3yearElectiveTimetable(context),
+            // importTimetable(context),
+            // import3yearUserSection(context),
+            // import3yearElectiveTimetable(context),
             const ChangeUserBatch(),
             emailPatchTool(context),
             const SizedBox(height: 20),
@@ -175,84 +175,84 @@ class ControlPanelPage extends StatelessWidget with UserPatchMixin {
         ],
       ));
 
-  Widget import3yearElectiveTimetable(BuildContext context) => _panelItem(
-        context,
-        'Import 3rd year elective timetable',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Select csv file",
-              style: Theme.of(context).textTheme.headline5,
-            ),
-            const SizedBox(height: 6),
-            AnimatedSize(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-                child: Obx(
-                  () => controller.import3YearElectiveTimetable.count.value !=
-                          null
-                      ? Text(
-                          "${controller.import3YearElectiveTimetable.count.value}")
-                      : ElevatedButton(
-                          onPressed: controller.import3YearElectiveTimetable
-                                      .count.value !=
-                                  null
-                              ? null
-                              : () => controller.import3YearElectiveTimetable,
-                          child: const Text("Select file"),
-                        ),
-                ))
-          ],
-        ),
-      );
+  // Widget import3yearElectiveTimetable(BuildContext context) => _panelItem(
+  //       context,
+  //       'Import 3rd year elective timetable',
+  //       Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: [
+  //           Text(
+  //             "Select csv file",
+  //             style: Theme.of(context).textTheme.headline5,
+  //           ),
+  //           const SizedBox(height: 6),
+  //           AnimatedSize(
+  //               duration: const Duration(milliseconds: 300),
+  //               curve: Curves.easeInOut,
+  //               child: Obx(
+  //                 () => controller.import3YearElectiveTimetable.count.value !=
+  //                         null
+  //                     ? Text(
+  //                         "${controller.import3YearElectiveTimetable.count.value}")
+  //                     : ElevatedButton(
+  //                         onPressed: controller.import3YearElectiveTimetable
+  //                                     .count.value !=
+  //                                 null
+  //                             ? null
+  //                             : () => controller.import3YearElectiveTimetable,
+  //                         child: const Text("Select file"),
+  //                       ),
+  //               ))
+  //         ],
+  //       ),
+  //     );
 
-  Widget import3yearUserSection(BuildContext context) => _panelItem(
-        context,
-        "Import 3rd year user section",
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Select csv file",
-              style: Theme.of(context).textTheme.headline5,
-            ),
-            const SizedBox(height: 6),
-            Obx(
-              () => controller.importUserSectionSection.count.value != null
-                  ? Text("${controller.importUserSectionSection.count.value}")
-                  : ElevatedButton(
-                      onPressed:
-                          controller.importUserSectionSection.count.value !=
-                                  null
-                              ? null
-                              : () => controller
-                                  .importUserSectionSection.uploadOnFirestore,
-                      child: const Text("Select file"),
-                    ),
-            ),
-          ],
-        ),
-      );
+  // Widget import3yearUserSection(BuildContext context) => _panelItem(
+  //       context,
+  //       "Import 3rd year user section",
+  //       Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: [
+  //           Text(
+  //             "Select csv file",
+  //             style: Theme.of(context).textTheme.headline5,
+  //           ),
+  //           const SizedBox(height: 6),
+  //           Obx(
+  //             () => controller.importUserSectionSection.count.value != null
+  //                 ? Text("${controller.importUserSectionSection.count.value}")
+  //                 : ElevatedButton(
+  //                     onPressed:
+  //                         controller.importUserSectionSection.count.value !=
+  //                                 null
+  //                             ? null
+  //                             : () => controller
+  //                                 .importUserSectionSection.uploadOnFirestore,
+  //                     child: const Text("Select file"),
+  //                   ),
+  //           ),
+  //         ],
+  //       ),
+  //     );
 
-  Widget importTimetable(BuildContext context) => _panelItem(
-      context,
-      "Import Timetablbe",
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            "Select csv file",
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          const SizedBox(height: 6),
-          ElevatedButton(
-            child: const Text("Select file"),
-            onPressed: () => controller.csvController.selectFile,
-          ),
-        ],
-      ));
+  // Widget importTimetable(BuildContext context) => _panelItem(
+  //     context,
+  //     "Import Timetablbe",
+  //     Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       mainAxisSize: MainAxisSize.min,
+  //       children: [
+  //         Text(
+  //           "Select csv file",
+  //           style: Theme.of(context).textTheme.headline5,
+  //         ),
+  //         const SizedBox(height: 6),
+  //         ElevatedButton(
+  //           child: const Text("Select file"),
+  //           onPressed: () => controller.csvController.selectFile,
+  //         ),
+  //       ],
+  //     ));
 }

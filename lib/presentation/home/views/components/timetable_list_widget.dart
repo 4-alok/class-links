@@ -83,11 +83,11 @@ class TimetableListWidget extends StatelessWidget
                                 elective: true),
                       )
                       .toList(),
-                  const SizedBox(height: 10),
-                  const SizedBox(
-                      height: 80,
-                      width: double.maxFinite,
-                      child: AdsContainer()),
+                  // const SizedBox(height: 10),
+                  // const SizedBox(
+                  //     height: 80,
+                  //     width: double.maxFinite,
+                  //     child: AdsContainer()),
                 ]);
               },
             )

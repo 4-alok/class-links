@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'services/analytics/analytics_service.dart';
@@ -17,7 +16,7 @@ Future<void> get init async {
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   await Firebase.initializeApp();
 
-  MobileAds.instance.initialize();
+  // MobileAds.instance.initialize();
   await Hive.initFlutter();
 
   final database = HiveDatabase();

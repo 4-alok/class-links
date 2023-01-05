@@ -10,7 +10,7 @@ import '../../../services/auth/repository/auth_service_repo.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../../../services/hive/repository/hive_database.dart';
 import '../controllers/home_controller.dart';
-import 'components/page_switcher.dart';
+import 'components/parallex_page_view.dart';
 import 'page/non_kiitian_view.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -73,7 +73,7 @@ class HomeView extends GetView<HomeController> {
             // App open log for google analytics
             Get.find<AnalysisService>().appOpenLogEvent;
 
-            return PageSwitcher(controller: controller);
+            return ParallexPageView(controller: controller);
           } else if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
           } else if (snapshot.connectionState == ConnectionState.waiting) {

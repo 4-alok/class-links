@@ -29,6 +29,7 @@ class AuthDatasources with FilterKiitian implements AuthServiceUsecase {
         log("Error# $error ");
         log("StackTrace# $stackTrace");
         Message("Error", "Something went wrong, please try again later");
+        throw UserSignInFlowCancelled();
       });
       if (account == null) throw UserSignInFlowCancelled();
       final authentication = await account.authentication;

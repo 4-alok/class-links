@@ -16,7 +16,6 @@ import '../../../../services/hive/repository/hive_database.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../../test_page/views/test_page.dart';
 import '../controllers/profile_controller.dart';
-import 'component/app_bar_style.dart';
 import 'component/app_info_dialog.dart';
 import 'component/theme_selector.dart';
 
