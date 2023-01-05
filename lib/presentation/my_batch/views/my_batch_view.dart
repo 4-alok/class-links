@@ -22,13 +22,9 @@ class MyBatchView extends GetView<MyBatchController> {
           centerTitle: true,
           leading: Hero(
             tag: 'back',
-            child: Material(
-              child: IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.arrowLeft,
-                ),
-                onPressed: () => Get.back(),
-              ),
+            child: IconButton(
+              icon: const FaIcon(FontAwesomeIcons.arrowLeft),
+              onPressed: () => Get.back(),
             ),
           ),
         ),
@@ -47,6 +43,7 @@ class MyBatchView extends GetView<MyBatchController> {
               final users = snapshot.data ?? [];
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.symmetric(vertical: 5),
                 itemCount: users.length,
                 itemBuilder: (context, index) =>
                     tileWithName(users, index, context),
@@ -60,29 +57,27 @@ class MyBatchView extends GetView<MyBatchController> {
       );
 
   Widget tileWithName(List<UserInfo> users, int index, BuildContext context) =>
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Tooltip(
-          message: users[index].id,
-          child: Material(
+      Tooltip(
+        message: users[index].id,
+        child: Card(
+          // shape: shape,
+          elevation: controller.isMe(users[index].userName) ? 5 : 0,
+          child: ListTile(
             shape: shape,
-            elevation: controller.isMe(users[index].userName) ? 5 : 0,
-            child: ListTile(
-              shape: shape,
-              tileColor: controller.isMe(users[index].userName)
-                  ? Theme.of(context).primaryColor.withAlpha(80)
-                  : Color.alphaBlend(
-                      Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
-                      Theme.of(context).cardColor),
-              leading: Text((index + 1).toString()),
-              title: Text(users[index].userName),
-              trailing: controller.isMe(users[index].userName)
-                  ? const Text("😋")
-                  : null,
-            ),
+            tileColor: controller.isMe(users[index].userName)
+                ? Color.alphaBlend(
+                    Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
+                    Theme.of(context).cardColor,
+                  )
+                : null,
+            leading: Text((index + 1).toString()),
+            title: Text(users[index].userName),
+            trailing: controller.isMe(users[index].userName)
+                ? const Text("😋")
+                : null,
           ),
         ),
       );

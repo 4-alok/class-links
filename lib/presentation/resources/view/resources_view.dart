@@ -69,7 +69,7 @@ class ResourcesView extends GetView<ResourcesController> {
                 child: Scrollbar(
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.only(bottom: 80),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     itemCount: list.length,
                     itemBuilder: (context, index) =>
                         AnimationConfiguration.staggeredList(
@@ -77,30 +77,25 @@ class ResourcesView extends GetView<ResourcesController> {
                       position: index,
                       child: SlideAnimation(
                         child: FadeInAnimation(
-                          child: Card(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(.1),
-                            child: ListTile(
-                              onTap: () => (list[index] is IndexFolder)
-                                  ? controller.currentPath.value =
-                                      "${list[index].path}/"
-                                  : openDox(context, list[index] as IndexFile),
-                              onLongPress: () => (list[index] is IndexFile)
-                                  ? prevDoc(
-                                      context, (list[index] as IndexFile).id)
-                                  : null,
-                              leading: leadingIcon(
-                                isfolder: list[index] is IndexFolder,
-                                fileName: list[index].name,
-                              ),
-                              title: Text(list[index].name),
-                              trailing: list[index] is IndexFolder
-                                  ? null
-                                  : Text(controller.kiloBytesToString(
-                                      (list[index] as IndexFile).size)),
+                          child: ListTile(
+                            // tileColor: Colors.green,
+                            onTap: () => (list[index] is IndexFolder)
+                                ? controller.currentPath.value =
+                                    "${list[index].path}/"
+                                : openDox(context, list[index] as IndexFile),
+                            onLongPress: () => (list[index] is IndexFile)
+                                ? prevDoc(
+                                    context, (list[index] as IndexFile).id)
+                                : null,
+                            leading: leadingIcon(
+                              isfolder: list[index] is IndexFolder,
+                              fileName: list[index].name,
                             ),
+                            title: Text(list[index].name),
+                            trailing: list[index] is IndexFolder
+                                ? null
+                                : Text(controller.kiloBytesToString(
+                                    (list[index] as IndexFile).size)),
                           ),
                         ),
                       ),
@@ -113,22 +108,25 @@ class ResourcesView extends GetView<ResourcesController> {
 
   Widget leadingIcon({required bool isfolder, String fileName = ''}) {
     if (isfolder) {
-      return const FaIcon(FontAwesomeIcons.solidFolder);
+      return FaIcon(FontAwesomeIcons.folder, color: Get.theme.primaryColor);
     } else {
       if (fileName.toLowerCase().endsWith('.pdf')) {
-        return const FaIcon(FontAwesomeIcons.solidFilePdf);
+        return FaIcon(FontAwesomeIcons.filePdf, color: Colors.red[400]);
       } else if (fileName.toLowerCase().endsWith('.pptx') ||
           fileName.toLowerCase().endsWith('.ppt')) {
-        return const FaIcon(FontAwesomeIcons.solidFilePowerpoint);
+        return FaIcon(FontAwesomeIcons.filePowerpoint,
+            color: Colors.yellow[400]);
       } else if (fileName.toLowerCase().endsWith('.docx') ||
           fileName.toLowerCase().endsWith('.doc')) {
-        return const FaIcon(FontAwesomeIcons.solidFileWord);
+        return const FaIcon(FontAwesomeIcons.fileWord, color: Colors.blue);
       } else if (fileName.toLowerCase().endsWith('.xlsx') ||
-          fileName.toLowerCase().endsWith('.xls')) {
-        return const FaIcon(FontAwesomeIcons.solidFileExcel);
+          fileName.toLowerCase().endsWith(
+                '.xls',
+              )) {
+        return const FaIcon(FontAwesomeIcons.fileExcel, color: Colors.green);
       } else if (fileName.toLowerCase().endsWith('.png') ||
           fileName.toLowerCase().endsWith('.jpg')) {
-        return const FaIcon(FontAwesomeIcons.solidFileImage);
+        return const FaIcon(FontAwesomeIcons.fileImage, color: Colors.purple);
       }
       return const FaIcon(FontAwesomeIcons.solidFile);
     }

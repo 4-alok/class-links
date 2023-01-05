@@ -97,56 +97,12 @@ class TimetableListWidget extends StatelessWidget
           {bool elective = false}) =>
       OpenContainer(
         closedElevation: 0,
-        closedColor: Theme.of(context).scaffoldBackgroundColor,
-        openColor: Theme.of(context).scaffoldBackgroundColor,
-        middleColor: Theme.of(context).scaffoldBackgroundColor,
-        closedBuilder: (context, action) => Theme(
-          data: Theme.of(context).copyWith(
-              cardColor: Colors.transparent,
-              listTileTheme: ListTileThemeData(
-                tileColor: Theme.of(context).backgroundColor,
-              )),
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Colors.transparent,
-              child: Text(item.startTime.hourString,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(color: Theme.of(context).colorScheme.primary)),
-            ),
-            title: elective
-                ? Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Hero(tag: "subject_name", child: Text(item.subjectName)),
-                      const SizedBox(width: 5),
-                      Text(
-                        "Elective",
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).primaryColor),
-                      )
-                    ],
-                  )
-                : Hero(tag: "subject_name", child: Text(item.subjectName)),
-            subtitle: displayTileText(item) != ""
-                ? Text(displayTileText(item))
-                : null,
-            trailing: item.roomNo == null
-                ? null
-                : Text(
-                    trailingText(item),
-                    style: Get.theme.textTheme.headline4,
-                  ),
-            onLongPress: () => ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content:
-                        Text(item.remark == "" ? "No Remark" : item.remark))),
-            onTap: action,
-          ),
-        ),
+        closedColor: Get.theme.scaffoldBackgroundColor,
+        openColor: Get.theme.scaffoldBackgroundColor,
+        middleColor: Get.theme.scaffoldBackgroundColor,
+        closedBuilder: (context, action) => ColoredBox(
+            color: Get.theme.scaffoldBackgroundColor,
+            child: closeBuilder(item, context, elective, action)),
         openBuilder: (context, action) {
           Get.lazyPut<SubjectInfoController>(
             () => SubjectInfoController(),
@@ -157,5 +113,45 @@ class TimetableListWidget extends StatelessWidget
                 SubjectInfo(subject: item, currentWeek: currentTabIndex),
           );
         },
+      );
+
+  ListTile closeBuilder(Subject item, BuildContext context, bool elective,
+          VoidCallback action) =>
+      ListTile(
+        leading: CircleAvatar(
+          backgroundColor: Colors.transparent,
+          child: Text(item.startTime.hourString,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4!
+                  .copyWith(color: Theme.of(context).colorScheme.primary)),
+        ),
+        title: elective
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Hero(tag: "subject_name", child: Text(item.subjectName)),
+                  const SizedBox(width: 5),
+                  Text(
+                    "Elective",
+                    style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor),
+                  )
+                ],
+              )
+            : Hero(tag: "subject_name", child: Text(item.subjectName)),
+        subtitle:
+            displayTileText(item) != "" ? Text(displayTileText(item)) : null,
+        trailing: item.roomNo == null
+            ? null
+            : Text(
+                trailingText(item),
+                style: Get.theme.textTheme.headline4,
+              ),
+        onLongPress: () => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(item.remark == "" ? "No Remark" : item.remark))),
+        onTap: action,
       );
 }

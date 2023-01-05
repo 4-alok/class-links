@@ -1,5 +1,6 @@
 import 'package:class_link/global/utils/extension.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../../services/analytics/analytics_service.dart';
@@ -23,30 +24,47 @@ class HomeView extends GetView<HomeController> {
                 : const NonKiitianView(),
         bottomNavigationBar:
             Get.find<AuthService>().authDatasources.userType() == UserType.user
-                ? const SizedBox()
-                : Container(
-                    margin: const EdgeInsets.all(20),
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            foregroundColor:
-                                Get.isDarkMode ? Colors.red : Colors.white,
-                            backgroundColor: Get.isDarkMode
-                                ? Get.theme.cardColor
-                                    .alphaBlendColor(
-                                        Get.theme.scaffoldBackgroundColor,
-                                        Colors.red[100])
-                                    .withOpacity(.8)
-                                : Colors.red),
-                        onPressed: () async =>
-                            Get.find<AuthService>().logout.then((value) async {
-                              await Get.find<HiveDatabase>()
-                                  .userBoxDatasources
-                                  .clearUserInfo;
-                              Get.offAllNamed(Routes.AUTH);
-                            }),
-                        child: const Text("Logout"))),
+                ? bottomNavigationBar
+                : nonKiitianLogout,
       );
+
+  Widget get bottomNavigationBar => Obx(
+        () => BottomNavigationBar(
+          currentIndex: controller.resourcesPage.value ? 1 : 0,
+          items: const [
+            BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.table, size: 20),
+                label: "TimeTable"),
+            BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.book, size: 20),
+                label: "Resources"),
+          ],
+          onTap: (index) {
+            controller.pageController.animateToPage(index,
+                duration: 400.milliseconds, curve: Curves.easeInOut);
+            controller.resourcesPage.value = index == 1 ? true : false;
+          },
+        ),
+      );
+
+  Widget get nonKiitianLogout => Container(
+      margin: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              foregroundColor: Get.isDarkMode ? Colors.red : Colors.white,
+              backgroundColor: Get.isDarkMode
+                  ? Get.theme.cardColor
+                      .alphaBlendColor(
+                          Get.theme.scaffoldBackgroundColor, Colors.red[100])
+                      .withOpacity(.8)
+                  : Colors.red),
+          onPressed: () async =>
+              Get.find<AuthService>().logout.then((value) async {
+                await Get.find<HiveDatabase>().userBoxDatasources.clearUserInfo;
+                Get.offAllNamed(Routes.AUTH);
+              }),
+          child: const Text("Logout")));
 
   FutureBuilder<UserInfo?> get batchViseTimetable => FutureBuilder<UserInfo?>(
         future: controller.getUserInfo,

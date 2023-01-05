@@ -30,42 +30,31 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: appBar(context),
-        body: Theme(
-          data: Theme.of(context).copyWith(
-              cardColor: Color.alphaBlend(
-                  Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
-                  Theme.of(context).cardColor)),
-          child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            physics: const BouncingScrollPhysics(),
-            children: [
-              profilePhoto,
-              const SizedBox(height: 20),
-              displayName,
-              email,
-              const SizedBox(height: 20),
-              batch(context),
-              // events,
-              holidays,
-              // resources,
-              const SizedBox(height: 20),
-              themeSelector,
-              themeMode,
-              blackMode,
-              const SizedBox(height: 20),
-              appUsers,
-              controlPanel,
-              contributer(context),
-              test,
-              logoutCard,
-              const SizedBox(height: 20),
-              reportProblem,
-              const SizedBox(height: 10),
-            ],
-          ),
+        body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          physics: const BouncingScrollPhysics(),
+          children: [
+            profilePhoto,
+            const SizedBox(height: 20),
+            displayName,
+            email,
+            const SizedBox(height: 20),
+            batch(context),
+            holidays,
+            const Divider(thickness: 1.5),
+            themeSelector,
+            themeMode(context),
+            blackMode,
+            const Divider(thickness: 1.5),
+            appUsers,
+            contributer(context),
+            controlPanel,
+            test,
+            logoutCard,
+            const SizedBox(height: 20),
+            reportProblem,
+            const SizedBox(height: 10),
+          ],
         ),
       );
 
@@ -79,49 +68,48 @@ class ProfileView extends GetView<ProfileController> {
         ),
       );
 
-  Widget contributer(BuildContext context) => Card(
-        child: ListTile(
-          onTap: () => showDialog(
-            context: context,
-            builder: (context) => Theme(
-              data: Theme.of(context).copyWith(
-                  cardColor: Color.alphaBlend(
-                      Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
-                      Theme.of(context).cardColor)),
-              child: SimpleDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                contentPadding: EdgeInsets.zero,
-                children: [
-                  dev(context),
-                  const SizedBox(height: 20),
-                  ...AppInfo.developer.entries.map((e) => ListTile(
-                        onTap: () => Launcher.launchUrl(
-                            context, e.value.split(',').last),
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          child: ClipOval(
-                            child: CachedNetworkImage(
-                              imageUrl: e.value.split(',').first,
-                              placeholder: (context, url) =>
-                                  Container(color: Colors.transparent),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                            ),
+  Widget contributer(BuildContext context) => ListTile(
+        leading: const Icon(FontAwesomeIcons.code),
+        onTap: () => showDialog(
+          context: context,
+          builder: (context) => Theme(
+            data: Theme.of(context).copyWith(
+                cardColor: Color.alphaBlend(
+                    Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withAlpha(5 * (Get.isDarkMode ? 4 : 3)),
+                    Theme.of(context).cardColor)),
+            child: SimpleDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              contentPadding: EdgeInsets.zero,
+              children: [
+                dev(context),
+                const SizedBox(height: 20),
+                ...AppInfo.developer.entries.map((e) => ListTile(
+                      onTap: () =>
+                          Launcher.launchUrl(context, e.value.split(',').last),
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        child: ClipOval(
+                          child: CachedNetworkImage(
+                            imageUrl: e.value.split(',').first,
+                            placeholder: (context, url) =>
+                                Container(color: Colors.transparent),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
                           ),
                         ),
-                        title: Text(e.key.split(',').first),
-                        subtitle: Text(e.key.split(',').last),
-                      )),
-                ],
-              ),
+                      ),
+                      title: Text(e.key.split(',').first),
+                      subtitle: Text(e.key.split(',').last),
+                    )),
+              ],
             ),
           ),
-          title: const Text("Contributer"),
         ),
+        title: const Text("Contributer"),
       );
 
   Widget dev(BuildContext context) => Column(
@@ -166,66 +154,46 @@ class ProfileView extends GetView<ProfileController> {
         ],
       );
 
-  Card get logoutCard => Card(
-        color: Get.isDarkMode
+  Widget get logoutCard => ListTile(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        tileColor: Get.isDarkMode
             ? Get.theme.cardColor
                 .alphaBlendColor(
                     Get.theme.scaffoldBackgroundColor, Colors.red[100])
                 .withOpacity(.8)
             : Get.theme.cardColor.alphaBlendColor(Colors.red).withOpacity(.1),
-        child: ListTile(
-          title: Row(
-            children: const [
-              Icon(FontAwesomeIcons.rightFromBracket, color: Colors.red),
-              SizedBox(width: 10),
-              Text('Logout', style: TextStyle(color: Colors.red)),
-            ],
-          ),
-          onTap: () async => await controller.logout(),
+        title: Row(
+          children: const [
+            Icon(FontAwesomeIcons.rightFromBracket, color: Colors.red),
+            SizedBox(width: 10),
+            Text('Logout', style: TextStyle(color: Colors.red)),
+          ],
         ),
-      );
-
-  Card get appBarStyle => Card(
-        child: Obx(
-          () {
-            final appBarStyle = Get.find<HiveDatabase>().appBarStyle;
-            return ListTile(
-              title: const Text("AppBar Style"),
-              trailing: AppBarStyleButtons(
-                style: appBarStyle.value,
-                onChanged: (val) => appBarStyle.value = val,
-              ),
-            );
-          },
-        ),
+        onTap: () async => await controller.logout(),
       );
 
   Widget batch(BuildContext context) =>
       Get.find<AuthService>().authDatasources.userType() == UserType.user
-          ? Card(
-              child: ListTile(
-              title: const Text("My Batch"),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                      Get.find<HiveDatabase>()
-                              .userBoxDatasources
-                              .userInfo
-                              ?.batch ??
-                          "",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5!
-                          .copyWith(fontSize: 20)),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 12),
-                    child: FaIcon(FontAwesomeIcons.caretRight),
-                  )
+          ? ListTile(
+              leading: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  FaIcon(FontAwesomeIcons.users),
                 ],
               ),
+              title: const Text("My Batch"),
+              subtitle: Text(
+                Get.find<HiveDatabase>().userBoxDatasources.userInfo?.batch ??
+                    "",
+                // style: Theme.of(context)
+                //     .textTheme
+                //     .headline5!
+                //     .copyWith(fontSize: 20),
+              ),
               onTap: () => Get.toNamed(Routes.MY_BATCH),
-            ))
+            )
           : const SizedBox();
 
   Text get email => Text(
@@ -254,13 +222,11 @@ class ProfileView extends GetView<ProfileController> {
           elevation: 0,
           leading: Hero(
             tag: "back",
-            child: Material(
-              child: IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.arrowLeft,
-                ),
-                onPressed: () => Get.back(),
+            child: IconButton(
+              icon: const FaIcon(
+                FontAwesomeIcons.arrowLeft,
               ),
+              onPressed: () => Get.back(),
             ),
           ),
           actions: [
@@ -279,20 +245,27 @@ class ProfileView extends GetView<ProfileController> {
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
         child: Get.isDarkMode
-            ? Card(
-                child: Obx(
-                  () => SwitchListTile(
-                    title: const Text('Black Mode'),
-                    onChanged: controller.blackModeOnChange,
-                    value: controller.isBlack,
-                  ),
+            ? Obx(
+                () => SwitchListTile(
+                  title: const Text('Black Mode'),
+                  onChanged: controller.blackModeOnChange,
+                  value: controller.isBlack,
                 ),
               )
             : const SizedBox(),
       );
 
-  Widget get themeMode => Card(
+  Widget themeMode(BuildContext context) => Theme(
+        data: Theme.of(context),
         child: ListTile(
+          leading: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Get.theme.brightness == Brightness.dark
+                  ? const FaIcon(FontAwesomeIcons.moon)
+                  : const FaIcon(FontAwesomeIcons.sun),
+            ],
+          ),
           title: const Text("Theme Mode"),
           subtitle: Text(Get.isDarkMode ? "Dark Mode" : "Light Mode"),
           onTap: () => controller.toggleThemeMode(),
@@ -301,12 +274,16 @@ class ProfileView extends GetView<ProfileController> {
 
   Widget get holidays =>
       Get.find<AuthService>().authDatasources.userType() == UserType.user
-          ? Card(
-              child: ListTile(
-                title: const Text("Holidays"),
-                trailing: const FaIcon(FontAwesomeIcons.caretRight),
-                onTap: () => Get.toNamed(Routes.HOLIDAYS),
+          ? ListTile(
+              leading: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  FaIcon(FontAwesomeIcons.calendarXmark),
+                ],
               ),
+              title: const Text("Holidays"),
+              trailing: const FaIcon(FontAwesomeIcons.caretRight),
+              onTap: () => Get.toNamed(Routes.HOLIDAYS),
             )
           : const SizedBox();
 
@@ -333,11 +310,9 @@ class ProfileView extends GetView<ProfileController> {
           : const SizedBox();
 
   Widget get test => userInfo?.role == "admin"
-      ? Card(
-          child: ListTile(
-            title: const Text("Testing"),
-            onTap: () => Get.to(const TestPage()),
-          ),
+      ? ListTile(
+          title: const Text("Testing"),
+          onTap: () => Get.to(const TestPage()),
         )
       : const SizedBox();
 
@@ -352,33 +327,28 @@ class ProfileView extends GetView<ProfileController> {
             )
           : const SizedBox();
 
-  Widget get appUsers => Card(
-        child: ListTile(
-          title: const Text("App Users"),
-          onTap: () => Get.toNamed(Routes.ADMIN),
-        ),
+  Widget get appUsers => ListTile(
+        leading: const FaIcon(FontAwesomeIcons.addressBook),
+        title: const Text("App Users"),
+        onTap: () => Get.toNamed(Routes.ADMIN),
       );
 
   Widget get controlPanel => userInfo?.role == "admin"
-      ? Card(
-          child: ListTile(
-            title: const Text("Control Panel"),
-            trailing: const FaIcon(FontAwesomeIcons.caretRight),
-            onTap: () => Get.toNamed(Routes.CONTROL_PANEL),
-          ),
+      ? ListTile(
+          title: const Text("Control Panel"),
+          trailing: const FaIcon(FontAwesomeIcons.caretRight),
+          onTap: () => Get.toNamed(Routes.CONTROL_PANEL),
         )
       : const SizedBox();
 
-  Widget get themeSelector => Card(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2),
-          child: ListTile(
-            title: const Text("Theme"),
-            subtitle: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: ThemeSelector(
-                controller: controller,
-              ),
+  Widget get themeSelector => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: ListTile(
+          title: const Text("Theme"),
+          subtitle: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: ThemeSelector(
+              controller: controller,
             ),
           ),
         ),

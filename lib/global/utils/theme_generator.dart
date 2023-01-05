@@ -7,11 +7,11 @@ class ThemeBuilder {
       ? FlexThemeData.dark(
           colors: schemeData.dark,
           // appBarBackground: Colors.white,
-          useSubThemes: true,
+          // useSubThemes: true,
         )
       : FlexThemeData.light(
           colors: schemeData.light,
           appBarBackground: Colors.white,
-          useSubThemes: true,
+          // useSubThemes: true,
         );
 }

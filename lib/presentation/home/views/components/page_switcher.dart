@@ -19,8 +19,6 @@ class PageSwitcher extends StatefulWidget {
 }
 
 class _PageSwitcherState extends State<PageSwitcher> {
-  final lib = false.obs;
-
   @override
   void initState() {
     Get.put<ResourcesController>(ResourcesController());
@@ -30,44 +28,56 @@ class _PageSwitcherState extends State<PageSwitcher> {
   @override
   void dispose() {
     Get.delete<ResourcesController>();
-    lib.close();
     super.dispose();
   }
 
   UserType get userType => Get.find<AuthService>().authDatasources.userType();
 
   @override
-  Widget build(BuildContext context) => Stack(
-        children: [
-          Obx(
-            () => PageTransitionSwitcher(
-              reverse: !lib.value,
-              transitionBuilder: (Widget child, Animation<double> animation,
-                      Animation<double> secondaryAnimation) =>
-                  SharedAxisTransition(
-                      animation: animation,
-                      secondaryAnimation: secondaryAnimation,
-                      transitionType: SharedAxisTransitionType.horizontal,
-                      child: child),
-              child: !lib.value
-                  ? TimeTablePage(homeController: widget.controller)
-                  : const ResourcesView(),
-            ),
-          ),
-          userType == UserType.user ? switchWidget : const SizedBox(),
-        ],
-      );
+  Widget build(BuildContext context) {
+    return PageView(
+      controller: widget.controller.pageController,
+      onPageChanged: (value) =>
+          widget.controller.resourcesPage.value = value == 1 ? true : false,
+      children: [
+        TimeTablePage(homeController: widget.controller),
+        const ResourcesView(),
+      ],
+    );
+  }
 
-  Widget get switchWidget => Positioned(
-      bottom: 20,
-      left: 0,
-      right: 0,
-      child: SizedBox(
-        height: 50,
-        child: Center(
-          child: SlidingSwitch(
-            onChanged: (bool value) => lib.value = value,
-          ),
-        ),
-      ));
+  // @override
+  // Widget build(BuildContext context) => Stack(
+  //       children: [
+  //         Obx(
+  //           () => PageTransitionSwitcher(
+  //             reverse: !lib.value,
+  //             transitionBuilder: (Widget child, Animation<double> animation,
+  //                     Animation<double> secondaryAnimation) =>
+  //                 SharedAxisTransition(
+  //                     animation: animation,
+  //                     secondaryAnimation: secondaryAnimation,
+  //                     transitionType: SharedAxisTransitionType.horizontal,
+  //                     child: child),
+  //             child: !lib.value
+  //                 ? TimeTablePage(homeController: widget.controller)
+  //                 : const ResourcesView(),
+  //           ),
+  //         ),
+  //         userType == UserType.user ? switchWidget : const SizedBox(),
+  //       ],
+  //     );
+
+  // Widget get switchWidget => Positioned(
+  //     bottom: 20,
+  //     left: 0,
+  //     right: 0,
+  //     child: SizedBox(
+  //       height: 50,
+  //       child: Center(
+  //         child: SlidingSwitch(
+  //           onChanged: (bool value) => lib.value = value,
+  //         ),
+  //       ),
+  //     ));
 }

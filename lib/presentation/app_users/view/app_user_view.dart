@@ -18,11 +18,9 @@ class AppUserView extends GetView<AppUsersController> {
       appBar: AppBar(
         leading: Hero(
           tag: "back",
-          child: Material(
-            child: IconButton(
-                icon: const FaIcon(FontAwesomeIcons.arrowLeft),
-                onPressed: () => Get.back()),
-          ),
+          child: IconButton(
+              icon: const FaIcon(FontAwesomeIcons.arrowLeft),
+              onPressed: () => Get.back()),
         ),
         actions: [
           Get.find<HiveDatabase>().userBoxDatasources.userInfo?.role == "admin"
@@ -35,15 +33,16 @@ class AppUserView extends GetView<AppUsersController> {
         centerTitle: true,
         title: const Text('App Users'),
       ),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.all(12),
-        children: [
-          progressIndicator(),
-          userCountCard(context),
-          userListCard(context),
-        ],
-      ));
+      body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: [
+              progressIndicator(),
+              userCountCard(context),
+              userListCard(context),
+            ],
+          )));
 
   Widget progressIndicator() => Obx(() => AnimatedSize(
         duration: const Duration(milliseconds: 500),

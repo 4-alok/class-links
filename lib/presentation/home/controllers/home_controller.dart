@@ -22,6 +22,8 @@ class HomeController extends GetxController
   late final TabController tabController;
 
   final isLoading = false.obs;
+  final resourcesPage = false.obs;
+  final pageController = PageController();
 
   // copy of originalList
   final week = Rx<List<Day>>([]);
@@ -127,6 +129,7 @@ class HomeController extends GetxController
     week.close();
     electiveSubjects.dispose();
     Get.delete<SubjectInfoController>(tag: SubjectInfoController.TAG);
+    pageController.dispose();
     super.onClose();
   }
 }
