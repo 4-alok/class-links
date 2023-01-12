@@ -1,12 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../services/auth/models/user_type.dart';
-import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../resources/controller/resources_controller.dart';
 import '../../controllers/home_controller.dart';
 import '../../model/background_parameter.dart';
@@ -43,8 +40,6 @@ class ParallexPageViewState extends State<ParallexPageView>
     controller.dispose();
     super.dispose();
   }
-
-  UserType get userType => Get.find<AuthService>().authDatasources.userType();
 
   @override
   Widget build(BuildContext context) => Stack(

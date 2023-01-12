@@ -9,6 +9,7 @@ class AppInfo {
   static const String appUrl =
       "https://play.google.com/store/apps/details?id=com.application.class_link";
   static const String linkedInURL = "https://www.linkedin.com/in/4-alok";
+  static const String instagramURL = "https://www.instagram.com/class_link_";
   static const String github = "https://github.com/4-alok/class-links";
 
   static const Map<String, String> developer = {

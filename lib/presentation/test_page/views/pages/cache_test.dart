@@ -47,6 +47,14 @@ class _CacheTestState extends State<CacheTest> with TestWidget {
               onPressed: () => controller.makeCacheExpired,
               child: const Text("Make Expired"),
             ),
+            ElevatedButton(
+              onPressed: () async {
+                await controller.hiveDatabase.userInfoBox.clear();
+                await controller.hiveDatabase.settingsBox.clear();
+                await controller.hiveDatabase.cacheBox.clear();
+              },
+              child: const Text("Clear All Box Data"),
+            ),
           ],
         ),
       );

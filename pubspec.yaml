@@ -1,5 +1,5 @@
 name: class_link
-version: 0.1.27+29
+version: 0.1.28+30
 publish_to: none
 description: A new Flutter project.
 environment: 
@@ -43,6 +43,7 @@ dependencies:
   timelines: ^0.1.0
   flutter_staggered_animations: ^1.1.1
   flutter_custom_tabs: ^1.0.4
+  flutter_glow: ^0.2.0
 
 dev_dependencies: 
   flutter_lints: ^2.0.1
@@ -69,8 +70,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/database/3rd_year/
-    - assets/svg/background_image.svg
-    - assets/svg/app_bar_leaf.svg
+    - assets/svg/
 
 
 flutter_native_splash:

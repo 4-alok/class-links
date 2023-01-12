@@ -1,5 +1,12 @@
 # Change log
 
+## v0.1.28
+
+- New Material UI 3
+- Show teachers name
+- Updated 3rd and 6th semester timetable
+- Updated Holidays
+
 ## v0.1.27
 
 - added 1st/2nd year student range

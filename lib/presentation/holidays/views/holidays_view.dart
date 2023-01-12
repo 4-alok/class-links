@@ -28,8 +28,8 @@ class HolidaysView extends GetView<HolidayController> {
   PagedVerticalCalendar pageVertivalCalendar(DateTime today, Color color) =>
       PagedVerticalCalendar(
         physics: const BouncingScrollPhysics(),
-        minDate: DateTime(2022, 1, 1),
-        maxDate: DateTime(2022, 12, 31),
+        minDate: DateTime(2023, 01, 00),
+        maxDate: DateTime(2023, 12, 31),
         initialDate: DateTime(today.year, today.month, today.day),
         monthBuilder: (context, month, year) =>
             monthsBuilder(month, year, context),

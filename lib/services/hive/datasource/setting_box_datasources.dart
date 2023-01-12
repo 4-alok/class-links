@@ -18,6 +18,19 @@ class SettingBoxDatasources
   final isBlack = Rx<bool>(true);
   final themeMode = Rx<ThemeMode>(ThemeMode.system);
 
+  Future<void> blackModeOnChange(bool value) async =>
+      await saveIsBlackMode(!isBlack.value).then(
+        (value) => isBlack.value = !isBlack.value,
+      );
+
+  @override
+  Future<void> toggleThemeMode() async =>
+      await saveCurrentTheme(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark)
+          .then(
+        (value) => themeMode.update((val) => themeMode.value =
+            Get.isDarkMode ? ThemeMode.light : ThemeMode.dark),
+      );
+
   @override
   Future<int> get getCurrentSchemeIndex async =>
       await settingsBox.get('currentScheme') ?? 1;

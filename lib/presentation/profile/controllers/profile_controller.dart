@@ -32,16 +32,8 @@ class ProfileController extends GetxController {
     super.onReady();
   }
 
-  Future<void> toggleThemeMode() async {
-    await hiveDatabase.settingBoxDatasources
-        .saveCurrentTheme(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark)
-        .then((value) {
-      hiveDatabase.settingBoxDatasources.themeMode.update((val) => hiveDatabase
-          .settingBoxDatasources
-          .themeMode
-          .value = Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
-    });
-  }
+  Future<void> toggleThemeMode() async =>
+      await hiveDatabase.settingBoxDatasources.toggleThemeMode();
 
   Future<void> logout() async {
     final authService = Get.find<AuthService>();
@@ -50,10 +42,8 @@ class ProfileController extends GetxController {
     Get.offAllNamed(Routes.AUTH);
   }
 
-  Future<void> blackModeOnChange(bool _) async =>
-      await hiveDatabase.settingBoxDatasources.saveIsBlackMode(!isBlack).then(
-          (value) =>
-              hiveDatabase.settingBoxDatasources.isBlack.value = !isBlack);
+  Future<void> blackModeOnChange(bool value) async =>
+      await hiveDatabase.settingBoxDatasources.blackModeOnChange(value);
 
   @override
   void onClose() {

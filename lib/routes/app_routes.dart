@@ -23,6 +23,8 @@ abstract class Routes {
   static const String EVENTS = _Paths.EVENTS;
   static const String CREATE_EVENT = _Paths.CREATE_EVENT;
   static const String RESOURCES = _Paths.RESOURCES;
+  static const String TEST = _Paths.TEST;
+  static const String NON_KIITIAN = _Paths.NON_KIITIAN;
 }
 
 abstract class _Paths {
@@ -43,4 +45,6 @@ abstract class _Paths {
   static const String EVENTS = '/events';
   static const String CREATE_EVENT = '/create_event';
   static const String RESOURCES = '/resources';
+  static const String TEST = '/test';
+  static const String NON_KIITIAN = '/non-kiitian';
 }

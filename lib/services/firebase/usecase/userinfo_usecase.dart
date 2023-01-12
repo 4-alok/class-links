@@ -9,4 +9,5 @@ abstract class UserInfoUsecase {
   Future<bool> updateUser(UserInfo user);
   Future<List<UserInfo>> myBatch([bool filterById = true]);
   Future<void> deleteUser(UserInfo userInfo);
+  Future<void> resetUser(String userId);
 }

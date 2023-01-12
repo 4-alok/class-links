@@ -1,3 +1,4 @@
+import 'package:class_link/presentation/test_page/views/pages/database_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +23,7 @@ class TestPage extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 10),
             children: const [
+              DatabaseUtils(),
               CacheTest(),
               SheetTest(),
             ],

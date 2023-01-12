@@ -66,9 +66,9 @@ extension DayEquality on timetable.Day {
           : false;
 }
 
-extension Range on num {
-  bool isBetween(num from, num to) => from <= this && this <= to;
-}
+// extension Range on num {
+//   bool isBetween(num from, num to) => from <= this && this <= to;
+// }
 
 extension ToDateTime on Holiday {
   DateTime get toDateTime => DateTime(year, month, day);

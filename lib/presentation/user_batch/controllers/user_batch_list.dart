@@ -22,7 +22,7 @@ mixin UserBatchList {
   // 2nd Year
 
   List<String> get secondYearCSE =>
-      List.generate(40, (index) => "CSE ${index + 1}");
+      List.generate(39, (index) => "CSE ${index + 1}");
 
   List<String> get secondYearIT =>
       List.generate(4, (index) => "IT ${index + 1}");
@@ -36,7 +36,7 @@ mixin UserBatchList {
   // 3rd Year
 
   List<String> get thirdYearCSE =>
-      List.generate(26, (index) => "CSE-${index + 1}");
+      List.generate(22, (index) => "CSE-${index + 1}");
 
   List<String> get thirdYearIT =>
       List.generate(7, (index) => "IT-${index + 1}");

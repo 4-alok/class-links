@@ -11,7 +11,9 @@ class UserBoxDatasourcse implements UserBoxUsecase {
 
   UserInfo? userInfo;
 
-  Future<void> get init async => userInfo = await getUserInfo;
+  Future<void> get init async {
+    userInfo = await getUserInfo;
+  }
 
   /// Clear user info from the box and set it to null.
   @override

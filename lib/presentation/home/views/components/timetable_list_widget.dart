@@ -1,20 +1,20 @@
 import 'package:animations/animations.dart';
+import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../global/utils/extension.dart';
-import '../../../../../services/firebase/models/elective_timetable.dart';
-import '../../../../../services/hive/repository/hive_database.dart';
 import '../../../../global/models/subject_info/subject_info.dart';
 import '../../../../global/models/time_table/time_table.dart';
+import '../../../../services/gsheet/models/my_teacher_model.dart';
 import '../../../subject_info/controllers/subject_info_controller.dart';
 import '../../../subject_info/views/subject_info_view.dart';
 import '../../controllers/home_controller.dart';
-import '../../controllers/timetable_list_utils.dart';
 import 'current_class_card.dart';
 
-class TimetableListWidget extends StatelessWidget
-    with TimetableListWidgetUtils {
+const String noInfo = "No Info";
+
+class TimetableListWidget extends StatelessWidget {
   final HomeController homeController;
   final int currentTabIndex;
   final Day currentDay;
@@ -33,59 +33,32 @@ class TimetableListWidget extends StatelessWidget
             physics: const NeverScrollableScrollPhysics(),
             itemCount: currentDay.subjects.length,
             shrinkWrap: true,
-            itemBuilder: (context, index) =>
-                currentDay.subjects[index].startTime.isCurrentTime &&
-                        (currentTabIndex == DateTime.now().weekday - 1)
-                    ? CurrentClassCard(
-                        subjectInfo: SubjectInfo(
-                            subject: currentDay.subjects[index],
-                            currentWeek: currentTabIndex))
-                    : displayTile(
-                        context,
-                        currentDay.subjects[index],
+            itemBuilder: (context, index) {
+              return currentDay.subjects[index].startTime.isCurrentTime &&
+                      (currentTabIndex == DateTime.now().weekday - 1)
+                  ? CurrentClassCard(
+                      subjectInfo: SubjectInfo(
+                        subject: currentDay.subjects[index],
+                        currentWeek: currentTabIndex,
                       ),
+                      teacher: currentDay.subjects[index].isElective
+                          ? Text(
+                              currentDay.subjects[index].teacherName ?? noInfo,
+                              style: Theme.of(context).textTheme.subtitle1)
+                          : teacherText(currentDay.subjects[index].subjectName,
+                                  Get.theme.textTheme.headline4) ??
+                              const SizedBox(),
+                      elective: currentDay.subjects[index].isElective,
+                    )
+                  : displayTile(
+                      context,
+                      currentDay.subjects[index],
+                      elective: currentDay.subjects[index].isElective,
+                    );
+            },
           ),
-          electiveSubject(context),
         ],
       );
-
-  Widget electiveSubject(BuildContext context) =>
-      Get.find<HiveDatabase>().userBoxDatasources.userInfo?.year == 3
-          ? ValueListenableBuilder<List<ElectiveTimetable>>(
-              valueListenable: homeController.electiveSubjects,
-              builder: (context, value, child) {
-                value.sort((a, b) => a.subjects.first.startTime.hour.compareTo(
-                      b.subjects.first.startTime.hour,
-                    ));
-                return Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Divider(
-                      thickness: 1,
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Theme.of(context).colorScheme.primary
-                          : Colors.white,
-                    ),
-                  ),
-                  ...value
-                      .where((element) => element.day == currentDay.day)
-                      .map(
-                        (e) => (e.subjects.first.startTime.isCurrentTime &&
-                                (currentTabIndex == DateTime.now().weekday - 1))
-                            ? CurrentClassCard(
-                                subjectInfo: SubjectInfo(
-                                    subject: e.subjects.first,
-                                    currentWeek: currentTabIndex),
-                                elective: true,
-                              )
-                            : displayTile(context, e.subjects.first,
-                                elective: true),
-                      )
-                      .toList(),
-                ]);
-              },
-            )
-          : const SizedBox();
 
   Widget displayTile(BuildContext context, Subject item,
           {bool elective = false}) =>
@@ -106,6 +79,18 @@ class TimetableListWidget extends StatelessWidget
           return SubjectInfoView(
             subjectInfo:
                 SubjectInfo(subject: item, currentWeek: currentTabIndex),
+            teacher: AnimatedSize(
+              duration: const Duration(milliseconds: 300),
+              child: SizedBox(
+                width: double.maxFinite,
+                child: item.isElective
+                    ? Text(item.teacherName ?? noInfo,
+                        style: Theme.of(context).textTheme.headline4)
+                    : teacherText(
+                            item.subjectName, Get.theme.textTheme.headline4) ??
+                        const SizedBox(),
+              ),
+            ),
           );
         },
       );
@@ -137,16 +122,70 @@ class TimetableListWidget extends StatelessWidget
                 ],
               )
             : Hero(tag: "subject_name", child: Text(item.subjectName)),
-        subtitle:
-            displayTileText(item) != "" ? Text(displayTileText(item)) : null,
-        trailing: item.roomNo == null
-            ? null
-            : Text(
-                trailingText(item),
-                style: Get.theme.textTheme.headline4,
-              ),
-        onLongPress: () => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(item.remark == "" ? "No Remark" : item.remark))),
+        subtitle: elective
+            ? Text(item.teacherName ?? 'No info')
+            : teacherText(item.subjectName),
+        trailing: item.roomNo == null ? null : trailingText(item.roomNo ?? ""),
         onTap: action,
       );
+
+  Widget? teacherText(String? subject, [TextStyle? style]) {
+    if (subject == null) return const Text(noInfo);
+    final teacherSource = Get.find<GSheetService>().teacherInfoDatasource;
+    return FutureBuilder<MyTeachers?>(
+      future: teacherSource.getMyTeachersCached,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SizedBox();
+        } else if (snapshot.hasData) {
+          final String teacher = snapshot.data!.teachers
+                  .firstWhereOrNull((element) => element.subject == subject)
+                  ?.name ??
+              noInfo;
+          teacherSource.fetchMyTeachers;
+          return Text(
+            teacher,
+            maxLines: 1,
+            style: style,
+            overflow: TextOverflow.ellipsis,
+          );
+        } else {
+          return FutureBuilder<MyTeachers>(
+              future: teacherSource.fetchMyTeachers,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final String teacher = snapshot.data!.teachers
+                          .firstWhereOrNull(
+                              (element) => element.subject == subject)
+                          ?.name ??
+                      noInfo;
+                  return Text(teacher, style: style);
+                } else {
+                  return const SizedBox();
+                }
+              });
+        }
+      },
+    );
+  }
+
+  Widget trailingText(String roomNo) {
+    final last = roomNo.split('-').last;
+    final first = roomNo.substring(0, roomNo.length - last.length - 1);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          last,
+          style: Get.theme.textTheme.headline4,
+        ),
+        Text(
+          first,
+          style: Get.theme.textTheme.headline4!
+              .copyWith(fontSize: 12, fontWeight: FontWeight.w900),
+        ),
+      ],
+    );
+  }
 }

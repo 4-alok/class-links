@@ -16,6 +16,7 @@ _$_UserInfo _$$_UserInfoFromJson(Map<String, dynamic> json) => _$_UserInfo(
       date: DateTime.parse(json['date'] as String),
       userName: json['userName'] as String,
       role: json['role'] as String? ?? 'viewer',
+      semester: json['semester'] as int? ?? null,
     );
 
 Map<String, dynamic> _$$_UserInfoToJson(_$_UserInfo instance) =>
@@ -29,4 +30,5 @@ Map<String, dynamic> _$$_UserInfoToJson(_$_UserInfo instance) =>
       'date': instance.date.toIso8601String(),
       'userName': instance.userName,
       'role': instance.role,
+      'semester': instance.semester,
     };

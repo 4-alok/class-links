@@ -5,6 +5,7 @@ class TestWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
@@ -12,7 +13,7 @@ class TestWidget {
               style: const TextStyle(fontSize: 20),
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 5),
           Card(
               child: SizedBox(
                   width: double.maxFinite,
@@ -20,6 +21,7 @@ class TestWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: child,
                   ))),
+          const SizedBox(height: 10),
         ],
       );
 }

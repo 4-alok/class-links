@@ -5,7 +5,7 @@ import '../presentation/app_users/view/app_user_view.dart';
 import '../presentation/auth/bindings/auth_binding.dart';
 import '../presentation/auth/views/auth_view.dart';
 import '../presentation/control_panel/bindings/control_panel_binding.dart';
-import '../presentation/control_panel/views/import_csv_page.dart';
+import '../presentation/control_panel/views/control_panel_view.dart';
 import '../presentation/control_panel/views/pages/reports_page.dart';
 import '../presentation/create_event/binding/create_event_binding.dart';
 import '../presentation/create_event/view/create_event_view.dart';
@@ -17,11 +17,13 @@ import '../presentation/home/bindings/home_binding.dart';
 import '../presentation/home/views/home_view.dart';
 import '../presentation/my_batch/bindings/my_batch_binding.dart';
 import '../presentation/my_batch/views/my_batch_view.dart';
+import '../presentation/non_kiitian/non_kiitian_view.dart';
 import '../presentation/profile/bindings/profile_binding.dart';
 import '../presentation/profile/views/profile_view.dart';
 import '../presentation/report/binding/report_binding.dart';
 import '../presentation/report/view/report_view.dart';
 import '../presentation/subject_info/views/subject_info_view.dart';
+import '../presentation/test_page/views/test_page.dart';
 import '../presentation/user_batch/bindings/user_batch_binding.dart';
 import '../presentation/user_batch/views/user_batch_view.dart';
 import '../services/auth/repository/auth_service_repo.dart';
@@ -105,11 +107,13 @@ class AppPages {
       binding: CreateEventBinding(),
       transition: Transition.cupertino,
     ),
-    // GetPage(
-    //   name: _Paths.RESOURCES,
-    //   page: () => const ResourcesView(),
-    //   binding: ResourcesBinding(),
-    //   // transition: Transition.cupertino,
-    // )
+    GetPage(
+      name: _Paths.TEST,
+      page: () => const TestPage(),
+    ),
+    GetPage(
+      name: _Paths.NON_KIITIAN,
+      page: () => const NonKiitianView(),
+    )
   ];
 }

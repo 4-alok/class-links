@@ -1,22 +1,23 @@
 import 'package:animations/animations.dart';
 import 'package:class_link/global/utils/extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../../global/gen/assets.gen.dart';
 import '../../../../global/models/subject_info/subject_info.dart';
-import '../../../../global/models/time_table/time_table.dart';
 import '../../../subject_info/controllers/subject_info_controller.dart';
 import '../../../subject_info/views/subject_info_view.dart';
 
 class CurrentClassCard extends StatelessWidget {
   final SubjectInfo subjectInfo;
   final bool elective;
+  final Widget teacher;
   const CurrentClassCard(
-      {Key? key, required this.subjectInfo, this.elective = false})
+      {Key? key,
+      required this.teacher,
+      required this.subjectInfo,
+      this.elective = false})
       : super(key: key);
 
   @override
@@ -34,7 +35,7 @@ class CurrentClassCard extends StatelessWidget {
           openBuilder: (context, action) {
             Get.lazyPut<SubjectInfoController>(() => SubjectInfoController(),
                 tag: SubjectInfoController.TAG);
-            return SubjectInfoView(subjectInfo: subjectInfo);
+            return SubjectInfoView(subjectInfo: subjectInfo, teacher: teacher);
           },
         ),
       );
@@ -44,7 +45,7 @@ class CurrentClassCard extends StatelessWidget {
         child: InkWell(
           // onLongPress: () => _onLongPress(action),
           // onTap: () => onTap(context, action, subjectInfo.subject),
-          onTap: () => action(),
+          onTap: action,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
             child: Column(
@@ -110,12 +111,7 @@ class CurrentClassCard extends StatelessWidget {
                     ]),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: Text(
-                    subjectInfo.subject.remark == ""
-                        ? "No Remark"
-                        : subjectInfo.subject.remark,
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
+                  child: teacher,
                 ),
                 const SizedBox(height: 8),
               ],
@@ -123,24 +119,6 @@ class CurrentClassCard extends StatelessWidget {
           ),
         ),
       );
-
-  void onTap(BuildContext context, Function action, Subject subjectInfo) {
-    if (subjectInfo.zoomLink == "" && subjectInfo.googleClassRoomLink == "") {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text("No Link Available"),
-      ));
-    } else if (subjectInfo.zoomLink != "" &&
-        subjectInfo.googleClassRoomLink != "") {
-      showClassDialog(context);
-    } else if (subjectInfo.zoomLink == "" &&
-        subjectInfo.googleClassRoomLink != "") {
-      launch(context, subjectInfo.googleClassRoomLink);
-    } else if (subjectInfo.zoomLink != "" &&
-        subjectInfo.googleClassRoomLink == "") {
-      launch(context, subjectInfo.zoomLink);
-    }
-  }
 
   Future<void> launch(BuildContext context, String url) async {
     try {
@@ -152,46 +130,46 @@ class CurrentClassCard extends StatelessWidget {
     }
   }
 
-  Future<void> showClassDialog(BuildContext context) async => await showDialog(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text("Choose Url"),
-          content: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              children: [
-                const Spacer(),
-                GestureDetector(
-                  onTap: () =>
-                      launch(context, subjectInfo.subject.googleClassRoomLink),
-                  child: SvgPicture.asset(
-                    Assets.icons.meet.path,
-                    semanticsLabel: 'Google Class Room',
-                    height: 35,
-                    width: 35,
-                  ),
-                ),
-                const SizedBox(width: 80),
-                GestureDetector(
-                  onTap: () => launch(context, subjectInfo.subject.zoomLink),
-                  child: SvgPicture.asset(
-                    Assets.icons.zoom.path,
-                    semanticsLabel: 'Zoom Meet',
-                    height: 50,
-                    width: 50,
-                  ),
-                ),
-                const Spacer(),
-              ],
-            ),
-          ),
-          actions: [
-            ElevatedButton(
-                child: const Text("Cancel"),
-                onPressed: () => Navigator.pop(context))
-          ],
-        ),
-      );
+  // Future<void> showClassDialog(BuildContext context) async => await showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) => AlertDialog(
+  //         title: const Text("Choose Url"),
+  //         content: Padding(
+  //           padding: const EdgeInsets.all(8),
+  //           child: Row(
+  //             children: [
+  //               const Spacer(),
+  //               GestureDetector(
+  //                 onTap: () =>
+  //                     launch(context, subjectInfo.subject.googleClassRoomLink),
+  //                 child: SvgPicture.asset(
+  //                   Assets.icons.meet.path,
+  //                   semanticsLabel: 'Google Class Room',
+  //                   height: 35,
+  //                   width: 35,
+  //                 ),
+  //               ),
+  //               const SizedBox(width: 80),
+  //               GestureDetector(
+  //                 onTap: () => launch(context, subjectInfo.subject.zoomLink),
+  //                 child: SvgPicture.asset(
+  //                   Assets.icons.zoom.path,
+  //                   semanticsLabel: 'Zoom Meet',
+  //                   height: 50,
+  //                   width: 50,
+  //                 ),
+  //               ),
+  //               const Spacer(),
+  //             ],
+  //           ),
+  //         ),
+  //         actions: [
+  //           ElevatedButton(
+  //               child: const Text("Cancel"),
+  //               onPressed: () => Navigator.pop(context))
+  //         ],
+  //       ),
+  //     );
 
   Widget get trailingWidget => Column(
         mainAxisSize: MainAxisSize.min,
@@ -199,34 +177,34 @@ class CurrentClassCard extends StatelessWidget {
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              subjectInfo.subject.googleClassRoomLink == ""
-                  ? const SizedBox()
-                  : Padding(
-                      padding: const EdgeInsets.only(right: 8, top: 3),
-                      child: SvgPicture.asset(
-                        Assets.icons.meet.path,
-                        semanticsLabel: 'A red up arrow',
-                        height: 25,
-                        width: 25,
-                      ),
-                    ),
-              subjectInfo.subject.zoomLink == ""
-                  ? const SizedBox()
-                  : SvgPicture.asset(
-                      Assets.icons.zoom.path,
-                      semanticsLabel: 'A red up arrow',
-                      height: 30,
-                      width: 30,
-                    ),
-              (subjectInfo.subject.googleClassRoomLink == "") &&
-                      (subjectInfo.subject.zoomLink == "")
-                  ? const SizedBox()
-                  : Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      height: 20,
-                      width: 2,
-                      color: Get.theme.colorScheme.secondaryContainer,
-                    ),
+              // subjectInfo.subject.googleClassRoomLink == ""
+              //     ? const SizedBox()
+              //     : Padding(
+              //         padding: const EdgeInsets.only(right: 8, top: 3),
+              //         child: SvgPicture.asset(
+              //           Assets.icons.meet.path,
+              //           semanticsLabel: 'A red up arrow',
+              //           height: 25,
+              //           width: 25,
+              //         ),
+              //       ),
+              // subjectInfo.subject.zoomLink == ""
+              //     ? const SizedBox()
+              //     : SvgPicture.asset(
+              //         Assets.icons.zoom.path,
+              //         semanticsLabel: 'A red up arrow',
+              //         height: 30,
+              //         width: 30,
+              //       ),
+              // (subjectInfo.subject.googleClassRoomLink == "") &&
+              //         (subjectInfo.subject.zoomLink == "")
+              //     ? const SizedBox()
+              //     : Container(
+              //         margin: const EdgeInsets.symmetric(horizontal: 8),
+              //         height: 20,
+              //         width: 2,
+              //         color: Get.theme.colorScheme.secondaryContainer,
+              //       ),
               subjectInfo.subject.roomNo != null
                   ? Text(
                       subjectInfo.subject.roomNo.toString(),

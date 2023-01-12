@@ -17,6 +17,7 @@ class UserInfo with _$UserInfo {
     required DateTime date,
     required String userName,
     @Default('viewer') String role,
+    @Default(null) int? semester,
   }) = _UserInfo;
 
   factory UserInfo.fromJson(Map<String, dynamic> json) =>

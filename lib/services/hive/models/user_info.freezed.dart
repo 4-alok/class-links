@@ -29,6 +29,7 @@ mixin _$UserInfo {
   DateTime get date => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
+  int? get semester => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +50,8 @@ abstract class $UserInfoCopyWith<$Res> {
       int year,
       DateTime date,
       String userName,
-      String role});
+      String role,
+      int? semester});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
     Object? date = freezed,
     Object? userName = freezed,
     Object? role = freezed,
+    Object? semester = freezed,
   }) {
     return _then(_value.copyWith(
       refId: refId == freezed
@@ -109,6 +112,10 @@ class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
+      semester: semester == freezed
+          ? _value.semester
+          : semester // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -128,7 +135,8 @@ abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
       int year,
       DateTime date,
       String userName,
-      String role});
+      String role,
+      int? semester});
 }
 
 /// @nodoc
@@ -152,6 +160,7 @@ class __$$_UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
     Object? date = freezed,
     Object? userName = freezed,
     Object? role = freezed,
+    Object? semester = freezed,
   }) {
     return _then(_$_UserInfo(
       refId: refId == freezed
@@ -190,6 +199,10 @@ class __$$_UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
+      semester: semester == freezed
+          ? _value.semester
+          : semester // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -206,7 +219,8 @@ class _$_UserInfo implements _UserInfo {
       required this.year,
       required this.date,
       required this.userName,
-      this.role = 'viewer'});
+      this.role = 'viewer',
+      this.semester = null});
 
   factory _$_UserInfo.fromJson(Map<String, dynamic> json) =>
       _$$_UserInfoFromJson(json);
@@ -232,10 +246,13 @@ class _$_UserInfo implements _UserInfo {
   @override
   @JsonKey()
   final String role;
+  @override
+  @JsonKey()
+  final int? semester;
 
   @override
   String toString() {
-    return 'UserInfo(refId: $refId, id: $id, slot: $slot, batch: $batch, stream: $stream, year: $year, date: $date, userName: $userName, role: $role)';
+    return 'UserInfo(refId: $refId, id: $id, slot: $slot, batch: $batch, stream: $stream, year: $year, date: $date, userName: $userName, role: $role, semester: $semester)';
   }
 
   @override
@@ -251,7 +268,8 @@ class _$_UserInfo implements _UserInfo {
             const DeepCollectionEquality().equals(other.year, year) &&
             const DeepCollectionEquality().equals(other.date, date) &&
             const DeepCollectionEquality().equals(other.userName, userName) &&
-            const DeepCollectionEquality().equals(other.role, role));
+            const DeepCollectionEquality().equals(other.role, role) &&
+            const DeepCollectionEquality().equals(other.semester, semester));
   }
 
   @JsonKey(ignore: true)
@@ -266,7 +284,8 @@ class _$_UserInfo implements _UserInfo {
       const DeepCollectionEquality().hash(year),
       const DeepCollectionEquality().hash(date),
       const DeepCollectionEquality().hash(userName),
-      const DeepCollectionEquality().hash(role));
+      const DeepCollectionEquality().hash(role),
+      const DeepCollectionEquality().hash(semester));
 
   @JsonKey(ignore: true)
   @override
@@ -291,7 +310,8 @@ abstract class _UserInfo implements UserInfo {
       required final int year,
       required final DateTime date,
       required final String userName,
-      final String role}) = _$_UserInfo;
+      final String role,
+      final int? semester}) = _$_UserInfo;
 
   factory _UserInfo.fromJson(Map<String, dynamic> json) = _$_UserInfo.fromJson;
 
@@ -313,6 +333,8 @@ abstract class _UserInfo implements UserInfo {
   String get userName;
   @override
   String get role;
+  @override
+  int? get semester;
   @override
   @JsonKey(ignore: true)
   _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>

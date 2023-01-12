@@ -4,7 +4,7 @@ import '../repository/gsheet_service.dart';
 import '../usecase/users_usercase.dart';
 import '../utils/gsheet_utils.dart';
 
-const sheetName = 'users';
+const sheetName = 'users_v2';
 
 class GSheetUserInfoDatasources
     with GSheetUtils

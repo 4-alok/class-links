@@ -1,4 +1,5 @@
 import 'package:class_link/global/utils/get_snackbar.dart';
+import 'package:class_link/services/gsheet/datasources/teacher_info_datasources.dart';
 import 'package:get/get.dart';
 import 'package:gsheets/gsheets.dart';
 
@@ -12,6 +13,7 @@ class GSheetService extends GetxService implements SheetUsecase {
   late final ResourcesDatasources resourcesDatasources;
   late final GSheetUserInfoDatasources gSheetUserInfoDatasources;
   late final SheetTimetableDatasources sheetTimetableDatasources;
+  late final TeacherInfoDatasource teacherInfoDatasource;
   final gsheets = GSheets(credentials);
   final spreadsheetLoaded = false.obs;
   Spreadsheet? spreadsheet;
@@ -21,6 +23,7 @@ class GSheetService extends GetxService implements SheetUsecase {
     resourcesDatasources = ResourcesDatasources(gSheetService: this);
     gSheetUserInfoDatasources = GSheetUserInfoDatasources(gSheetService: this);
     sheetTimetableDatasources = SheetTimetableDatasources(gSheetService: this);
+    teacherInfoDatasource = TeacherInfoDatasource(gSheetService: this);
     super.onInit();
   }
 

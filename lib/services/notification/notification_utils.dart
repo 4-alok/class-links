@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:class_link/services/auth/extension/app_user_type.dart';
 import 'package:get/get.dart';
 
 import '../../global/models/notification_payload.dart/notification_payload.dart';
@@ -25,9 +26,10 @@ abstract class NotificationServiceUtils {
 
         try {
           final firestoreService = Get.find<FirestoreService>();
-          final userType = Get.find<AuthService>().authDatasources.userType();
+          final userType = await Get.find<AuthService>().user.value?.userType;
 
-          if (userType == UserType.kiitian || userType == UserType.user) {
+          if (userType == AppUserType.kiitian ||
+              userType == AppUserType.appUser) {
             final timetable =
                 await firestoreService.timetableDatasource.batchTimeTable;
             final subject = timetable[DateTime.now().weekday - 1]

@@ -10,14 +10,15 @@ import '../../../../global/utils/extension.dart';
 import '../../../../global/widget/launcher.dart';
 import '../../../../global/widget/user_icon.dart';
 import '../../../../routes/app_pages.dart';
-import '../../../../services/auth/models/user_type.dart';
 import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../../services/hive/repository/hive_database.dart';
+import '../../../global/widget/theme_selector.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../../test_page/views/test_page.dart';
 import '../controllers/profile_controller.dart';
 import 'component/app_info_dialog.dart';
-import 'component/theme_selector.dart';
+
+const bool testMode = false;
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
@@ -173,27 +174,19 @@ class ProfileView extends GetView<ProfileController> {
         onTap: () async => await controller.logout(),
       );
 
-  Widget batch(BuildContext context) =>
-      Get.find<AuthService>().authDatasources.userType() == UserType.user
-          ? ListTile(
-              leading: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  FaIcon(FontAwesomeIcons.users),
-                ],
-              ),
-              title: const Text("My Batch"),
-              subtitle: Text(
-                Get.find<HiveDatabase>().userBoxDatasources.userInfo?.batch ??
-                    "",
-                // style: Theme.of(context)
-                //     .textTheme
-                //     .headline5!
-                //     .copyWith(fontSize: 20),
-              ),
-              onTap: () => Get.toNamed(Routes.MY_BATCH),
-            )
-          : const SizedBox();
+  Widget batch(BuildContext context) => ListTile(
+        leading: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            FaIcon(FontAwesomeIcons.users),
+          ],
+        ),
+        title: const Text("My Batch"),
+        subtitle: Text(
+          Get.find<HiveDatabase>().userBoxDatasources.userInfo?.batch ?? "",
+        ),
+        onTap: () => Get.toNamed(Routes.MY_BATCH),
+      );
 
   Text get email => Text(
         user?.email ?? "",
@@ -272,60 +265,40 @@ class ProfileView extends GetView<ProfileController> {
         ),
       );
 
-  Widget get holidays =>
-      Get.find<AuthService>().authDatasources.userType() == UserType.user
-          ? ListTile(
-              leading: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  FaIcon(FontAwesomeIcons.calendarXmark),
-                ],
-              ),
-              title: const Text("Holidays"),
-              trailing: const FaIcon(FontAwesomeIcons.caretRight),
-              onTap: () => Get.toNamed(Routes.HOLIDAYS),
-            )
-          : const SizedBox();
+  Widget get holidays => ListTile(
+        leading: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            FaIcon(FontAwesomeIcons.calendarXmark),
+          ],
+        ),
+        title: const Text("Holidays"),
+        trailing: const FaIcon(FontAwesomeIcons.caretRight),
+        onTap: () => Get.toNamed(Routes.HOLIDAYS),
+      );
 
-  // Widget get resources =>
-  //     Get.find<AuthService>().authDatasources.userType() == UserType.user
-  //         ? Card(
-  //             child: ListTile(
-  //               title: const Text("Resources"),
-  //               trailing: const FaIcon(FontAwesomeIcons.caretRight),
-  //               onTap: () => Get.toNamed(Routes.RESOURCES),
-  //             ),
-  //           )
-  //         : const SizedBox();
+  Widget get events => Card(
+        child: ListTile(
+          title: const Text("Events"),
+          trailing: const FaIcon(FontAwesomeIcons.caretRight),
+          onTap: () => Get.toNamed(Routes.EVENTS),
+        ),
+      );
 
-  Widget get events =>
-      Get.find<AuthService>().authDatasources.userType() == UserType.user
-          ? Card(
-              child: ListTile(
-                title: const Text("Events"),
-                trailing: const FaIcon(FontAwesomeIcons.caretRight),
-                onTap: () => Get.toNamed(Routes.EVENTS),
-              ),
-            )
-          : const SizedBox();
-
-  Widget get test => userInfo?.role == "admin"
+  Widget get test => userInfo?.role == "admin" || testMode
       ? ListTile(
           title: const Text("Testing"),
           onTap: () => Get.to(const TestPage()),
         )
       : const SizedBox();
 
-  Widget get showLog =>
-      Get.find<AuthService>().authDatasources.userType() == UserType.user
-          ? Card(
-              child: ListTile(
-                title: const Text("Show Log"),
-                trailing: const FaIcon(FontAwesomeIcons.caretRight),
-                onTap: () => Get.toNamed(Routes.LOG_PAGE),
-              ),
-            )
-          : const SizedBox();
+  Widget get showLog => Card(
+        child: ListTile(
+          title: const Text("Show Log"),
+          trailing: const FaIcon(FontAwesomeIcons.caretRight),
+          onTap: () => Get.toNamed(Routes.LOG_PAGE),
+        ),
+      );
 
   Widget get appUsers => ListTile(
         leading: const FaIcon(FontAwesomeIcons.addressBook),
@@ -333,7 +306,7 @@ class ProfileView extends GetView<ProfileController> {
         onTap: () => Get.toNamed(Routes.ADMIN),
       );
 
-  Widget get controlPanel => userInfo?.role == "admin"
+  Widget get controlPanel => userInfo?.role == "admin" || testMode
       ? ListTile(
           title: const Text("Control Panel"),
           trailing: const FaIcon(FontAwesomeIcons.caretRight),
@@ -348,7 +321,7 @@ class ProfileView extends GetView<ProfileController> {
           subtitle: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: ThemeSelector(
-              controller: controller,
+              controller: controller.scrollController,
             ),
           ),
         ),

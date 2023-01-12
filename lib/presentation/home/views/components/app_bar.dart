@@ -27,29 +27,17 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           preferredSize: AppBar().preferredSize,
           child: tabBar(context),
         ),
-        // flexibleSpace: Padding(
-        //   padding: const EdgeInsets.all(12.0),
-        //   child: SvgPicture.asset(
-        //     "assets/svg/app_bar_leaf.svg",
-        //     color: Theme.of(context).primaryColor.withOpacity(.2),
-        //     // fit: BoxFit.fitWidth,
-        //     width: MediaQuery.of(context).size.width,
-        //     // height: 150,
-        //   ),
-        // ),
         flexibleSpace: Align(
-          alignment: Alignment.bottomLeft,
+          alignment: Alignment.topLeft,
           child: Stack(
             children: [
               Positioned(
-                right: MediaQuery.of(context).size.width / 2,
-                bottom: 0,
+                left: -125,
+                top: 0,
                 child: SvgPicture.asset(
                   "assets/svg/app_bar_leaf.svg",
                   color: Theme.of(context).primaryColor.withOpacity(.2),
-                  fit: BoxFit.fitHeight,
-                  // height: 150,
-                  width: MediaQuery.of(context).size.width,
+                  width: 250,
                 ),
               ),
             ],
@@ -74,8 +62,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: TabBar(
           physics: const BouncingScrollPhysics(),
           overlayColor: MaterialStateProperty.resolveWith(_getColor),
-          unselectedLabelStyle:
-              const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          unselectedLabelStyle: const TextStyle(fontSize: 20),
           labelStyle:
               Theme.of(context).textTheme.headline4!.copyWith(fontSize: 27),
           indicator: UnderlineTabIndicator(

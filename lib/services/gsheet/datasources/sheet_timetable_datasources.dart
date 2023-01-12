@@ -10,7 +10,8 @@ import '../repository/gsheet_service.dart';
 import '../usecase/sheet_timetable.dart';
 import '../utils/ghseet_timetable_utils.dart';
 
-const sheetName = 'timetable';
+// const sheetName = 'timetable';
+const sheetName = 'timetable-new';
 
 class SheetTimetableDatasources
     with GsheetTimetableUtils

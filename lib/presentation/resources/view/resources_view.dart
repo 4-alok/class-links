@@ -161,14 +161,13 @@ class ResourcesView extends GetView<ResourcesController> {
           child: Stack(
             children: [
               Positioned(
-                left: MediaQuery.of(context).size.width / 2,
+                right: -125,
                 bottom: 0,
                 child: SvgPicture.asset(
                   "assets/svg/app_bar_leaf.svg",
                   color: Theme.of(context).primaryColor.withOpacity(.2),
                   fit: BoxFit.fitHeight,
-                  // height: 150,
-                  width: MediaQuery.of(context).size.width,
+                  width: 250,
                 ),
               ),
             ],

@@ -1,18 +1,16 @@
+import 'package:class_link/global/utils/extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../../../../../global/gen/assets.gen.dart';
-import '../../../../../global/widget/launcher.dart';
+import '../../../../global/models/subject_info/subject_info.dart';
 import '../../controllers/subject_info_controller.dart';
 
 class SubjectInfoBody {
   final SubjectInfoController controller;
   SubjectInfoBody({required this.controller});
 
-  Widget get remark => Padding(
+  Widget teacher(Widget teacher) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,28 +20,20 @@ class SubjectInfoBody {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Remark",
+                Text("Teacher",
                     style: TextStyle(
                       color: Get.theme.colorScheme.primary,
                       fontWeight: FontWeight.w700,
                       fontSize: 20,
                     )),
-                controller.subjectInfo.subject.remarkAddBy == ""
-                    ? const SizedBox()
-                    : _toolTipText(controller.subjectInfo.subject.remarkAddBy)
               ],
             ),
-            Text(
-              controller.subjectInfo.subject.remark == ""
-                  ? "No Remark"
-                  : controller.subjectInfo.subject.remark,
-              style: Get.theme.textTheme.headline4,
-            ),
+            teacher,
           ],
         ),
       );
 
-  Widget get room => Padding(
+  Widget subjectCode(SubjectInfo? subjectInfo) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,174 +43,47 @@ class SubjectInfoBody {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Room No",
+                Text("Subject Code",
                     style: TextStyle(
                       color: Get.theme.colorScheme.primary,
                       fontWeight: FontWeight.w700,
                       fontSize: 20,
                     )),
-                controller.subjectInfo.subject.roomNoAddBy == ""
-                    ? const SizedBox()
-                    : _toolTipText(controller.subjectInfo.subject.roomNoAddBy)
               ],
             ),
-            Text(
-              controller.subjectInfo.subject.roomNo == null
-                  ? "Not Available"
-                  : controller.subjectInfo.subject.roomNo.toString(),
-              style: Get.theme.textTheme.headline4,
-            ),
+            Text(subjectInfo?.subject.electiveSubjectCode ?? "N/A",
+                style: Get.theme.textTheme.headline4),
           ],
         ),
       );
 
-  Widget googleLink(BuildContext context) => Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text("Google Classroom",
-                      style: TextStyle(
-                        color: Get.theme.colorScheme.primary,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20,
-                      )),
-                  controller.subjectInfo.subject.gLinkAddBy == ""
-                      ? const SizedBox()
-                      : _toolTipText(controller.subjectInfo.subject.gLinkAddBy),
-                ],
+  //A Widget to show time
+  Widget time(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Time",
+                    style: TextStyle(
+                      color: Get.theme.colorScheme.primary,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20,
+                    )),
+              ],
+            ),
+            Flexible(
+              flex: 1,
+              child: Text(
+                controller.subjectInfo.subject.startTime.startEndTimeRange,
+                style: Get.theme.textTheme.headline4,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onLongPress: () =>
-                          controller.subjectInfo.subject.googleClassRoomLink !=
-                                  ""
-                              ? {
-                                  Clipboard.setData(ClipboardData(
-                                      text: controller.subjectInfo.subject
-                                          .googleClassRoomLink)),
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content:
-                                              Text("Link copied to clipboard")))
-                                }
-                              : null,
-                      child: Text(
-                        controller.subjectInfo.subject.googleClassRoomLink == ""
-                            ? "No Google Classroom Link"
-                            : controller
-                                .subjectInfo.subject.googleClassRoomLink,
-                        style: Get.theme.textTheme.headline4!.copyWith(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
-                  controller.subjectInfo.subject.googleClassRoomLink == ""
-                      ? const SizedBox()
-                      : GestureDetector(
-                          onTap: () => Launcher.launchUrl(
-                              context,
-                              controller
-                                  .subjectInfo.subject.googleClassRoomLink),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SvgPicture.asset(
-                              Assets.icons.meet.path,
-                              semanticsLabel: 'Google Class Room',
-                              // height: 35,
-                              width: 25,
-                            ),
-                          ),
-                        ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      );
-
-  Widget zoomLink(BuildContext context) => Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text("Zoom Link",
-                      style: TextStyle(
-                        color: Get.theme.colorScheme.primary,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20,
-                      )),
-                  controller.subjectInfo.subject.zLinkAddBy == ""
-                      ? const SizedBox()
-                      : _toolTipText(controller.subjectInfo.subject.zLinkAddBy),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onLongPress: () =>
-                          controller.subjectInfo.subject.zoomLink != ""
-                              ? {
-                                  Clipboard.setData(ClipboardData(
-                                    text:
-                                        controller.subjectInfo.subject.zoomLink,
-                                  )),
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content:
-                                              Text("Link copied to clipboard")))
-                                }
-                              : null,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2),
-                        child: Text(
-                          controller.subjectInfo.subject.zoomLink == ""
-                              ? "No Zoom Meeting Link"
-                              : controller.subjectInfo.subject.zoomLink,
-                          style: Get.theme.textTheme.headline4!.copyWith(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  controller.subjectInfo.subject.zoomLink == ""
-                      ? const SizedBox()
-                      : GestureDetector(
-                          onTap: () => Launcher.launchUrl(
-                              context, controller.subjectInfo.subject.zoomLink),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SvgPicture.asset(
-                              Assets.icons.zoom.path,
-                              semanticsLabel: 'Zoom Meet',
-                              // height: 35,
-                              width: 30,
-                            ),
-                          ),
-                        ),
-                ],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
 
@@ -295,15 +158,6 @@ class SubjectInfoBody {
               )
             ],
           ),
-        ),
-      );
-
-  Tooltip _toolTipText(String text) => Tooltip(
-        preferBelow: false,
-        message: text.split(",").last,
-        child: Text(
-          " ~ ${text.split(",").first}",
-          textAlign: TextAlign.end,
         ),
       );
 }

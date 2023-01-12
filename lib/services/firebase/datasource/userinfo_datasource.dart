@@ -11,7 +11,7 @@ import '../usecase/userinfo_usecase.dart';
 
 const allStudentKey = 'all_student';
 const myBatchKey = 'my_batch';
-const userCollectionKey = 'user';
+const userCollectionKey = 'userv2';
 
 class UserInfoDatasources implements UserInfoUsecase {
   final FirebaseFirestore firestore;
@@ -41,6 +41,33 @@ class UserInfoDatasources implements UserInfoUsecase {
     } catch (e) {
       Message("Error", "Unable to add user : $e");
       return false;
+    }
+  }
+
+  @override
+  Future<void> resetUser(String userId) async {
+    try {
+      await firestore
+          .collection(userCollectionKey)
+          .where('id', isEqualTo: userId)
+          .limit(1)
+          .get()
+          .then((value) => value.docs.first.reference.delete());
+      Message("Success", "User reset successfully");
+    } catch (e) {
+      Message("Error", "Unable to reset user : $e");
+    }
+
+    try {
+      await firestore
+          .collection("user_elective_section")
+          .where("rollNo", isEqualTo: int.tryParse(userId.split("@").first))
+          .limit(1)
+          .get()
+          .then((value) => value.docs.first.reference.delete());
+      Message("Success", "User elective section reset successfully");
+    } catch (e) {
+      Message('Error', 'Unable to reset user elective section : $e');
     }
   }
 

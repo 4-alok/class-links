@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../datasources/auth_datasources.dart';
-import '../models/user_type.dart';
 import '../usecase/auth_service_usecase.dart';
 
 class AuthService extends GetxService implements AuthServiceUsecase {
@@ -27,7 +26,7 @@ class AuthService extends GetxService implements AuthServiceUsecase {
   bool get isAuthenticated => authDatasources.isAuthenticated;
 
   @override
-  Future<UserType> get login async => await authDatasources.login;
+  Future<User?> get login async => await authDatasources.login;
 
   @override
   Future<void> get logout async {

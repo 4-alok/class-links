@@ -405,15 +405,10 @@ Subject _$SubjectFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Subject {
   String get subjectName => throw _privateConstructorUsedError;
-  String get subjectAddBy => throw _privateConstructorUsedError;
-  String get remark => throw _privateConstructorUsedError;
-  String get remarkAddBy => throw _privateConstructorUsedError;
-  String get googleClassRoomLink => throw _privateConstructorUsedError;
-  String get gLinkAddBy => throw _privateConstructorUsedError;
   String? get roomNo => throw _privateConstructorUsedError;
-  String get roomNoAddBy => throw _privateConstructorUsedError;
-  String get zoomLink => throw _privateConstructorUsedError;
-  String get zLinkAddBy => throw _privateConstructorUsedError;
+  dynamic get isElective => throw _privateConstructorUsedError;
+  String? get electiveSubjectCode => throw _privateConstructorUsedError;
+  String? get teacherName => throw _privateConstructorUsedError;
   DayTime get startTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -427,15 +422,10 @@ abstract class $SubjectCopyWith<$Res> {
       _$SubjectCopyWithImpl<$Res>;
   $Res call(
       {String subjectName,
-      String subjectAddBy,
-      String remark,
-      String remarkAddBy,
-      String googleClassRoomLink,
-      String gLinkAddBy,
       String? roomNo,
-      String roomNoAddBy,
-      String zoomLink,
-      String zLinkAddBy,
+      dynamic isElective,
+      String? electiveSubjectCode,
+      String? teacherName,
       DayTime startTime});
 
   $DayTimeCopyWith<$Res> get startTime;
@@ -452,15 +442,10 @@ class _$SubjectCopyWithImpl<$Res> implements $SubjectCopyWith<$Res> {
   @override
   $Res call({
     Object? subjectName = freezed,
-    Object? subjectAddBy = freezed,
-    Object? remark = freezed,
-    Object? remarkAddBy = freezed,
-    Object? googleClassRoomLink = freezed,
-    Object? gLinkAddBy = freezed,
     Object? roomNo = freezed,
-    Object? roomNoAddBy = freezed,
-    Object? zoomLink = freezed,
-    Object? zLinkAddBy = freezed,
+    Object? isElective = freezed,
+    Object? electiveSubjectCode = freezed,
+    Object? teacherName = freezed,
     Object? startTime = freezed,
   }) {
     return _then(_value.copyWith(
@@ -468,42 +453,22 @@ class _$SubjectCopyWithImpl<$Res> implements $SubjectCopyWith<$Res> {
           ? _value.subjectName
           : subjectName // ignore: cast_nullable_to_non_nullable
               as String,
-      subjectAddBy: subjectAddBy == freezed
-          ? _value.subjectAddBy
-          : subjectAddBy // ignore: cast_nullable_to_non_nullable
-              as String,
-      remark: remark == freezed
-          ? _value.remark
-          : remark // ignore: cast_nullable_to_non_nullable
-              as String,
-      remarkAddBy: remarkAddBy == freezed
-          ? _value.remarkAddBy
-          : remarkAddBy // ignore: cast_nullable_to_non_nullable
-              as String,
-      googleClassRoomLink: googleClassRoomLink == freezed
-          ? _value.googleClassRoomLink
-          : googleClassRoomLink // ignore: cast_nullable_to_non_nullable
-              as String,
-      gLinkAddBy: gLinkAddBy == freezed
-          ? _value.gLinkAddBy
-          : gLinkAddBy // ignore: cast_nullable_to_non_nullable
-              as String,
       roomNo: roomNo == freezed
           ? _value.roomNo
           : roomNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      roomNoAddBy: roomNoAddBy == freezed
-          ? _value.roomNoAddBy
-          : roomNoAddBy // ignore: cast_nullable_to_non_nullable
-              as String,
-      zoomLink: zoomLink == freezed
-          ? _value.zoomLink
-          : zoomLink // ignore: cast_nullable_to_non_nullable
-              as String,
-      zLinkAddBy: zLinkAddBy == freezed
-          ? _value.zLinkAddBy
-          : zLinkAddBy // ignore: cast_nullable_to_non_nullable
-              as String,
+      isElective: isElective == freezed
+          ? _value.isElective
+          : isElective // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      electiveSubjectCode: electiveSubjectCode == freezed
+          ? _value.electiveSubjectCode
+          : electiveSubjectCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      teacherName: teacherName == freezed
+          ? _value.teacherName
+          : teacherName // ignore: cast_nullable_to_non_nullable
+              as String?,
       startTime: startTime == freezed
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
@@ -527,15 +492,10 @@ abstract class _$$_SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
   @override
   $Res call(
       {String subjectName,
-      String subjectAddBy,
-      String remark,
-      String remarkAddBy,
-      String googleClassRoomLink,
-      String gLinkAddBy,
       String? roomNo,
-      String roomNoAddBy,
-      String zoomLink,
-      String zLinkAddBy,
+      dynamic isElective,
+      String? electiveSubjectCode,
+      String? teacherName,
       DayTime startTime});
 
   @override
@@ -554,15 +514,10 @@ class __$$_SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
   @override
   $Res call({
     Object? subjectName = freezed,
-    Object? subjectAddBy = freezed,
-    Object? remark = freezed,
-    Object? remarkAddBy = freezed,
-    Object? googleClassRoomLink = freezed,
-    Object? gLinkAddBy = freezed,
     Object? roomNo = freezed,
-    Object? roomNoAddBy = freezed,
-    Object? zoomLink = freezed,
-    Object? zLinkAddBy = freezed,
+    Object? isElective = freezed,
+    Object? electiveSubjectCode = freezed,
+    Object? teacherName = freezed,
     Object? startTime = freezed,
   }) {
     return _then(_$_Subject(
@@ -570,42 +525,19 @@ class __$$_SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
           ? _value.subjectName
           : subjectName // ignore: cast_nullable_to_non_nullable
               as String,
-      subjectAddBy: subjectAddBy == freezed
-          ? _value.subjectAddBy
-          : subjectAddBy // ignore: cast_nullable_to_non_nullable
-              as String,
-      remark: remark == freezed
-          ? _value.remark
-          : remark // ignore: cast_nullable_to_non_nullable
-              as String,
-      remarkAddBy: remarkAddBy == freezed
-          ? _value.remarkAddBy
-          : remarkAddBy // ignore: cast_nullable_to_non_nullable
-              as String,
-      googleClassRoomLink: googleClassRoomLink == freezed
-          ? _value.googleClassRoomLink
-          : googleClassRoomLink // ignore: cast_nullable_to_non_nullable
-              as String,
-      gLinkAddBy: gLinkAddBy == freezed
-          ? _value.gLinkAddBy
-          : gLinkAddBy // ignore: cast_nullable_to_non_nullable
-              as String,
       roomNo: roomNo == freezed
           ? _value.roomNo
           : roomNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      roomNoAddBy: roomNoAddBy == freezed
-          ? _value.roomNoAddBy
-          : roomNoAddBy // ignore: cast_nullable_to_non_nullable
-              as String,
-      zoomLink: zoomLink == freezed
-          ? _value.zoomLink
-          : zoomLink // ignore: cast_nullable_to_non_nullable
-              as String,
-      zLinkAddBy: zLinkAddBy == freezed
-          ? _value.zLinkAddBy
-          : zLinkAddBy // ignore: cast_nullable_to_non_nullable
-              as String,
+      isElective: isElective == freezed ? _value.isElective : isElective,
+      electiveSubjectCode: electiveSubjectCode == freezed
+          ? _value.electiveSubjectCode
+          : electiveSubjectCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      teacherName: teacherName == freezed
+          ? _value.teacherName
+          : teacherName // ignore: cast_nullable_to_non_nullable
+              as String?,
       startTime: startTime == freezed
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
@@ -619,15 +551,10 @@ class __$$_SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
 class _$_Subject implements _Subject {
   const _$_Subject(
       {required this.subjectName,
-      this.subjectAddBy = "",
-      this.remark = "",
-      this.remarkAddBy = "",
-      this.googleClassRoomLink = "",
-      this.gLinkAddBy = "",
       this.roomNo = null,
-      this.roomNoAddBy = "",
-      this.zoomLink = "",
-      this.zLinkAddBy = "",
+      this.isElective = false,
+      this.electiveSubjectCode = null,
+      this.teacherName = null,
       required this.startTime});
 
   factory _$_Subject.fromJson(Map<String, dynamic> json) =>
@@ -637,37 +564,22 @@ class _$_Subject implements _Subject {
   final String subjectName;
   @override
   @JsonKey()
-  final String subjectAddBy;
-  @override
-  @JsonKey()
-  final String remark;
-  @override
-  @JsonKey()
-  final String remarkAddBy;
-  @override
-  @JsonKey()
-  final String googleClassRoomLink;
-  @override
-  @JsonKey()
-  final String gLinkAddBy;
-  @override
-  @JsonKey()
   final String? roomNo;
   @override
   @JsonKey()
-  final String roomNoAddBy;
+  final dynamic isElective;
   @override
   @JsonKey()
-  final String zoomLink;
+  final String? electiveSubjectCode;
   @override
   @JsonKey()
-  final String zLinkAddBy;
+  final String? teacherName;
   @override
   final DayTime startTime;
 
   @override
   String toString() {
-    return 'Subject(subjectName: $subjectName, subjectAddBy: $subjectAddBy, remark: $remark, remarkAddBy: $remarkAddBy, googleClassRoomLink: $googleClassRoomLink, gLinkAddBy: $gLinkAddBy, roomNo: $roomNo, roomNoAddBy: $roomNoAddBy, zoomLink: $zoomLink, zLinkAddBy: $zLinkAddBy, startTime: $startTime)';
+    return 'Subject(subjectName: $subjectName, roomNo: $roomNo, isElective: $isElective, electiveSubjectCode: $electiveSubjectCode, teacherName: $teacherName, startTime: $startTime)';
   }
 
   @override
@@ -677,21 +589,13 @@ class _$_Subject implements _Subject {
             other is _$_Subject &&
             const DeepCollectionEquality()
                 .equals(other.subjectName, subjectName) &&
-            const DeepCollectionEquality()
-                .equals(other.subjectAddBy, subjectAddBy) &&
-            const DeepCollectionEquality().equals(other.remark, remark) &&
-            const DeepCollectionEquality()
-                .equals(other.remarkAddBy, remarkAddBy) &&
-            const DeepCollectionEquality()
-                .equals(other.googleClassRoomLink, googleClassRoomLink) &&
-            const DeepCollectionEquality()
-                .equals(other.gLinkAddBy, gLinkAddBy) &&
             const DeepCollectionEquality().equals(other.roomNo, roomNo) &&
             const DeepCollectionEquality()
-                .equals(other.roomNoAddBy, roomNoAddBy) &&
-            const DeepCollectionEquality().equals(other.zoomLink, zoomLink) &&
+                .equals(other.isElective, isElective) &&
             const DeepCollectionEquality()
-                .equals(other.zLinkAddBy, zLinkAddBy) &&
+                .equals(other.electiveSubjectCode, electiveSubjectCode) &&
+            const DeepCollectionEquality()
+                .equals(other.teacherName, teacherName) &&
             const DeepCollectionEquality().equals(other.startTime, startTime));
   }
 
@@ -700,15 +604,10 @@ class _$_Subject implements _Subject {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(subjectName),
-      const DeepCollectionEquality().hash(subjectAddBy),
-      const DeepCollectionEquality().hash(remark),
-      const DeepCollectionEquality().hash(remarkAddBy),
-      const DeepCollectionEquality().hash(googleClassRoomLink),
-      const DeepCollectionEquality().hash(gLinkAddBy),
       const DeepCollectionEquality().hash(roomNo),
-      const DeepCollectionEquality().hash(roomNoAddBy),
-      const DeepCollectionEquality().hash(zoomLink),
-      const DeepCollectionEquality().hash(zLinkAddBy),
+      const DeepCollectionEquality().hash(isElective),
+      const DeepCollectionEquality().hash(electiveSubjectCode),
+      const DeepCollectionEquality().hash(teacherName),
       const DeepCollectionEquality().hash(startTime));
 
   @JsonKey(ignore: true)
@@ -727,15 +626,10 @@ class _$_Subject implements _Subject {
 abstract class _Subject implements Subject {
   const factory _Subject(
       {required final String subjectName,
-      final String subjectAddBy,
-      final String remark,
-      final String remarkAddBy,
-      final String googleClassRoomLink,
-      final String gLinkAddBy,
       final String? roomNo,
-      final String roomNoAddBy,
-      final String zoomLink,
-      final String zLinkAddBy,
+      final dynamic isElective,
+      final String? electiveSubjectCode,
+      final String? teacherName,
       required final DayTime startTime}) = _$_Subject;
 
   factory _Subject.fromJson(Map<String, dynamic> json) = _$_Subject.fromJson;
@@ -743,23 +637,13 @@ abstract class _Subject implements Subject {
   @override
   String get subjectName;
   @override
-  String get subjectAddBy;
-  @override
-  String get remark;
-  @override
-  String get remarkAddBy;
-  @override
-  String get googleClassRoomLink;
-  @override
-  String get gLinkAddBy;
-  @override
   String? get roomNo;
   @override
-  String get roomNoAddBy;
+  dynamic get isElective;
   @override
-  String get zoomLink;
+  String? get electiveSubjectCode;
   @override
-  String get zLinkAddBy;
+  String? get teacherName;
   @override
   DayTime get startTime;
   @override

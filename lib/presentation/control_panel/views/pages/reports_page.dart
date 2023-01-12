@@ -69,68 +69,69 @@ class _ReportsPageState extends State<AdminReportsPage> {
               subtitle: Text(reports[index].description),
               trailing: IconButton(
                 icon: const Icon(Icons.delete),
-                onPressed: () async =>
-                    await deleteReportDialog(context, reports[index].docId!),
+                onPressed: () async => await firestoreServices.reportDatasources
+                    .deleteReport(reports[index].docId!)
+                    .then((value) => setState(() {})),
               ),
               onTap: () {
                 replyController.text = reports[index].reply ?? '';
-                replySheet(context, reports[index])
-                    .closed
-                    .then((value) => replyController.clear());
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text(reports[index].reportType.toString()),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("${reports[index].userId} - ${reports[index].id}"),
+                        const SizedBox(height: 10),
+                        Text(reports[index].description),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
+                          onPressed: () => Get.find<FirestoreService>()
+                              .userInfoDatasources
+                              .resetUser(reports[index].userId),
+                          child: const Text("Reset User"),
+                        ),
+                        Text(
+                            "Date: ${Utils.formateDate(reports[index].dateTime, false, true)}"),
+                        const SizedBox(height: 10),
+                        Text('Attatchment: ${reports[index].attatchmentUrl}'),
+                        const SizedBox(height: 10),
+                        TextField(
+                          controller: replyController,
+                          decoration: const InputDecoration(
+                            hintMaxLines: 3,
+                            labelText: 'Reply',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                          onPressed: () => Get.back(),
+                          child: const Text('Cancel')),
+                      ValueListenableBuilder<bool>(
+                          valueListenable: submitting,
+                          builder: (context, value, child) => ElevatedButton(
+                                onPressed: () async =>
+                                    await replyReport(reports[index])
+                                        .then((value) => Get.back()),
+                                child: value
+                                    ? const Center(
+                                        child: SizedBox(
+                                            height: 10,
+                                            width: 10,
+                                            child: CircularProgressIndicator()),
+                                      )
+                                    : const Text("Submit"),
+                              ))
+                    ],
+                  ),
+                );
               },
             ),
-          ),
-        ),
-      );
-
-  PersistentBottomSheetController<dynamic> replySheet(
-          BuildContext context, Report report) =>
-      showBottomSheet(
-        context: context,
-        builder: (context) => Container(
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(report.reportType.toString(),
-                  style: Theme.of(context).textTheme.headline4),
-              Text(report.description,
-                  style: Theme.of(context).textTheme.bodyText1),
-              Text("Date: ${Utils.formateDate(report.dateTime, false, true)}"),
-              Text('Attatchment: ${report.attatchmentUrl}'),
-              const SizedBox(height: 10),
-              TextField(
-                controller: replyController,
-                decoration: const InputDecoration(
-                  hintMaxLines: 3,
-                  labelText: 'Reply',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  const Spacer(),
-                  ValueListenableBuilder<bool>(
-                    valueListenable: submitting,
-                    builder: (context, value, child) => ElevatedButton(
-                      onPressed: () async =>
-                          await replyReport(report).then((value) => Get.back()),
-                      child: value
-                          ? const Center(
-                              child: SizedBox(
-                                  height: 10,
-                                  width: 10,
-                                  child: CircularProgressIndicator()),
-                            )
-                          : const Text("Submit"),
-                    ),
-                  )
-                ],
-              ),
-            ],
           ),
         ),
       );
