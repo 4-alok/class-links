@@ -7,10 +7,6 @@ import '../presentation/auth/views/auth_view.dart';
 import '../presentation/control_panel/bindings/control_panel_binding.dart';
 import '../presentation/control_panel/views/control_panel_view.dart';
 import '../presentation/control_panel/views/pages/reports_page.dart';
-import '../presentation/create_event/binding/create_event_binding.dart';
-import '../presentation/create_event/view/create_event_view.dart';
-import '../presentation/events/bindings/events_binding.dart';
-import '../presentation/events/view/event_page.dart';
 import '../presentation/holidays/bindings/holiday_bindings.dart';
 import '../presentation/holidays/views/holidays_view.dart';
 import '../presentation/home/bindings/home_binding.dart';
@@ -94,18 +90,6 @@ class AppPages {
       name: _Paths.REPORT,
       binding: ReportBinding(),
       page: () => const ReportView(),
-    ),
-    GetPage(
-      name: _Paths.EVENTS,
-      page: () => const EventPage(),
-      binding: EventsBinding(),
-      transition: Transition.cupertino,
-    ),
-    GetPage(
-      name: _Paths.CREATE_EVENT,
-      page: () => const CreateEventPage(),
-      binding: CreateEventBinding(),
-      transition: Transition.cupertino,
     ),
     GetPage(
       name: _Paths.TEST,

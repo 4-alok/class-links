@@ -91,6 +91,10 @@ class ElectiveDatasources implements ElectiveUsecase {
     //   print("\n");
     // });
     // print("----------------------------------------------------------------");
+    
+    for (final subject in myElectiveSubjectsList) {
+      subject.subjects.sort((a, b) => a.startTime.hour.compareTo(b.startTime.hour));
+    }
 
     return myElectiveSubjectsList;
   }
@@ -120,7 +124,7 @@ class ElectiveDatasources implements ElectiveUsecase {
                               : i == 11
                                   ? 16
                                   : 17,
-              minute: 0),
+              minute: 0,),
         ));
       }
     }

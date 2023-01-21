@@ -63,7 +63,7 @@ class AppInfoBox {
               context,
               FontAwesomeIcons.instagram,
               "Instagram",
-              () => Launcher.launchUrl(context, AppInfo.linkedInURL),
+              () => Launcher.launchUrl(context, AppInfo.instagramURL),
             ),
             socialWidget(
               context,

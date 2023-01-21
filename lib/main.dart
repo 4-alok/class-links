@@ -34,7 +34,6 @@ class ClassLink extends StatelessWidget {
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
         theme: FlexThemeData.light(
-          // scheme: FlexScheme.mallardGreen,
           surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
           blendLevel: 9,
           appBarStyle: FlexAppBarStyle.material,
@@ -45,7 +44,6 @@ class ClassLink extends StatelessWidget {
           colors: database.settingBoxDatasources.appTheme.value.light,
         ),
         darkTheme: FlexThemeData.dark(
-          // scheme: FlexScheme.mallardGreen,
           surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
           blendLevel: 15,
           visualDensity: FlexColorScheme.comfortablePlatformDensity,
