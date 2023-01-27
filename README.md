@@ -4,7 +4,9 @@
 width="100" hspace="50" vspace="30">
 
 ClassLink is an all-in-one app for 2nd year and 3rd year CSE, CSSE, CSCE and IT students of KIIT University. The app provides a user-friendly interface to view the timetable, access study material.
-<br/>
+
+<!-- <br/> -->
+
 Class Link is available on the Google Play Store
 
 <!-- prettier-ignore-start -->
@@ -39,6 +41,12 @@ Class Link is available on the Google Play Store
 - All Users List: View all your Batchmate name and section who are using the latest version.
 - Customizable Themes: Choose from a variety of themes to personalize the app.
 
+## Youtube - ClassLink v0.1.28 Timelapse
+
+[![ClassLink v0.1.28 Timelapse](https://img.youtube.com/vi/abc123/0.jpg)](https://youtu.be/On7oTSmKrIs)
+</BR>
+Watch the ClassLink update timelapse for version 0.1.28 on YouTube.
+
 ## Contributors ✨
 
 Thanks go to these wonderful people
@@ -48,9 +56,9 @@ Thanks go to these wonderful people
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/SanskarKashyap"><img src="https://avatars.githubusercontent.com/u/72290416?v=4" width="100px;" alt=""/><br/><sub><b>Sanskar Kashyap</b></sub></a><br/>
-    </td>
     <td align="center"><a href="https://github.com/4-alok"><img src="https://avatars.githubusercontent.com/u/29683474?v=4" width="100px;" alt=""/><br /><sub><b>Alok Kumar</b></sub></a><br/>
+    </td>
+    <td align="center"><a href="https://github.com/SanskarKashyap"><img src="https://avatars.githubusercontent.com/u/72290416?v=4" width="100px;" alt=""/><br/><sub><b>Sanskar Kashyap</b></sub></a><br/>
     </td>
     <td align="center"><a href="https://github.com/jyotsana279"><img src="https://avatars.githubusercontent.com/u/73690777?v=4" width="100px;" alt=""/><br/><sub><b>Jyotsana Singh</b></sub></a><br/>
     </td>
