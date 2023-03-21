@@ -1,121 +1,70 @@
-import 'dart:convert';
-
-import 'package:flutter_local_notifications/flutter_local_notifications.dart'
-    hide Message;
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:get/get.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
-import '../../global/models/notification_payload.dart/notification_payload.dart';
-import '../../global/models/time_table/time_table.dart';
-import 'notification_utils.dart';
+class NotificationService {
+  static ReceivedAction? initialAction;
+  static AwesomeNotifications awesomeNotifications = AwesomeNotifications();
+  static Future<void> initializeLocalNotifications() async {
+    await awesomeNotifications.initialize(
+      null,
+      <NotificationChannel>[
+        NotificationChannel(
+            channelKey: 'alert',
+            channelName: 'alert',
+            channelDescription: 'Notification teset as alert',
+            playSound: true,
+            onlyAlertOnce: true,
+            importance: NotificationImportance.High),
+        NotificationChannel(
+            channelGroupKey: 'basic_group',
+            channelKey: 'basic_channel',
+            channelName: 'Basic Notification',
+            channelDescription: 'Shedule Notification',
+            playSound: true,
+            importance: NotificationImportance.Default),
+      ],
+      debug: true,
+    );
 
-const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'high_importance_channel',
-  'High Importance Notifications',
-  description: 'This channel is used for important notifications.',
-  importance: Importance.high,
-);
-
-class NotificationService extends GetxService with NotificationServiceUtils {
-  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  final initializationSettingsAndroid =
-      const AndroidInitializationSettings('app_notification_icon');
-  late final InitializationSettings initializationSettings;
-  late final NotificationAppLaunchDetails? notificationAppLaunchDetails;
-
-  List<PendingNotificationRequest> pendingNotification = [];
-
-  @override
-  Future<void> onInit() async {
-    tz.initializeTimeZones();
-    initializationSettings =
-        InitializationSettings(android: initializationSettingsAndroid);
-    notificationAppLaunchDetails =
-        await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-    await flutterLocalNotificationsPlugin.initialize(
-        InitializationSettings(android: initializationSettingsAndroid),
-        onSelectNotification: (String? payload) => openSubject(payload));
-
-    if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-      openSubject(notificationAppLaunchDetails!.payload);
-    }
-    updateNotificationList();
-    super.onInit();
+    /// This is used to get the initial action when the app is opened from a notification.
+    initialAction = await awesomeNotifications.getInitialNotificationAction(
+      removeFromActionEvents: false,
+    );
   }
 
-  Future<void> updateNotificationList() async =>
-      await checkPendingNotificationsRequest()
-          .then((list) => pendingNotification = list);
-
-  Future<void> cancelNotification(int id) async =>
-      await flutterLocalNotificationsPlugin.cancel(id);
-
-  Future<void> cancelAllNotification() async =>
-      await flutterLocalNotificationsPlugin.cancelAll();
-
-  Future<List<PendingNotificationRequest>>
-      checkPendingNotificationsRequest() async =>
-          await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-
-  Future<void> setNotificationForToday(
-      NotificationPayload notificationPayload) async {
-    if (_validateSubjectSchedule(notificationPayload.time)) {
-      final scheduledTime = tz.TZDateTime.now(tz.local).add(
-        Duration(
-                hours: notificationPayload.time.hour,
-                minutes: notificationPayload.time.minute) -
-            Duration(
-                hours: DateTime.now().hour, minutes: DateTime.now().minute),
-      );
-
-      const androidNotificationDetails = AndroidNotificationDetails(
-        "class_link",
-        "class_link_channel",
-        importance: Importance.max,
-        priority: Priority.max,
-      );
-
-      const notificationDetails =
-          NotificationDetails(android: androidNotificationDetails);
-
-      await flutterLocalNotificationsPlugin.zonedSchedule(
-        notificationPayload.time.hour,
-        notificationPayload.title,
-        notificationPayload.body,
-        scheduledTime,
-        notificationDetails,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        androidAllowWhileIdle: true,
-        payload: jsonEncode(notificationPayload.toJson()),
-      );
+  /// > When the app is in the background and a notification is received, the app will navigate to the
+  /// route specified in the notification payload
+  ///
+  /// Args:
+  ///   receivedAction (ReceivedAction): The received action object.
+  @pragma('vm:entry-point')
+  static Future<void> onActionReceivedMethod(
+      ReceivedAction receivedAction) async {
+    if (receivedAction.payload != null) {
+      if (receivedAction.payload!['route'] != null) {
+        Get.toNamed(receivedAction.payload!['route']!);
+      }
     }
   }
 
-  bool _validateSubjectSchedule(DayTime time) =>
-      Duration(hours: time.hour, minutes: time.minute) >
-      Duration(hours: DateTime.now().hour, minutes: DateTime.now().minute);
+  /// Use this method to detect when a new notification or a schedule is created
+  @pragma("vm:entry-point")
+  static Future<void> onNotificationCreatedMethod(
+      ReceivedNotification receivedNotification) async {
+    // Your code goes here
+  }
 
-  // String? _notificationBody(Subject subject) {
-  //   if (subject.roomNo != null) return "Room number - ${subject.roomNo}";
-  //   if (subject.googleClassRoomLink == "" && subject.zoomLink != "") {
-  //     return "Join Zoom meeting";
-  //   } else if (subject.googleClassRoomLink != "" && subject.zoomLink == "") {
-  //     return "Join Google meet";
-  //   } else if (subject.googleClassRoomLink != "" && subject.zoomLink != "") {
-  //     return "Google meet - Zoom meeting";
-  //   } else {
-  //     return null;
-  //   }
-  // }
+  /// Use this method to detect if the user dismissed a notification
+  @pragma("vm:entry-point")
+  static Future<void> onDismissActionReceivedMethod(
+      ReceivedAction receivedAction) async {
+    // Your code goes here
+  }
 
-  // Future test() async {
-  //   final k =
-  //       await flutterLocalNotificationsPlugin.pendingNotificationRequests();
-  //   // ignore: unused_local_variable
-  //   for (var element in k) {
-  //     // final a = element.;
-  //   }
-  // }
+  /// Use this method to detect every time that a new notification is displayed
+  @pragma("vm:entry-point")
+  static Future<void> onNotificationDisplayedMethod(
+      ReceivedNotification receivedNotification) async {
+    // Your code goes here
+  }
 }

@@ -3,7 +3,7 @@
 <img src="https://i.imgur.com/dSgVux3.png" align="left"
 width="100" hspace="50" vspace="30">
 
-ClassLink is an all-in-one app for 2nd year and 3rd year CSE, CSSE, CSCE and IT students of KIIT University. The app provides a user-friendly interface to view the timetable, access study material.
+ClassLink is an all-in-one app for 2nd and 3rd year students of CSE, CSSE, CSCE and IT at KIIT University. The app provides a user-friendly interface to view class schedule and access study materials.
 
 <!-- <br/> -->
 
@@ -43,42 +43,9 @@ Class Link is available on the Google Play Store
 
 ## Youtube - ClassLink v0.1.28 Timelapse
 
-[![ClassLink v0.1.28 Timelapse](https://img.youtube.com/vi/abc123/0.jpg)](https://youtu.be/On7oTSmKrIs)
+[![ClassLink v0.1.28 Timelapse](https://img.youtube.com/vi/On7oTSmKrIs/3.jpg)](https://youtu.be/On7oTSmKrIs?t=369)
 </BR>
 Watch the ClassLink update timelapse for version 0.1.28 on YouTube.
-
-## Contributors ✨
-
-Thanks go to these wonderful people
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/4-alok"><img src="https://avatars.githubusercontent.com/u/29683474?v=4" width="100px;" alt=""/><br /><sub><b>Alok Kumar</b></sub></a><br/>
-    </td>
-    <td align="center"><a href="https://github.com/SanskarKashyap"><img src="https://avatars.githubusercontent.com/u/72290416?v=4" width="100px;" alt=""/><br/><sub><b>Sanskar Kashyap</b></sub></a><br/>
-    </td>
-    <td align="center"><a href="https://github.com/jyotsana279"><img src="https://avatars.githubusercontent.com/u/73690777?v=4" width="100px;" alt=""/><br/><sub><b>Jyotsana Singh</b></sub></a><br/>
-    </td>
-    <td align="center"><a href="https://github.com/lzzy12"><img src="https://avatars.githubusercontent.com/u/26739338?v=4" width="100px;" alt=""/><br /><sub><b>Shivam Jha</b></sub></a><br/>
-    </td>
-    <td align="center"><a href="https://github.com/akarsh1108"><img src="https://avatars.githubusercontent.com/u/72339474?v=4" width="100px;" alt=""/><br/><sub><b>Akarsh Priyadarshan</b></sub></a><br/>
-    </td>
-
-    
-  </tr>
-  <!-- <tr>
-    <td align="center"><a href="https://www.codimiracle.com"><img src="https://avatars2.githubusercontent.com/u/21952540?v=4?s=100" width="100px;" alt=""/><br /><sub><b>codimiracle</b></sub></a><br /><a href="https://github.com/all-contributors/all-contributors/commits?author=codimiracle" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://twitter.com/dance2die"><img src="https://avatars1.githubusercontent.com/u/8465237?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sung Kim</b></sub></a><br /><a href="#translation-dance2die" title="Translation">🌍</a> <a href="https://github.com/all-contributors/all-contributors/commits?author=dance2die" title="Documentation">📖</a></td>
-  </tr> -->
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## License
 

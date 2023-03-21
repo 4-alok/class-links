@@ -1,5 +1,7 @@
 import '../../hive/models/user_info.dart';
 
+/// `UserInfoUsecase` is an abstract class that provides a set of methods to get, add, update, delete,
+/// and reset user information
 abstract class UserInfoUsecase {
   Future<UserInfo?> get getUserInfo;
   Future<bool> addUserInfo(UserInfo user);

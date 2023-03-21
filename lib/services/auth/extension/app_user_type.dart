@@ -1,13 +1,16 @@
-import 'package:class_link/global/utils/csv_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../global/utils/patch.dart';
 import '../models/user_type.dart';
 
+/// An extension method on the `num` class. It is used to check if a number is between two numbers.
 extension Range on num {
   bool isBetween(num from, num to) => from <= this && this <= to;
 }
 
+/// An extension method on the `User` class. It is used to get the user type of the user.
 extension GetAppUserType on User? {
+  /// An extension method on the `User` class. It is used to get the user type of the user.
   Future<AppUserType> get userType async {
     final email = this?.email;
     if (email == null) {
@@ -23,8 +26,20 @@ extension GetAppUserType on User? {
     }
   }
 
+  /// If the email is in the list of exceptions, return true
+  ///
+  /// Args:
+  ///   email (String): The email address to validate.
   static bool _exceptions(String email) => [].contains(email);
 
+  /// It checks if the roll number is between the range of roll numbers of the current batch or if it is
+  /// in the list of roll numbers of the users who have registered
+  ///
+  /// Args:
+  ///   rollNo (int): The roll number of the student.
+  ///
+  /// Returns:
+  ///   A Future<bool> object.
   Future<bool> _isValidRollNo(int rollNo) async {
     // 2022 CSE and IT
     if (rollNo.isBetween(2205000, 2205999) ||
@@ -42,14 +57,12 @@ extension GetAppUserType on User? {
     else if (rollNo.isBetween(2129001, 2129160) ||
         rollNo.isBetween(2128001, 2128141)) {
       return true;
-    } else if (await _isRollNoInUserList(rollNo)) {
+    }
+    
+    // 2020 CSE and IT
+    else if (await Patch.isRollNoInUserList(rollNo)) {
       return true;
     }
     return false;
-  }
-
-  Future<bool> _isRollNoInUserList(int rollNo) async =>
-      (await CsvUtils.readCSVFile('assets/database/3rd_year/6_sem_user.csv'))
-          .map((e) => e.first)
-          .contains(rollNo);
+  }  
 }

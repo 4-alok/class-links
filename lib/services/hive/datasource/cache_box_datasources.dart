@@ -51,8 +51,12 @@ class CacheBoxDataSources implements CacheBoxUsecase {
   Future<Map<String, dynamic>?> getRequest(String key) async {
     final value = await cacheBox.get(key);
     if (value == null) return null;
-    final data = jsonDecode(value);
-    return jsonDecode(data['data']);
+    return jsonDecode(jsonDecode(value)['data']);
+  }
+  @override
+  Future<DateTime?> getCacheDate(String key) async {
+    final value = await cacheBox.get(key);
+    return (value == null) ? null : DateTime.parse(jsonDecode(value)['date']);
   }
 
   @override

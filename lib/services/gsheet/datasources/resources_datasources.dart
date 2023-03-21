@@ -15,6 +15,7 @@ class ResourcesDatasources implements ResourcesUsecase {
   CacheBoxDataSources get cacheBox =>
       Get.find<HiveDatabase>().cacheBoxDataSources;
 
+  /// Getting the cached data from the cacheBox.
   @override
   Future<SheetData?> get getResourcesListCache async {
     final data = await cacheBox.getRequest("resources_$sheetName");
@@ -25,9 +26,15 @@ class ResourcesDatasources implements ResourcesUsecase {
     }
   }
 
+  /// It saves the data from the sheet to the cache box
+  ///
+  /// Args:
+  ///   sheetData (SheetData): The data that you want to save.
   Future<void> _saveResources(SheetData sheetData) async =>
       await cacheBox.saveRequest("resources_$sheetName", sheetData.toJson());
 
+  /// Checking if the spreadsheet is loaded or not. If it is loaded, it will get the data from the
+  /// spreadsheet. If it is not loaded, it will load the spreadsheet and then get the data.
   @override
   Future<SheetData> get getResourcesList async {
     try {
@@ -42,6 +49,7 @@ class ResourcesDatasources implements ResourcesUsecase {
     }
   }
 
+  /// Getting the data from the spreadsheet.
   Future<SheetData> get getData async {
     final spreadsheet = gSheetService.spreadsheet;
     if (spreadsheet != null) {

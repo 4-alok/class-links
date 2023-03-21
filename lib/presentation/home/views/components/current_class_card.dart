@@ -77,7 +77,7 @@ class CurrentClassCard extends StatelessWidget {
                             subjectInfo.subject.startTime.startEndTimeRange,
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle1!
+                                .titleMedium!
                                 .copyWith(color: Get.theme.primaryColor),
                           ),
                         ],
@@ -104,7 +104,7 @@ class CurrentClassCard extends StatelessWidget {
                         child: Text(
                           subjectInfo.subject.subjectName,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headline2,
+                          style: Theme.of(context).textTheme.displayMedium,
                         ),
                       ),
                       trailingWidget,
@@ -208,7 +208,7 @@ class CurrentClassCard extends StatelessWidget {
               subjectInfo.subject.roomNo != null
                   ? Text(
                       subjectInfo.subject.roomNo.toString(),
-                      style: Get.theme.textTheme.headline3!.copyWith(
+                      style: Get.theme.textTheme.displaySmall!.copyWith(
                         color: Get.theme.colorScheme.primary,
                       ),
                     )

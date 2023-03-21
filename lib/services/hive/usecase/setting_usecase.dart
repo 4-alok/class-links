@@ -9,4 +9,6 @@ abstract class SettingBoxUsecase {
   Future<void> saveIsBlackMode(bool isBlack);
   Future<bool> get getIsBlack;
   Future<void> toggleThemeMode();
+  Future<String?> get buildNo;
+  Future<void> setBuildNo();
 }

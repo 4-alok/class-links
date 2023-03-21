@@ -44,9 +44,9 @@ class TimetableListWidget extends StatelessWidget {
                       teacher: currentDay.subjects[index].isElective
                           ? Text(
                               currentDay.subjects[index].teacherName ?? noInfo,
-                              style: Theme.of(context).textTheme.subtitle1)
+                              style: Theme.of(context).textTheme.titleMedium)
                           : teacherText(currentDay.subjects[index].subjectName,
-                                  Get.theme.textTheme.headline4) ??
+                                  Get.theme.textTheme.headlineMedium) ??
                               const SizedBox(),
                       elective: currentDay.subjects[index].isElective,
                     )
@@ -85,9 +85,9 @@ class TimetableListWidget extends StatelessWidget {
                 width: double.maxFinite,
                 child: item.isElective
                     ? Text(item.teacherName ?? noInfo,
-                        style: Theme.of(context).textTheme.headline4)
+                        style: Theme.of(context).textTheme.headlineMedium)
                     : teacherText(
-                            item.subjectName, Get.theme.textTheme.headline4) ??
+                            item.subjectName, Get.theme.textTheme.headlineMedium) ??
                         const SizedBox(),
               ),
             ),
@@ -103,7 +103,7 @@ class TimetableListWidget extends StatelessWidget {
           child: Text(item.startTime.hourString,
               style: Theme.of(context)
                   .textTheme
-                  .headline4!
+                  .headlineMedium!
                   .copyWith(color: Theme.of(context).colorScheme.primary)),
         ),
         title: elective
@@ -178,11 +178,11 @@ class TimetableListWidget extends StatelessWidget {
       children: [
         Text(
           last,
-          style: Get.theme.textTheme.headline4,
+          style: Get.theme.textTheme.headlineMedium,
         ),
         Text(
           first,
-          style: Get.theme.textTheme.headline4!
+          style: Get.theme.textTheme.headlineMedium!
               .copyWith(fontSize: 12, fontWeight: FontWeight.w900),
         ),
       ],

@@ -25,6 +25,7 @@ abstract class Routes {
   static const String RESOURCES = _Paths.RESOURCES;
   static const String TEST = _Paths.TEST;
   static const String NON_KIITIAN = _Paths.NON_KIITIAN;
+  static const String NOTIFICATION_CONTROL = _Paths.NOTIFICATION_CONTROL;
 }
 
 abstract class _Paths {
@@ -47,4 +48,5 @@ abstract class _Paths {
   static const String RESOURCES = '/resources';
   static const String TEST = '/test';
   static const String NON_KIITIAN = '/non-kiitian';
+  static const String NOTIFICATION_CONTROL = '/notification-control';
 }

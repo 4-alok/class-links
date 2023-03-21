@@ -17,7 +17,7 @@ class MyBatchView extends GetView<MyBatchController> {
         appBar: AppBar(
           title: Text(
             Get.find<HiveDatabase>().userBoxDatasources.userInfo?.batch ?? "",
-            style: Get.textTheme.headline4,
+            style: Get.textTheme.headlineMedium,
           ),
           centerTitle: true,
           leading: Hero(

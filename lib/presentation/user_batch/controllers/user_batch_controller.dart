@@ -5,6 +5,7 @@ import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../../services/firebase/repository/firestore_service.dart';
 import '../../../../services/hive/repository/hive_database.dart';
 import '../../../global/utils/csv_utils.dart';
+import '../../../global/utils/patch.dart';
 import '../../../services/firebase/models/user_elective_section.dart';
 import '../../../services/hive/models/user_info.dart';
 import 'user_batch_list.dart';
@@ -33,17 +34,18 @@ class UserBatchController extends GetxController with UserBatchList {
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     final email = Get.find<AuthService>().getUser?.email ?? "";
     if (email.startsWith('22')) {
       currentYear.value = 3;
       currentSemester.value = 4;
+    } else if (await Patch.isRollNoInUserList(
+        int.tryParse(email.split('@').first) ?? -1)) {
+      currentYear.value = 3;
+      currentSemester.value = 6;
     } else if (email.startsWith("21")) {
       currentYear.value = 2;
       currentSemester.value = 4;
-    } else if (email.startsWith("20")) {
-      currentYear.value = 3;
-      currentSemester.value = 6;
     }
     if (currentYear.value == 3) autoSelectSection();
     super.onReady();
@@ -60,18 +62,20 @@ class UserBatchController extends GetxController with UserBatchList {
     try {
       final data =
           await CsvUtils.readCSVFile('assets/database/3rd_year/6_sem_user.csv');
-
       final rollNo = int.tryParse((Get.find<AuthService>().getUser?.email ?? "")
               .split('@')
               .first) ??
           -1;
+
       final section =
           (data.firstWhereOrNull((element) => element.first == rollNo) ?? [])
               .last as String;
+      currentBatch.value =
+          "${section.split("-").first}-${int.parse(section.split("-").last)}";
       currentStream.value = section.split("-").first;
-      currentBatch.value = section;
-      // ignore: empty_catches
-    } catch (e) {}
+    } catch (e) {
+      null;
+    }
   }
 
   List<String> get getStreamList {

@@ -14,11 +14,13 @@ class ParallexPageView extends StatefulWidget {
   final List<Widget> children;
   final Parameter backgroundParameter;
   final HomeController controller;
+  final double backgoundOpacity;
   const ParallexPageView(
       {Key? key,
       required this.children,
       required this.backgroundParameter,
-      required this.controller})
+      required this.controller,
+      this.backgoundOpacity = .1})
       : super(key: key);
 
   @override
@@ -27,10 +29,12 @@ class ParallexPageView extends StatefulWidget {
 
 class ParallexPageViewState extends State<ParallexPageView>
     with TickerProviderStateMixin {
-  final ParallexPageController controller = ParallexPageController();
+  late ParallexPageController controller;
 
   @override
   void initState() {
+    controller =
+        ParallexPageController(backgoundOpacity: widget.backgoundOpacity);
     controller.init(this, widget.controller.pageController);
     super.initState();
   }
@@ -40,6 +44,8 @@ class ParallexPageViewState extends State<ParallexPageView>
     controller.dispose();
     super.dispose();
   }
+
+  Size size(BuildContext context) => MediaQuery.of(context).size;
 
   @override
   Widget build(BuildContext context) => Stack(
@@ -51,8 +57,8 @@ class ParallexPageViewState extends State<ParallexPageView>
       );
 
   Widget background(BuildContext context) => SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+        height: size(context).height,
+        width: size(context).width,
         child: ColoredBox(
           color: Theme.of(context).scaffoldBackgroundColor,
         ),
@@ -60,8 +66,7 @@ class ParallexPageViewState extends State<ParallexPageView>
 
   Widget svgAnimation(BuildContext context) => Positioned(
         bottom: 0,
-        right: widget.backgroundParameter.left -
-            (MediaQuery.of(context).size.width / 1.2),
+        left: 0,
         child: AnimatedBuilder(
             animation: controller.slideAnimationController,
             builder: ((context, child) => Transform.translate(
@@ -78,19 +83,12 @@ class ParallexPageViewState extends State<ParallexPageView>
                 opacity: controller.fadeAnimation.value,
                 child: child ?? const SizedBox(),
               ),
-              child: AnimatedBuilder(
-                animation: controller.rotateAnimation,
-                builder: (context, child) => Transform.rotate(
-                  angle: controller.rotateAnimation.value,
-                  child: child ?? const SizedBox(),
-                ),
-                child: SvgPicture.asset(
-                  'assets/svg/background_image.svg',
-                  color: Theme.of(context).primaryColor,
-                  fit: BoxFit.fitHeight,
-                  height: widget.backgroundParameter.height,
-                  placeholderBuilder: (context) => const SizedBox(),
-                ),
+              child: SvgPicture.asset(
+                'assets/svg/background_image.svg',
+                color: Theme.of(context).primaryColor,
+                fit: BoxFit.fitHeight,
+                width: size(context).width + (size(context).width / 2),
+                placeholderBuilder: (context) => const SizedBox(),
               ),
             )),
       );

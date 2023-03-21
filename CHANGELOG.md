@@ -1,5 +1,11 @@
 # Change log
 
+## v0.1.29
+
+- Slight UI update
+- Added preivew option for pdf in resource
+- Corrected 3rd year Lateral entry users section
+
 ## v0.1.28
 
 - New Material UI 3

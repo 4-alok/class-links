@@ -263,7 +263,7 @@ class UserBatchView extends GetView<UserBatchController> {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               value,
-                              style: Theme.of(context).textTheme.headline5,
+                              style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ),
                         );
@@ -316,7 +316,8 @@ class UserBatchView extends GetView<UserBatchController> {
                             },
                             child: Center(
                               child: Text(e,
-                                  style: Theme.of(context).textTheme.headline1),
+                                  style:
+                                      Theme.of(context).textTheme.displayLarge),
                             ),
                           ),
                         ),
@@ -339,8 +340,8 @@ class UserBatchView extends GetView<UserBatchController> {
         padding: const EdgeInsets.only(left: 20.0),
         child: Text(
           title,
-          style: Get.theme.textTheme.headline4!.copyWith(
-            color: Get.theme.textTheme.headline4!.color!.withOpacity(0.5),
+          style: Get.theme.textTheme.headlineMedium!.copyWith(
+            color: Get.theme.textTheme.headlineMedium!.color!.withOpacity(0.5),
           ),
         ),
       );

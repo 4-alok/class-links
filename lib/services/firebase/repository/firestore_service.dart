@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import '../datasource/elective_datasource.dart';
-import '../datasource/event_datasources.dart';
 import '../datasource/report_datasources.dart';
 import '../datasource/timetable_datasource.dart';
 import '../datasource/userinfo_datasource.dart';
 import '../datasource/utils_datasources.dart';
 import '../utils/firestore_utils.dart';
 
+/// `FirestoreService` is a class that provides access to the firestore database
 class FirestoreService extends GetxService with FirestoreServiceUtils {
   late final FirebaseFirestore _firestore;
   late final TimetableDatasource timetableDatasource;
@@ -16,8 +16,8 @@ class FirestoreService extends GetxService with FirestoreServiceUtils {
   late final ElectiveDatasources electiveDatasources;
   late final ReportDatasources reportDatasources;
   late final UtilsDataSources utilsDataSources;
-  late final EventDatasources eventDatasources;
 
+/// > This function is called when the service is initialized
   @override
   void onInit() {
     _firestore = FirebaseFirestore.instance;
@@ -27,10 +27,10 @@ class FirestoreService extends GetxService with FirestoreServiceUtils {
     reportDatasources = ReportDatasources(firestore: _firestore);
     utilsDataSources =
         UtilsDataSources(firestore: _firestore, firestoreService: this);
-    eventDatasources = EventDatasources(firestore: _firestore);
     super.onInit();
   }
 
+/// > The `onClose()` function is called when the user closes the app
   @override
   void onClose() {
     utilsDataSources.dispose;

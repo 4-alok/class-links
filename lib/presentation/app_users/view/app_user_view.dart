@@ -135,7 +135,7 @@ class AppUserView extends GetView<AppUsersController> {
                 title: Text("1st Year",
                     style: Theme.of(context).textTheme.titleLarge),
                 trailing: Text(controller.yearWiseUserCount[0].toString(),
-                    style: Theme.of(context).textTheme.headline4),
+                    style: Theme.of(context).textTheme.headlineMedium),
               ),
               ListTile(
                 shape: RoundedRectangleBorder(
@@ -144,7 +144,7 @@ class AppUserView extends GetView<AppUsersController> {
                 title: Text("2nd Year",
                     style: Theme.of(context).textTheme.titleLarge),
                 trailing: Text(controller.yearWiseUserCount[1].toString(),
-                    style: Theme.of(context).textTheme.headline4),
+                    style: Theme.of(context).textTheme.headlineMedium),
               ),
               ListTile(
                 shape: RoundedRectangleBorder(
@@ -153,7 +153,7 @@ class AppUserView extends GetView<AppUsersController> {
                 title: Text("3rd Year",
                     style: Theme.of(context).textTheme.titleLarge),
                 trailing: Text(controller.yearWiseUserCount[2].toString(),
-                    style: Theme.of(context).textTheme.headline4),
+                    style: Theme.of(context).textTheme.headlineMedium),
               ),
             ],
           ),
@@ -174,7 +174,7 @@ class AppUserView extends GetView<AppUsersController> {
                 children: [
                   const SizedBox(width: 15),
                   Text(controller.selectedBatch.value ?? "All Batches",
-                      style: Theme.of(context).textTheme.headline4),
+                      style: Theme.of(context).textTheme.headlineMedium),
                   const Spacer(),
                   controller.selectedBatch.value != null
                       ? IconButton(
@@ -225,40 +225,37 @@ class AppUserView extends GetView<AppUsersController> {
             title: const Text("Year"),
             trailing: Text(
               user.year.toString(),
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
           ListTile(
               title: const Text("Stream"),
               trailing: Text(
                 user.stream,
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headlineMedium,
               )),
           ListTile(
               title: const Text("Scheme/Slot"),
               trailing: Text(
                 user.slot.toString(),
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headlineMedium,
               )),
           ListTile(
             title: const Text("Batch"),
             trailing: Text(
               user.batch,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
           ListTile(
             title: const Text("Joined"),
             subtitle: Text(
               Utils.formateDate(user.date, false, true),
-              style:
-                  Theme.of(context).textTheme.headline4!.copyWith(fontSize: 20),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium!
+                  .copyWith(fontSize: 20),
             ),
-            trailing: user.role == "admin"
-                ? IconButton(
-                    onPressed: () => controller.deleteUser(user),
-                    icon: const FaIcon(FontAwesomeIcons.xmark))
-                : const SizedBox(),
           ),
           user.role == "admin" || user.role == "mod"
               ? ListTile(
@@ -267,7 +264,7 @@ class AppUserView extends GetView<AppUsersController> {
                     user.role,
                     style: Theme.of(context)
                         .textTheme
-                        .headline4!
+                        .headlineMedium!
                         .copyWith(fontSize: 20),
                   ),
                   trailing: Wrap(

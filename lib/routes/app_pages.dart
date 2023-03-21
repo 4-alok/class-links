@@ -1,3 +1,4 @@
+import 'package:class_link/main.dart';
 import 'package:get/get.dart';
 
 import '../presentation/app_users/binding/app_user_binding.dart';
@@ -6,6 +7,7 @@ import '../presentation/auth/bindings/auth_binding.dart';
 import '../presentation/auth/views/auth_view.dart';
 import '../presentation/control_panel/bindings/control_panel_binding.dart';
 import '../presentation/control_panel/views/control_panel_view.dart';
+import '../presentation/control_panel/views/pages/notification_page.dart';
 import '../presentation/control_panel/views/pages/reports_page.dart';
 import '../presentation/holidays/bindings/holiday_bindings.dart';
 import '../presentation/holidays/views/holidays_view.dart';
@@ -30,8 +32,11 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static final INITIAL =
-      Get.find<AuthService>().getUser == null ? Routes.AUTH : Routes.HOME;
+  static final INITIAL = TEST_MODE
+      ? Routes.TEST
+      : Get.find<AuthService>().getUser == null
+          ? Routes.AUTH
+          : Routes.HOME;
 
   static final routes = [
     GetPage(
@@ -90,6 +95,11 @@ class AppPages {
       name: _Paths.REPORT,
       binding: ReportBinding(),
       page: () => const ReportView(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION_CONTROL,
+      page: () => const NotificationControlPage(),
+      transition: Transition.cupertino,
     ),
     GetPage(
       name: _Paths.TEST,

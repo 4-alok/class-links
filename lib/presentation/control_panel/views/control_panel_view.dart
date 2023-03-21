@@ -1,4 +1,4 @@
-import 'package:class_link/presentation/control_panel/views/pages/reset_user.dart';
+import 'package:class_link/presentation/control_panel/views/widget/reset_user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,39 +6,12 @@ import '../../../routes/app_pages.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
 import '../../../services/hive/utils/in_app_rating.dart';
 import '../controllers/controller_panel_controller.dart';
-import 'change_user_batch_widget.dart';
+import 'widget/change_user_batch_widget.dart';
 
 class ControlPanel extends GetView<ControlPanelController> {
   const ControlPanel({Key? key}) : super(key: key);
 
   FirestoreService get firestoreServices => Get.find<FirestoreService>();
-
-  // Widget _panelItem(BuildContext context, String title, Widget child) => Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       mainAxisSize: MainAxisSize.min,
-  //       children: [
-  //         Padding(
-  //           padding: const EdgeInsets.symmetric(horizontal: 10),
-  //           child: Text(
-  //             title,
-  //             style: Theme.of(context).textTheme.subtitle1!.copyWith(
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //           ),
-  //         ),
-  //         Card(
-  //           color: Theme.of(context).colorScheme.primary.withOpacity(.1),
-  //           child: SizedBox(
-  //             width: double.maxFinite,
-  //             child: Padding(
-  //               padding:
-  //                   const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-  //               child: child,
-  //             ),
-  //           ),
-  //         )
-  //       ],
-  //     );
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -52,6 +25,7 @@ class ControlPanel extends GetView<ControlPanelController> {
             physics: const BouncingScrollPhysics(),
             children: [
               reportTile(context),
+              notificationControl(context),
               const ChangeUserBatch(),
               // emailPatchTool(context),
               const SizedBox(height: 20),
@@ -73,11 +47,26 @@ class ControlPanel extends GetView<ControlPanelController> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           tileColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
           title: const Text('Reports'),
-          trailing: IconButton(
+          leading: IconButton(
             onPressed: () => controller.submitTestReport,
-            icon: const Icon(Icons.abc),
+            icon: const Icon(Icons.report),
           ),
           onTap: () => Get.toNamed(Routes.ADMIN_REPORT_PAGE),
+        ),
+      );
+
+  Widget notificationControl(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: ListTile(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          tileColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
+          title: const Text('Notification Control'),
+          leading: IconButton(
+            onPressed: () => controller.submitTestReport,
+            icon: const Icon(Icons.notification_add),
+          ),
+          onTap: () => Get.toNamed(Routes.NOTIFICATION_CONTROL),
         ),
       );
 
@@ -131,7 +120,7 @@ class ControlPanel extends GetView<ControlPanelController> {
             child: const Text("Pint User Batch"),
           ),
           ElevatedButton(
-            onPressed: () => InAppRating().requestReview,
+            onPressed: () => InAppRating.checkIfUserHasRatedApp,
             child: const Text("Test review"),
           ),
         ],

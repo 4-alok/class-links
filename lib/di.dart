@@ -11,12 +11,13 @@ import 'services/gsheet/repository/gsheet_service.dart';
 import 'services/hive/repository/hive_database.dart';
 import 'services/notification/notification_service.dart';
 
+/// Initializing the app.
 Future<void> get init async {
-  SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent));
   await Firebase.initializeApp();
-
-  // MobileAds.instance.initialize();
+  await NotificationService.initializeLocalNotifications();
   await Hive.initFlutter();
 
   final database = HiveDatabase();
@@ -24,8 +25,6 @@ Future<void> get init async {
   await database.initDatabase;
   Get.put(FirestoreService());
   Get.put(AuthService());
-  final notificationService = NotificationService();
-  Get.lazyPut<NotificationService>(() => notificationService);
   Get.lazyPut<AnalysisService>(() => AnalysisService());
   Get.lazyPut<GSheetService>(() => GSheetService());
 }

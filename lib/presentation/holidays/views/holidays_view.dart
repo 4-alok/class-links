@@ -106,7 +106,7 @@ class HolidaysView extends GetView<HolidayController> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               '${controller.getMonths[month - 1]} $year',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Padding(

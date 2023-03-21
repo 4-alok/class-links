@@ -10,12 +10,11 @@ import '../../../../services/firebase/repository/firestore_service.dart';
 import '../../../../services/hive/repository/hive_database.dart';
 import '../../../global/const/const.dart';
 import '../../../global/models/time_table/time_table.dart';
-import '../../../services/auth/repository/auth_service_repo.dart';
+import '../../../global/utils/patch.dart';
 import '../../../services/firebase/models/my_elective_list.dart';
 import '../../../services/gsheet/datasources/sheet_timetable_datasources.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../../subject_info/controllers/subject_info_controller.dart';
-// import 'crud_operation.dart';
 
 const String session = "session";
 
@@ -31,10 +30,8 @@ class HomeController extends GetxController
   // copy of originalList
   final week = Rx<List<Day>>([]);
   //  original list
-  List<Day> originalList = List.generate(
-    7,
-    (index) => Day(day: Days.days[index], subjects: []),
-  );
+  List<Day> originalList =
+      List.generate(7, (index) => Day(day: Days.days[index], subjects: []));
 
   /// value changes every hour, to rebuild [TimeTablePage] body
   final hourlyUpdate = ValueNotifier(DateTime.now().hour);
@@ -45,11 +42,13 @@ class HomeController extends GetxController
   SheetTimetableDatasources get timetableDatasource =>
       Get.find<GSheetService>().sheetTimetableDatasources;
 
+  /// > We create a TabController, a StreamSubscription, and set the defaultDays variable
   @override
   void onInit() async {
     tabController =
         TabController(initialIndex: initialTab, vsync: this, length: 7);
 
+    /// A stream that listens to the current hour and updates the `hourlyUpdate` value notifier.
     _hourlyUpdateSubscription =
         Stream.periodic(const Duration(seconds: 1), (i) => i).listen((_) =>
             hourlyUpdate.value != DateTime.now().hour
@@ -60,24 +59,29 @@ class HomeController extends GetxController
     super.onInit();
   }
 
+  /// A getter that returns a list of 7 days with empty subjects.
   void get defaultDays => week.value = List.generate(
         7,
         (index) => Day(day: Days.days[index], subjects: []),
       );
 
+  /// Returning the current day of the week.
   int get initialTab =>
       (DateTime.now().weekday == 7 || DateTime.now().weekday == 6)
           ? 0
           : DateTime.now().weekday - 1;
 
+  /// > It loads the timetable, adds the elective subjects and checks for app updates
   @override
   void onReady() {
     loadTimetable;
     addElectiveSubjects;
-    AndroidAppUpdate().update;
+    AndroidAppUpdate.update;
+    Patch().init();
     super.onReady();
   }
 
+  /// Adding the elective subjects to the timetable.
   Future<void> get addElectiveSubjects async {
     final List<MyElectiveSubjects> myElectiveTable =
         await Get.find<FirestoreService>()
@@ -106,6 +110,7 @@ class HomeController extends GetxController
     week.update((_) {});
   }
 
+  /// Loading the timetable from the cache and then from the server.
   Future<void> get loadTimetable async {
     final timetableCache = await timetableDatasource.getMyTimetableCache;
     if (timetableCache != null) {
@@ -113,21 +118,39 @@ class HomeController extends GetxController
           timetableCache.week.length, (index) => timetableCache.week[index]);
       originalList = deepCopyWeek(timetableCache.week);
     }
-    final timetable = await timetableDatasource.getMyTimetable;
-    week.value =
-        List.generate(timetable.week.length, (index) => timetable.week[index]);
-    originalList = deepCopyWeek(timetable.week);
-    await addElectiveSubjects;
+
+    final cacheDateTime = await timetableDatasource.getMyTimetableCacheDate;
+    // if the cache is older than 2 hour then it will update the cache
+    if (cacheDateTime != null) {
+      if (!cacheDateTime
+          .isAfter(DateTime.now().subtract(const Duration(hours: 2)))) {
+        // cache is older than 2 hours
+        final timetable = await timetableDatasource.getMyTimetable;
+        week.value = List.generate(
+            timetable.week.length, (index) => timetable.week[index]);
+        originalList = deepCopyWeek(timetable.week);
+        await addElectiveSubjects;
+      }
+    } else {
+      final timetable = await timetableDatasource.getMyTimetable;
+      week.value = List.generate(
+          timetable.week.length, (index) => timetable.week[index]);
+      originalList = deepCopyWeek(timetable.week);
+      await addElectiveSubjects;
+    }
   }
 
+  /// It creates a deep copy of a list of Day objects.
+  ///
+  /// Args:
+  ///   originList (List<Day>): The list of days you want to copy.
   List<Day> deepCopyWeek(List<Day> originList) =>
       originList.map((e) => Day.fromJson(e.toJson())).toList();
 
+  /// Getting the user info from the cache and if it is not present then it is getting it from the server.
   Future<UserInfo?> get getUserInfo async {
     final result = Get.find<HiveDatabase>().userBoxDatasources.userInfo;
-
     if (result != null) {
-      if (await newSession()) return null;
       return result;
     } else {
       final result2 =
@@ -142,22 +165,7 @@ class HomeController extends GetxController
     return null;
   }
 
-  Future<bool> newSession() async {
-    final hiveDatabase = Get.find<HiveDatabase>();
-    final res = await hiveDatabase.cacheBoxDataSources.getRequest(session);
-    if (res == null) {
-      final authService = Get.find<AuthService>();
-      await authService.logout;
-      await Get.find<HiveDatabase>().userBoxDatasources.clearUserInfo;
-      await hiveDatabase.cacheBoxDataSources
-          .saveRequest(session, {'session': "2023-6-sem"});
-      Get.offAllNamed(Routes.AUTH);
-      return true;
-    } else {
-      return false;
-    }
-  }
-
+  /// It cancels all subscriptions, disposes all streams, and deletes the SubjectInfoController
   @override
   void onClose() {
     if (_timeTableSubscription != null) _timeTableSubscription!.cancel();

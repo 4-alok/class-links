@@ -1,10 +1,15 @@
+import 'package:package_info_plus/package_info_plus.dart';
+
 class AppInfo {
+  AppInfo._();
+
   static const String appName = "Class Link";
-  static const String appVersion = "v0.1.27";
+  // static const String appVersion = "v0.1.27";
   static const String applicationLegalese =
       "Copyright (c) 2024 Class Link" "\nMIT License";
   static const String supportMail = "app.classlink@gmail.com";
-  static const String appInfo = "View the current class with just one click. Get holidays list, Resources(notes and PYQs) and more.\n\n";
+  static const String appInfo =
+      "View the current class with just one click. Get holidays list, Resources(notes and PYQs) and more.\n\n";
   static const String appUrl =
       "https://play.google.com/store/apps/details?id=com.application.class_link";
   static const String linkedInURL = "https://www.linkedin.com/in/4-alok";
@@ -13,8 +18,14 @@ class AppInfo {
 
   static const Map<String, String> developer = {
     'Sanskar Kashyap, Lead Marketing & Content Management':
-        'https://avatars.githubusercontent.com/u/72290416?v=4,https://www.instagram.com/san22y4x/',
+        'https://avatars.githubusercontent.com/u/72290416?v=4,https://www.instagram.com/sanskar_kashyap_308/',
     'Jyotsana Singh,App Logo':
         'https://avatars.githubusercontent.com/u/73690777?v=4,https://github.com/jyotsana279',
   };
+
+  static Future<String> get appVersion async =>
+      "v${(await PackageInfo.fromPlatform()).version}";
+
+  static Future<String> get buildNumber async =>
+      (await PackageInfo.fromPlatform()).buildNumber;
 }

@@ -7,14 +7,21 @@ import '../usecase/report_usecase.dart';
 
 const String reportKey = 'reports';
 
+/// It's a class that implements the ReportUseecase and it's used to interact with the firestore
+/// database
 class ReportDatasources implements ReportUseecase {
   final FirebaseFirestore firestore;
   ReportDatasources({required this.firestore});
 
+  /// Delete a report from the database
+  ///
+  /// Args:
+  ///   refId (String): The unique id of the report.
   @override
   Future<void> deleteReport(String refId) async =>
       await firestore.collection(reportKey).doc(refId).delete();
 
+  /// Getting all the reports from the database.
   @override
   Future<List<Report>> get getAllReports async =>
       (await firestore.collection(reportKey).get())
@@ -22,6 +29,7 @@ class ReportDatasources implements ReportUseecase {
           .map((doc) => Report.fromJson(doc.data()))
           .toList();
 
+  /// Getting the reports that the user has submitted.
   @override
   Future<List<Report>> get getMyReports async {
     return (await firestore
@@ -35,10 +43,19 @@ class ReportDatasources implements ReportUseecase {
         .toList();
   }
 
+  /// It updates the report in the database.
+  ///
+  /// Args:
+  ///   refId (String): The document id of the report.
+  ///   report (Report): The report object that contains the report data.
   @override
   Future<void> replyReport(String refId, Report report) async =>
       await firestore.collection(reportKey).doc(refId).update(report.toJson());
 
+  /// It adds a new report to the database and then updates the report with the document id.
+  ///
+  /// Args:
+  ///   report (Report): The report object that you want to submit.
   @override
   Future<void> submitReport(Report report) async {
     await firestore.collection(reportKey).add(report.toJson()).then(
@@ -48,6 +65,11 @@ class ReportDatasources implements ReportUseecase {
                 ));
   }
 
+  /// It updates the report in the database.
+  ///
+  /// Args:
+  ///   refId (String): The document id of the report you want to update.
+  ///   report (Report): The report object that you want to update.
   @override
   Future<void> updateReport(String refId, Report report) async =>
       await firestore.collection(reportKey).doc(refId).update(report.toJson());

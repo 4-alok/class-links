@@ -9,6 +9,7 @@ import '../../../global/utils/get_snackbar.dart';
 import '../../hive/repository/hive_database.dart';
 import '../usecase/auth_service_usecase.dart';
 
+/// A class that implements the AuthServiceUsecase and provides the login and logout functionality
 class AuthDatasources implements AuthServiceUsecase {
   final FirebaseAuth auth;
   final Rx<User?> user;
@@ -16,9 +17,11 @@ class AuthDatasources implements AuthServiceUsecase {
   AuthDatasources(
       {required this.auth, required this.user, required this.googleSignIn});
 
+  /// This is a getter function. It is used to check if the user is authenticated or not.
   @override
   bool get isAuthenticated => user.value != null;
 
+  /// This is the login function.
   @override
   Future<User?> get login async {
     try {
@@ -44,6 +47,7 @@ class AuthDatasources implements AuthServiceUsecase {
     }
   }
 
+  /// Logging out the user from the app.
   @override
   Future<void> get logout async {
     await googleSignIn.signOut();

@@ -79,7 +79,6 @@ class ResourcesView extends GetView<ResourcesController> {
                       child: SlideAnimation(
                         child: FadeInAnimation(
                           child: ListTile(
-                            // tileColor: Colors.green,
                             onTap: () => (list[index] is IndexFolder)
                                 ? controller.currentPath.value =
                                     "${list[index].path}/"
@@ -92,11 +91,37 @@ class ResourcesView extends GetView<ResourcesController> {
                               isfolder: list[index] is IndexFolder,
                               fileName: list[index].name,
                             ),
-                            title: Text(list[index].name),
-                            trailing: list[index] is IndexFolder
-                                ? null
-                                : Text(controller.kiloBytesToString(
-                                    (list[index] as IndexFile).size)),
+                            title: Text(
+                              list[index].name,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                            subtitle: list[index] is IndexFile
+                                ? list[index].name.toLowerCase().endsWith('pdf')
+                                    ? Text(controller.kiloBytesToString(
+                                        (list[index] as IndexFile).size))
+                                    : null
+                                : null,
+                            trailing: list[index] is IndexFile
+                                ? list[index].name.toLowerCase().endsWith('pdf')
+                                    ? Tooltip(
+                                      message: "Preview",
+                                      child: IconButton(
+                                          onPressed: () => (list[index]
+                                                  is IndexFile)
+                                              ? prevDoc(context,
+                                                  (list[index] as IndexFile).id)
+                                              : null,
+                                          icon: FaIcon(
+                                            FontAwesomeIcons.expand,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground,
+                                          )),
+                                    )
+                                    : Text(controller.kiloBytesToString(
+                                        (list[index] as IndexFile).size))
+                                : null,
                           ),
                         ),
                       ),
@@ -111,22 +136,22 @@ class ResourcesView extends GetView<ResourcesController> {
     if (isfolder) {
       return FaIcon(FontAwesomeIcons.folder, color: Get.theme.primaryColor);
     } else {
-      if (fileName.toLowerCase().endsWith('.pdf')) {
+      final fileName0 = fileName.toLowerCase();
+      if (fileName0.endsWith('.pdf')) {
         return FaIcon(FontAwesomeIcons.filePdf, color: Colors.red[400]);
-      } else if (fileName.toLowerCase().endsWith('.pptx') ||
-          fileName.toLowerCase().endsWith('.ppt')) {
+      } else if (fileName0.endsWith('.pptx') || fileName0.endsWith('.ppt')) {
         return FaIcon(FontAwesomeIcons.filePowerpoint,
             color: Colors.yellow[400]);
-      } else if (fileName.toLowerCase().endsWith('.docx') ||
-          fileName.toLowerCase().endsWith('.doc')) {
+      } else if (fileName0.endsWith('.docx') || fileName0.endsWith('.doc')) {
         return const FaIcon(FontAwesomeIcons.fileWord, color: Colors.blue);
-      } else if (fileName.toLowerCase().endsWith('.xlsx') ||
-          fileName.toLowerCase().endsWith(
-                '.xls',
-              )) {
+      } else if (fileName0.endsWith('.xlsx') ||
+          fileName0.endsWith(
+            '.xls',
+          )) {
         return const FaIcon(FontAwesomeIcons.fileExcel, color: Colors.green);
-      } else if (fileName.toLowerCase().endsWith('.png') ||
-          fileName.toLowerCase().endsWith('.jpg')) {
+      } else if (fileName0.endsWith('.png') ||
+          fileName0.endsWith('.jpg') ||
+          fileName0.endsWith('.jpeg')) {
         return const FaIcon(FontAwesomeIcons.fileImage, color: Colors.purple);
       }
       return const FaIcon(FontAwesomeIcons.solidFile);

@@ -10,11 +10,15 @@ import '../controllers/home_controller.dart';
 import 'components/parallex_page_view.dart';
 import 'components/time_table_page.dart';
 
+/// A widget that is a parallex page view with a bottom navigation bar that is observing the value of
+/// `resourcesPage` and changing the current index of the bottom navigation bar
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        // A FutureBuilder which is a widget that builds itself based on the latest snapshot of
+        // interaction with a Future.
         body: FutureBuilder<UserInfo?>(
           future: controller.getUserInfo,
           builder: (context, snapshot) {
@@ -22,8 +26,9 @@ class HomeView extends GetView<HomeController> {
               // App open log for google analytics
               Get.find<AnalysisService>().appOpenLogEvent;
 
+              /// Returning a widget that is a parallex page view.
               return ParallexPageView(
-                backgroundParameter: const Parameter(left: 100),
+                backgroundParameter: const Parameter(),
                 controller: controller,
                 children: [
                   TimeTablePage(homeController: controller),
@@ -39,6 +44,8 @@ class HomeView extends GetView<HomeController> {
             }
           },
         ),
+        // A bottom navigation bar that is observing the value of `resourcesPage` and changing the
+        // current index of the bottom navigation bar.
         bottomNavigationBar: Obx(
           () => BottomNavigationBar(
             currentIndex: controller.resourcesPage.value ? 1 : 0,

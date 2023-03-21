@@ -5,6 +5,7 @@ abstract class SheetTimetableUsecase {
   /// Get the sheet rows list by sheetName
   Future<SheetData> get getSheetRowsList;
   Future<TimeTable?> get getMyTimetableCache;
+  Future<DateTime?> get getMyTimetableCacheDate;
   Future<TimeTable> get getMyTimetable;
   Future get getTimetableData;
 }

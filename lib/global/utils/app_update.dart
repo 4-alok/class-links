@@ -4,7 +4,9 @@ import 'package:in_app_update/in_app_update.dart';
 import 'get_snackbar.dart';
 
 class AndroidAppUpdate {
-  Future<void> get update async {
+  const AndroidAppUpdate._();
+
+  static Future<void> get update async {
     final res = await InAppUpdate.checkForUpdate();
     res.updateAvailability == UpdateAvailability.updateAvailable
         ? InAppUpdate.performImmediateUpdate().then((value) {

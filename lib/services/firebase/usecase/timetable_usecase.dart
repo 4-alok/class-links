@@ -1,5 +1,6 @@
 import '../../../global/models/time_table/time_table.dart';
 
+/// This class is responsible for all the usecases related to the timetable
 abstract class TimetableUsecase {
   Stream<List<Day>> get batchTimeTableStream;
   Future<List<Day>> get batchTimeTable;

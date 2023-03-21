@@ -1,3 +1,4 @@
+import 'package:class_link/global/const/app_info.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,8 @@ import 'package:hive/hive.dart';
 import '../../../global/theme/app_color.dart.dart';
 import '../utils/theme_analytics_log.dart';
 import '../usecase/setting_usecase.dart';
+
+const _buildNo = 'buildNo';
 
 class SettingBoxDatasources
     with ThemeAnalyticsLog
@@ -18,11 +21,17 @@ class SettingBoxDatasources
   final isBlack = Rx<bool>(true);
   final themeMode = Rx<ThemeMode>(ThemeMode.system);
 
+  /// It saves the value of the boolean isBlack.value to the hive and then changes the value
+  /// of isBlack.value to the opposite of what it was.
+  ///
+  /// Args:
+  ///   value (bool): The value of the switch.
   Future<void> blackModeOnChange(bool value) async =>
       await saveIsBlackMode(!isBlack.value).then(
         (value) => isBlack.value = !isBlack.value,
       );
 
+  /// It toggles the theme mode.
   @override
   Future<void> toggleThemeMode() async =>
       await saveCurrentTheme(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark)
@@ -71,4 +80,14 @@ class SettingBoxDatasources
     isBlack.close();
     themeMode.close();
   }
+
+  @override
+  Future<String?> get buildNo async => await settingsBox.get(_buildNo);
+
+  //TODO Remove
+  clearBuldNo() async => await settingsBox.delete(_buildNo);
+
+  @override
+  Future<void> setBuildNo() async =>
+      await settingsBox.put(_buildNo, await AppInfo.buildNumber);
 }

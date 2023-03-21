@@ -36,13 +36,12 @@ class _ResetUserState extends State<ResetUser> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               "Reset User",
-              style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
             ),
           ),
           Card(
-            color: Theme.of(context).colorScheme.primary.withOpacity(.1),
             child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(

@@ -6,14 +6,14 @@ import '../../../../../global/const/app_info.dart';
 import '../../../../../global/widget/launcher.dart';
 
 class AppInfoBox {
-  static void showAppAboutDialog(BuildContext context) {
-    final TextStyle aboutTextStyle = Get.theme.textTheme.bodyText1!;
-    final TextStyle footerStyle = Get.theme.textTheme.caption!;
+  static void showAppAboutDialog(BuildContext context, String appVersion) {
+    final TextStyle aboutTextStyle = Get.theme.textTheme.bodyLarge!;
+    final TextStyle footerStyle = Get.theme.textTheme.bodySmall!;
 
     showAboutDialog(
       context: context,
       applicationName: AppInfo.appName,
-      applicationVersion: AppInfo.appVersion,
+      applicationVersion: appVersion,
       applicationIcon: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -88,7 +88,7 @@ class AppInfoBox {
               FaIcon(icon, size: 30),
               Text(
                 text,
-                style: Get.theme.textTheme.caption!,
+                style: Get.theme.textTheme.bodySmall!,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
               ),

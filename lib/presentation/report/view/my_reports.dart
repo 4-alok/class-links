@@ -72,7 +72,7 @@ class _MyReportsPageState extends State<MyReportsPage> {
                       children: [
                         Text(
                           widget.controller.getText(reports[index].reportType),
-                          style: Theme.of(context).textTheme.headline4,
+                          style: Theme.of(context).textTheme.headlineMedium,
                         ),
                         IconButton(
                           icon: Icon(
@@ -87,7 +87,7 @@ class _MyReportsPageState extends State<MyReportsPage> {
                     const SizedBox(height: 20),
                     Text(
                       reports[index].description,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     reports[index].attatchmentUrl != null &&
                             reports[index].attatchmentUrl != ''
@@ -122,7 +122,7 @@ class _MyReportsPageState extends State<MyReportsPage> {
                         : const SizedBox(),
                     reports[index].reply != null && reports[index].reply != ''
                         ? Text("Reply \n${reports[index].reply ?? ""}",
-                            style: Theme.of(context).textTheme.bodyText2)
+                            style: Theme.of(context).textTheme.bodyMedium)
                         : const SizedBox(),
                   ],
                 ),

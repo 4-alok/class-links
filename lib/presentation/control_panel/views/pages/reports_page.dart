@@ -44,6 +44,7 @@ class _ReportsPageState extends State<AdminReportsPage> {
               return const LinearProgressIndicator();
             } else if (snapshot.hasData) {
               final reports = snapshot.data ?? [];
+              reports.sort((a, b) => b.dateTime.compareTo(a.dateTime));
               return reportList(reports);
             } else {
               return snapshot.error != null

@@ -39,9 +39,20 @@ class SheetTimetableDatasources
   }
 
   @override
+  Future<DateTime?> get getMyTimetableCacheDate async =>
+      await hiveDatabase.cacheBoxDataSources
+          .getCacheDate("$year-year-$sheetName");
+
+  /// Fetching the timetable of the user./// A annotation.
+  @override
   Future<TimeTable> get getMyTimetable async {
+    /// Fetching the data from the google sheet.
     final timetableData = (await getSheetRowsList).rowList;
+
+    /// Getting the index of the header of the sheet.
     final sheetHeaderIndex = getSheetHeaderIndex(timetableData.first);
+
+    /// Getting the batch of the user from the hive database.
     final myBatch = hiveDatabase.userBoxDatasources.userInfo?.batch ?? "";
     List<TimeTable> timeTableL = List.empty(growable: true);
 

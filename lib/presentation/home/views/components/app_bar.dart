@@ -64,7 +64,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           overlayColor: MaterialStateProperty.resolveWith(_getColor),
           unselectedLabelStyle: const TextStyle(fontSize: 20),
           labelStyle:
-              Theme.of(context).textTheme.headline4!.copyWith(fontSize: 27),
+              Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 27),
           indicator: UnderlineTabIndicator(
             insets: const EdgeInsets.symmetric(horizontal: 20),
             borderSide: BorderSide(

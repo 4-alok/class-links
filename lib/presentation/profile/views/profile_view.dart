@@ -30,31 +30,41 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: appBar(context),
-        body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          physics: const BouncingScrollPhysics(),
-          children: [
-            profilePhoto,
-            const SizedBox(height: 20),
-            displayName,
-            email,
-            const SizedBox(height: 20),
-            batch(context),
-            holidays,
-            const Divider(thickness: 1.5),
-            themeSelector,
-            themeMode(context),
-            blackMode,
-            const Divider(thickness: 1.5),
-            appUsers,
-            contributer(context),
-            controlPanel,
-            test,
-            logoutCard,
-            const SizedBox(height: 20),
-            reportProblem,
-            const SizedBox(height: 10),
-          ],
+        body: NotificationListener(
+          onNotification: (notification) {
+            if (notification is ScrollUpdateNotification) {
+              if (notification.metrics.pixels < -120) {
+                Get.back();
+              }
+            }
+            return false;
+          },
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            physics: const BouncingScrollPhysics(),
+            children: [
+              profilePhoto,
+              const SizedBox(height: 20),
+              displayName,
+              email,
+              const SizedBox(height: 20),
+              batch(context),
+              holidays,
+              const Divider(thickness: 1.5),
+              themeSelector,
+              themeMode(context),
+              blackMode,
+              const Divider(thickness: 1.5),
+              appUsers,
+              // contributer(context),
+              controlPanel,
+              test,
+              logoutCard,
+              const SizedBox(height: 20),
+              reportProblem,
+              const SizedBox(height: 10),
+            ],
+          ),
         ),
       );
 
@@ -140,13 +150,13 @@ class ProfileView extends GetView<ProfileController> {
               children: [
                 Text(
                   "Alok Kumar Patel",
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                      color: Theme.of(context).textTheme.bodyText1!.color),
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      color: Theme.of(context).textTheme.bodyLarge!.color),
                 ),
                 Text('Lead Developer & Designer',
                     style: Theme.of(context)
                         .textTheme
-                        .headline4!
+                        .headlineMedium!
                         .copyWith(fontSize: 15)),
               ],
             ),
@@ -191,17 +201,17 @@ class ProfileView extends GetView<ProfileController> {
   Text get email => Text(
         user?.email ?? "",
         textAlign: TextAlign.center,
-        style: Get.theme.textTheme.subtitle1!.copyWith(
+        style: Get.theme.textTheme.titleMedium!.copyWith(
             fontSize: 18,
             color: Get.theme.primaryColor.alphaBlendColor(
-              Get.theme.textTheme.subtitle1!.color!.withOpacity(.5),
+              Get.theme.textTheme.titleMedium!.color!.withOpacity(.5),
             )),
       );
 
   Text get displayName => Text(
         user?.displayName ?? "",
         textAlign: TextAlign.center,
-        style: Get.theme.textTheme.headline1!.copyWith(fontSize: 30),
+        style: Get.theme.textTheme.displayLarge!.copyWith(fontSize: 30),
       );
 
   Hero get profilePhoto => const Hero(
@@ -229,7 +239,9 @@ class ProfileView extends GetView<ProfileController> {
                   ),
               icon: const FaIcon(FontAwesomeIcons.shareNodes)),
           IconButton(
-              onPressed: () => AppInfoBox.showAppAboutDialog(context),
+              // onPressed: () => AppInfoBox.showAppAboutDialog(context),
+              onPressed: () => controller.getAppVersion.then(
+                  (value) => AppInfoBox.showAppAboutDialog(context, value)),
               icon: const FaIcon(FontAwesomeIcons.info)),
         ],
       );

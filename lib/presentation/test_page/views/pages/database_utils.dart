@@ -25,6 +25,30 @@ class _DatabaseUtilsState extends State<DatabaseUtils> with TestWidget {
                   onPressed: () => controller.deleteMeFromFirestore,
                   child: const Text("Delete me from firestore"),
                 ),
+                ElevatedButton(
+                  onPressed: () => controller.test(),
+                  child: const Text("print build number"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.test2(),
+                  child: const Text("Set Build Number"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.test3(),
+                  child: const Text("Clear Build Number"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.test4(),
+                  child: const Text("Is Lateral"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.test5(),
+                  child: const Text("Test 5"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.test6(),
+                  child: const Text("Test 6"),
+                ),
               ],
             ),
           ),

@@ -19,4 +19,39 @@ class DatabaseUtilsController {
           .get()
           .then((users) => users.docs.first.reference.delete())
           .then((_) => Message("Deleted", "Deleted from firestore"));
+
+  void test() async {
+    hiveDatabase.settingBoxDatasources.buildNo;
+  }
+
+  void test2() async {
+    hiveDatabase.settingBoxDatasources.setBuildNo();
+  }
+
+  void test3() async {
+    hiveDatabase.settingBoxDatasources.clearBuldNo();
+  }
+
+  void test4() async {
+    // final k = await Patch().isLateral(21053059);
+  }
+
+  test6() async {
+    // final k = await Patch.isRollNoInUserList(2005847);
+    // print(k);
+  }
+
+  void test5() async {
+    // final rolls = await Patch().getR() ?? [];
+    // final allUserInfo = await firestoreService.userInfoDatasources.firestore
+        // .collection(userCollectionKey)
+        // .get();
+    // for (var element in allUserInfo.docs) {
+      // final userInfo = UserInfo.fromJson(element.data());
+      // final roll = int.tryParse(userInfo.id.split('@').first) ?? 0;
+      // if (rolls.contains(roll)) {
+        // await element.reference.delete();
+      // }
+    // }
+  }
 }

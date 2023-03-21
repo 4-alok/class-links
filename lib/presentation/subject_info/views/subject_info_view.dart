@@ -20,12 +20,22 @@ class SubjectInfoView extends GetView<SubjectInfoController> {
   Widget build(BuildContext context) {
     controller.subjectInfo = subjectInfo;
     return Scaffold(
-        body: CustomScrollView(
-      physics: const BouncingScrollPhysics(),
-      slivers: [
-        SubjectInfoAppBar(controller: controller),
-        body(context),
-      ],
+        body: NotificationListener(
+      onNotification: (notification) {
+        if (notification is ScrollUpdateNotification) {
+          if (notification.metrics.pixels < -100) {
+            Get.back();
+          }
+        }
+        return true;
+      },
+      child: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SubjectInfoAppBar(controller: controller),
+          body(context),
+        ],
+      ),
     ));
   }
 
@@ -60,8 +70,6 @@ class SubjectInfoView extends GetView<SubjectInfoController> {
                         : const SizedBox(),
                     const SizedBox(height: 10),
                     SubjectInfoBody(controller: controller).time(context),
-                    SubjectInfoBody(controller: controller)
-                        .scheduleButtons(context)
                   ],
                 ),
               ],

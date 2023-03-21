@@ -18,6 +18,10 @@ class TimetableDatasource
   String get batchTimeTableKey =>
       'batch_timetable_${hiveDatabase.userBoxDatasources.userInfo?.year ?? -1}';
 
+  /// It adds or updates the timetable of the batch.
+  ///
+  /// Args:
+  ///   timeTable (TimeTable): The TimeTable object that you want to add or update.
   @override
   Future<void> addOrUpdateBatchTimeTable(TimeTable timeTable) async {
     final result = await firestore
@@ -37,6 +41,11 @@ class TimetableDatasource
     }
   }
 
+  /// If there's no personal time table for the current user, create one, otherwise update the existing
+  /// one
+  ///
+  /// Args:
+  ///   timeTable (TimeTable): The TimeTable object that you want to add or update.
   @override
   Future<void> addOrUpdatePersonalTimeTable(TimeTable timeTable) async {
     final result = await firestore
@@ -51,6 +60,10 @@ class TimetableDatasource
     }
   }
 
+  /// It adds a timetable to the database.
+  ///
+  /// Args:
+  ///   timeTable (TimeTable): The TimeTable object that you want to add to the database.
   @override
   Future<void> addTimeTable(TimeTable timeTable) async =>
       await firestore.collection(batchTimeTableKey).add(timeTable.toJson());
@@ -77,17 +90,26 @@ class TimetableDatasource
   }
 
   @override
-  Stream<List<Day>> get batchTimeTableStream => firestore
-      .collection(batchTimeTableKey)
-      .where("year", isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.year)
-      .where("slot", isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.slot)
-      .where("batch",
-          isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.batch)
-      .snapshots()
-      .map((event) => event.docs.isEmpty
-          ? defaultDays
-          : TimeTable.fromJson(event.docs.first.data()).week);
+  Stream<List<Day>> get batchTimeTableStream {
+    return firestore
+        .collection(batchTimeTableKey)
+        .where("year",
+            isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.year)
+        .where("slot",
+            isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.slot)
+        .where("batch",
+            isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.batch)
+        .snapshots()
+        .map((event) => event.docs.isEmpty
+            ? defaultDays
+            : TimeTable.fromJson(event.docs.first.data()).week);
+  }
 
+  /// It gets all the documents from the collection, checks if the year of the timetable is the same as
+  /// the one passed in the function, and if it is, it deletes the document
+  ///
+  /// Args:
+  ///   year (int): The year of the timetable to be deleted.
   @override
   Future<void> deleteTimetable(int year) async {
     final res = await firestore.collection(batchTimeTableKey).get();
@@ -100,6 +122,7 @@ class TimetableDatasource
     }
   }
 
+  /// Getting all the timetables from the firestore.
   @override
   Future<List<TimeTable>> get getAllTimetable async {
     try {
@@ -131,6 +154,7 @@ class TimetableDatasource
     }
   }
 
+  /// A getter that returns a stream of list of days.
   @override
   Stream<List<Day>> get personalTimeTableStream => firestore
       .collection("personal_time_table")

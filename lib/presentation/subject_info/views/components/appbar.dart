@@ -31,10 +31,8 @@ class SubjectInfoAppBar extends StatelessWidget {
           title: SafeArea(
             child: Hero(
               tag: "subject_name",
-              child: Text(
-                controller.subjectInfo.subject.subjectName,
-                style: Theme.of(context).textTheme.headline3,
-              ),
+              child: Text(controller.subjectInfo.subject.subjectName,
+                  style: Theme.of(context).textTheme.displaySmall),
             ),
           ),
         ),
