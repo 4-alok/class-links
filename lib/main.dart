@@ -10,15 +10,24 @@ import 'global/transition_animation.dart/shared_axis_scale_transition.dart';
 import 'routes/app_pages.dart';
 import 'services/hive/repository/hive_database.dart';
 
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+
+
 // ignore: constant_identifier_names
 const TEST_MODE = false;
 
 /// `runZonedGuarded` is a function that runs the `runApp` function in a zone that catches any errors
 /// that occur in the `runApp` function
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   // runZonedGuarded<Future<void>>(
   //   () async =>
+
+  Future.delayed(const Duration(seconds: 1));
+  FlutterNativeSplash.remove();
+
   await di.init.then((_) => runApp(
         const ClassLink(),
       ));
