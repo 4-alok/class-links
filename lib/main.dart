@@ -17,13 +17,14 @@ const TEST_MODE = false;
 /// that occur in the `runApp` function
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runZonedGuarded<Future<void>>(
-    () async => await di.init.then((_) => runApp(
-          const ClassLink(),
-        )),
-    (error, stackTrace) =>
-        {debugPrint("Error# $error "), debugPrint("StackTrace# $stackTrace")},
-  );
+  // runZonedGuarded<Future<void>>(
+  //   () async =>
+  await di.init.then((_) => runApp(
+        const ClassLink(),
+      ));
+  //   (error, stackTrace) =>
+  //       {debugPrint("Error# $error "), debugPrint("StackTrace# $stackTrace")},
+  // );
 }
 
 /// The statement describes a Flutter application that is utilizing the GetMaterialApp

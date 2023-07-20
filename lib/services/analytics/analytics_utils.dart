@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../hive/repository/hive_database.dart';
 
-abstract class AnalyticsUtile {
+mixin AnalyticsUtile {
   final hiveDatabase = Get.find<HiveDatabase>();
 
   bool? get isBlack =>

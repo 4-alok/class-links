@@ -41,14 +41,14 @@ extension GetAppUserType on User? {
   /// Returns:
   ///   A Future<bool> object.
   Future<bool> _isValidRollNo(int rollNo) async {
-    // 2022 CSE and IT
-    if (rollNo.isBetween(2205000, 2205999) ||
-        rollNo.isBetween(22051000, 22054400)) {
-      return true;
-    }
+    // // 2022 CSE and IT
+    // if (rollNo.isBetween(2205000, 2205999) ||
+    //     rollNo.isBetween(22051000, 22054400)) {
+    //   return true;
+    // }
 
     // 2021 CSE and IT
-    else if (rollNo.isBetween(2105000, 2106322) ||
+    if (rollNo.isBetween(2105000, 2106322) ||
         rollNo.isBetween(21051000, 21054000)) {
       return true;
     }

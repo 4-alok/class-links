@@ -14,7 +14,7 @@ class SubjectInfoView extends GetView<SubjectInfoController> {
   final Widget? teacher;
   final SubjectInfo? subjectInfo;
 
-  MediaQueryData get mqData => MediaQueryData.fromWindow(window);
+  MediaQueryData get mqData => MediaQueryData.fromView(window);
 
   @override
   Widget build(BuildContext context) {

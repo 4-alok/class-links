@@ -174,8 +174,8 @@ class ProfileView extends GetView<ProfileController> {
                     Get.theme.scaffoldBackgroundColor, Colors.red[100])
                 .withOpacity(.8)
             : Get.theme.cardColor.alphaBlendColor(Colors.red).withOpacity(.1),
-        title: Row(
-          children: const [
+        title: const Row(
+          children: [
             Icon(FontAwesomeIcons.rightFromBracket, color: Colors.red),
             SizedBox(width: 10),
             Text('Logout', style: TextStyle(color: Colors.red)),
@@ -185,9 +185,9 @@ class ProfileView extends GetView<ProfileController> {
       );
 
   Widget batch(BuildContext context) => ListTile(
-        leading: Column(
+        leading: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             FaIcon(FontAwesomeIcons.users),
           ],
         ),
@@ -278,9 +278,9 @@ class ProfileView extends GetView<ProfileController> {
       );
 
   Widget get holidays => ListTile(
-        leading: Column(
+        leading: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             FaIcon(FontAwesomeIcons.calendarXmark),
           ],
         ),

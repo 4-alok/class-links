@@ -26,9 +26,7 @@ class AuthDatasources implements AuthServiceUsecase {
   Future<User?> get login async {
     try {
       final account = await googleSignIn.signIn().onError((error, stackTrace) {
-        log("Error# $error ");
-        log("StackTrace# $stackTrace");
-        Message("Error", "Something went wrong, please try again later");
+        Message("Error", error.toString());
         throw UserSignInFlowCancelled();
       });
       if (account == null) throw UserSignInFlowCancelled();

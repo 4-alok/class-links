@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+// import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../global/gen/assets.gen.dart';
@@ -42,12 +42,12 @@ class AuthView extends GetView<AuthController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SvgPicture.asset(
-                          Assets.icons.google.path,
-                          semanticsLabel: 'A red up arrow',
-                          height: 20,
-                          width: 20,
-                        ),
+                        // SvgPicture.asset(
+                        //   Assets.icons.google.path,
+                        //   semanticsLabel: 'A red up arrow',
+                        //   height: 20,
+                        //   width: 20,
+                        // ),
                         const SizedBox(width: 10),
                         const Text("Login"),
                         const SizedBox(width: 20),

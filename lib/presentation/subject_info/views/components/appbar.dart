@@ -9,10 +9,8 @@ import 'package:get/state_manager.dart';
 import '../../controllers/subject_info_controller.dart';
 
 class SubjectInfoAppBar extends StatelessWidget {
-  const SubjectInfoAppBar({
-    Key? key,
-    required this.controller,
-  }) : super(key: key);
+  const SubjectInfoAppBar({Key? key, required this.controller})
+      : super(key: key);
 
   final SubjectInfoController controller;
 
@@ -24,7 +22,7 @@ class SubjectInfoAppBar extends StatelessWidget {
         floating: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const FaIcon(FontAwesomeIcons.arrowLeft),
+          icon: const FaIcon(FontAwesomeIcons.angleDown),
         ),
         flexibleSpace: FlexibleSpaceBar(
           background: sunMoonWidget(),

@@ -15,10 +15,10 @@ class NonKiitianView extends StatelessWidget {
         body: Container(
           height: double.maxFinite,
           margin: const EdgeInsets.all(50),
-          child: Column(
+          child: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               FaIcon(FontAwesomeIcons.faceDizzy, size: 130),
               SizedBox(height: 80),
               Text(

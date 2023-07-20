@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TestWidget {
+mixin TestWidget {
   Widget testCard({required String testTitle, required Widget child}) => Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

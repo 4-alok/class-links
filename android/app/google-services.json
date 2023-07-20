@@ -36,10 +36,6 @@
             "package_name": "com.application.class_link",
             "certificate_hash": "c4be3a5d6b2c662f27a6e3bfe52e3fe00d151af7"
           }
-        },
-        {
-          "client_id": "753917437429-13vb5lu4aeume8n4ek3d11m88s2itt5r.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -51,7 +47,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "753917437429-13vb5lu4aeume8n4ek3d11m88s2itt5r.apps.googleusercontent.com",
+              "client_id": "753917437429-da36qrm0mjhkap8bao0kk1opdked6ge6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

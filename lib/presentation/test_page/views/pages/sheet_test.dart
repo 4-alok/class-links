@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../../../services/firebase/repository/firestore_service.dart';
+import '../../../../services/gsheet/repository/gsheet_service.dart';
+import '../../../../services/hive/repository/hive_database.dart';
+import '../../controller/database_utils.dart';
 import '../widget/common_widget.dart';
 
 class SheetTest extends StatefulWidget {
@@ -10,13 +15,13 @@ class SheetTest extends StatefulWidget {
 }
 
 class _SheetTestState extends State<SheetTest> with TestWidget {
-  // GSheetService get gsheetService => Get.find<GSheetService>();
-  // HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
-  // FirestoreService get firestoreService => Get.find<FirestoreService>();
+  GSheetService get gsheetService => Get.find<GSheetService>();
+  HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
+  FirestoreService get firestoreService => Get.find<FirestoreService>();
 
   @override
   Widget build(BuildContext context) => Column(
-        children: const [
+        children: [
           // testCard(
           //   testTitle: "Gsheet Test",
           //   child: Wrap(
@@ -57,51 +62,55 @@ class _SheetTestState extends State<SheetTest> with TestWidget {
           //   ),
           // ),
           // const SizedBox(height: 10),
-          // testCard(
-          //   testTitle: 'Elective',
-          //   child: Wrap(
-          //     children: [
-          //       ElevatedButton(
-          //         onPressed: () {
-          //           final k =
-          //               gsheetService.teacherInfoDatasource.getMyTeachersCached;
-          //         },
-          //         child: const Text("Get Teacher Info"),
-          //       ),
-          //       ElevatedButton(
-          //           onPressed: () async {
-          //             final res = await hiveDatabase.cacheBoxDataSources
-          //                 .getRequest('teachers');
-          //             print(res);
-          //           },
-          //           child: const Text("Check Box")),
-          //       ElevatedButton(
-          //           onPressed: () async {
-          //             final k = await gsheetService
-          //                 .teacherInfoDatasource.getMyTeachersCached;
-          //             print(k);
-          //           },
-          //           child: const Text("Get MyTeacherCached")),
-          //       const SizedBox(height: 10),
-          //       ElevatedButton(
-          //         onPressed: () async {
-          //           final res = await Get.find<FirestoreService>()
-          //               .electiveDatasources
-          //               .getUserElectiveSectoin(2005847);
-          //           print(res);
-          //         },
-          //         child: const Text("Get User Elective Section"),
-          //       ),
-          //       ElevatedButton(
-          //           onPressed: () {
-          //             firestoreService.electiveDatasources.getElectiveTimeTable;
-          //           },
-          //           child: const Text(
-          //             "Get my elective table",
-          //           ))
-          //     ],
-          //   ),
-          // )
+          testCard(
+            testTitle: 'Elective',
+            child: Wrap(
+              children: [
+                ElevatedButton(
+                  onPressed: () => DatabaseUtilsController().deleteUserWhereRollNoStartWith22(),
+                  child: const Text("Delete 22*"),
+                )
+                // ElevatedButton(
+                //   onPressed: () {
+                //     final k =
+                //         gsheetService.teacherInfoDatasource.getMyTeachersCached;
+                //   },
+                //   child: const Text("Get Teacher Info"),
+                // ),
+                // ElevatedButton(
+                //     onPressed: () async {
+                //       final res = await hiveDatabase.cacheBoxDataSources
+                //           .getRequest('teachers');
+                //       print(res);
+                //     },
+                //     child: const Text("Check Box")),
+                // ElevatedButton(
+                //     onPressed: () async {
+                //       final k = await gsheetService
+                //           .teacherInfoDatasource.getMyTeachersCached;
+                //       print(k);
+                //     },
+                //     child: const Text("Get MyTeacherCached")),
+                // const SizedBox(height: 10),
+                // ElevatedButton(
+                //   onPressed: () async {
+                //     final res = await Get.find<FirestoreService>()
+                //         .electiveDatasources
+                //         .getUserElectiveSectoin(2005847);
+                //     print(res);
+                //   },
+                //   child: const Text("Get User Elective Section"),
+                // ),
+                // ElevatedButton(
+                //     onPressed: () {
+                //       firestoreService.electiveDatasources.getElectiveTimeTable;
+                //     },
+                //     child: const Text(
+                //       "Get my elective table",
+                //     ))
+              ],
+            ),
+          )
         ],
       );
 }

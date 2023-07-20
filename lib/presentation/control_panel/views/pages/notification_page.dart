@@ -73,9 +73,9 @@ class _NotificationControlPageState extends State<NotificationControlPage> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Wrap(
+                        const Wrap(
                           spacing: 10,
-                          children: const [
+                          children: [
                             Chip(label: Text('Open In App')),
                             Chip(label: Text('External App')),
                           ],

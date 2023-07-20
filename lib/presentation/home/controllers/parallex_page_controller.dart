@@ -20,7 +20,7 @@ class ParallexPageController {
   void init(ParallexPageViewState state, PageController pageController) {
     /// A way to create a singleton instance of the ResourcesController.
     Get.put<ResourcesController>(ResourcesController());
-    shiftSize = MediaQueryData.fromWindow(window).size.width /
+    shiftSize = MediaQueryData.fromView(window).size.width /
         state.widget.children.length;
 
     /// Creating an AnimationController that will be used to control the slide animation.
@@ -51,6 +51,7 @@ class ParallexPageController {
   void dispose() {
     /// Deleting the singleton instance of the ResourcesController.
     Get.delete<ResourcesController>();
+
     /// Disposing the animation controllers.
     slideAnimationController.dispose();
     introAnimationController.dispose();

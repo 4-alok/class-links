@@ -1,9 +1,12 @@
 import 'package:class_link/global/utils/get_snackbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import '../../../services/auth/repository/auth_service_repo.dart';
+import '../../../services/firebase/datasource/userinfo_datasource.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
 import '../../../services/gsheet/repository/gsheet_service.dart';
+import '../../../services/hive/models/user_info.dart';
 import '../../../services/hive/repository/hive_database.dart';
 
 class DatabaseUtilsController {
@@ -44,14 +47,34 @@ class DatabaseUtilsController {
   void test5() async {
     // final rolls = await Patch().getR() ?? [];
     // final allUserInfo = await firestoreService.userInfoDatasources.firestore
-        // .collection(userCollectionKey)
-        // .get();
+    // .collection(userCollectionKey)
+    // .get();
     // for (var element in allUserInfo.docs) {
-      // final userInfo = UserInfo.fromJson(element.data());
-      // final roll = int.tryParse(userInfo.id.split('@').first) ?? 0;
-      // if (rolls.contains(roll)) {
-        // await element.reference.delete();
-      // }
+    // final userInfo = UserInfo.fromJson(element.data());
+    // final roll = int.tryParse(userInfo.id.split('@').first) ?? 0;
+    // if (rolls.contains(roll)) {
+    // await element.reference.delete();
     // }
+    // }
+  }
+
+  Future<void> deleteUserWhereRollNoStartWith22() async {
+    final FirebaseFirestore f = firestoreService.userInfoDatasources.firestore;
+    final res = await f.collection(userCollectionKey).get();
+    List k = [];
+    for (var element in res.docs) {
+      try {
+        final userInfo = UserInfo.fromJson(element.data());
+        final roll = int.tryParse(userInfo.id.split('@').first) ?? 0;
+        if (roll.toString().startsWith('22')) {
+          k.add(roll);
+          // await element.reference.delete();
+        }
+      } catch (e) {
+        // delete this user
+        print(element.data());
+        await element.reference.delete();
+      }
+    }
   }
 }
