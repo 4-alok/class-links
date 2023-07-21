@@ -70,6 +70,8 @@ class SubjectInfoView extends GetView<SubjectInfoController> {
                         : const SizedBox(),
                     const SizedBox(height: 10),
                     SubjectInfoBody(controller: controller).time(context),
+                    const SizedBox(height: 10),
+                    SubjectInfoBody(controller: controller).room(context),
                   ],
                 ),
               ],

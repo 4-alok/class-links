@@ -12,9 +12,7 @@ class Patch {
   FirestoreService get firestoreService => Get.find<FirestoreService>();
   AuthService get authService => Get.find<AuthService>();
 
-  Future<void> init() async {
-    await patch1();
-  }
+  Future<void> get init async => await patch1();
 
   Future<void> patch1() async {
     final user = hiveDatabase.userBoxDatasources.userInfo;

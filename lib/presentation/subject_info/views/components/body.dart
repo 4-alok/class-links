@@ -85,4 +85,34 @@ class SubjectInfoBody {
           ],
         ),
       );
+
+  //A Widget to show room number
+  Widget room(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Room",
+                    style: TextStyle(
+                      color: Get.theme.colorScheme.primary,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20,
+                    )),
+              ],
+            ),
+            Flexible(
+              flex: 1,
+              child: Text(
+                controller.subjectInfo.subject.roomNo ?? "N/A",
+                style: Get.theme.textTheme.headlineMedium,
+              ),
+            ),
+          ],
+        ),
+      );
 }

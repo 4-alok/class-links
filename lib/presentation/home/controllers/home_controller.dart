@@ -77,7 +77,7 @@ class HomeController extends GetxController
     loadTimetable;
     addElectiveSubjects;
     AndroidAppUpdate.update;
-    Patch().init();
+    Patch().init;
     super.onReady();
   }
 
@@ -88,26 +88,36 @@ class HomeController extends GetxController
             .electiveDatasources
             .getElectiveTimeTable;
 
-    // for (final element in myElectiveTable) {
-    //   switch (element.day) {
-    //     case "Monday":
-    //       week.value[0].subjects.addAll(element.subjects);
-    //       break;
-    //     case "Tuesday":
-    //       week.value[1].subjects.addAll(element.subjects);
-    //       break;
-    //     case "Wednesday":
-    //       week.value[2].subjects.addAll(element.subjects);
-    //       break;
-    //     case "Thursday":
-    //       week.value[3].subjects.addAll(element.subjects);
-    //       break;
-    //     case "Friday":
-    //       week.value[4].subjects.addAll(element.subjects);
-    //       break;
-    //   }
-    // }
-    // week.update((_) {});
+    for (final element in myElectiveTable) {
+      switch (element.day) {
+        case "Monday":
+          week.value[0].subjects.addAll(element.subjects);
+          break;
+        case "Tuesday":
+          week.value[1].subjects.addAll(element.subjects);
+          break;
+        case "Wednesday":
+          week.value[2].subjects.addAll(element.subjects);
+          break;
+        case "Thursday":
+          week.value[3].subjects.addAll(element.subjects);
+          break;
+        case "Friday":
+          week.value[4].subjects.addAll(element.subjects);
+          break;
+        case "Saturday":
+          week.value[5].subjects.addAll(element.subjects);
+          break;
+      }
+    }
+
+    // sorting the subjects according to the time
+    for (final element in week.value) {
+      element.subjects
+          .sort((a, b) => a.startTime.hour.compareTo(b.startTime.hour));
+    }
+
+    week.update((_) {});
   }
 
   /// Loading the timetable from the cache and then from the server.

@@ -65,12 +65,13 @@ class _SheetTestState extends State<SheetTest> with TestWidget {
           testCard(
             testTitle: 'Elective',
             child: Wrap(
+              spacing: 10,
               children: [
                 ElevatedButton(
                   onPressed: () => DatabaseUtilsController()
                       .deleteUserWhereRollNoStartWith22(),
                   child: const Text("Delete 22*"),
-                )
+                ),
                 // ElevatedButton(
                 //   onPressed: () {
                 //     final k =
@@ -92,7 +93,7 @@ class _SheetTestState extends State<SheetTest> with TestWidget {
                 //       print(k);
                 //     },
                 //     child: const Text("Get MyTeacherCached")),
-                // const SizedBox(height: 10),
+                // const SizedBox(width: 10),
                 // ElevatedButton(
                 //   onPressed: () async {
                 //     final res = await Get.find<FirestoreService>()
@@ -108,7 +109,7 @@ class _SheetTestState extends State<SheetTest> with TestWidget {
                 //     },
                 //     child: const Text(
                 //       "Get my elective table",
-                //     ))
+                //     )),
               ],
             ),
           )
