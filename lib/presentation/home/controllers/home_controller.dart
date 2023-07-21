@@ -77,7 +77,7 @@ class HomeController extends GetxController
     loadTimetable;
     addElectiveSubjects;
     AndroidAppUpdate.update;
-    Patch().init;
+    // Patch().init;
     super.onReady();
   }
 

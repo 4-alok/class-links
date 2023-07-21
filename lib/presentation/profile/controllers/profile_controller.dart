@@ -1,3 +1,4 @@
+import 'package:class_link/services/auth/extension/app_user_type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,10 +7,13 @@ import '../../../../routes/app_pages.dart';
 import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../../services/hive/repository/hive_database.dart';
 import '../../../global/const/app_info.dart';
+import '../../../services/auth/models/user_type.dart';
 
 class ProfileController extends GetxController {
   final scrollController = ScrollController();
   final hiveDatabase = Get.find<HiveDatabase>();
+
+  final Rx<AppUserType> userType = Rx<AppUserType>(AppUserType.appUser);
 
   bool get isBlack => hiveDatabase.settingBoxDatasources.isBlack.value;
 
@@ -19,6 +23,7 @@ class ProfileController extends GetxController {
 
   /// > When the widget is ready, it will scroll to the current theme color
   void onReady() {
+    // setAppUsetType;
     final appTheme = hiveDatabase.settingBoxDatasources.appTheme.value;
     final index = AppColor.schemes.indexWhere((element) => element == appTheme);
     if ((AppColor.schemes.length - index) >=
@@ -34,6 +39,9 @@ class ProfileController extends GetxController {
     }
     super.onReady();
   }
+
+  Future<void> get setAppUsetType async =>
+      userType.value = await Get.find<AuthService>().user.value.userType;
 
   /// It toggles the theme mode.
   Future<void> toggleThemeMode() async =>

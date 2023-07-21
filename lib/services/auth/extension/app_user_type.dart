@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../global/utils/patch.dart';
+// import '../../../global/utils/patch.dart';
 import '../models/user_type.dart';
 
 /// An extension method on the `num` class. It is used to check if a number is between two numbers.
@@ -59,10 +59,10 @@ extension GetAppUserType on User? {
       return true;
     }
 
-    // 2020 CSE and IT
-    else if (await Patch.isRollNoInUserList(rollNo)) {
-      return true;
-    }
+    // // 2020 CSE and IT
+    // else if (await Patch.isRollNoInUserList(rollNo)) {
+    //   return true;
+    // }
     return false;
   }
 }

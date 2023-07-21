@@ -4,8 +4,6 @@ import '../../../../routes/app_pages.dart';
 import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../../services/firebase/repository/firestore_service.dart';
 import '../../../../services/hive/repository/hive_database.dart';
-import '../../../global/utils/csv_utils.dart';
-import '../../../global/utils/patch.dart';
 import '../../../services/firebase/models/user_elective_section.dart';
 import '../../../services/hive/models/user_info.dart';
 import 'user_batch_list.dart';
@@ -23,7 +21,9 @@ class UserBatchController extends GetxController with UserBatchList {
   final currentElectiveSubject2 = Rx<String?>(null);
   final loading = Rx<bool>(false);
 
-  final dataAvailable = Rx<bool>(false);
+  late final String email;
+
+  final showSectionSelectionForm = Rx<bool>(false);
 
   FirestoreService get firestoreService => Get.find<FirestoreService>();
 
@@ -32,30 +32,17 @@ class UserBatchController extends GetxController with UserBatchList {
   @override
   void onInit() {
     clearUserInfo;
+    email = Get.find<AuthService>().getUser?.email ?? "";
     super.onInit();
   }
 
   @override
   void onReady() async {
-    final email = Get.find<AuthService>().getUser?.email ?? "";
-
-    if (email.startsWith("20")) {
+    if (email.startsWith("21")) {
       currentYear.value = 3;
       currentSemester.value = 5;
-      dataAvailable.value = true;
+      showSectionSelectionForm.value = true;
     }
-    // if (email.startsWith('22')) {
-    //   currentYear.value = 3;
-    //   currentSemester.value = 4;
-    // } else if (await Patch.isRollNoInUserList(
-    //     int.tryParse(email.split('@').first) ?? -1)) {
-    //   currentYear.value = 3;
-    //   currentSemester.value = 6;
-    // } else if (email.startsWith("21")) {
-    //   currentYear.value = 3;
-    //   currentSemester.value = 4;
-    // }
-    // if (currentYear.value == 3) autoSelectSection();
     super.onReady();
   }
 
@@ -87,11 +74,12 @@ class UserBatchController extends GetxController with UserBatchList {
   // }
 
   List<String> get getStreamList {
-    if (currentYear.value == null) {
-      return [];
-    } else if (currentYear.value == 2) {
-      return ['CSE', 'IT', 'CSSE', 'CSCE'];
-    } else if (currentYear.value == 3) {
+    // if (currentYear.value == null) {
+    //   return [];
+    // // } else if (currentYear.value == 2) {
+    // //   return ['CSE', 'IT', 'CSSE', 'CSCE'];
+    // } else
+    if (currentYear.value == 3) {
       return ['CSE', 'IT', 'CSSE', 'CSCE'];
     } else {
       return [];
@@ -113,6 +101,12 @@ class UserBatchController extends GetxController with UserBatchList {
       }
     }
     return [];
+  }
+
+  void on3rdLateralEntry() {
+    currentYear.value = 3;
+    currentSemester.value = 5;
+    showSectionSelectionForm.value = true;
   }
 
   bool get showSubmitButton => (currentYear.value == 3)
@@ -158,6 +152,10 @@ class UserBatchController extends GetxController with UserBatchList {
     }
 
     loading.value = false;
+  }
+
+  void continueResourceOnly() {
+    Get.offAllNamed(Routes.RESOURCES);
   }
 
   @override

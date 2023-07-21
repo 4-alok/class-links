@@ -13,7 +13,7 @@ class ThemeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        height: 65,
+        height: 75,
         child: Row(
           children: <Widget>[
             Flexible(
@@ -25,10 +25,10 @@ class ThemeSelector extends StatelessWidget {
                 itemCount: AppColor.schemes.length,
                 itemBuilder: (BuildContext context, int index) =>
                     FlexThemeModeOptionButton(
-                  optionButtonBorderRadius: 12,
-                  height: 30,
-                  width: 30,
-                  padding: const EdgeInsets.all(0.3),
+                  optionButtonBorderRadius: 0,
+                  height: 35,
+                  width: 35,
+                  padding: const EdgeInsets.all(.3),
                   optionButtonMargin: EdgeInsets.zero,
                   borderRadius: 0,
                   unselectedBorder: BorderSide.none,

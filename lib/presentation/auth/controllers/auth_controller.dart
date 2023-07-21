@@ -21,7 +21,7 @@ class AuthController extends GetxController {
 
     if (user != null) {
       /// This is to check if the user is a kiitian or not. If not, then redirect to non kiitian page.
-      if (await user.userType != AppUserType.appUser) {
+      if (await user.userType == AppUserType.none) {
         Get.offNamed(Routes.NON_KIITIAN);
         return;
       } else {

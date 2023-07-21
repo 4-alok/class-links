@@ -1,47 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../../../../global/widget/app_title.dart';
+import '../../../global/widget/app_title.dart';
 import '../controllers/user_batch_controller.dart';
+import 'no_timetable_view.dart';
 
 class UserBatchView extends GetView<UserBatchController> {
   const UserBatchView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          title: const Hero(
-            tag: "app_logo",
-            flightShuttleBuilder: AppTitleWidget.flightShuttleBuilder,
-            transitionOnUserGestures: true,
-            child: Material(color: Colors.transparent, child: AppTitleWidget()),
+  Widget build(BuildContext context) => Obx(
+        () => Scaffold(
+          appBar: controller.showSectionSelectionForm.value
+              ? AppBar(
+                  centerTitle: true,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  title: const Hero(
+                    tag: "app_logo",
+                    flightShuttleBuilder: AppTitleWidget.flightShuttleBuilder,
+                    transitionOnUserGestures: true,
+                    child: Material(
+                        color: Colors.transparent, child: AppTitleWidget()),
+                  ),
+                )
+              : null,
+          body: Stack(
+            children: [
+              SvgPicture.asset(
+                "assets/svg/iso_weave_black.svg",
+                height: MediaQuery.of(context).size.height,
+                fit: BoxFit.fitHeight,
+                color: Theme.of(context).colorScheme.primary.withOpacity(.03),
+              ),
+              Obx(
+                () => controller.showSectionSelectionForm.value
+                    ? sectionSelectionForm(context)
+                    : NoTimetableView(controller: controller),
+              ),
+            ],
           ),
+          floatingActionButton: fab(context),
         ),
-        body: ListView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          children: [
-            // Select Stream [IT, CSE, CSSE, CSCE]
-            selectStreamTitle(context),
-            selectStreamWidget(context),
+      );
 
-            // Select Batch [CSE-1, CSE-2, CSE-3, CSE-4, ...]
-            selectBatchTitle(context),
-            batchList(context),
+  ListView sectionSelectionForm(BuildContext context) => ListView(
+        physics: const BouncingScrollPhysics(),
+        // padding: EdgeInsets.only(
+        //   top: MediaQuery.of(context).padding.top,
+        // ),
+        children: [
+          // Select Stream [IT, CSE, CSSE, CSCE]
+          selectStreamTitle(context),
+          selectStreamWidget(context),
 
-            // Select First Elective Subject
-            selectElectiveSubject1(context, "First Elective Subject"),
-            electiveSubject1List(context),
+          // Select Batch [CSE-1, CSE-2, CSE-3, CSE-4, ...]
+          selectBatchTitle(context),
+          batchList(context),
 
-            // Select Second Elective Subject
-            selectElectiveSubject1(context, "Second Elective Subject"),
-            electiveSubject2List(context),
-          ],
-        ),
-        floatingActionButton: fab(context),
+          // Select First Elective Subject
+          selectElectiveSubject1(context, "First Elective Subject"),
+          electiveSubject1List(context),
+
+          // Select Second Elective Subject
+          selectElectiveSubject1(context, "Second Elective Subject"),
+          electiveSubject2List(context),
+        ],
       );
 
   Widget fab(BuildContext context) => Obx(
@@ -143,6 +168,7 @@ class UserBatchView extends GetView<UserBatchController> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Card(
+                        shape: noRaduis,
                         child: Obx(
                           () => DropdownButton<String>(
                             isExpanded: true,
@@ -197,6 +223,7 @@ class UserBatchView extends GetView<UserBatchController> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Card(
+                          shape: noRaduis,
                           child: Obx(
                             () => DropdownButton<String>(
                               isExpanded: true,
@@ -244,6 +271,7 @@ class UserBatchView extends GetView<UserBatchController> {
               : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Card(
+                    shape: noRaduis,
                     child: DropdownButton<String>(
                       isExpanded: true,
                       value: controller.currentBatch.value,
@@ -290,6 +318,9 @@ class UserBatchView extends GetView<UserBatchController> {
           ? title(context, text)
           : const SizedBox());
 
+  RoundedRectangleBorder get noRaduis =>
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(0));
+
   Widget selectStreamWidget(BuildContext context) => Obx(() =>
       controller.currentYear.value == 2 || controller.currentYear.value == 3
           ? AnimatedSize(
@@ -306,6 +337,7 @@ class UserBatchView extends GetView<UserBatchController> {
                   children: controller.getStreamList
                       .map(
                         (e) => Card(
+                          shape: noRaduis,
                           color: controller.currentStream.value == e
                               ? selectedCardColor
                               : cardColor,
@@ -347,12 +379,12 @@ class UserBatchView extends GetView<UserBatchController> {
 
   Widget title(BuildContext context, String title) => Padding(
         padding: const EdgeInsets.only(left: 20.0),
-        child: Text(
-          title,
-          style: Get.theme.textTheme.headlineMedium!.copyWith(
-            color: Get.theme.textTheme.headlineMedium!.color!.withOpacity(0.5),
-          ),
-        ),
+        child: Text(title,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).colorScheme.onBackground,
+            )),
       );
 
   Color get cardColor => Color.alphaBlend(

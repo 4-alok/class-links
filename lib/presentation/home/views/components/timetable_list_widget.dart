@@ -182,12 +182,12 @@ class TimetableListWidget extends StatelessWidget {
       children: [
         Text(
           last,
-          style: Get.theme.textTheme.headlineMedium,
+          style: Get.theme.textTheme.headlineMedium?.copyWith(fontSize: 24),
         ),
         Text(
           first,
           style: Get.theme.textTheme.headlineMedium!
-              .copyWith(fontSize: 10, fontWeight: FontWeight.w900),
+              .copyWith(fontSize: 14, fontWeight: FontWeight.w900),
         ),
       ],
     );

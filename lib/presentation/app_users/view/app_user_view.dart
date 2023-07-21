@@ -13,6 +13,10 @@ import '../controller/app_user_controller.dart';
 class AppUserView extends GetView<AppUsersController> {
   const AppUserView({Key? key}) : super(key: key);
 
+  RoundedRectangleBorder get shape => RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(0),
+      );
+
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
@@ -108,6 +112,7 @@ class AppUserView extends GetView<AppUsersController> {
       );
 
   Widget userCountCard(BuildContext context) => Card(
+        shape: shape,
         elevation: 5,
         child: Obx(
           () => ExpansionTile(
@@ -165,6 +170,7 @@ class AppUserView extends GetView<AppUsersController> {
       builder: (_) {
         final users = controller.getUserList;
         return Card(
+          shape: shape,
           elevation: 5,
           child: Column(
             mainAxisSize: MainAxisSize.min,

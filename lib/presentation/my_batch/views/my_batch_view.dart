@@ -7,7 +7,7 @@ import '../../../../services/hive/repository/hive_database.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../controllers/my_batch_controller.dart';
 
-final shape = RoundedRectangleBorder(borderRadius: BorderRadius.circular(10));
+final shape = RoundedRectangleBorder(borderRadius: BorderRadius.circular(0));
 
 class MyBatchView extends GetView<MyBatchController> {
   const MyBatchView({Key? key}) : super(key: key);
@@ -60,7 +60,7 @@ class MyBatchView extends GetView<MyBatchController> {
       Tooltip(
         message: users[index].id,
         child: Card(
-          // shape: shape,
+          shape: shape,
           elevation: controller.isMe(users[index].userName) ? 5 : 0,
           child: ListTile(
             shape: shape,

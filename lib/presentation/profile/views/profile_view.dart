@@ -13,6 +13,7 @@ import '../../../../routes/app_pages.dart';
 import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../../services/hive/repository/hive_database.dart';
 import '../../../global/widget/theme_selector.dart';
+import '../../../services/auth/models/user_type.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../../test_page/views/test_page.dart';
 import '../controllers/profile_controller.dart';
@@ -166,7 +167,7 @@ class ProfileView extends GetView<ProfileController> {
 
   Widget get logoutCard => ListTile(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(0)),
         ),
         tileColor: Get.isDarkMode
             ? Get.theme.cardColor
@@ -184,18 +185,23 @@ class ProfileView extends GetView<ProfileController> {
         onTap: () async => await controller.logout(),
       );
 
-  Widget batch(BuildContext context) => ListTile(
-        leading: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FaIcon(FontAwesomeIcons.users),
-          ],
-        ),
-        title: const Text("My Batch"),
-        subtitle: Text(
-          Get.find<HiveDatabase>().userBoxDatasources.userInfo?.batch ?? "",
-        ),
-        onTap: () => Get.toNamed(Routes.MY_BATCH),
+  Widget batch(BuildContext context) => Obx(
+        () => controller.userType.value == AppUserType.appUser
+            ? ListTile(
+                leading: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FaIcon(FontAwesomeIcons.users),
+                  ],
+                ),
+                title: const Text("My Batch"),
+                subtitle: Text(
+                  Get.find<HiveDatabase>().userBoxDatasources.userInfo?.batch ??
+                      "",
+                ),
+                onTap: () => Get.toNamed(Routes.MY_BATCH),
+              )
+            : const SizedBox(),
       );
 
   Text get email => Text(
@@ -312,10 +318,14 @@ class ProfileView extends GetView<ProfileController> {
         ),
       );
 
-  Widget get appUsers => ListTile(
-        leading: const FaIcon(FontAwesomeIcons.addressBook),
-        title: const Text("App Users"),
-        onTap: () => Get.toNamed(Routes.ADMIN),
+  Widget get appUsers => Obx(
+        () => controller.userType.value == AppUserType.appUser
+            ? ListTile(
+                leading: const FaIcon(FontAwesomeIcons.addressBook),
+                title: const Text("App Users"),
+                onTap: () => Get.toNamed(Routes.ADMIN),
+              )
+            : const SizedBox(),
       );
 
   Widget get controlPanel => userInfo?.role == "admin" || testMode

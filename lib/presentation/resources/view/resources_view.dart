@@ -2,7 +2,6 @@ import 'package:class_link/global/widget/launcher.dart';
 import 'package:class_link/presentation/resources/controller/resources_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -45,11 +44,22 @@ class ResourcesView extends GetView<ResourcesController> {
         onWillPop: () async => controller.backButtonController,
         child: Scaffold(
           appBar: appBar(context),
-          body: ValueListenableBuilder<bool>(
-            valueListenable: controller.hasData,
-            builder: (context, value, child) => value
-                ? bodyBuilder(context)
-                : const Center(child: CircularProgressIndicator()),
+          body: Stack(
+            children: [
+              // Positioned(
+              //   bottom: 0,
+              //   child: SvgPicture.asset(
+              //     "assets/svg/halftone.svg",
+              //     color: Theme.of(context).primaryColor.withOpacity(.1),
+              //   ),
+              // ),
+              ValueListenableBuilder<bool>(
+                valueListenable: controller.hasData,
+                builder: (context, value, child) => value
+                    ? bodyBuilder(context)
+                    : const Center(child: CircularProgressIndicator()),
+              ),
+            ],
           ),
         ),
       );
@@ -61,76 +71,77 @@ class ResourcesView extends GetView<ResourcesController> {
             future: controller.getList(value),
             builder: (context, snapshot) {
               final list = controller.currentEntity.value;
-              if (list.isEmpty) {
-                return const Center(
-                    child: Text('No files or directories found'));
-              }
-              return AnimationLimiter(
-                key: UniqueKey(),
-                child: Scrollbar(
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    itemCount: list.length,
-                    itemBuilder: (context, index) =>
-                        AnimationConfiguration.staggeredList(
-                      duration: const Duration(milliseconds: 300),
-                      position: index,
-                      child: SlideAnimation(
-                        child: FadeInAnimation(
-                          child: ListTile(
-                            onTap: () => (list[index] is IndexFolder)
-                                ? controller.currentPath.value =
-                                    "${list[index].path}/"
-                                : openDox(context, list[index] as IndexFile),
-                            onLongPress: () => (list[index] is IndexFile)
-                                ? prevDoc(
-                                    context, (list[index] as IndexFile).id)
-                                : null,
-                            leading: leadingIcon(
-                              isfolder: list[index] is IndexFolder,
-                              fileName: list[index].name,
+              return (list.isEmpty)
+                  ? const Center(child: Text('No files or directories found'))
+                  : Scrollbar(
+                      child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        itemCount: list.length,
+                        itemBuilder: (context, index) => Column(
+                          children: [
+                            ListTile(
+                              onTap: () => (list[index] is IndexFolder)
+                                  ? controller.currentPath.value =
+                                      "${list[index].path}/"
+                                  : openDox(context, list[index] as IndexFile),
+                              onLongPress: () => (list[index] is IndexFile)
+                                  ? prevDoc(
+                                      context, (list[index] as IndexFile).id)
+                                  : null,
+                              leading: leadingIcon(
+                                isfolder: list[index] is IndexFolder,
+                                fileName: list[index].name,
+                              ),
+                              title: Text(
+                                list[index].name,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              subtitle: list[index] is IndexFile
+                                  ? list[index]
+                                          .name
+                                          .toLowerCase()
+                                          .endsWith('pdf')
+                                      ? Text(controller.kiloBytesToString(
+                                          (list[index] as IndexFile).size))
+                                      : null
+                                  : null,
+                              trailing: list[index] is IndexFile
+                                  ? list[index]
+                                          .name
+                                          .toLowerCase()
+                                          .endsWith('pdf')
+                                      ? Tooltip(
+                                          message: "Preview",
+                                          child: IconButton(
+                                              onPressed: () => (list[index]
+                                                      is IndexFile)
+                                                  ? prevDoc(
+                                                      context,
+                                                      (list[index] as IndexFile)
+                                                          .id)
+                                                  : null,
+                                              icon: FaIcon(
+                                                FontAwesomeIcons.expand,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onBackground,
+                                              )),
+                                        )
+                                      : Text(controller.kiloBytesToString(
+                                          (list[index] as IndexFile).size))
+                                  : null,
                             ),
-                            title: Text(
-                              list[index].name,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w600),
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 2,
+                              color: Theme.of(context).dividerColor,
                             ),
-                            subtitle: list[index] is IndexFile
-                                ? list[index].name.toLowerCase().endsWith('pdf')
-                                    ? Text(controller.kiloBytesToString(
-                                        (list[index] as IndexFile).size))
-                                    : null
-                                : null,
-                            trailing: list[index] is IndexFile
-                                ? list[index].name.toLowerCase().endsWith('pdf')
-                                    ? Tooltip(
-                                        message: "Preview",
-                                        child: IconButton(
-                                            onPressed: () => (list[index]
-                                                    is IndexFile)
-                                                ? prevDoc(
-                                                    context,
-                                                    (list[index] as IndexFile)
-                                                        .id)
-                                                : null,
-                                            icon: FaIcon(
-                                              FontAwesomeIcons.expand,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onBackground,
-                                            )),
-                                      )
-                                    : Text(controller.kiloBytesToString(
-                                        (list[index] as IndexFile).size))
-                                : null,
-                          ),
+                          ],
                         ),
                       ),
-                    ),
-                  ),
-                ),
-              );
+                    );
             });
       });
 
@@ -161,6 +172,7 @@ class ResourcesView extends GetView<ResourcesController> {
   }
 
   AppBar appBar(BuildContext context) => AppBar(
+        // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         leading: LoadingDatabaseIcon(
           icon: ValueListenableBuilder<String>(
             valueListenable: controller.currentPath,

@@ -39,13 +39,17 @@ class HolidaysView extends GetView<HolidayController> {
               triggerMode: TooltipTriggerMode.tap,
               message: controller.getHolidayName(date),
               child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0)),
                 elevation: 10,
                 color: Theme.of(context).colorScheme.secondary.withAlpha(100),
                 child: Padding(
                   padding: const EdgeInsets.all(.01),
                   child: Card(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
+                          borderRadius: BorderRadius.circular(0)),
+                      // shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(8)),
                       color: Theme.of(context).primaryColor.withAlpha(200),
                       child: Center(
                           child: Text(
@@ -61,6 +65,8 @@ class HolidaysView extends GetView<HolidayController> {
               triggerMode: TooltipTriggerMode.tap,
               message: "Today",
               child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0)),
                 elevation: 5,
                 color: Theme.of(context).colorScheme.secondary,
                 child: Center(
@@ -76,6 +82,8 @@ class HolidaysView extends GetView<HolidayController> {
               triggerMode: TooltipTriggerMode.tap,
               message: controller.getHolidayName(date),
               child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0)),
                 elevation: 5,
                 color: Theme.of(context).primaryColor.withAlpha(200),
                 child: Center(
@@ -88,11 +96,15 @@ class HolidaysView extends GetView<HolidayController> {
             );
           } else if (date.weekday == 6 || date.weekday == 7) {
             return Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0)),
               color: Theme.of(context).primaryColor.withAlpha(80),
               child: Center(child: Text(date.day.toString())),
             );
           } else {
             return Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0)),
               color: color,
               child: Center(child: Text(date.day.toString())),
             );

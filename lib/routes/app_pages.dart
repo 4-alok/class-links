@@ -20,6 +20,8 @@ import '../presentation/profile/bindings/profile_binding.dart';
 import '../presentation/profile/views/profile_view.dart';
 import '../presentation/report/binding/report_binding.dart';
 import '../presentation/report/view/report_view.dart';
+import '../presentation/resources/bindings/resources_binding.dart';
+import '../presentation/resources/view/resources_view.dart';
 import '../presentation/subject_info/views/subject_info_view.dart';
 import '../presentation/test_page/views/test_page.dart';
 import '../presentation/user_batch/bindings/user_batch_binding.dart';
@@ -108,6 +110,11 @@ class AppPages {
     GetPage(
       name: _Paths.NON_KIITIAN,
       page: () => const NonKiitianView(),
-    )
+    ),
+    GetPage(
+      name: _Paths.RESOURCES,
+      binding: ResourcesBinding(),
+      page: () => const ResourcesView(),
+    ),
   ];
 }
