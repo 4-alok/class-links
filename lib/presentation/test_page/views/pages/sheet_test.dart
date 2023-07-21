@@ -67,7 +67,8 @@ class _SheetTestState extends State<SheetTest> with TestWidget {
             child: Wrap(
               children: [
                 ElevatedButton(
-                  onPressed: () => DatabaseUtilsController().deleteUserWhereRollNoStartWith22(),
+                  onPressed: () => DatabaseUtilsController()
+                      .deleteUserWhereRollNoStartWith22(),
                   child: const Text("Delete 22*"),
                 )
                 // ElevatedButton(

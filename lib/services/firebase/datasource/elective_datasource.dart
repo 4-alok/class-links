@@ -45,8 +45,10 @@ class ElectiveDatasources implements ElectiveUsecase {
   Future<List<MyElectiveSubjects>> get getElectiveTimeTable async {
     final result = await CsvUtils.readCSVFile(
         'assets/database/3rd_year/6th_sem_elective_time_table.csv');
-    final rollStr = Get.find<AuthService>().getUser?.email!.split('@').first ?? "";
-    final electiveSection = await getUserElectiveSection(int.tryParse(rollStr) ?? 0);
+    final rollStr =
+        Get.find<AuthService>().getUser?.email!.split('@').first ?? "";
+    final electiveSection =
+        await getUserElectiveSection(int.tryParse(rollStr) ?? 0);
     if (electiveSection != null) {
       final mySectionListRow = result
           .where((element) =>
@@ -149,10 +151,11 @@ class ElectiveDatasources implements ElectiveUsecase {
 
   @override
   Future<List<String>> get getSectionList async {
-    final list = await CsvUtils.readCSVFile(
-        'assets/database/3rd_year/6th_sem_elective_time_table.csv');
-    final electiveSections =
-        {for (int i = 1; i < list.length; i++) list[i][1] as String}.toList();
+    final classList = await CsvUtils.readCSVFile(
+        'assets/database/3rd_year/5th_sem_elective_time_table.csv');
+    final electiveSections = {
+      for (int i = 1; i < classList.length; i++) classList[i][1] as String
+    }.toList();
     return electiveSections;
   }
 

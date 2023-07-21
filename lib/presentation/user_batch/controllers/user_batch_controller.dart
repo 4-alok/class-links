@@ -23,6 +23,8 @@ class UserBatchController extends GetxController with UserBatchList {
   final currentElectiveSubject2 = Rx<String?>(null);
   final loading = Rx<bool>(false);
 
+  final dataAvailable = Rx<bool>(false);
+
   FirestoreService get firestoreService => Get.find<FirestoreService>();
 
   HiveDatabase get hivedatabaseServices => Get.find<HiveDatabase>();
@@ -36,18 +38,24 @@ class UserBatchController extends GetxController with UserBatchList {
   @override
   void onReady() async {
     final email = Get.find<AuthService>().getUser?.email ?? "";
-    if (email.startsWith('22')) {
+
+    if (email.startsWith("20")) {
       currentYear.value = 3;
-      currentSemester.value = 4;
-    } else if (await Patch.isRollNoInUserList(
-        int.tryParse(email.split('@').first) ?? -1)) {
-      currentYear.value = 3;
-      currentSemester.value = 6;
-    } else if (email.startsWith("21")) {
-      currentYear.value = 2;
-      currentSemester.value = 4;
+      currentSemester.value = 5;
+      dataAvailable.value = true;
     }
-    if (currentYear.value == 3) autoSelectSection();
+    // if (email.startsWith('22')) {
+    //   currentYear.value = 3;
+    //   currentSemester.value = 4;
+    // } else if (await Patch.isRollNoInUserList(
+    //     int.tryParse(email.split('@').first) ?? -1)) {
+    //   currentYear.value = 3;
+    //   currentSemester.value = 6;
+    // } else if (email.startsWith("21")) {
+    //   currentYear.value = 3;
+    //   currentSemester.value = 4;
+    // }
+    // if (currentYear.value == 3) autoSelectSection();
     super.onReady();
   }
 
@@ -58,25 +66,25 @@ class UserBatchController extends GetxController with UserBatchList {
   Future<Map<String, String>> get getSectionListWithTeacherName async =>
       await firestoreService.electiveDatasources.getSectionListWithTeacherName;
 
-  Future autoSelectSection() async {
-    try {
-      final data =
-          await CsvUtils.readCSVFile('assets/database/3rd_year/6_sem_user.csv');
-      final rollNo = int.tryParse((Get.find<AuthService>().getUser?.email ?? "")
-              .split('@')
-              .first) ??
-          -1;
+  // Future autoSelectSection() async {
+  //   try {
+  //     final data =
+  //         await CsvUtils.readCSVFile('assets/database/3rd_year/6_sem_user.csv');
+  //     final rollNo = int.tryParse((Get.find<AuthService>().getUser?.email ?? "")
+  //             .split('@')
+  //             .first) ??
+  //         -1;
 
-      final section =
-          (data.firstWhereOrNull((element) => element.first == rollNo) ?? [])
-              .last as String;
-      currentBatch.value =
-          "${section.split("-").first}-${int.parse(section.split("-").last)}";
-      currentStream.value = section.split("-").first;
-    } catch (e) {
-      null;
-    }
-  }
+  //     final section =
+  //         (data.firstWhereOrNull((element) => element.first == rollNo) ?? [])
+  //             .last as String;
+  //     currentBatch.value =
+  //         "${section.split("-").first}-${int.parse(section.split("-").last)}";
+  //     currentStream.value = section.split("-").first;
+  //   } catch (e) {
+  //     null;
+  //   }
+  // }
 
   List<String> get getStreamList {
     if (currentYear.value == null) {
@@ -91,21 +99,7 @@ class UserBatchController extends GetxController with UserBatchList {
   }
 
   List<String> get batchList {
-    if (currentYear.value == 1) {
-      return firstYear;
-    } else if (currentYear.value == 2) {
-      if (currentStream.value != null) {
-        if (currentStream.value == "CSE") {
-          return secondYearCSE;
-        } else if (currentStream.value == "IT") {
-          return secondYearIT;
-        } else if (currentStream.value == "CSSE") {
-          return secondYearCSSE;
-        } else if (currentStream.value == "CSCE") {
-          return secondYearCSCE;
-        }
-      }
-    } else if (currentYear.value == 3) {
+    if (currentYear.value == 3) {
       if (currentStream.value != null) {
         if (currentStream.value == "CSE") {
           return thirdYearCSE;

@@ -316,8 +316,17 @@ class UserBatchView extends GetView<UserBatchController> {
                             },
                             child: Center(
                               child: Text(e,
-                                  style:
-                                      Theme.of(context).textTheme.displayLarge),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge
+                                      ?.copyWith(
+                                        color:
+                                            controller.currentStream.value == e
+                                                ? Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimary
+                                                : null,
+                                      )),
                             ),
                           ),
                         ),

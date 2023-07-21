@@ -85,7 +85,4 @@ class SubjectInfoBody {
           ],
         ),
       );
-
-
-
 }

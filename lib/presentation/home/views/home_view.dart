@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../../../../services/analytics/analytics_service.dart';
+// import '../../../../services/analytics/analytics_service.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../../resources/view/resources_view.dart';
 import '../controllers/home_controller.dart';
@@ -24,7 +24,7 @@ class HomeView extends GetView<HomeController> {
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
               // App open log for google analytics
-              Get.find<AnalysisService>().appOpenLogEvent;
+              // Get.find<AnalysisService>().appOpenLogEvent;
 
               /// Returning a widget that is a parallex page view.
               return ParallexPageView(

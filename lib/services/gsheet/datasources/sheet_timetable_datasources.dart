@@ -11,7 +11,7 @@ import '../usecase/sheet_timetable.dart';
 import '../utils/ghseet_timetable_utils.dart';
 
 // const sheetName = 'timetable';
-const sheetName = 'timetable-new';
+const sheetName = 'timetable';
 
 class SheetTimetableDatasources
     with GsheetTimetableUtils
@@ -47,7 +47,7 @@ class SheetTimetableDatasources
   @override
   Future<TimeTable> get getMyTimetable async {
     /// Fetching the data from the google sheet.
-    final timetableData = (await getSheetRowsList).rowList;
+    final List<List<String>> timetableData = (await getSheetRowsList).rowList;
 
     /// Getting the index of the header of the sheet.
     final sheetHeaderIndex = getSheetHeaderIndex(timetableData.first);
@@ -80,7 +80,7 @@ class SheetTimetableDatasources
               );
       }
     }
-    patch(timeTableL);
+    timeTableL = patch(timeTableL);
     await _saveTimetable(timeTableL.first);
     return timeTableL.first;
   }
@@ -132,7 +132,8 @@ class SheetTimetableDatasources
           if (kDebugMode) {
             print(d.day);
             print(d.subjects
-                .map((e) => "${e.subjectName}|${e.roomNo}|${e.startTime.hour}")
+                .map(
+                    (e) => "${e.subjectName},${e.roomNo},${e.startTime.hour}||")
                 .toList());
           }
         }

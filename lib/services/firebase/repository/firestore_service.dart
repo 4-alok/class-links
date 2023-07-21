@@ -17,7 +17,7 @@ class FirestoreService extends GetxService with FirestoreServiceUtils {
   late final ReportDatasources reportDatasources;
   late final UtilsDataSources utilsDataSources;
 
-/// > This function is called when the service is initialized
+  /// > This function is called when the service is initialized
   @override
   void onInit() {
     _firestore = FirebaseFirestore.instance;
@@ -30,7 +30,7 @@ class FirestoreService extends GetxService with FirestoreServiceUtils {
     super.onInit();
   }
 
-/// > The `onClose()` function is called when the user closes the app
+  /// > The `onClose()` function is called when the user closes the app
   @override
   void onClose() {
     utilsDataSources.dispose;

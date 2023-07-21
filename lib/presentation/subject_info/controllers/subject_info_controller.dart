@@ -13,7 +13,6 @@ class SubjectInfoController extends GetxController {
 
   SubjectInfo? _subjectInfo;
 
-
   // ignore: constant_identifier_names
   static const String TAG = "subject_info_controller";
 
@@ -27,10 +26,6 @@ class SubjectInfoController extends GetxController {
   bool get isDay => hour.value >= 6 && hour.value <= 18;
   // bool get isDusk => hour.value >= 16 && hour.value <= 18;
 
-
   bool get isClassOverOrOngoing =>
       DateTime.now().hour >= subjectInfo.subject.startTime.hour;
-
-
-
 }

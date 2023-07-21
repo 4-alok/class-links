@@ -88,39 +88,50 @@ class HomeController extends GetxController
             .electiveDatasources
             .getElectiveTimeTable;
 
-    for (final element in myElectiveTable) {
-      switch (element.day) {
-        case "Monday":
-          week.value[0].subjects.addAll(element.subjects);
-          break;
-        case "Tuesday":
-          week.value[1].subjects.addAll(element.subjects);
-          break;
-        case "Wednesday":
-          week.value[2].subjects.addAll(element.subjects);
-          break;
-        case "Thursday":
-          week.value[3].subjects.addAll(element.subjects);
-          break;
-        case "Friday":
-          week.value[4].subjects.addAll(element.subjects);
-          break;
-      }
-    }
-    week.update((_) {});
+    // for (final element in myElectiveTable) {
+    //   switch (element.day) {
+    //     case "Monday":
+    //       week.value[0].subjects.addAll(element.subjects);
+    //       break;
+    //     case "Tuesday":
+    //       week.value[1].subjects.addAll(element.subjects);
+    //       break;
+    //     case "Wednesday":
+    //       week.value[2].subjects.addAll(element.subjects);
+    //       break;
+    //     case "Thursday":
+    //       week.value[3].subjects.addAll(element.subjects);
+    //       break;
+    //     case "Friday":
+    //       week.value[4].subjects.addAll(element.subjects);
+    //       break;
+    //   }
+    // }
+    // week.update((_) {});
   }
 
   /// Loading the timetable from the cache and then from the server.
   Future<void> get loadTimetable async {
     final timetableCache = await timetableDatasource.getMyTimetableCache;
+
+    // if the cache is present then it will load the timetable from the cache
+    // else it will load the timetable from the server
     if (timetableCache != null) {
       week.value = List.generate(
           timetableCache.week.length, (index) => timetableCache.week[index]);
       originalList = deepCopyWeek(timetableCache.week);
+    } else {
+      final timetable = await timetableDatasource.getMyTimetable;
+      week.value = List.generate(
+          timetable.week.length, (index) => timetable.week[index]);
+      originalList = deepCopyWeek(timetable.week);
+      await addElectiveSubjects;
     }
 
+    // getting the cache date and time
     final cacheDateTime = await timetableDatasource.getMyTimetableCacheDate;
-    // if the cache is older than 2 hour then it will update the cache
+
+    // if the cache is older than 2 hour then it will update the cache from the server
     if (cacheDateTime != null) {
       if (!cacheDateTime
           .isAfter(DateTime.now().subtract(const Duration(hours: 2)))) {
@@ -131,12 +142,6 @@ class HomeController extends GetxController
         originalList = deepCopyWeek(timetable.week);
         await addElectiveSubjects;
       }
-    } else {
-      final timetable = await timetableDatasource.getMyTimetable;
-      week.value = List.generate(
-          timetable.week.length, (index) => timetable.week[index]);
-      originalList = deepCopyWeek(timetable.week);
-      await addElectiveSubjects;
     }
   }
 

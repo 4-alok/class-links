@@ -105,20 +105,22 @@ class ResourcesView extends GetView<ResourcesController> {
                             trailing: list[index] is IndexFile
                                 ? list[index].name.toLowerCase().endsWith('pdf')
                                     ? Tooltip(
-                                      message: "Preview",
-                                      child: IconButton(
-                                          onPressed: () => (list[index]
-                                                  is IndexFile)
-                                              ? prevDoc(context,
-                                                  (list[index] as IndexFile).id)
-                                              : null,
-                                          icon: FaIcon(
-                                            FontAwesomeIcons.expand,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onBackground,
-                                          )),
-                                    )
+                                        message: "Preview",
+                                        child: IconButton(
+                                            onPressed: () => (list[index]
+                                                    is IndexFile)
+                                                ? prevDoc(
+                                                    context,
+                                                    (list[index] as IndexFile)
+                                                        .id)
+                                                : null,
+                                            icon: FaIcon(
+                                              FontAwesomeIcons.expand,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onBackground,
+                                            )),
+                                      )
                                     : Text(controller.kiloBytesToString(
                                         (list[index] as IndexFile).size))
                                 : null,

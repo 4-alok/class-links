@@ -58,11 +58,11 @@ extension GetAppUserType on User? {
         rollNo.isBetween(2128001, 2128141)) {
       return true;
     }
-    
+
     // 2020 CSE and IT
     else if (await Patch.isRollNoInUserList(rollNo)) {
       return true;
     }
     return false;
-  }  
+  }
 }

@@ -9,11 +9,10 @@ class NotificationControlController {
 
   Future<void> get createNotification async {
     FcmHelper.createFCMNotification(
-      title: title.value,
-      body: body.value,
-      redialURL: reDialURL.value,
-      route: ""
-    );
+        title: title.value,
+        body: body.value,
+        redialURL: reDialURL.value,
+        route: "");
   }
 
   void dispose() {

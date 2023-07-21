@@ -63,8 +63,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           physics: const BouncingScrollPhysics(),
           overlayColor: MaterialStateProperty.resolveWith(_getColor),
           unselectedLabelStyle: const TextStyle(fontSize: 20),
-          labelStyle:
-              Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 27),
+          labelStyle: Theme.of(context)
+              .textTheme
+              .headlineMedium!
+              .copyWith(fontSize: 27),
           indicator: UnderlineTabIndicator(
             insets: const EdgeInsets.symmetric(horizontal: 20),
             borderSide: BorderSide(

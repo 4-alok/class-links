@@ -26,39 +26,43 @@ class TimetableListWidget extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: currentDay.subjects.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return currentDay.subjects[index].startTime.isCurrentTime &&
-                      (currentTabIndex == DateTime.now().weekday - 1)
-                  ? CurrentClassCard(
-                      subjectInfo: SubjectInfo(
-                        subject: currentDay.subjects[index],
-                        currentWeek: currentTabIndex,
-                      ),
-                      teacher: currentDay.subjects[index].isElective
-                          ? Text(
-                              currentDay.subjects[index].teacherName ?? noInfo,
-                              style: Theme.of(context).textTheme.titleMedium)
-                          : teacherText(currentDay.subjects[index].subjectName,
-                                  Get.theme.textTheme.headlineMedium) ??
-                              const SizedBox(),
-                      elective: currentDay.subjects[index].isElective,
-                    )
-                  : displayTile(
-                      context,
-                      currentDay.subjects[index],
-                      elective: currentDay.subjects[index].isElective,
-                    );
-            },
-          ),
-        ],
-      );
+  Widget build(BuildContext context) => currentDay.subjects.isEmpty
+      ? noClassesWidget(context)
+      : ListView(
+          physics: const BouncingScrollPhysics(),
+          children: [
+            ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: currentDay.subjects.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return currentDay.subjects[index].startTime.isCurrentTime &&
+                        (currentTabIndex == DateTime.now().weekday - 1)
+                    ? CurrentClassCard(
+                        subjectInfo: SubjectInfo(
+                          subject: currentDay.subjects[index],
+                          currentWeek: currentTabIndex,
+                        ),
+                        teacher: currentDay.subjects[index].isElective
+                            ? Text(
+                                currentDay.subjects[index].teacherName ??
+                                    noInfo,
+                                style: Theme.of(context).textTheme.titleMedium)
+                            : teacherText(
+                                    currentDay.subjects[index].subjectName,
+                                    Get.theme.textTheme.headlineMedium) ??
+                                const SizedBox(),
+                        elective: currentDay.subjects[index].isElective,
+                      )
+                    : displayTile(
+                        context,
+                        currentDay.subjects[index],
+                        elective: currentDay.subjects[index].isElective,
+                      );
+              },
+            ),
+          ],
+        );
 
   Widget displayTile(BuildContext context, Subject item,
           {bool elective = false}) =>
@@ -86,8 +90,8 @@ class TimetableListWidget extends StatelessWidget {
                 child: item.isElective
                     ? Text(item.teacherName ?? noInfo,
                         style: Theme.of(context).textTheme.headlineMedium)
-                    : teacherText(
-                            item.subjectName, Get.theme.textTheme.headlineMedium) ??
+                    : teacherText(item.subjectName,
+                            Get.theme.textTheme.headlineMedium) ??
                         const SizedBox(),
               ),
             ),
@@ -183,9 +187,27 @@ class TimetableListWidget extends StatelessWidget {
         Text(
           first,
           style: Get.theme.textTheme.headlineMedium!
-              .copyWith(fontSize: 12, fontWeight: FontWeight.w900),
+              .copyWith(fontSize: 10, fontWeight: FontWeight.w900),
         ),
       ],
     );
   }
+
+  Widget noClassesWidget(BuildContext context) => Column(
+        children: [
+          const SizedBox(height: 20),
+          Container(
+            decoration: BoxDecoration(
+              border:
+                  Border.all(width: 2, color: Theme.of(context).primaryColor),
+              color: Colors.transparent,
+            ),
+            padding: const EdgeInsets.all(20),
+            child: Text("No Classes",
+                style: Get.textTheme.titleLarge?.copyWith(
+                  color: Get.theme.primaryColor,
+                )),
+          ),
+        ],
+      );
 }

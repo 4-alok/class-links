@@ -15,33 +15,24 @@ class TimeTablePage extends StatelessWidget {
         length: 7,
         child: Scaffold(
           appBar: MyAppBar(homeController: homeController),
-          body: tabBarView,
+          body: tabBarView(context),
         ),
       );
 
-  Widget get tabBarView => ValueListenableBuilder<Object>(
+  Widget tabBarView(BuildContext context) => ValueListenableBuilder<int>(
         valueListenable: homeController.hourlyUpdate,
         builder: (_, __, ___) => TabBarView(
           physics: const BouncingScrollPhysics(),
           controller: homeController.tabController,
           children: List.generate(
             7,
-            (index) {
-              switch (index) {
-                case 5:
-                  return Container();
-                case 6:
-                  return Container();
-                default:
-                  return Obx(
-                    () => TimetableListWidget(
-                      homeController: homeController,
-                      currentTabIndex: index,
-                      currentDay: homeController.week.value[index],
-                    ),
-                  );
-              }
-            },
+            (index) => Obx(
+              () => TimetableListWidget(
+                homeController: homeController,
+                currentTabIndex: index,
+                currentDay: homeController.week.value[index],
+              ),
+            ),
           ),
         ),
       );

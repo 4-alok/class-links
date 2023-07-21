@@ -1,16 +1,17 @@
 import '../../../global/models/time_table/time_table.dart';
 import '../models/sheet_header_index_model.dart';
 
-const satSun = <Day>[
-  Day(day: 'Saturday', subjects: []),
-  Day(day: 'Sunday', subjects: []),
-];
-
 mixin GsheetTimetableUtils {
-  List<TimeTable> patch(List<TimeTable> t) {
-    List<TimeTable> timetables = t;
-    timetables =
-        t.map((e) => e.copyWith(week: [...e.week, ...satSun])).toList();
+  List<TimeTable> patch(List<TimeTable> timetables) {
+    timetables
+        .map((e) =>
+            e.week.where((element) => element.day == "Saturday").isNotEmpty
+                ? e.week.add(const Day(day: "Sunday", subjects: []))
+                : e.week.addAll([
+                    const Day(day: "Saturday", subjects: []),
+                    const Day(day: "Sunday", subjects: [])
+                  ]))
+        .toList();
     return timetables;
   }
 

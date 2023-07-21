@@ -53,6 +53,7 @@ class CacheBoxDataSources implements CacheBoxUsecase {
     if (value == null) return null;
     return jsonDecode(jsonDecode(value)['data']);
   }
+
   @override
   Future<DateTime?> getCacheDate(String key) async {
     final value = await cacheBox.get(key);
