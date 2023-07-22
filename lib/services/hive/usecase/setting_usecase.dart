@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 abstract class SettingBoxUsecase {
-
   // Themes Settings
   Future<void> get setTheme;
   Future<void> saveCurrentSchemeIndex(int index);
