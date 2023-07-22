@@ -19,11 +19,12 @@ class ProfileController extends GetxController {
 
   static const double _kWidthOfScrollItem = 67.2;
 
-  @override
+  String get email => Get.find<AuthService>().user.value?.email ?? "";
 
   /// > When the widget is ready, it will scroll to the current theme color
+  @override
   void onReady() {
-    // setAppUsetType;
+    setAppUsetType;
     final appTheme = hiveDatabase.settingBoxDatasources.appTheme.value;
     final index = AppColor.schemes.indexWhere((element) => element == appTheme);
     if ((AppColor.schemes.length - index) >=

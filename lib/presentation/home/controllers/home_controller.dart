@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:class_link/services/analytics/analytics_service.dart';
 import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -77,8 +78,16 @@ class HomeController extends GetxController
     loadTimetable;
     addElectiveSubjects;
     AndroidAppUpdate.update;
-    // Patch().init;
+    Patch().init;
+    analyticsEvent();
     super.onReady();
+  }
+
+  // create analytics event
+  Future<void> analyticsEvent() async {
+    final analysisEvent = Get.find<AnalysisService>();
+    await analysisEvent.appOpened();
+    await analysisEvent.themeUsageAnalysis();
   }
 
   /// Adding the elective subjects to the timetable.

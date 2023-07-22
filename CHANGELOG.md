@@ -1,5 +1,10 @@
 # Change log
 
+## v0.1.30
+
+- Updated 5th semester timetable
+- Added Resources Only mode for KIITians
+
 ## v0.1.29
 
 - Slight UI update

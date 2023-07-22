@@ -46,13 +46,21 @@ class ResourcesView extends GetView<ResourcesController> {
           appBar: appBar(context),
           body: Stack(
             children: [
-              // Positioned(
-              //   bottom: 0,
-              //   child: SvgPicture.asset(
-              //     "assets/svg/halftone.svg",
-              //     color: Theme.of(context).primaryColor.withOpacity(.1),
-              //   ),
-              // ),
+              controller.showBackgroundMountain
+                  ? Positioned(
+                      right: 0,
+                      left: 0,
+                      bottom: 0,
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * .17,
+                        width: MediaQuery.of(context).size.width,
+                        child: SvgPicture.asset(
+                          "assets/svg/mountain.svg",
+                          color: Theme.of(context).primaryColor.withOpacity(.1),
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
               ValueListenableBuilder<bool>(
                 valueListenable: controller.hasData,
                 builder: (context, value, child) => value

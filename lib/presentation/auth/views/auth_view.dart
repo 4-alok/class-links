@@ -11,11 +11,15 @@ class AuthView extends GetView<AuthController> {
   const AuthView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle(
-          statusBarColor: Get.isDarkMode ? Colors.black : Colors.white,
+  Widget build(BuildContext context) => Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(0),
+          child: AppBar(
+            // backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
         ),
-        child: Stack(
+        body: Stack(
           children: [
             Positioned(
               top: 0,
@@ -24,7 +28,7 @@ class AuthView extends GetView<AuthController> {
                   ? SvgPicture.asset("assets/svg/halftone.svg")
                   : SvgPicture.asset(
                       "assets/svg/halftone.svg",
-                      color: Theme.of(context).primaryColor.withOpacity(0.1),
+                      color: Theme.of(context).primaryColor.withOpacity(0.05),
                     ),
             ),
             firstPage(context),

@@ -1,4 +1,3 @@
-// import 'package:class_link/services/hive/repository/hive_database.dart';
 // import 'package:get/get.dart';
 
 // import '../../routes/app_pages.dart';
@@ -7,30 +6,50 @@
 // import '../../services/firebase/repository/firestore_service.dart';
 // import 'csv_utils.dart';
 
+import 'package:get/get.dart';
+
+import '../../routes/app_pages.dart';
+import '../../services/hive/models/user_info.dart';
+import '../../services/hive/repository/hive_database.dart';
+
 class Patch {
-  // HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
+  HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
   // FirestoreService get firestoreService => Get.find<FirestoreService>();
   // AuthService get authService => Get.find<AuthService>();
 
-  // Future<void> get init async => await patch1();
+  Future<void> get init async => await patch1();
 
-  // Future<void> patch1() async {
-  //   final user = hiveDatabase.userBoxDatasources.userInfo;
-  //   final roll = int.tryParse((user?.id ?? "").split('@').first) ?? 0;
-  //   if (await isLateral(roll)) {
-  //     if (user?.year == 2) {
-  //       await hiveDatabase.clearBoxes;
-  //       await firestoreService.userInfoDatasources.firestore
-  //           .collection(userCollectionKey)
-  //           .where('id', isEqualTo: user?.id)
-  //           .limit(1)
-  //           .get()
-  //           .then((users) => users.docs.first.reference.delete());
-  //       // await authService.logout;
-  //       Get.offAllNamed(Routes.USER_BATCH);
-  //     }
-  //   }
-  // }
+  Future<void> patch1() async {
+    final UserInfo? user = hiveDatabase.userBoxDatasources.userInfo;
+
+    // Delete user info if user.date is has passed this Date 22-June-2023]
+    if (user?.date.isBefore(DateTime(2023, 6, 22)) ?? false) {
+      await hiveDatabase.clearBoxes;
+      // await firestoreService.userInfoDatasources.firestore
+      //     .collection(userCollectionKey)
+      //     .where('id', isEqualTo: user?.id)
+      //     .limit(1)
+      //     .get()
+      //     .then((users) => users.docs.first.reference.delete());
+      // await authService.logout;
+      Get.offAllNamed(Routes.USER_BATCH);
+    }
+
+    //   final roll = int.tryParse((user?.id ?? "").split('@').first) ?? 0;
+    //   if (await isLateral(roll)) {
+    //     if (user?.year == 2) {
+    //       await hiveDatabase.clearBoxes;
+    //       await firestoreService.userInfoDatasources.firestore
+    //           .collection(userCollectionKey)
+    //           .where('id', isEqualTo: user?.id)
+    //           .limit(1)
+    //           .get()
+    //           .then((users) => users.docs.first.reference.delete());
+    //       // await authService.logout;
+    //       Get.offAllNamed(Routes.USER_BATCH);
+    //     }
+    //   }
+  }
 
   // Future<bool> isLateral(int roll) async =>
   //     (await CsvUtils.readCSVFile('assets/database/3rd_year/6_sem_user.csv'))

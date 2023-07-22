@@ -1,3 +1,4 @@
+import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
@@ -109,6 +110,9 @@ class ResourcesController extends GetxController {
       : size < 1024
           ? "${size.toStringAsFixed(2)} KB"
           : "${(size / 1024).toStringAsFixed(2)} MB";
+
+  bool get showBackgroundMountain =>
+      Get.find<HiveDatabase>().settingBoxDatasources.isResourceOnly.value;
 
   @override
   void dispose() {
