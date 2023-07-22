@@ -32,7 +32,7 @@ class HiveDatabase extends GetxService with ThemeAnalyticsLog {
     /// It's setting the datasource for the cache box.
     cacheBoxDataSources = CacheBoxDataSources(cacheBox);
     await userBoxDatasources.init;
-    await settingBoxDatasources.setTheme;
+    await settingBoxDatasources.init;
   }
 
   /// It's clearing the boxes.

@@ -154,7 +154,10 @@ class UserBatchController extends GetxController with UserBatchList {
     loading.value = false;
   }
 
-  void continueResourceOnly() {
+  Future<void> continueResourceOnly() async {
+    await hivedatabaseServices.settingBoxDatasources
+        .saveIsResourceOnly(true)
+        .then((value) => Get.offAllNamed(Routes.RESOURCES));
     Get.offAllNamed(Routes.RESOURCES);
   }
 

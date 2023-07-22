@@ -27,6 +27,7 @@ import '../presentation/test_page/views/test_page.dart';
 import '../presentation/user_batch/bindings/user_batch_binding.dart';
 import '../presentation/user_batch/views/user_batch_view.dart';
 import '../services/auth/repository/auth_service_repo.dart';
+import '../services/hive/repository/hive_database.dart';
 
 // ignore_for_file: non_constant_identifier_names
 part 'app_routes.dart';
@@ -38,7 +39,9 @@ class AppPages {
       ? Routes.TEST
       : Get.find<AuthService>().getUser == null
           ? Routes.AUTH
-          : Routes.HOME;
+          : Get.find<HiveDatabase>().settingBoxDatasources.isResourceOnly.value
+              ? Routes.RESOURCES
+              : Routes.HOME;
 
   static final routes = [
     GetPage(

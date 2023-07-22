@@ -32,7 +32,7 @@ class DatabaseUtilsController {
   }
 
   void test3() async {
-    hiveDatabase.settingBoxDatasources.clearBuldNo();
+    // hiveDatabase.settingBoxDatasources.clearBuldNo();
   }
 
   void test4() async {

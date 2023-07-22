@@ -20,6 +20,12 @@ class SettingBoxDatasources
   final appTheme = Rx<FlexSchemeData>(AppColor.schemes[0]);
   final isBlack = Rx<bool>(true);
   final themeMode = Rx<ThemeMode>(ThemeMode.system);
+  final isResourceOnly = Rx<bool>(false);
+
+  Future<void> get init async {
+    await setTheme;
+    isResourceOnly.value = await getIsResourceOnly;
+  }
 
   /// It saves the value of the boolean isBlack.value to the hive and then changes the value
   /// of isBlack.value to the opposite of what it was.
@@ -85,9 +91,17 @@ class SettingBoxDatasources
   Future<String?> get buildNo async => await settingsBox.get(_buildNo);
 
   //TODO Remove
-  clearBuldNo() async => await settingsBox.delete(_buildNo);
+  // clearBuldNo() async => await settingsBox.delete(_buildNo);
 
   @override
   Future<void> setBuildNo() async =>
       await settingsBox.put(_buildNo, await AppInfo.buildNumber);
+
+  @override
+  Future<bool> get getIsResourceOnly async =>
+      await settingsBox.get('isResourceOnly') ?? false;
+
+  @override
+  Future<void> saveIsResourceOnly(bool isResourceOnly) async =>
+      await settingsBox.put('isResourceOnly', isResourceOnly);
 }
