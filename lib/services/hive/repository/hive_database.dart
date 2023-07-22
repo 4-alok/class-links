@@ -1,14 +1,13 @@
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
 import '../datasource/cache_box_datasources.dart';
 import '../datasource/setting_box_datasources.dart';
 import '../datasource/user_box_datasources.dart';
-import '../utils/theme_analytics_log.dart';
 
 /// It's a class that manages the Hive database and provides the data sources for the boxes
 
-class HiveDatabase extends GetxService with ThemeAnalyticsLog {
+class HiveDatabase extends GetxService {
   late final Box userInfoBox;
   late final Box settingsBox;
   late final Box cacheBox;

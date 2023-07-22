@@ -2,16 +2,14 @@ import 'package:class_link/global/const/app_info.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
 import '../../../global/theme/app_color.dart.dart';
-import '../utils/theme_analytics_log.dart';
 import '../usecase/setting_usecase.dart';
 
 const _buildNo = 'buildNo';
 
 class SettingBoxDatasources
-    with ThemeAnalyticsLog
     implements SettingBoxUsecase {
   final Box settingsBox;
 
@@ -62,17 +60,15 @@ class SettingBoxDatasources
   Future<void> saveCurrentSchemeIndex(int index) async =>
       await settingsBox.put('currentScheme', index).then((value) {
         appTheme.value = AppColor.schemes[index];
-        addThemeLog;
+        // addThemeLog;
       });
 
   @override
   Future<void> saveCurrentTheme(ThemeMode themeMode) async => await settingsBox
-      .put('mode', themeMode.index)
-      .then((value) => addThemeLog);
-
+      .put('mode', themeMode.index);
   @override
   Future<void> saveIsBlackMode(bool isBlack) async =>
-      await settingsBox.put('isBlack', isBlack).then((value) => addThemeLog);
+      await settingsBox.put('isBlack', isBlack);
 
   @override
   Future<void> get setTheme async {

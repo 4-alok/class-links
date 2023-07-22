@@ -1,8 +1,8 @@
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 
-import '../../analytics/analytics_service.dart';
+// import '../../analytics/analytics_service.dart';
 
-mixin ThemeAnalyticsLog {
-  Future<void> get addThemeLog async =>
-      await Get.find<AnalysisService>().themeUsageAnalysis();
-}
+// mixin ThemeAnalyticsLog {
+//   Future<void> get addThemeLog async =>
+//       await Get.find<AnalysisService>().themeUsageAnalysis();
+// }
