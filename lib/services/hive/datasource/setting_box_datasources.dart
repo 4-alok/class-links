@@ -9,8 +9,7 @@ import '../usecase/setting_usecase.dart';
 
 const _buildNo = 'buildNo';
 
-class SettingBoxDatasources
-    implements SettingBoxUsecase {
+class SettingBoxDatasources implements SettingBoxUsecase {
   final Box settingsBox;
 
   SettingBoxDatasources(this.settingsBox);
@@ -64,8 +63,8 @@ class SettingBoxDatasources
       });
 
   @override
-  Future<void> saveCurrentTheme(ThemeMode themeMode) async => await settingsBox
-      .put('mode', themeMode.index);
+  Future<void> saveCurrentTheme(ThemeMode themeMode) async =>
+      await settingsBox.put('mode', themeMode.index);
   @override
   Future<void> saveIsBlackMode(bool isBlack) async =>
       await settingsBox.put('isBlack', isBlack);

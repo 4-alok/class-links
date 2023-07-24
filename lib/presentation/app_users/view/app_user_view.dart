@@ -1,14 +1,14 @@
 import 'dart:collection';
 
 import 'package:animations/animations.dart';
-import 'package:class_link/services/hive/models/user_info.dart';
-import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../../../global/utils/utils.dart';
 import '../controller/app_user_controller.dart';
+import 'widgets/app_bar.dart';
+import 'widgets/search_page.dart';
+import 'widgets/user_details_tile.dart';
 
 class AppUserView extends GetView<AppUsersController> {
   const AppUserView({Key? key}) : super(key: key);
@@ -18,35 +18,36 @@ class AppUserView extends GetView<AppUsersController> {
       );
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-        leading: Hero(
-          tag: "back",
-          child: IconButton(
-              icon: const FaIcon(FontAwesomeIcons.arrowLeft),
-              onPressed: () => Get.back()),
-        ),
-        actions: [
-          Get.find<HiveDatabase>().userBoxDatasources.userInfo?.role == "admin"
-              ? IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.arrowsRotate),
-                  onPressed: () => controller.syncGSheetUsers,
-                )
-              : const SizedBox(),
-        ],
-        centerTitle: true,
-        title: const Text('App Users'),
-      ),
-      body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            children: [
-              progressIndicator(),
-              userCountCard(context),
-              userListCard(context),
-            ],
-          )));
+  Widget build(BuildContext context) => WillPopScope(
+        onWillPop: () async {
+          if (controller.searchController.searchPage.value) {
+            controller.searchController.searchPage.value = false;
+            controller.searchController.searchTextController.clear();
+            controller.searchController.searchList.value = [];
+            return false;
+          }
+          return true;
+        },
+        child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: AppBar().preferredSize,
+              child: AppUserAppBar(controller: controller).build(context),
+            ),
+            body: Obx(
+              () => controller.searchController.searchPage.value
+                  ? SearchPage(controller: controller)
+                  : SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        children: [
+                          progressIndicator(),
+                          userCountCard(context),
+                          userListCard(context),
+                        ],
+                      )),
+            )),
+      );
 
   Widget progressIndicator() => Obx(() => AnimatedSize(
         duration: const Duration(milliseconds: 500),
@@ -165,131 +166,55 @@ class AppUserView extends GetView<AppUsersController> {
         ),
       );
 
-  Widget userListCard(BuildContext context) {
-    return GetBuilder<AppUsersController>(
-      builder: (_) {
-        final users = controller.getUserList;
-        return Card(
-          shape: shape,
-          elevation: 5,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 5),
-              Row(
-                children: [
-                  const SizedBox(width: 15),
-                  Text(controller.selectedBatch.value ?? "All Batches",
-                      style: Theme.of(context).textTheme.headlineMedium),
-                  const Spacer(),
-                  controller.selectedBatch.value != null
-                      ? IconButton(
-                          onPressed: () =>
-                              controller.selectedBatch.value = null,
-                          icon:
-                              const FaIcon(FontAwesomeIcons.filterCircleXmark))
-                      : IconButton(
-                          onPressed: () async =>
-                              controller.selectedBatch.value =
-                                  await showBatchList(
-                                      context, controller.batchList(users)),
-                          icon: const FaIcon(FontAwesomeIcons.filter),
-                        ),
-                  IconButton(
-                    onPressed: () => showFilterDialog(context),
-                    icon: const FaIcon(FontAwesomeIcons.sort),
-                  ),
-                  const SizedBox(width: 10),
-                ],
-              ),
-              const Divider(),
-              SizedBox(
-                width: double.maxFinite,
-                height: 600,
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: users.length,
-                  itemBuilder: (context, index) =>
-                      userDetailsTile(users[index], context),
+  Widget userListCard(BuildContext context) => GetBuilder<AppUsersController>(
+        builder: (_) {
+          final users = controller.getUserList;
+          return Card(
+            shape: shape,
+            elevation: 5,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 5),
+                Row(
+                  children: [
+                    const SizedBox(width: 15),
+                    Text(controller.selectedBatch.value ?? "All Batches",
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    const Spacer(),
+                    controller.selectedBatch.value != null
+                        ? IconButton(
+                            onPressed: () =>
+                                controller.selectedBatch.value = null,
+                            icon: const FaIcon(
+                                FontAwesomeIcons.filterCircleXmark))
+                        : IconButton(
+                            onPressed: () async =>
+                                controller.selectedBatch.value =
+                                    await showBatchList(
+                                        context, controller.batchList(users)),
+                            icon: const FaIcon(FontAwesomeIcons.filter),
+                          ),
+                    IconButton(
+                      onPressed: () => showFilterDialog(context),
+                      icon: const FaIcon(FontAwesomeIcons.sort),
+                    ),
+                    const SizedBox(width: 10),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Widget userDetailsTile(UserInfo user, BuildContext context) => ExpansionTile(
-        key: PageStorageKey(user.id),
-        title: Text(
-          user.userName == "" ? "Name" : user.userName,
-        ),
-        subtitle: Text(user.id),
-        children: [
-          ListTile(
-            title: const Text("Year"),
-            trailing: Text(
-              user.year.toString(),
-              style: Theme.of(context).textTheme.headlineMedium,
+                const Divider(),
+                SizedBox(
+                  width: double.maxFinite,
+                  height: 600,
+                  child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: users.length,
+                      itemBuilder: (context, index) =>
+                          UserDetailsTile(users[index])),
+                ),
+              ],
             ),
-          ),
-          ListTile(
-              title: const Text("Stream"),
-              trailing: Text(
-                user.stream,
-                style: Theme.of(context).textTheme.headlineMedium,
-              )),
-          ListTile(
-              title: const Text("Scheme/Slot"),
-              trailing: Text(
-                user.slot.toString(),
-                style: Theme.of(context).textTheme.headlineMedium,
-              )),
-          ListTile(
-            title: const Text("Batch"),
-            trailing: Text(
-              user.batch,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ),
-          ListTile(
-            title: const Text("Joined"),
-            subtitle: Text(
-              Utils.formateDate(user.date, false, true),
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(fontSize: 20),
-            ),
-          ),
-          user.role == "admin" || user.role == "mod"
-              ? ListTile(
-                  title: const Text("Role"),
-                  subtitle: Text(
-                    user.role,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium!
-                        .copyWith(fontSize: 20),
-                  ),
-                  trailing: Wrap(
-                    children: [
-                      user.role == "admin"
-                          ? const Tooltip(
-                              message: "Only owner can change admin role",
-                              child: FaIcon(FontAwesomeIcons.shieldHalved),
-                            )
-                          : ElevatedButton(
-                              onPressed: () async {},
-                              child: Text(
-                                user.role == "user" ? "Viewer" : "User",
-                              ),
-                            ),
-                    ],
-                  ),
-                )
-              : const SizedBox()
-        ],
+          );
+        },
       );
 }

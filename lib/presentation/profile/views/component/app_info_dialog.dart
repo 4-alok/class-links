@@ -59,12 +59,12 @@ class AppInfoBox {
               "Github",
               () => Launcher.launchUrl(context, AppInfo.github),
             ),
-            socialWidget(
-              context,
-              FontAwesomeIcons.instagram,
-              "Instagram",
-              () => Launcher.launchUrl(context, AppInfo.instagramURL),
-            ),
+            // socialWidget(
+            //   context,
+            //   FontAwesomeIcons.instagram,
+            //   "Instagram",
+            //   () => Launcher.launchUrl(context, AppInfo.instagramURL),
+            // ),
             socialWidget(
               context,
               FontAwesomeIcons.envelope,

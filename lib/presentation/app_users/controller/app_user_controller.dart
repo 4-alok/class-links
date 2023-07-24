@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:class_link/global/utils/get_snackbar.dart';
+import 'package:class_link/presentation/app_users/controller/search_controller.dart';
 import 'package:class_link/services/firebase/repository/firestore_service.dart';
 import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
-// import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:get/get.dart';
 
 import '../../../services/hive/models/user_info.dart';
@@ -24,7 +24,15 @@ class AppUsersController extends GetxController {
   List<UserInfo> _filteredUsersList = [];
   final loading = true.obs;
 
+  late final UsersSearchController searchController;
+
   LinkedHashMap<String, int> batches = LinkedHashMap<String, int>();
+
+  @override
+  void onInit() {
+    searchController = UsersSearchController(this);
+    super.onInit();
+  }
 
   @override
   void onReady() {
@@ -156,6 +164,7 @@ class AppUsersController extends GetxController {
   @override
   void onClose() {
     subscription.cancel();
+    searchController.dispose();
     super.onClose();
   }
 }

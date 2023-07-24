@@ -1,7 +1,7 @@
 name: class_link
 description: A new Flutter project.
 
-version: 0.1.30+32
+version: 0.1.31+33
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -39,6 +39,7 @@ dependencies:
     git:
       url: https://github.com/4-alok/gsheets.git
       ref: henri2h/update-dep
+  anim_search_bar: ^2.0.3
 
 dev_dependencies:
   freezed: ^2.4.1
