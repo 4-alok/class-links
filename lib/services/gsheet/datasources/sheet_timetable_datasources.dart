@@ -124,23 +124,23 @@ class SheetTimetableDatasources
     return timeTableList;
   }
 
-  void printTimetable(List<TimeTable> timetables) async {
-    if (kDebugMode) {
-      for (var t in timetables) {
-        print(t.batch);
-        for (var d in t.week) {
-          if (kDebugMode) {
-            print(d.day);
-            print(d.subjects
-                .map(
-                    (e) => "${e.subjectName},${e.roomNo},${e.startTime.hour}||")
-                .toList());
-          }
-        }
-        print("\n\n");
-      }
-    }
-  }
+  // void printTimetable(List<TimeTable> timetables) async {
+  //   if (kDebugMode) {
+  //     for (var t in timetables) {
+  //       print(t.batch);
+  //       for (var d in t.week) {
+  //         if (kDebugMode) {
+  //           print(d.day);
+  //           print(d.subjects
+  //               .map(
+  //                   (e) => "${e.subjectName},${e.roomNo},${e.startTime.hour}||")
+  //               .toList());
+  //         }
+  //       }
+  //       print("\n\n");
+  //     }
+  //   }
+  // }
 
   @override
   Future<SheetData> get getSheetRowsList async {

@@ -64,6 +64,7 @@ class ProfileController extends GetxController {
   @override
   void onClose() {
     scrollController.dispose();
+    Get.delete<ProfileController>();
     super.onClose();
   }
 }

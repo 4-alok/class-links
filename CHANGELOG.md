@@ -1,5 +1,14 @@
 # Change log
 
+## v0.1.32
+
+- ClassLink Resourecs Web
+- Search in App Users
+- Updated 5th semester timetable
+- Added Resources Only mode for KIITians
+
+## v0.1.31 // release not-live
+
 ## v0.1.30
 
 - Updated 5th semester timetable

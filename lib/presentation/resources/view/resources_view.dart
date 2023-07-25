@@ -107,20 +107,16 @@ class ResourcesView extends GetView<ResourcesController> {
                                     fontWeight: FontWeight.w600),
                               ),
                               subtitle: list[index] is IndexFile
-                                  ? list[index]
-                                          .name
-                                          .toLowerCase()
-                                          .endsWith('pdf')
+                                  ? !controller.showPreview(list[index].name)
                                       ? Text(controller.kiloBytesToString(
                                           (list[index] as IndexFile).size))
                                       : null
                                   : null,
                               trailing: list[index] is IndexFile
-                                  ? list[index]
-                                          .name
-                                          .toLowerCase()
-                                          .endsWith('pdf')
-                                      ? Tooltip(
+                                  ? controller.showPreview(list[index].name)
+                                      ? Text(controller.kiloBytesToString(
+                                          (list[index] as IndexFile).size))
+                                      : Tooltip(
                                           message: "Preview",
                                           child: IconButton(
                                               onPressed: () => (list[index]
@@ -130,15 +126,10 @@ class ResourcesView extends GetView<ResourcesController> {
                                                       (list[index] as IndexFile)
                                                           .id)
                                                   : null,
-                                              icon: FaIcon(
-                                                FontAwesomeIcons.expand,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onBackground,
-                                              )),
+                                              icon: const FaIcon(
+                                                  FontAwesomeIcons.chrome,
+                                                  color: Colors.grey)),
                                         )
-                                      : Text(controller.kiloBytesToString(
-                                          (list[index] as IndexFile).size))
                                   : null,
                             ),
                             Container(
@@ -174,6 +165,10 @@ class ResourcesView extends GetView<ResourcesController> {
           fileName0.endsWith('.jpg') ||
           fileName0.endsWith('.jpeg')) {
         return const FaIcon(FontAwesomeIcons.fileImage, color: Colors.purple);
+      } else if (fileName0.endsWith('.rar') || fileName0.endsWith('.zip')) {
+        return const FaIcon(FontAwesomeIcons.fileZipper, color: Colors.brown);
+      } else if (fileName0.endsWith('.txt')) {
+        return const FaIcon(FontAwesomeIcons.fileLines, color: Colors.blueGrey);
       }
       return const FaIcon(FontAwesomeIcons.solidFile);
     }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'pages/cache_test.dart';
+import 'pages/resources_test.dart';
 import 'pages/sheet_test.dart';
 
 class TestPage extends StatelessWidget {
@@ -23,6 +24,7 @@ class TestPage extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 10),
             children: const [
+              ResourcesTest(),
               DatabaseUtils(),
               CacheTest(),
               SheetTest(),

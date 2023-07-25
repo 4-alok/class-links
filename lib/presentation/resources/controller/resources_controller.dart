@@ -9,6 +9,8 @@ import '../../../services/gsheet/repository/gsheet_service.dart';
 
 const String indexKey = "index_key";
 
+const previewExt = ['pptx', 'ppt', 'docx', 'doc', 'xlsx', 'xls'];
+
 List<IndexEntity> _getList(Map<String, dynamic> arguments) {
   final path = arguments['path'] as String;
   final entities = arguments['entities'] as List<IndexEntity>;
@@ -45,6 +47,15 @@ List<IndexEntity> _sortList(List<IndexEntity> list) {
   return list;
 }
 
+bool _isListSame(Map<String, List<List<String>>> data) {
+  final list1 = data['list1'] ?? [];
+
+  for (int i = 0; i < list1.length; i++) {
+    if (list1[i] != (data['list2'] ?? [])[i]) return false;
+  }
+  return true;
+}
+
 class ResourcesController extends GetxController {
   final hasData = ValueNotifier<bool>(false);
   final processing = ValueNotifier<bool>(false);
@@ -59,7 +70,11 @@ class ResourcesController extends GetxController {
   void onReady() async {
     data.value = (await resourcesReop.getResourcesListCache)?.rowList;
     if (data.value != null) hasData.value = true;
-    data.value = (await resourcesReop.getResourcesList).rowList;
+    final newList = (await resourcesReop.getResourcesList).rowList;
+    if (await compute(
+        _isListSame, {"list1": data.value ?? [], "list2": newList})) {
+      data.value = newList;
+    }
     hasData.value = true;
     currentEntity.value = getEntities;
     super.onReady();
@@ -77,21 +92,23 @@ class ResourcesController extends GetxController {
       ? []
       : List.generate(
           data.value!.length,
-          (index) => data.value![index][2] == "Folder"
-              ? IndexFolder(
-                  name: data.value![index][1],
-                  path: data.value![index][0],
-                  lastUpdate: data.value![index][5])
-              : IndexFile(
-                  name: data.value![index][1],
-                  path: data.value![index][0],
-                  lastUpdate: data.value![index][5],
-                  id: data.value![index][4],
-                  description: data.value![index][6] == ""
-                      ? null
-                      : data.value![index][6],
-                  size: double.tryParse(data.value![index][7]) ?? -1,
-                ),
+          (index) {
+            return data.value![index][2] == "Folder"
+                ? IndexFolder(
+                    name: data.value![index][1],
+                    path: data.value![index][0],
+                    lastUpdate: data.value![index][5])
+                : IndexFile(
+                    name: data.value![index][1],
+                    path: data.value![index][0],
+                    lastUpdate: data.value![index][5],
+                    id: data.value![index][4],
+                    description: data.value![index][6] == ""
+                        ? null
+                        : data.value![index][6],
+                    size: double.tryParse(data.value![index][7]) ?? -1,
+                  );
+          },
         );
 
   bool get backButtonController {
@@ -113,6 +130,9 @@ class ResourcesController extends GetxController {
 
   bool get showBackgroundMountain =>
       Get.find<HiveDatabase>().settingBoxDatasources.isResourceOnly.value;
+
+  bool showPreview(String name) =>
+      previewExt.any((ext) => name.toLowerCase().endsWith(ext));
 
   @override
   void dispose() {

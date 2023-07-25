@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../global/const/app_info.dart';
@@ -57,6 +58,7 @@ class ProfileView extends GetView<ProfileController> {
               blackMode,
               const Divider(thickness: 1.5),
               appUsers,
+              rateApp(context),
               // contributer(context),
               controlPanel,
               test,
@@ -77,6 +79,13 @@ class ProfileView extends GetView<ProfileController> {
             child: const Text("Report problem"),
           ),
         ),
+      );
+
+  Widget rateApp(BuildContext context) => ListTile(
+        leading: const Icon(FontAwesomeIcons.solidStar, color: Colors.yellow),
+        onTap: () => InAppReview.instance
+            .openStoreListing(appStoreId: 'com.application.class_link'),
+        title: const Text("Rate App"),
       );
 
   Widget contributer(BuildContext context) => ListTile(
@@ -245,7 +254,6 @@ class ProfileView extends GetView<ProfileController> {
                   ),
               icon: const FaIcon(FontAwesomeIcons.shareNodes)),
           IconButton(
-              // onPressed: () => AppInfoBox.showAppAboutDialog(context),
               onPressed: () => controller.getAppVersion.then(
                   (value) => AppInfoBox.showAppAboutDialog(context, value)),
               icon: const FaIcon(FontAwesomeIcons.info)),
