@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 const amount = 50;
-const sigma = 3.0;
 
 class FrostCard extends StatelessWidget {
   const FrostCard({
@@ -14,12 +13,14 @@ class FrostCard extends StatelessWidget {
     this.radius = 10,
     this.transparent = false,
     this.selected = false,
+    this.sigma = 3.0,
     this.borderColor,
     required this.child,
     super.key,
   });
   final bool selected;
   final Widget child;
+  final double sigma;
   final double radius;
   final EdgeInsetsGeometry margin;
   final bool transparent;

@@ -37,6 +37,7 @@ class UserBatchController extends GetxController {
   final currentElectiveSubject1 = Rx<String?>(null);
   final currentElectiveSubject2 = Rx<String?>(null);
   final loading = Rx<bool>(false);
+  final pageLoading = Rx<bool>(false);
 
   late final String email;
 
@@ -53,18 +54,32 @@ class UserBatchController extends GetxController {
     super.onInit();
   }
 
+  // 2005802 - 2005936 
+
   @override
   void onReady() async {
     if (email.startsWith("21")) {
       currentYear.value = 3;
       currentSemester.value = 5;
       showSectionSelectionForm.value = true;
-    } else if (email.startsWith("20")) {
+    } else if (email.startsWith("22")) {
       currentYear.value = 2;
       currentSemester.value = 3;
       showSectionSelectionForm.value = true;
+    } else if (isSpecialF7()) {
+      pageLoading.value = true;
+      currentYear.value = 4;
+      currentSemester.value = 7;
+      currentStream.value = CurrentStream.CSE;
+      currentBatch.value = "F7";
+      submit();
     }
     super.onReady();
+  }
+
+  bool isSpecialF7() {
+    final rollNoInt = int.parse(email.substring(0, 7));
+    return rollNoInt >= 2005802 && rollNoInt <= 2005936;
   }
 
   Future<void> get clearUserInfo async =>

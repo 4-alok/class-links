@@ -50,10 +50,9 @@ class ProfileController extends GetxController {
 
   /// > It logs out the user, clears the user info from the database, and navigates to the auth screen
   Future<void> logout() async {
-    final authService = Get.find<AuthService>();
-    await authService.logout;
+    await Get.find<AuthService>().logout;
     await Get.find<HiveDatabase>().userBoxDatasources.clearUserInfo;
-    Get.offAllNamed(Routes.AUTH);
+    await Get.offAllNamed(Routes.AUTH);
   }
 
   Future<void> blackModeOnChange(bool value) async =>

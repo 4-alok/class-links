@@ -13,27 +13,40 @@ class UserBatchView extends GetView<UserBatchController> {
 
   @override
   Widget build(BuildContext context) => Obx(
-        () => Scaffold(
-          appBar: controller.showSectionSelectionForm.value
-              ? AppBar(
-                  centerTitle: true,
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  title: const Hero(
-                    tag: "app_logo",
-                    flightShuttleBuilder: AppTitleWidget.flightShuttleBuilder,
-                    transitionOnUserGestures: true,
-                    child: Material(
-                        color: Colors.transparent, child: AppTitleWidget()),
+        () => controller.pageLoading.value
+            ? Scaffold(
+                appBar: PreferredSize(
+                  preferredSize: const Size.fromHeight(0),
+                  child: SizedBox(
+                    height: context.mediaQueryPadding.top,
                   ),
-                )
-              : null,
-          body: Obx(
-            () => controller.showSectionSelectionForm.value
-                ? sectionSelectionForm(context)
-                : NoTimetableView(controller: controller),
-          ),
-          floatingActionButton: fab(context),
-        ),
+                ),
+                body: const LinearProgressIndicator(),
+              )
+            : Scaffold(
+                appBar: controller.showSectionSelectionForm.value
+                    ? AppBar(
+                        centerTitle: true,
+                        backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                        title: const Hero(
+                          tag: "app_logo",
+                          flightShuttleBuilder:
+                              AppTitleWidget.flightShuttleBuilder,
+                          transitionOnUserGestures: true,
+                          child: Material(
+                              color: Colors.transparent,
+                              child: AppTitleWidget()),
+                        ),
+                      )
+                    : null,
+                body: Obx(
+                  () => controller.showSectionSelectionForm.value
+                      ? sectionSelectionForm(context)
+                      : NoTimetableView(controller: controller),
+                ),
+                floatingActionButton: fab(context),
+              ),
       );
 
   Widget sectionSelectionForm(BuildContext context) => Stack(

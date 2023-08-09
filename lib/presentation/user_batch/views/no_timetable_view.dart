@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/user_batch_controller.dart';
@@ -35,8 +36,10 @@ class NoTimetableView extends StatelessWidget {
             style: ButtonStyle(
               shape: MaterialStateProperty.all(const RoundedRectangleBorder(
                   borderRadius: BorderRadius.zero)),
-              side: MaterialStateProperty.all(const BorderSide(
-                color: Colors.white,
+              side: MaterialStateProperty.all(BorderSide(
+                color: context.isDarkMode
+                    ? context.theme.colorScheme.onPrimary
+                    : context.theme.primaryColor,
                 width: 1,
               )),
             ),

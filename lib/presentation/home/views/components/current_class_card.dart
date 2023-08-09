@@ -2,6 +2,8 @@ import 'package:animations/animations.dart';
 import 'package:class_link/global/utils/extension.dart';
 import 'package:class_link/global/widget/frost_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
 
@@ -42,13 +44,23 @@ class CurrentClassCard extends StatelessWidget {
         child: FrostCard(
           radius: 5,
           margin: EdgeInsets.zero,
+          sigma: 4,
           transparent: true,
-          borderColor: !Get.isDarkMode
-              ? Get.theme.primaryColor
-              : Get.theme.colorScheme.onPrimary,
+          borderColor: Get.theme.primaryColor,
           child: InkWell(
             radius: 0,
-            onTap: action,
+            onTap: () {
+              switch (subjectInfo.subject.subjectName) {
+                case "PPLE":
+                  launch('https://meet.google.com/kiq-cghb-moe');
+                  break;
+                case "HRM":
+                  launch('https://meet.google.com/ucw-heuq-ura');
+                  break;
+                default:
+                  action();
+              }
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               child: Column(
@@ -124,7 +136,12 @@ class CurrentClassCard extends StatelessWidget {
         ),
       );
 
-  Widget get trailingWidget => Column(
+  Widget get trailingWidget {
+    if (subjectInfo.subject.subjectName == "PPLE" ||
+        subjectInfo.subject.subjectName == "HRM") {
+      return SvgPicture.asset('assets/icons/meet.svg', height: 40, width: 40);
+    } else {
+      return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           subjectInfo.subject.roomNo != null
@@ -137,4 +154,6 @@ class CurrentClassCard extends StatelessWidget {
               : const SizedBox(),
         ],
       );
+    }
+  }
 }
