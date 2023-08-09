@@ -15,7 +15,13 @@ class AuthView extends GetView<AuthController> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(0),
           child: AppBar(
-            // backgroundColor: Colors.transparent,
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+              statusBarIconBrightness:
+                  Get.isDarkMode ? Brightness.light : Brightness.dark,
+              systemNavigationBarColor:
+                  Theme.of(context).scaffoldBackgroundColor,
+            ),
             elevation: 0,
           ),
         ),
@@ -51,6 +57,12 @@ class AuthView extends GetView<AuthController> {
               ElevatedButton(
                 onPressed:
                     controller.loading.value ? null : () => controller.login(),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                      side:
+                          BorderSide(width: 2, color: Get.theme.primaryColor)),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
@@ -95,14 +107,14 @@ class AuthView extends GetView<AuthController> {
             ),
           )),
           Padding(
-            padding: const EdgeInsets.all(40.0),
+            padding: const EdgeInsets.all(20.0),
             child: Text(
-              'View the current class with just one click. Get notes, PYQs, holidays list and more.',
+              'STREAMLINING ACADEMIC EXCELLENCE',
               textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge
-                  ?.copyWith(fontSize: 20),
+              style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                  ),
             ),
           ),
         ],

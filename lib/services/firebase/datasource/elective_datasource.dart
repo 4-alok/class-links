@@ -25,8 +25,9 @@ class ElectiveDatasources implements ElectiveUsecase {
     try {
       final res1 = await hiveDatabase.cacheBoxDataSources
           .getRequest(userElectiveSection);
+      print(res1);
       if (res1 != null) {
-        return UserElectiveSection.fromMap(res1);
+      return UserElectiveSection.fromMap(res1);
       } else {
         final res2 = await firestore
             .collection(userElectiveSection)
@@ -37,6 +38,7 @@ class ElectiveDatasources implements ElectiveUsecase {
         return UserElectiveSection.fromMap(res2.docs.first.data());
       }
     } catch (e) {
+      print(e);
       rethrow;
     }
   }
@@ -169,4 +171,8 @@ class ElectiveDatasources implements ElectiveUsecase {
     }
     return sectionWithTeacherName;
   }
+
+  @override
+  bool get isElectiveAvailable =>
+      hiveDatabase.userBoxDatasources.userInfo?.semester == 5;
 }

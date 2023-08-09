@@ -99,6 +99,8 @@ class UserInfoDatasources implements UserInfoUsecase {
           .where("batch",
               isEqualTo:
                   hiveDatabase.userBoxDatasources.userInfo?.batch ?? "na")
+          .where('year',
+              isEqualTo: hiveDatabase.userBoxDatasources.userInfo?.year)
           .get,
       key: myBatchKey,
     );

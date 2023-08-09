@@ -16,32 +16,41 @@ class HiveDatabase extends GetxService {
   late final UserBoxDatasourcse userBoxDatasources;
   late final CacheBoxDataSources cacheBoxDataSources;
 
-  /// It's opening the boxes and setting the datasources for the boxes.
+
+  /// Initializes the Hive database by opening three boxes: userInfo, settings, and cache.
+  /// It also sets the data sources for each box and initializes them.
+  /// 
+  /// Example usage:
+  /// ```
+  /// await initDatabase();
+  /// ```
   Future<void> get initDatabase async {
     userInfoBox = await Hive.openBox('userInfo');
     settingsBox = await Hive.openBox('settings');
     cacheBox = await Hive.openBox('cache');
 
-    /// It's setting the datasource for the settings box.
+    /// Initializes the [settingBoxDatasources] with the [settingsBox] instance.
     settingBoxDatasources = SettingBoxDatasources(settingsBox);
 
-    /// It's setting the datasource for the user box.
+    /// Initializes the [userBoxDatasources] with the [userInfoBox] instance.
     userBoxDatasources = UserBoxDatasourcse(userInfoBox);
 
-    /// It's setting the datasource for the cache box.
+    /// Initializes the [cacheBoxDataSources] with the [cacheBox] instance.
     cacheBoxDataSources = CacheBoxDataSources(cacheBox);
     await userBoxDatasources.init;
     await settingBoxDatasources.init;
   }
 
-  /// It's clearing the boxes.
+  
+  /// Clears all the boxes in the Hive database.
   Future<void> get clearBoxes async {
     await userInfoBox.clear();
     await settingsBox.clear();
     await cacheBox.clear();
   }
 
-  /// > When the database is closed, close all the boxes
+  /// Closes the [userInfoBox], [settingsBox], and [cacheBox] instances and disposes of the [settingBoxDatasources].
+  /// Also calls the [onClose] method of the parent class.
   @override
   Future<void> onClose() async {
     await userInfoBox.close();

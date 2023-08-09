@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:class_link/global/models/sheet_data/sheet_data.dart';
 import 'package:class_link/global/models/time_table/time_table.dart';
 import 'package:class_link/services/hive/repository/hive_database.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../repository/gsheet_service.dart';
@@ -54,6 +53,7 @@ class SheetTimetableDatasources
 
     /// Getting the batch of the user from the hive database.
     final myBatch = hiveDatabase.userBoxDatasources.userInfo?.batch ?? "";
+
     List<TimeTable> timeTableL = List.empty(growable: true);
 
     for (int i = 1; i < timetableData.length; i++) {
@@ -62,7 +62,7 @@ class SheetTimetableDatasources
             ? timeTableL.add(TimeTable(
                 week: [
                   Day(
-                    day: timetableData[i][sheetHeaderIndex.day],
+                    day: toFullDayString(timetableData[i][sheetHeaderIndex.day]),
                     subjects: getSubject(timetableData[i], sheetHeaderIndex),
                   )
                 ],
@@ -74,7 +74,7 @@ class SheetTimetableDatasources
               ))
             : timeTableL.first.week.add(
                 Day(
-                  day: timetableData[i][sheetHeaderIndex.day],
+                  day: toFullDayString(timetableData[i][sheetHeaderIndex.day]),
                   subjects: getSubject(timetableData[i], sheetHeaderIndex),
                 ),
               );
@@ -166,6 +166,28 @@ class SheetTimetableDatasources
       }
     } else {
       throw Exception("Error while fetching spreadsheet");
+    }
+  }
+
+  // Create a function to change string SAT to Saturday and so on.
+  String toFullDayString(String shortDay) {
+    switch (shortDay) {
+      case "MON":
+        return "Monday";
+      case "TUE":
+        return "Tuesday";
+      case "WED":
+        return "Wednesday";
+      case "THU":
+        return "Thursday";
+      case "FRI":
+        return "Friday";
+      case "SAT":
+        return "Saturday";
+      case "SUN":
+        return "Sunday";
+      default:
+        return "Monday";
     }
   }
 }

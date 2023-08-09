@@ -35,31 +35,28 @@ class TimetableListWidget extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: currentDay.subjects.length,
               shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return currentDay.subjects[index].startTime.isCurrentTime &&
-                        (currentTabIndex == DateTime.now().weekday - 1)
-                    ? CurrentClassCard(
-                        subjectInfo: SubjectInfo(
-                          subject: currentDay.subjects[index],
-                          currentWeek: currentTabIndex,
-                        ),
-                        teacher: currentDay.subjects[index].isElective
-                            ? Text(
-                                currentDay.subjects[index].teacherName ??
-                                    noInfo,
-                                style: Theme.of(context).textTheme.titleMedium)
-                            : teacherText(
-                                    currentDay.subjects[index].subjectName,
-                                    Get.theme.textTheme.headlineMedium) ??
-                                const SizedBox(),
-                        elective: currentDay.subjects[index].isElective,
-                      )
-                    : displayTile(
-                        context,
-                        currentDay.subjects[index],
-                        elective: currentDay.subjects[index].isElective,
-                      );
-              },
+              itemBuilder: (context, index) => currentDay
+                          .subjects[index].startTime.isCurrentTime &&
+                      (currentTabIndex == DateTime.now().weekday - 1)
+                  ? CurrentClassCard(
+                      subjectInfo: SubjectInfo(
+                        subject: currentDay.subjects[index],
+                        currentWeek: currentTabIndex,
+                      ),
+                      teacher: currentDay.subjects[index].isElective
+                          ? Text(
+                              currentDay.subjects[index].teacherName ?? noInfo,
+                              style: Theme.of(context).textTheme.titleMedium)
+                          : teacherText(currentDay.subjects[index].subjectName,
+                                  Get.theme.textTheme.headlineMedium) ??
+                              const SizedBox(),
+                      elective: currentDay.subjects[index].isElective,
+                    )
+                  : displayTile(
+                      context,
+                      currentDay.subjects[index],
+                      elective: currentDay.subjects[index].isElective,
+                    ),
             ),
           ],
         );
@@ -174,6 +171,7 @@ class TimetableListWidget extends StatelessWidget {
   }
 
   Widget trailingText(String roomNo) {
+    if (roomNo.isEmpty) return const SizedBox();
     final last = roomNo.split('-').last;
     final first = roomNo.substring(0, roomNo.length - last.length - 1);
     return Column(

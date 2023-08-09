@@ -45,7 +45,7 @@ mixin GsheetTimetableUtils {
 
   SheetHeaderIndex getSheetHeaderIndex(List<String> header) {
     final int day = header.indexOf('DAY');
-    final int sec = header.indexOf('SEC');
+    final int sec = header.indexWhere((element) => element.toLowerCase().startsWith("sec"));
 
     final List<int> subjects = List.empty(growable: true);
     for (int i = 1; i < 24; i++) {

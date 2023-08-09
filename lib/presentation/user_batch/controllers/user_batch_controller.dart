@@ -8,13 +8,30 @@ import '../../../services/firebase/models/user_elective_section.dart';
 import '../../../services/hive/models/user_info.dart';
 import 'user_batch_list.dart';
 
-class UserBatchController extends GetxController with UserBatchList {
+// ignore: constant_identifier_names
+enum CurrentStream { CSE, IT, CSSE, CSCE }
+
+const _streamMap = {
+  CurrentStream.CSE: "CSE",
+  CurrentStream.IT: "IT",
+  CurrentStream.CSSE: "CSSE",
+  CurrentStream.CSCE: "CSCE",
+};
+
+const _enumMap = {
+  "CSE": CurrentStream.CSE,
+  "IT": CurrentStream.IT,
+  "CSSE": CurrentStream.CSSE,
+  "CSCE": CurrentStream.CSCE,
+};
+
+class UserBatchController extends GetxController {
   // 1, 2, 3, 4
   final currentYear = Rx<int?>(null);
   // 1, 2, 3, 4, 5, 6, 7, 8
   final currentSemester = Rx<int?>(null);
   // CSE, IT, CSSE, CSCE
-  final currentStream = Rx<String?>(null);
+  final currentStream = Rx<CurrentStream?>(null);
   // CSE-1, CSE-2, CSE-3...
   final currentBatch = Rx<String?>(null);
   final currentElectiveSubject1 = Rx<String?>(null);
@@ -42,66 +59,34 @@ class UserBatchController extends GetxController with UserBatchList {
       currentYear.value = 3;
       currentSemester.value = 5;
       showSectionSelectionForm.value = true;
+    } else if (email.startsWith("20")) {
+      currentYear.value = 2;
+      currentSemester.value = 3;
+      showSectionSelectionForm.value = true;
     }
     super.onReady();
   }
 
-  Future<void> get clearUserInfo async {
-    await hivedatabaseServices.userBoxDatasources.clearUserInfo;
-  }
+  Future<void> get clearUserInfo async =>
+      await hivedatabaseServices.userBoxDatasources.clearUserInfo;
 
   Future<Map<String, String>> get getSectionListWithTeacherName async =>
       await firestoreService.electiveDatasources.getSectionListWithTeacherName;
 
-  // Future autoSelectSection() async {
-  //   try {
-  //     final data =
-  //         await CsvUtils.readCSVFile('assets/database/3rd_year/6_sem_user.csv');
-  //     final rollNo = int.tryParse((Get.find<AuthService>().getUser?.email ?? "")
-  //             .split('@')
-  //             .first) ??
-  //         -1;
-
-  //     final section =
-  //         (data.firstWhereOrNull((element) => element.first == rollNo) ?? [])
-  //             .last as String;
-  //     currentBatch.value =
-  //         "${section.split("-").first}-${int.parse(section.split("-").last)}";
-  //     currentStream.value = section.split("-").first;
-  //   } catch (e) {
-  //     null;
-  //   }
-  // }
-
   List<String> get getStreamList {
-    // if (currentYear.value == null) {
-    //   return [];
-    // // } else if (currentYear.value == 2) {
-    // //   return ['CSE', 'IT', 'CSSE', 'CSCE'];
-    // } else
-    if (currentYear.value == 3) {
+    if (currentYear.value == 3 || currentYear.value == 2) {
       return ['CSE', 'IT', 'CSSE', 'CSCE'];
     } else {
       return [];
     }
   }
 
-  List<String> get batchList {
-    if (currentYear.value == 3) {
-      if (currentStream.value != null) {
-        if (currentStream.value == "CSE") {
-          return thirdYearCSE;
-        } else if (currentStream.value == "IT") {
-          return thirdYearIT;
-        } else if (currentStream.value == 'CSSE') {
-          return thirdYearCSSE;
-        } else if (currentStream.value == 'CSCE') {
-          return thirdYearCSCE;
-        }
-      }
-    }
-    return [];
-  }
+  List<String> get batchList =>
+      (currentYear.value == null || currentStream.value == null)
+          ? []
+          : UserBatchList.yearStreamMap[currentYear.value]
+                  ?[currentStream.value] ??
+              [];
 
   void on3rdLateralEntry() {
     currentYear.value = 3;
@@ -130,7 +115,7 @@ class UserBatchController extends GetxController with UserBatchList {
       userName: user.displayName ?? "",
       year: currentYear.value!,
       batch: currentBatch.value!,
-      stream: currentStream.value ?? "",
+      stream: currentStreamString,
       date: DateTime.now(),
       role: 'viewer',
     );
@@ -160,6 +145,10 @@ class UserBatchController extends GetxController with UserBatchList {
         .then((value) => Get.offAllNamed(Routes.RESOURCES));
     Get.offAllNamed(Routes.RESOURCES);
   }
+
+  String get currentStreamString => _streamMap[currentStream.value] ?? "";
+
+  CurrentStream? currentStreamEnum(String? stream) => _enumMap[stream];
 
   @override
   void onClose() {

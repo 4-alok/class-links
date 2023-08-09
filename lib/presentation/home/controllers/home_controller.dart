@@ -92,29 +92,34 @@ class HomeController extends GetxController
 
   /// Adding the elective subjects to the timetable.
   Future<void> get addElectiveSubjects async {
+    
+    // stop when the elective subjects not available
+    if (!Get.find<FirestoreService>().electiveDatasources.isElectiveAvailable)
+      return;
+
     final List<MyElectiveSubjects> myElectiveTable =
         await Get.find<FirestoreService>()
             .electiveDatasources
             .getElectiveTimeTable;
 
     for (final element in myElectiveTable) {
-      switch (element.day) {
-        case "Monday":
+      switch (element.day.substring(0, 3).toUpperCase()) {
+        case "MON":
           week.value[0].subjects.addAll(element.subjects);
           break;
-        case "Tuesday":
+        case "TUE":
           week.value[1].subjects.addAll(element.subjects);
           break;
-        case "Wednesday":
+        case "WED":
           week.value[2].subjects.addAll(element.subjects);
           break;
-        case "Thursday":
+        case "THU":
           week.value[3].subjects.addAll(element.subjects);
           break;
-        case "Friday":
+        case "FRI":
           week.value[4].subjects.addAll(element.subjects);
           break;
-        case "Saturday":
+        case "SAT":
           week.value[5].subjects.addAll(element.subjects);
           break;
       }

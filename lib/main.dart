@@ -53,6 +53,7 @@ class ClassLink extends StatelessWidget {
           darkIsTrueBlack: database.settingBoxDatasources.isBlack.value,
           colors: database.settingBoxDatasources.appTheme.value.dark,
         ),
+        // themeMode: ThemeMode.light,
         themeMode: database.settingBoxDatasources.themeMode.value,
         customTransition: SharedAxisScaleTransition(),
       ),

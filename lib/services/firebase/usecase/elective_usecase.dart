@@ -9,4 +9,5 @@ abstract class ElectiveUsecase {
   Future<List<String>> get getSectionList;
   Future<Map<String, String>> get getSectionListWithTeacherName;
   Future<List<MyElectiveSubjects>> get getElectiveTimeTable;
+  bool get isElectiveAvailable;
 }

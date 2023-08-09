@@ -17,13 +17,13 @@ class AnalysisService extends GetxService with AnalyticsUtile {
 
   // Create a theme usage analysis event
   Future<void> themeUsageAnalysis() async {
-    final appTheme = hiveDatabase.settingBoxDatasources.appTheme.value;
-    await firebaseAnalytics.logEvent(
-      name: THEME_DATA,
-      parameters: {
-        "theme": appTheme,
-      },
-    );
+    // final appTheme = hiveDatabase.settingBoxDatasources.appTheme.value;
+    // await firebaseAnalytics.logEvent(
+    //   name: THEME_DATA,
+    //   parameters: {
+    //     "theme": appTheme,
+    //   },
+    // );
   }
 
   // Resouorces page open event.
