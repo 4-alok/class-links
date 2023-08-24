@@ -13,39 +13,49 @@ class AuthController extends GetxController {
   final loading = RxBool(false);
   final hiveDatabase = Get.find<HiveDatabase>();
 
-  Future<void> login() async {
+  Future<void> handleLogin() async {
     loading.value = true;
 
     /// Calling the login method of AuthService class.
     final User? user = await Get.find<AuthService>().login;
 
     if (user != null) {
-      /// This is to check if the user is a kiitian or not. If not, then redirect to non kiitian page.
-      if (await user.userType == AppUserType.none) {
-        Get.offNamed(Routes.NON_KIITIAN);
-        return;
-      } else {
-        // Get user information from firebase if not present in hive database
-        // and save to hive database
-        if (hiveDatabase.userBoxDatasources.userInfo == null) {
-          final class_link_user.UserInfo? userInfo =
-              await Get.find<FirestoreService>()
-                  .userInfoDatasources
-                  .getUserInfo;
-          if (userInfo != null) {
-            await hiveDatabase.userBoxDatasources.setUserInfo(userInfo);
-          }
-        }
-
-        /// If user is not present in hive database, then redirect to user batch page, else redirect to
-        /// home page.
-        (hiveDatabase.userBoxDatasources.userInfo == null)
-            ? Get.offNamed(Routes.USER_BATCH)
-            : Get.offNamed(Routes.HOME);
+      // Get the user type from the user object
+      final appUserType = await user.userType;
+      // Use a switch statement to handle different user types
+      switch (appUserType) {
+        // If the user type is none, navigate to the NON_KIITIAN route
+        case AppUserType.none:
+          Get.offNamed(Routes.NON_KIITIAN);
+          break;
+        // If the user type is kiitian, navigate to the RESOURCES route
+        case AppUserType.kiitian:
+          Get.offNamed(Routes.RESOURCES);
+          break;
+        // If the user type is appUser, process the user data and navigate to the appropriate route
+        case AppUserType.appUser:
+          // Call the tryRetrieveAndSaveUserInfo method to retrieve user info from Firestore and save it to Hive database if it doesn't exist already
+          await tryRetrieveAndSaveUserInfo();
+          // If the user info is not present in the Hive database, navigate to the BATCH_SELECTION route
+          // Otherwise, navigate to the HOME route
+          (hiveDatabase.userBoxDatasources.userInfo == null)
+              ? Get.offNamed(Routes.BATCH_SELECTION)
+              : Get.offNamed(Routes.HOME);
+          break;
       }
-      loading.value = false;
-      return;
     }
+    loading.value = false;
     return;
+  }
+
+  /// Retrieves user info from Firestore and saves it to Hive database if it doesn't exist already.
+  Future<void> tryRetrieveAndSaveUserInfo() async {
+    if (hiveDatabase.userBoxDatasources.userInfo == null) {
+      final class_link_user.UserInfo? userInfo =
+          await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
+      if (userInfo != null) {
+        await hiveDatabase.userBoxDatasources.setUserInfo(userInfo);
+      }
+    }
   }
 }

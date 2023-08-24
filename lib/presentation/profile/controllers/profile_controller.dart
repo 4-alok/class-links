@@ -21,7 +21,6 @@ class ProfileController extends GetxController {
 
   String get email => Get.find<AuthService>().user.value?.email ?? "";
 
-  /// > When the widget is ready, it will scroll to the current theme color
   @override
   void onReady() {
     setAppUsetType;
@@ -51,7 +50,6 @@ class ProfileController extends GetxController {
   /// > It logs out the user, clears the user info from the database, and navigates to the auth screen
   Future<void> logout() async {
     await Get.find<AuthService>().logout;
-    await Get.find<HiveDatabase>().userBoxDatasources.clearUserInfo;
     await Get.offAllNamed(Routes.AUTH);
   }
 

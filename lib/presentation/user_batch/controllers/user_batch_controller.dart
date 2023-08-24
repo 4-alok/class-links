@@ -11,14 +11,14 @@ import 'user_batch_list.dart';
 // ignore: constant_identifier_names
 enum CurrentStream { CSE, IT, CSSE, CSCE }
 
-const _streamMap = {
+const _enumToStreamMap = {
   CurrentStream.CSE: "CSE",
   CurrentStream.IT: "IT",
   CurrentStream.CSSE: "CSSE",
   CurrentStream.CSCE: "CSCE",
 };
 
-const _enumMap = {
+const _streamToEnumMap = {
   "CSE": CurrentStream.CSE,
   "IT": CurrentStream.IT,
   "CSSE": CurrentStream.CSSE,
@@ -54,8 +54,6 @@ class UserBatchController extends GetxController {
     super.onInit();
   }
 
-  // 2005802 - 2005936 
-
   @override
   void onReady() async {
     if (email.startsWith("21")) {
@@ -66,7 +64,7 @@ class UserBatchController extends GetxController {
       currentYear.value = 2;
       currentSemester.value = 3;
       showSectionSelectionForm.value = true;
-    } else if (isSpecialF7()) {
+    } else if (isSpecialF7(email)) {
       pageLoading.value = true;
       currentYear.value = 4;
       currentSemester.value = 7;
@@ -77,9 +75,13 @@ class UserBatchController extends GetxController {
     super.onReady();
   }
 
-  bool isSpecialF7() {
-    final rollNoInt = int.parse(email.substring(0, 7));
-    return rollNoInt >= 2005802 && rollNoInt <= 2005936;
+  static bool isSpecialF7(String email) {
+    try {
+      final rollNoInt = int.parse(email.substring(0, 7));
+      return rollNoInt >= 2005802 && rollNoInt <= 2005936;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<void> get clearUserInfo async =>
@@ -118,13 +120,12 @@ class UserBatchController extends GetxController {
       : currentYear.value != null && currentBatch.value != null;
 
   Future<void> submit() async {
-    loading.value = true;
-    await Future.delayed(
-      const Duration(milliseconds: 500),
-    );
+    loading.value = true; // Set the loading state to true
+    await Future.delayed(const Duration(milliseconds: 500)); // Wait for 500 milliseconds
 
-    final user = Get.find<AuthService>().getUser!;
+    final user = Get.find<AuthService>().getUser!; // Get the user object
 
+    // Create a UserInfo object
     final userInfo = UserInfo(
       id: user.email!,
       userName: user.displayName ?? "",
@@ -150,7 +151,6 @@ class UserBatchController extends GetxController {
       await hivedatabaseServices.userBoxDatasources.setUserInfo(userInfo);
       Get.offAllNamed(Routes.HOME);
     }
-
     loading.value = false;
   }
 
@@ -161,9 +161,9 @@ class UserBatchController extends GetxController {
     Get.offAllNamed(Routes.RESOURCES);
   }
 
-  String get currentStreamString => _streamMap[currentStream.value] ?? "";
+  String get currentStreamString => _enumToStreamMap[currentStream.value] ?? "";
 
-  CurrentStream? currentStreamEnum(String? stream) => _enumMap[stream];
+  CurrentStream? currentStreamEnum(String? stream) => _streamToEnumMap[stream];
 
   @override
   void onClose() {

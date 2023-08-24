@@ -7,7 +7,7 @@ import '../../controller/app_user_controller.dart';
 
 class AppUserAppBar {
   final AppUsersController controller;
-  AppUserAppBar({required this.controller});
+  const AppUserAppBar({required this.controller});
 
   Widget build(BuildContext context) => Obx(
         () => controller.searchController.searchPage.value
@@ -32,7 +32,8 @@ class AppUserAppBar {
                   const SizedBox(width: 10)
                 ],
               )
-            : AppBar(
+            : 
+            AppBar(
                 leading: Hero(
                   tag: "back",
                   child: IconButton(
@@ -58,6 +59,74 @@ class AppUserAppBar {
                 ],
                 centerTitle: true,
                 title: const Text('App Users'),
+                bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(50),
+                  child: SizedBox(
+                    height: 50,
+                    child: Obx(
+                      () => ListView(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 8),
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  controller.selectedYear.value == null
+                                      ? Theme.of(context).primaryColor
+                                      : Theme.of(context)
+                                          .primaryColor
+                                          .withOpacity(.2),
+                            ),
+                            onPressed: () {
+                              controller.selectedBatch.value = null;
+                              controller.selectedYear.value = null;
+                            },
+                            child: Text(
+                              "All",
+                              style: TextStyle(
+                                color: controller.selectedYear.value == null
+                                    ? Theme.of(context).colorScheme.onPrimary
+                                    : null,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 2),
+                          ...List.generate(
+                            4,
+                            (index) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 2),
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  backgroundColor:
+                                      controller.selectedYear.value == index + 1
+                                          ? Theme.of(context).primaryColor
+                                          : Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(.2),
+                                ),
+                                onPressed: () {
+                                  controller.selectedBatch.value = null;
+                                  controller.selectedYear.value = index + 1;
+                                },
+                                child: Text("${index + 1} Year",
+                                    style: TextStyle(
+                                      color: controller.selectedYear.value ==
+                                              index + 1
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary
+                                          : null,
+                                    )),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
       );
 }

@@ -39,9 +39,7 @@ class AppPages {
       ? Routes.TEST
       : Get.find<AuthService>().getUser == null
           ? Routes.AUTH
-          : Get.find<HiveDatabase>().settingBoxDatasources.isResourceOnly.value
-              ? Routes.RESOURCES
-              : Routes.HOME;
+          : Routes.HOME;
 
   static final routes = [
     GetPage(
@@ -65,7 +63,7 @@ class AppPages {
       binding: ProfileBinding(),
     ),
     GetPage(
-      name: _Paths.USER_BATCH,
+      name: _Paths.BATCH_SELECTION,
       page: () => const UserBatchView(),
       binding: UserBatchBinding(),
     ),

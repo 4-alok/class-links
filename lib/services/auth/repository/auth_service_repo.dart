@@ -36,6 +36,7 @@ class AuthService extends GetxService implements AuthServiceUsecase {
 
   @override
   Future<void> get logout async {
-    await authDatasources.logout.then((_) => user.value = null);
+    await authDatasources.logout;
+    user.value = null;
   }
 }

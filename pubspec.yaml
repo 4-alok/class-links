@@ -39,6 +39,9 @@ dependencies:
     git:
       url: https://github.com/4-alok/gsheets.git
       ref: henri2h/update-dep
+  sticky_grouped_list: ^3.1.0
+  hidable: ^1.0.4
+  grouped_list: ^5.1.2
 
 dev_dependencies:
   freezed: ^2.4.1

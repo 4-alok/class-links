@@ -59,12 +59,12 @@ class SettingBoxDatasources implements SettingBoxUsecase {
   Future<void> saveCurrentSchemeIndex(int index) async =>
       await settingsBox.put('currentScheme', index).then((value) {
         appTheme.value = AppColor.schemes[index];
-        // addThemeLog;
       });
 
   @override
   Future<void> saveCurrentTheme(ThemeMode themeMode) async =>
       await settingsBox.put('mode', themeMode.index);
+
   @override
   Future<void> saveIsBlackMode(bool isBlack) async =>
       await settingsBox.put('isBlack', isBlack);
@@ -84,9 +84,6 @@ class SettingBoxDatasources implements SettingBoxUsecase {
 
   @override
   Future<String?> get buildNo async => await settingsBox.get(_buildNo);
-
-  //TODO Remove
-  // clearBuldNo() async => await settingsBox.delete(_buildNo);
 
   @override
   Future<void> setBuildNo() async =>

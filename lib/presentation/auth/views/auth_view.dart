@@ -55,13 +55,14 @@ class AuthView extends GetView<AuthController> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ElevatedButton(
-                onPressed:
-                    controller.loading.value ? null : () => controller.login(),
+                onPressed: controller.loading.value
+                    ? null
+                    : () => controller.handleLogin(),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
-                      side:
-                          BorderSide(width: 2, color: Get.theme.primaryColor)),
+                    borderRadius: BorderRadius.circular(0),
+                    side: BorderSide(width: 2, color: Get.theme.primaryColor),
+                  ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -74,7 +75,6 @@ class AuthView extends GetView<AuthController> {
                       children: [
                         SvgPicture.asset(
                           Assets.icons.google.path,
-                          semanticsLabel: 'A red up arrow',
                           height: 20,
                           width: 20,
                         ),

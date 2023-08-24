@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:collection';
 
 import 'package:class_link/global/utils/get_snackbar.dart';
 import 'package:class_link/presentation/app_users/controller/search_controller.dart';
 import 'package:class_link/services/firebase/repository/firestore_service.dart';
 import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../services/hive/models/user_info.dart';
@@ -13,20 +13,27 @@ enum UserSortType { userId, id, date }
 
 const List<String> filterOptions = ['ID', 'Date', 'User ID'];
 
+class BatchInfo {
+  final int year;
+  final String batch;
+  final int count;
+
+  const BatchInfo(this.year, this.batch, this.count);
+}
+
 class AppUsersController extends GetxController {
   final RxList<int> yearWiseUserCount = RxList<int>([0, 0, 0]);
   final Rx<UserSortType> userSortType = Rx<UserSortType>(UserSortType.date);
-  final Rx<int?> selectedYear = Rx<int?>(3);
+  final Rx<int?> selectedYear = Rx<int?>(null);
   final Rx<String?> selectedBatch = Rx<String?>(null);
   final firestoreService = Get.find<FirestoreService>();
-  late final StreamSubscription<List<UserInfo>> subscription;
   List<UserInfo> allUsersList = [];
   List<UserInfo> _filteredUsersList = [];
   final loading = true.obs;
 
-  late final UsersSearchController searchController;
+  final ScrollController scrollController = ScrollController();
 
-  LinkedHashMap<String, int> batches = LinkedHashMap<String, int>();
+  late final UsersSearchController searchController;
 
   @override
   void onInit() {
@@ -36,11 +43,6 @@ class AppUsersController extends GetxController {
 
   @override
   void onReady() {
-    // (Get.find<HiveDatabase>().userBoxDatasources.userInfo?.role == "admin")
-    //     ? subscription = firestoreService.userInfoDatasources.streamAllUserList
-    //         .listen((event) => _subscriptionUpdate(event))
-    //     : _getUsers;
-
     _getUsers;
     selectedYear.listen((_) => update());
     userSortType.listen((_) => update());
@@ -126,6 +128,7 @@ class AppUsersController extends GetxController {
     } else if (userSortType.value == UserSortType.date) {
       _filteredUsersList.sort((a, b) => b.date.compareTo(a.date));
     }
+    // print(_filteredUsersList.length);
     return _filteredUsersList;
   }
 
@@ -144,27 +147,39 @@ class AppUsersController extends GetxController {
     Get.back();
   }
 
-  LinkedHashMap<String, int> batchList(List<UserInfo> users) {
-    Map<String, int> batchWiseStudentCount = {" Show All": users.length};
-
+  List<BatchInfo> batchList(List<UserInfo> users) {
+    List<BatchInfo> batches = [];
+    // iterate over all users
     for (final user in users) {
-      batchWiseStudentCount[user.batch] =
-          batchWiseStudentCount.containsKey(user.batch)
-              ? batchWiseStudentCount[user.batch]! + 1
-              : 1;
+      // check if batch is already present in list
+      final batchInfo = batches.firstWhere(
+          (element) => element.year == user.year && element.batch == user.batch,
+          orElse: () => BatchInfo(user.year, user.batch, 0));
+      // if batch is not present then add it to list
+      batches.remove(batchInfo);
+      batches
+          .add(BatchInfo(batchInfo.year, batchInfo.batch, batchInfo.count + 1));
     }
+    batches.sort((b, a) => a.batch.compareTo(b.batch));
+    return batches;
+  }
 
-    final sortKey = batchWiseStudentCount.keys.toList(growable: false)
-      ..sort((a, b) => a.compareTo(b));
-
-    return LinkedHashMap<String, int>.fromIterable(sortKey,
-        key: (key) => key, value: (key) => batchWiseStudentCount[key] ?? -1);
+  String get bottomBarText {
+    if (selectedBatch.value == null) {
+      if (selectedYear.value == null) {
+        return 'All Years (${getUserList.length})';
+      } else {
+        return 'Year ${selectedYear.value} (${getUserList.length})';
+      }
+    } else {
+      return '${selectedBatch.value ?? "All Batches"} (${getUserList.length})';
+    }
   }
 
   @override
   void onClose() {
-    subscription.cancel();
     searchController.dispose();
+    scrollController.dispose();
     super.onClose();
   }
 }

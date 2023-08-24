@@ -48,8 +48,18 @@ class AuthDatasources implements AuthServiceUsecase {
   /// Logging out the user from the app.
   @override
   Future<void> get logout async {
+    print("AuthService > AuthDatasources > logout");
+
     await googleSignIn.signOut();
+
+    print("Google sign out done");
     await auth.signOut();
+
+    print("Firebase sign out done");
+    print("clearBoxes to be called");
+    print("-----------------------------------");
     await Get.find<HiveDatabase>().clearBoxes;
+    print("-----------------------------------");
+    print("clearBoxes called");
   }
 }

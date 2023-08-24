@@ -92,10 +92,10 @@ class HomeController extends GetxController
 
   /// Adding the elective subjects to the timetable.
   Future<void> get addElectiveSubjects async {
-    
     // stop when the elective subjects not available
-    if (!Get.find<FirestoreService>().electiveDatasources.isElectiveAvailable)
+    if (!Get.find<FirestoreService>().electiveDatasources.isElectiveAvailable) {
       return;
+    }
 
     final List<MyElectiveSubjects> myElectiveTable =
         await Get.find<FirestoreService>()
@@ -141,13 +141,18 @@ class HomeController extends GetxController
     // if the cache is present then it will load the timetable from the cache
     // else it will load the timetable from the server
     if (timetableCache != null) {
+      // loading the timetable from the cache
       week.value = List.generate(
           timetableCache.week.length, (index) => timetableCache.week[index]);
+      // creating a deep copy of the original list
       originalList = deepCopyWeek(timetableCache.week);
     } else {
+      // loading the timetable from the server
       final timetable = await timetableDatasource.getMyTimetable;
+      // creating a deep copy of the original list
       week.value = List.generate(
           timetable.week.length, (index) => timetable.week[index]);
+      // creating a deep copy of the original list
       originalList = deepCopyWeek(timetable.week);
       await addElectiveSubjects;
     }
@@ -178,17 +183,24 @@ class HomeController extends GetxController
 
   /// Getting the user info from the cache and if it is not present then it is getting it from the server.
   Future<UserInfo?> get getUserInfo async {
+    // getting the user info from the cache
     final result = Get.find<HiveDatabase>().userBoxDatasources.userInfo;
+
+    // if the user info is present in the cache then it will return the user info
     if (result != null) {
       return result;
     } else {
+      // if the user info is not present in the cache then it will get the user info from the server
       final result2 =
           await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
+
+      // if the user info is present in the server then it will return the user info
       if (result2 != null) {
+        // setting the user info in the cache
         await Get.find<HiveDatabase>().userBoxDatasources.setUserInfo(result2);
         return result2;
       } else {
-        Get.offAllNamed(Routes.USER_BATCH);
+        Get.offAllNamed(Routes.BATCH_SELECTION);
       }
     }
     return null;

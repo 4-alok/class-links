@@ -1,11 +1,3 @@
-// import 'package:get/get.dart';
-
-// import '../../routes/app_pages.dart';
-// import '../../services/auth/repository/auth_service_repo.dart';
-// import '../../services/firebase/datasource/userinfo_datasource.dart';
-// import '../../services/firebase/repository/firestore_service.dart';
-// import 'csv_utils.dart';
-
 import 'package:get/get.dart';
 
 import '../../routes/app_pages.dart';
@@ -32,7 +24,7 @@ class Patch {
       //     .get()
       //     .then((users) => users.docs.first.reference.delete());
       // await authService.logout;
-      Get.offAllNamed(Routes.USER_BATCH);
+      Get.offAllNamed(Routes.BATCH_SELECTION);
     }
 
     //   final roll = int.tryParse((user?.id ?? "").split('@').first) ?? 0;

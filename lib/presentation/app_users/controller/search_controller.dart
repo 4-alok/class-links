@@ -35,6 +35,15 @@ class UsersSearchController {
               _getFilterList, SearchData(text, controller.allUsersList))
           .then((value) => searchList.value = value);
 
+  void xmarkPressed() {
+    if (searchTextController.text == "") {
+      Get.back();
+    } else {
+      searchTextController.clear();
+      searchPage.value = false;
+    }
+  }
+
   void dispose() {
     searchTextController.dispose();
     searchPage.close();
