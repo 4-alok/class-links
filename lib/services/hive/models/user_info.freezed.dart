@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'user_info.dart';
 
@@ -40,7 +40,8 @@ mixin _$UserInfo {
 /// @nodoc
 abstract class $UserInfoCopyWith<$Res> {
   factory $UserInfoCopyWith(UserInfo value, $Res Function(UserInfo) then) =
-      _$UserInfoCopyWithImpl<$Res>;
+      _$UserInfoCopyWithImpl<$Res, UserInfo>;
+  @useResult
   $Res call(
       {String? refId,
       String id,
@@ -55,68 +56,71 @@ abstract class $UserInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
+class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
+    implements $UserInfoCopyWith<$Res> {
   _$UserInfoCopyWithImpl(this._value, this._then);
 
-  final UserInfo _value;
   // ignore: unused_field
-  final $Res Function(UserInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? refId = freezed,
-    Object? id = freezed,
-    Object? slot = freezed,
-    Object? batch = freezed,
-    Object? stream = freezed,
-    Object? year = freezed,
-    Object? date = freezed,
-    Object? userName = freezed,
-    Object? role = freezed,
+    Object? id = null,
+    Object? slot = null,
+    Object? batch = null,
+    Object? stream = null,
+    Object? year = null,
+    Object? date = null,
+    Object? userName = null,
+    Object? role = null,
     Object? semester = freezed,
   }) {
     return _then(_value.copyWith(
-      refId: refId == freezed
+      refId: freezed == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      slot: slot == freezed
+      slot: null == slot
           ? _value.slot
           : slot // ignore: cast_nullable_to_non_nullable
               as int,
-      batch: batch == freezed
+      batch: null == batch
           ? _value.batch
           : batch // ignore: cast_nullable_to_non_nullable
               as String,
-      stream: stream == freezed
+      stream: null == stream
           ? _value.stream
           : stream // ignore: cast_nullable_to_non_nullable
               as String,
-      year: year == freezed
+      year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
               as int,
-      date: date == freezed
+      date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      userName: userName == freezed
+      userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String,
-      role: role == freezed
+      role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
-      semester: semester == freezed
+      semester: freezed == semester
           ? _value.semester
           : semester // ignore: cast_nullable_to_non_nullable
               as int?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -126,6 +130,7 @@ abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
           _$_UserInfo value, $Res Function(_$_UserInfo) then) =
       __$$_UserInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? refId,
       String id,
@@ -140,66 +145,65 @@ abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
+class __$$_UserInfoCopyWithImpl<$Res>
+    extends _$UserInfoCopyWithImpl<$Res, _$_UserInfo>
     implements _$$_UserInfoCopyWith<$Res> {
   __$$_UserInfoCopyWithImpl(
       _$_UserInfo _value, $Res Function(_$_UserInfo) _then)
-      : super(_value, (v) => _then(v as _$_UserInfo));
+      : super(_value, _then);
 
-  @override
-  _$_UserInfo get _value => super._value as _$_UserInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? refId = freezed,
-    Object? id = freezed,
-    Object? slot = freezed,
-    Object? batch = freezed,
-    Object? stream = freezed,
-    Object? year = freezed,
-    Object? date = freezed,
-    Object? userName = freezed,
-    Object? role = freezed,
+    Object? id = null,
+    Object? slot = null,
+    Object? batch = null,
+    Object? stream = null,
+    Object? year = null,
+    Object? date = null,
+    Object? userName = null,
+    Object? role = null,
     Object? semester = freezed,
   }) {
     return _then(_$_UserInfo(
-      refId: refId == freezed
+      refId: freezed == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      slot: slot == freezed
+      slot: null == slot
           ? _value.slot
           : slot // ignore: cast_nullable_to_non_nullable
               as int,
-      batch: batch == freezed
+      batch: null == batch
           ? _value.batch
           : batch // ignore: cast_nullable_to_non_nullable
               as String,
-      stream: stream == freezed
+      stream: null == stream
           ? _value.stream
           : stream // ignore: cast_nullable_to_non_nullable
               as String,
-      year: year == freezed
+      year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
               as int,
-      date: date == freezed
+      date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      userName: userName == freezed
+      userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String,
-      role: role == freezed
+      role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String,
-      semester: semester == freezed
+      semester: freezed == semester
           ? _value.semester
           : semester // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -260,35 +264,28 @@ class _$_UserInfo implements _UserInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserInfo &&
-            const DeepCollectionEquality().equals(other.refId, refId) &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.slot, slot) &&
-            const DeepCollectionEquality().equals(other.batch, batch) &&
-            const DeepCollectionEquality().equals(other.stream, stream) &&
-            const DeepCollectionEquality().equals(other.year, year) &&
-            const DeepCollectionEquality().equals(other.date, date) &&
-            const DeepCollectionEquality().equals(other.userName, userName) &&
-            const DeepCollectionEquality().equals(other.role, role) &&
-            const DeepCollectionEquality().equals(other.semester, semester));
+            (identical(other.refId, refId) || other.refId == refId) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.slot, slot) || other.slot == slot) &&
+            (identical(other.batch, batch) || other.batch == batch) &&
+            (identical(other.stream, stream) || other.stream == stream) &&
+            (identical(other.year, year) || other.year == year) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
+            (identical(other.role, role) || other.role == role) &&
+            (identical(other.semester, semester) ||
+                other.semester == semester));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(refId),
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(slot),
-      const DeepCollectionEquality().hash(batch),
-      const DeepCollectionEquality().hash(stream),
-      const DeepCollectionEquality().hash(year),
-      const DeepCollectionEquality().hash(date),
-      const DeepCollectionEquality().hash(userName),
-      const DeepCollectionEquality().hash(role),
-      const DeepCollectionEquality().hash(semester));
+  int get hashCode => Object.hash(runtimeType, refId, id, slot, batch, stream,
+      year, date, userName, role, semester);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>
       __$$_UserInfoCopyWithImpl<_$_UserInfo>(this, _$identity);
 

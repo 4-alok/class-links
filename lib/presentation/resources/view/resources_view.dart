@@ -61,11 +61,10 @@ class ResourcesView extends GetView<ResourcesController> {
                       ),
                     )
                   : const SizedBox(),
-              ValueListenableBuilder<bool>(
-                valueListenable: controller.hasData,
-                builder: (context, value, child) => value
+              Obx(
+                () => controller.hasData.value
                     ? bodyBuilder(context)
-                    : const Center(child: CircularProgressIndicator()),
+                    : const LinearProgressIndicator(),
               ),
             ],
           ),
@@ -74,75 +73,73 @@ class ResourcesView extends GetView<ResourcesController> {
 
   Widget bodyBuilder(BuildContext context) => ValueListenableBuilder<String>(
       valueListenable: controller.currentPath,
-      builder: (context, value, child) {
-        return FutureBuilder<List<IndexEntity>>(
-            future: controller.getList(value),
-            builder: (context, snapshot) {
-              final list = controller.currentEntity.value;
-              return (list.isEmpty)
-                  ? const Center(child: Text('No files or directories found'))
-                  : Scrollbar(
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        itemCount: list.length,
-                        itemBuilder: (context, index) => Column(
-                          children: [
-                            ListTile(
-                              onTap: () => (list[index] is IndexFolder)
-                                  ? controller.currentPath.value =
-                                      "${list[index].path}/"
-                                  : openDox(context, list[index] as IndexFile),
-                              onLongPress: () => (list[index] is IndexFile)
-                                  ? prevDoc(
-                                      context, (list[index] as IndexFile).id)
-                                  : null,
-                              leading: leadingIcon(
-                                isfolder: list[index] is IndexFolder,
-                                fileName: list[index].name,
-                              ),
-                              title: Text(
-                                list[index].name,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              subtitle: list[index] is IndexFile
-                                  ? !controller.showPreview(list[index].name)
-                                      ? Text(controller.kiloBytesToString(
-                                          (list[index] as IndexFile).size))
-                                      : null
-                                  : null,
-                              trailing: list[index] is IndexFile
-                                  ? controller.showPreview(list[index].name)
-                                      ? Text(controller.kiloBytesToString(
-                                          (list[index] as IndexFile).size))
-                                      : Tooltip(
-                                          message: "Preview",
-                                          child: IconButton(
-                                              onPressed: () => (list[index]
-                                                      is IndexFile)
-                                                  ? prevDoc(
-                                                      context,
-                                                      (list[index] as IndexFile)
-                                                          .id)
-                                                  : null,
-                                              icon: const FaIcon(
-                                                  FontAwesomeIcons.chrome,
-                                                  color: Colors.grey)),
-                                        )
-                                  : null,
+      builder: (context, value, child) => FutureBuilder<List<IndexEntity>>(
+          future: controller.getList(value),
+          builder: (context, snapshot) {
+            final list = controller.currentEntity.value;
+            return (list.isEmpty)
+                ? const Center(child: Text('No files or directories found'))
+                : Scrollbar(
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      itemCount: list.length,
+                      itemBuilder: (context, index) => Column(
+                        children: [
+                          ListTile(
+                            onTap: () => (list[index] is IndexFolder)
+                                ? controller.currentPath.value =
+                                    "${list[index].path}/"
+                                : openDox(context, list[index] as IndexFile),
+                            onLongPress: () => (list[index] is IndexFile)
+                                ? prevDoc(
+                                    context, (list[index] as IndexFile).id)
+                                : null,
+                            leading: leadingIcon(
+                              isfolder: list[index] is IndexFolder,
+                              fileName: list[index].name,
                             ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 2,
-                              color: Theme.of(context).dividerColor,
+                            title: Text(
+                              list[index].name,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w600),
                             ),
-                          ],
-                        ),
+                            subtitle: list[index] is IndexFile
+                                ? !controller.showPreview(list[index].name)
+                                    ? Text(controller.kiloBytesToString(
+                                        (list[index] as IndexFile).size))
+                                    : null
+                                : null,
+                            trailing: list[index] is IndexFile
+                                ? controller.showPreview(list[index].name)
+                                    ? Text(controller.kiloBytesToString(
+                                        (list[index] as IndexFile).size))
+                                    : Tooltip(
+                                        message: "Preview",
+                                        child: IconButton(
+                                            onPressed: () => (list[index]
+                                                    is IndexFile)
+                                                ? prevDoc(
+                                                    context,
+                                                    (list[index] as IndexFile)
+                                                        .id)
+                                                : null,
+                                            icon: const FaIcon(
+                                                FontAwesomeIcons.chrome,
+                                                color: Colors.grey)),
+                                      )
+                                : null,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 2,
+                            color: Theme.of(context).dividerColor,
+                          ),
+                        ],
                       ),
-                    );
-            });
-      });
+                    ),
+                  );
+          }));
 
   Widget leadingIcon({required bool isfolder, String fileName = ''}) {
     if (isfolder) {

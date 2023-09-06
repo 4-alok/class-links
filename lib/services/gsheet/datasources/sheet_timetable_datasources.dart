@@ -20,69 +20,56 @@ class SheetTimetableDatasources
 
   HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
 
-  int get year => hiveDatabase.userBoxDatasources.userInfo?.year ?? 0;
-
-  Future<void> _saveTimetable(TimeTable timeTable) async =>
-      await hiveDatabase.cacheBoxDataSources
-          .saveRequest("$year-year-$sheetName", timeTable.toJson());
-
-  @override
-  Future<TimeTable?> get getMyTimetableCache async {
-    final data = await hiveDatabase.cacheBoxDataSources
-        .getRequest("$year-year-$sheetName");
-    if (data != null) {
-      return TimeTable.fromJson(data);
-    } else {
-      return null;
-    }
-  }
-
-  @override
-  Future<DateTime?> get getMyTimetableCacheDate async =>
-      await hiveDatabase.cacheBoxDataSources
-          .getCacheDate("$year-year-$sheetName");
+  int? get year => hiveDatabase.userBoxDatasources.userInfo?.year;
 
   /// Fetching the timetable of the user./// A annotation.
   @override
-  Future<TimeTable> get getMyTimetable async {
-    /// Fetching the data from the google sheet.
-    final List<List<String>> timetableData = (await getSheetRowsList).rowList;
+  Future<TimeTable?> getMyTimetable() async {
+    try {
+      /// Fetching the data from the google sheet.
+      final List<List<String>> timetableData = (await getSheetRowsList).rowList;
 
-    /// Getting the index of the header of the sheet.
-    final sheetHeaderIndex = getSheetHeaderIndex(timetableData.first);
+      /// Getting the index of the header of the sheet.
+      final sheetHeaderIndex = getSheetHeaderIndex(timetableData.first);
 
-    /// Getting the batch of the user from the hive database.
-    final myBatch = hiveDatabase.userBoxDatasources.userInfo?.batch ?? "";
+      /// Getting the batch of the user from the hive database.
+      final myBatch = hiveDatabase.userBoxDatasources.userInfo?.batch ?? "";
 
-    List<TimeTable> timeTableL = List.empty(growable: true);
+      List<TimeTable> timeTableL = List.empty(growable: true);
 
-    for (int i = 1; i < timetableData.length; i++) {
-      if (timetableData[i][sheetHeaderIndex.sec] == myBatch) {
-        timeTableL.isEmpty
-            ? timeTableL.add(TimeTable(
-                week: [
+      for (int i = 1; i < timetableData.length; i++) {
+        if (timetableData[i][sheetHeaderIndex.sec] == myBatch) {
+          timeTableL.isEmpty
+              ? timeTableL.add(TimeTable(
+                  week: [
+                    Day(
+                      day: toFullDayString(
+                          timetableData[i][sheetHeaderIndex.day]),
+                      subjects: getSubject(timetableData[i], sheetHeaderIndex),
+                    )
+                  ],
+                  creatorId: '',
+                  batch: timetableData[i][sheetHeaderIndex.sec],
+                  year: 1,
+                  slot: 1,
+                  date: DateTime.now(),
+                ))
+              : timeTableL.first.week.add(
                   Day(
-                    day: toFullDayString(timetableData[i][sheetHeaderIndex.day]),
+                    day:
+                        toFullDayString(timetableData[i][sheetHeaderIndex.day]),
                     subjects: getSubject(timetableData[i], sheetHeaderIndex),
-                  )
-                ],
-                creatorId: '',
-                batch: timetableData[i][sheetHeaderIndex.sec],
-                year: 1,
-                slot: 1,
-                date: DateTime.now(),
-              ))
-            : timeTableL.first.week.add(
-                Day(
-                  day: toFullDayString(timetableData[i][sheetHeaderIndex.day]),
-                  subjects: getSubject(timetableData[i], sheetHeaderIndex),
-                ),
-              );
+                  ),
+                );
+        }
       }
+      timeTableL = patch(timeTableL);
+      // await _saveTimetable(timeTableL.first);
+      return timeTableL.first;
+    } catch (e) {
+      rethrow;
+      // return null;
     }
-    timeTableL = patch(timeTableL);
-    await _saveTimetable(timeTableL.first);
-    return timeTableL.first;
   }
 
   @override
@@ -145,17 +132,23 @@ class SheetTimetableDatasources
   @override
   Future<SheetData> get getSheetRowsList async {
     try {
-      return gSheetService.spreadsheetLoaded.value
+      // final res = gSheetService.spreadsheet.isCompleted;
+      // print("Is Spreadsheet Loaded: $res");
+      return gSheetService.spreadsheet.isCompleted
           ? await getData
-          : await gSheetService.loadSpreadSheet
+          : await gSheetService.spreadsheet.future
               .then<SheetData>((value) async => await getData);
     } catch (e) {
-      return Future.error(e);
+      print("11111111111111111");
+      print(e);
+      print("11111111111111111");
+      rethrow;
     }
   }
 
   Future<SheetData> get getData async {
-    final spreadsheet = gSheetService.spreadsheet;
+    final spreadsheet = await gSheetService.spreadsheet.future;
+    if (year == null) throw Exception("UserInfo is not saved");
     if (spreadsheet != null) {
       final sheetData = spreadsheet.worksheetByTitle("$year-year-$sheetName");
       if (sheetData != null) {

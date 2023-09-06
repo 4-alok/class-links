@@ -1,101 +1,56 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:hive/hive.dart';
 
+import '../models/user_info.dart';
 import '../usecase/cache_usecase.dart';
 
 const int cacheExpiresHour = 12;
 
 class CacheBoxDataSources implements CacheBoxUsecase {
+  final HiveDatabase hiveDatabase;
   final Box cacheBox;
-  CacheBoxDataSources(this.cacheBox);
+  CacheBoxDataSources(this.cacheBox, this.hiveDatabase);
 
-  Future<List<Map<String, dynamic>>> autoCacheQuerySnapshot(
-      {required Future<QuerySnapshot<Map<String, dynamic>>> Function()
-          querySnapshot,
-      required String key,
-      int? expirationHour}) async {
-    final cacheData = await getRequest(key);
-    if (cacheData == null) {
-      try {
-        final data = await querySnapshot();
-        await deleteRequest(key);
-        await saveRequest(key, {for (final d in data.docs) d.id: d.data()});
-        return data.docs.map((e) => e.data()).toList();
-      } catch (e) {
-        rethrow;
-      }
-    } else {
-      if (await isExpired(key)) {
-        try {
-          final data = await querySnapshot();
-          await deleteRequest(key);
-          await saveRequest(key, {for (final d in data.docs) d.id: d.data()});
-          return data.docs.map((e) => e.data()).toList();
-        } catch (e) {
-          return cacheData.entries
-              .map<Map<String, dynamic>>((e) => e.value)
-              .toList();
-        }
+  Future<void> saveCache<T>(T data, String key) async {
+    final cacheKey = key;
+    await cacheBox.put(cacheKey, data);
+    await cacheBox.put("${cacheKey}_time", DateTime.now());
+
+    if (T == UserInfo) {
+      hiveDatabase.userBoxDatasources.userInfo = data as UserInfo;
+    }
+  }
+
+  Future<void> clearAllCache() async => await cacheBox.clear();
+
+  Future<DateTime?> getCacheTime<T>(String? key) async {
+    try {
+      final value = await cacheBox.get("${key}_time");
+      if (value == null) {
+        return null;
       } else {
-        final data = cacheData.entries
-            .map<Map<String, dynamic>>((e) => e.value)
-            .toList();
-        return data;
+        return value as DateTime;
       }
+    } catch (e) {
+      return null;
     }
   }
 
-  @override
-  Future<Map<String, dynamic>?> getRequest(String key) async {
-    final value = await cacheBox.get(key);
-    if (value == null) return null;
-    return jsonDecode(jsonDecode(value)['data']);
-  }
-
-  @override
-  Future<DateTime?> getCacheDate(String key) async {
-    final value = await cacheBox.get(key);
-    return (value == null) ? null : DateTime.parse(jsonDecode(value)['date']);
-  }
-
-  @override
-  Future<void> saveRequest(String key, Map<String, dynamic> map) async =>
-      await cacheBox.put(
-          key,
-          jsonEncode({
-            "data": jsonEncode(map),
-            "date": DateTime.now().toIso8601String()
-          }));
-
-  Future<void> makeExpired(String key) async {
-    final res = await getRequest(key);
-    if (res != null) {
-      await cacheBox.put(
-          key,
-          jsonEncode(
-            {"data": jsonEncode(res), "date": DateTime(1947).toIso8601String()},
-          ));
+  Future<T?> getCache<T>(String key) async {
+    try {
+      final value = await cacheBox.get(key);
+      if (value == null) {
+        return null;
+      } else {
+        return value as T;
+      }
+    } catch (e) {
+      return null;
     }
   }
 
-  @override
-  Future<void> deleteRequest(String key) async => await cacheBox.delete(key);
-
-  @override
-  Future<DateTime> getLastUpdated(String key) async {
-    final value = await cacheBox.get(key);
-    if (value == null) return DateTime(1947);
-    return DateTime.parse(jsonDecode(value)['date']);
-  }
-
-  @override
-  Future<bool> isExpired(String key) async {
-    final value = await cacheBox.get(key);
-    if (value == null) return true;
-    final date = DateTime.parse(jsonDecode(value)['date'])
-        .add(const Duration(hours: cacheExpiresHour));
-    return date.difference(DateTime.now()).inHours.isNegative;
+  Future<void> deleteCache<T>(String key) async {
+    await cacheBox.delete(key);
+    await cacheBox.delete("${key}_time");
   }
 }

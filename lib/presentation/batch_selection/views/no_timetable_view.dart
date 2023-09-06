@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../controllers/user_batch_controller.dart';
 
 class NoTimetableView extends StatelessWidget {
-  final UserBatchController controller;
+  final BatchSelectionController controller;
   const NoTimetableView({required this.controller, super.key});
 
   @override

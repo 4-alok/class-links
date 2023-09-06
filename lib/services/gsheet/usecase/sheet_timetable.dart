@@ -4,8 +4,8 @@ import '../../../global/models/time_table/time_table.dart';
 abstract class SheetTimetableUsecase {
   /// Get the sheet rows list by sheetName
   Future<SheetData> get getSheetRowsList;
-  Future<TimeTable?> get getMyTimetableCache;
-  Future<DateTime?> get getMyTimetableCacheDate;
-  Future<TimeTable> get getMyTimetable;
+  // Future<TimeTable?> get getMyTimetableCache;
+  // Future<DateTime?> get getMyTimetableCacheDate;
+  Future<TimeTable?> getMyTimetable();
   Future get getTimetableData;
 }

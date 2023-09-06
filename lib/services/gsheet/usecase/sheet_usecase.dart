@@ -1,7 +1,7 @@
-abstract class SheetUsecase {
-  /// Get the id from URL
-  String get getGSheetsId;
+// abstract class SheetUsecase {
+//   /// Get the id from URL
+//   String get getGSheetsId;
 
-  /// Load spreadsheet
-  Future<void> get loadSpreadSheet;
-}
+//   /// Load spreadsheet
+//   Future<void> get loadSpreadSheet;
+// }

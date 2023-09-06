@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'event_log.dart';
 
@@ -32,33 +32,37 @@ mixin _$EventLog {
 /// @nodoc
 abstract class $EventLogCopyWith<$Res> {
   factory $EventLogCopyWith(EventLog value, $Res Function(EventLog) then) =
-      _$EventLogCopyWithImpl<$Res>;
+      _$EventLogCopyWithImpl<$Res, EventLog>;
+  @useResult
   $Res call({int eventCount, List<String> refIds});
 }
 
 /// @nodoc
-class _$EventLogCopyWithImpl<$Res> implements $EventLogCopyWith<$Res> {
+class _$EventLogCopyWithImpl<$Res, $Val extends EventLog>
+    implements $EventLogCopyWith<$Res> {
   _$EventLogCopyWithImpl(this._value, this._then);
 
-  final EventLog _value;
   // ignore: unused_field
-  final $Res Function(EventLog) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? eventCount = freezed,
-    Object? refIds = freezed,
+    Object? eventCount = null,
+    Object? refIds = null,
   }) {
     return _then(_value.copyWith(
-      eventCount: eventCount == freezed
+      eventCount: null == eventCount
           ? _value.eventCount
           : eventCount // ignore: cast_nullable_to_non_nullable
               as int,
-      refIds: refIds == freezed
+      refIds: null == refIds
           ? _value.refIds
           : refIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -68,30 +72,30 @@ abstract class _$$_EventLogCopyWith<$Res> implements $EventLogCopyWith<$Res> {
           _$_EventLog value, $Res Function(_$_EventLog) then) =
       __$$_EventLogCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int eventCount, List<String> refIds});
 }
 
 /// @nodoc
-class __$$_EventLogCopyWithImpl<$Res> extends _$EventLogCopyWithImpl<$Res>
+class __$$_EventLogCopyWithImpl<$Res>
+    extends _$EventLogCopyWithImpl<$Res, _$_EventLog>
     implements _$$_EventLogCopyWith<$Res> {
   __$$_EventLogCopyWithImpl(
       _$_EventLog _value, $Res Function(_$_EventLog) _then)
-      : super(_value, (v) => _then(v as _$_EventLog));
+      : super(_value, _then);
 
-  @override
-  _$_EventLog get _value => super._value as _$_EventLog;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? eventCount = freezed,
-    Object? refIds = freezed,
+    Object? eventCount = null,
+    Object? refIds = null,
   }) {
     return _then(_$_EventLog(
-      eventCount: eventCount == freezed
+      eventCount: null == eventCount
           ? _value.eventCount
           : eventCount // ignore: cast_nullable_to_non_nullable
               as int,
-      refIds: refIds == freezed
+      refIds: null == refIds
           ? _value._refIds
           : refIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
@@ -115,6 +119,7 @@ class _$_EventLog implements _EventLog {
   @override
   @JsonKey()
   List<String> get refIds {
+    if (_refIds is EqualUnmodifiableListView) return _refIds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_refIds);
   }
@@ -129,20 +134,19 @@ class _$_EventLog implements _EventLog {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_EventLog &&
-            const DeepCollectionEquality()
-                .equals(other.eventCount, eventCount) &&
+            (identical(other.eventCount, eventCount) ||
+                other.eventCount == eventCount) &&
             const DeepCollectionEquality().equals(other._refIds, _refIds));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(eventCount),
-      const DeepCollectionEquality().hash(_refIds));
+      runtimeType, eventCount, const DeepCollectionEquality().hash(_refIds));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_EventLogCopyWith<_$_EventLog> get copyWith =>
       __$$_EventLogCopyWithImpl<_$_EventLog>(this, _$identity);
 

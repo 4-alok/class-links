@@ -43,7 +43,7 @@ class Subject with _$Subject {
       _$SubjectFromJson(json);
 }
 
-@Freezed(makeCollectionsUnmodifiable: false)
+@Freezed(makeCollectionsUnmodifiable: true)
 class DayTime with _$DayTime {
   const factory DayTime({
     required int hour,

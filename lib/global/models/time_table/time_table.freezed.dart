@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'time_table.dart';
 
@@ -36,7 +36,8 @@ mixin _$TimeTable {
 /// @nodoc
 abstract class $TimeTableCopyWith<$Res> {
   factory $TimeTableCopyWith(TimeTable value, $Res Function(TimeTable) then) =
-      _$TimeTableCopyWithImpl<$Res>;
+      _$TimeTableCopyWithImpl<$Res, TimeTable>;
+  @useResult
   $Res call(
       {List<Day> week,
       String creatorId,
@@ -47,48 +48,51 @@ abstract class $TimeTableCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TimeTableCopyWithImpl<$Res> implements $TimeTableCopyWith<$Res> {
+class _$TimeTableCopyWithImpl<$Res, $Val extends TimeTable>
+    implements $TimeTableCopyWith<$Res> {
   _$TimeTableCopyWithImpl(this._value, this._then);
 
-  final TimeTable _value;
   // ignore: unused_field
-  final $Res Function(TimeTable) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? week = freezed,
-    Object? creatorId = freezed,
-    Object? batch = freezed,
-    Object? year = freezed,
-    Object? slot = freezed,
-    Object? date = freezed,
+    Object? week = null,
+    Object? creatorId = null,
+    Object? batch = null,
+    Object? year = null,
+    Object? slot = null,
+    Object? date = null,
   }) {
     return _then(_value.copyWith(
-      week: week == freezed
+      week: null == week
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as List<Day>,
-      creatorId: creatorId == freezed
+      creatorId: null == creatorId
           ? _value.creatorId
           : creatorId // ignore: cast_nullable_to_non_nullable
               as String,
-      batch: batch == freezed
+      batch: null == batch
           ? _value.batch
           : batch // ignore: cast_nullable_to_non_nullable
               as String,
-      year: year == freezed
+      year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
               as int,
-      slot: slot == freezed
+      slot: null == slot
           ? _value.slot
           : slot // ignore: cast_nullable_to_non_nullable
               as int,
-      date: date == freezed
+      date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 }
 
@@ -98,6 +102,7 @@ abstract class _$$_TimeTableCopyWith<$Res> implements $TimeTableCopyWith<$Res> {
           _$_TimeTable value, $Res Function(_$_TimeTable) then) =
       __$$_TimeTableCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {List<Day> week,
       String creatorId,
@@ -108,46 +113,45 @@ abstract class _$$_TimeTableCopyWith<$Res> implements $TimeTableCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_TimeTableCopyWithImpl<$Res> extends _$TimeTableCopyWithImpl<$Res>
+class __$$_TimeTableCopyWithImpl<$Res>
+    extends _$TimeTableCopyWithImpl<$Res, _$_TimeTable>
     implements _$$_TimeTableCopyWith<$Res> {
   __$$_TimeTableCopyWithImpl(
       _$_TimeTable _value, $Res Function(_$_TimeTable) _then)
-      : super(_value, (v) => _then(v as _$_TimeTable));
+      : super(_value, _then);
 
-  @override
-  _$_TimeTable get _value => super._value as _$_TimeTable;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? week = freezed,
-    Object? creatorId = freezed,
-    Object? batch = freezed,
-    Object? year = freezed,
-    Object? slot = freezed,
-    Object? date = freezed,
+    Object? week = null,
+    Object? creatorId = null,
+    Object? batch = null,
+    Object? year = null,
+    Object? slot = null,
+    Object? date = null,
   }) {
     return _then(_$_TimeTable(
-      week: week == freezed
+      week: null == week
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as List<Day>,
-      creatorId: creatorId == freezed
+      creatorId: null == creatorId
           ? _value.creatorId
           : creatorId // ignore: cast_nullable_to_non_nullable
               as String,
-      batch: batch == freezed
+      batch: null == batch
           ? _value.batch
           : batch // ignore: cast_nullable_to_non_nullable
               as String,
-      year: year == freezed
+      year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
               as int,
-      slot: slot == freezed
+      slot: null == slot
           ? _value.slot
           : slot // ignore: cast_nullable_to_non_nullable
               as int,
-      date: date == freezed
+      date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -193,11 +197,12 @@ class _$_TimeTable implements _TimeTable {
         (other.runtimeType == runtimeType &&
             other is _$_TimeTable &&
             const DeepCollectionEquality().equals(other.week, week) &&
-            const DeepCollectionEquality().equals(other.creatorId, creatorId) &&
-            const DeepCollectionEquality().equals(other.batch, batch) &&
-            const DeepCollectionEquality().equals(other.year, year) &&
-            const DeepCollectionEquality().equals(other.slot, slot) &&
-            const DeepCollectionEquality().equals(other.date, date));
+            (identical(other.creatorId, creatorId) ||
+                other.creatorId == creatorId) &&
+            (identical(other.batch, batch) || other.batch == batch) &&
+            (identical(other.year, year) || other.year == year) &&
+            (identical(other.slot, slot) || other.slot == slot) &&
+            (identical(other.date, date) || other.date == date));
   }
 
   @JsonKey(ignore: true)
@@ -205,14 +210,15 @@ class _$_TimeTable implements _TimeTable {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(week),
-      const DeepCollectionEquality().hash(creatorId),
-      const DeepCollectionEquality().hash(batch),
-      const DeepCollectionEquality().hash(year),
-      const DeepCollectionEquality().hash(slot),
-      const DeepCollectionEquality().hash(date));
+      creatorId,
+      batch,
+      year,
+      slot,
+      date);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TimeTableCopyWith<_$_TimeTable> get copyWith =>
       __$$_TimeTableCopyWithImpl<_$_TimeTable>(this, _$identity);
 
@@ -271,33 +277,36 @@ mixin _$Day {
 /// @nodoc
 abstract class $DayCopyWith<$Res> {
   factory $DayCopyWith(Day value, $Res Function(Day) then) =
-      _$DayCopyWithImpl<$Res>;
+      _$DayCopyWithImpl<$Res, Day>;
+  @useResult
   $Res call({String day, List<Subject> subjects});
 }
 
 /// @nodoc
-class _$DayCopyWithImpl<$Res> implements $DayCopyWith<$Res> {
+class _$DayCopyWithImpl<$Res, $Val extends Day> implements $DayCopyWith<$Res> {
   _$DayCopyWithImpl(this._value, this._then);
 
-  final Day _value;
   // ignore: unused_field
-  final $Res Function(Day) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? day = freezed,
-    Object? subjects = freezed,
+    Object? day = null,
+    Object? subjects = null,
   }) {
     return _then(_value.copyWith(
-      day: day == freezed
+      day: null == day
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
               as String,
-      subjects: subjects == freezed
+      subjects: null == subjects
           ? _value.subjects
           : subjects // ignore: cast_nullable_to_non_nullable
               as List<Subject>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -306,29 +315,28 @@ abstract class _$$_DayCopyWith<$Res> implements $DayCopyWith<$Res> {
   factory _$$_DayCopyWith(_$_Day value, $Res Function(_$_Day) then) =
       __$$_DayCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String day, List<Subject> subjects});
 }
 
 /// @nodoc
-class __$$_DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res>
+class __$$_DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$_Day>
     implements _$$_DayCopyWith<$Res> {
   __$$_DayCopyWithImpl(_$_Day _value, $Res Function(_$_Day) _then)
-      : super(_value, (v) => _then(v as _$_Day));
+      : super(_value, _then);
 
-  @override
-  _$_Day get _value => super._value as _$_Day;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? day = freezed,
-    Object? subjects = freezed,
+    Object? day = null,
+    Object? subjects = null,
   }) {
     return _then(_$_Day(
-      day: day == freezed
+      day: null == day
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
               as String,
-      subjects: subjects == freezed
+      subjects: null == subjects
           ? _value.subjects
           : subjects // ignore: cast_nullable_to_non_nullable
               as List<Subject>,
@@ -358,19 +366,18 @@ class _$_Day implements _Day {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Day &&
-            const DeepCollectionEquality().equals(other.day, day) &&
+            (identical(other.day, day) || other.day == day) &&
             const DeepCollectionEquality().equals(other.subjects, subjects));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(day),
-      const DeepCollectionEquality().hash(subjects));
+      runtimeType, day, const DeepCollectionEquality().hash(subjects));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DayCopyWith<_$_Day> get copyWith =>
       __$$_DayCopyWithImpl<_$_Day>(this, _$identity);
 
@@ -419,7 +426,8 @@ mixin _$Subject {
 /// @nodoc
 abstract class $SubjectCopyWith<$Res> {
   factory $SubjectCopyWith(Subject value, $Res Function(Subject) then) =
-      _$SubjectCopyWithImpl<$Res>;
+      _$SubjectCopyWithImpl<$Res, Subject>;
+  @useResult
   $Res call(
       {String subjectName,
       String? roomNo,
@@ -432,54 +440,58 @@ abstract class $SubjectCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SubjectCopyWithImpl<$Res> implements $SubjectCopyWith<$Res> {
+class _$SubjectCopyWithImpl<$Res, $Val extends Subject>
+    implements $SubjectCopyWith<$Res> {
   _$SubjectCopyWithImpl(this._value, this._then);
 
-  final Subject _value;
   // ignore: unused_field
-  final $Res Function(Subject) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? subjectName = freezed,
+    Object? subjectName = null,
     Object? roomNo = freezed,
     Object? isElective = freezed,
     Object? electiveSubjectCode = freezed,
     Object? teacherName = freezed,
-    Object? startTime = freezed,
+    Object? startTime = null,
   }) {
     return _then(_value.copyWith(
-      subjectName: subjectName == freezed
+      subjectName: null == subjectName
           ? _value.subjectName
           : subjectName // ignore: cast_nullable_to_non_nullable
               as String,
-      roomNo: roomNo == freezed
+      roomNo: freezed == roomNo
           ? _value.roomNo
           : roomNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      isElective: isElective == freezed
+      isElective: freezed == isElective
           ? _value.isElective
           : isElective // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      electiveSubjectCode: electiveSubjectCode == freezed
+      electiveSubjectCode: freezed == electiveSubjectCode
           ? _value.electiveSubjectCode
           : electiveSubjectCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      teacherName: teacherName == freezed
+      teacherName: freezed == teacherName
           ? _value.teacherName
           : teacherName // ignore: cast_nullable_to_non_nullable
               as String?,
-      startTime: startTime == freezed
+      startTime: null == startTime
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
               as DayTime,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $DayTimeCopyWith<$Res> get startTime {
     return $DayTimeCopyWith<$Res>(_value.startTime, (value) {
-      return _then(_value.copyWith(startTime: value));
+      return _then(_value.copyWith(startTime: value) as $Val);
     });
   }
 }
@@ -490,6 +502,7 @@ abstract class _$$_SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
           _$_Subject value, $Res Function(_$_Subject) then) =
       __$$_SubjectCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String subjectName,
       String? roomNo,
@@ -503,42 +516,41 @@ abstract class _$$_SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SubjectCopyWithImpl<$Res> extends _$SubjectCopyWithImpl<$Res>
+class __$$_SubjectCopyWithImpl<$Res>
+    extends _$SubjectCopyWithImpl<$Res, _$_Subject>
     implements _$$_SubjectCopyWith<$Res> {
   __$$_SubjectCopyWithImpl(_$_Subject _value, $Res Function(_$_Subject) _then)
-      : super(_value, (v) => _then(v as _$_Subject));
+      : super(_value, _then);
 
-  @override
-  _$_Subject get _value => super._value as _$_Subject;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? subjectName = freezed,
+    Object? subjectName = null,
     Object? roomNo = freezed,
     Object? isElective = freezed,
     Object? electiveSubjectCode = freezed,
     Object? teacherName = freezed,
-    Object? startTime = freezed,
+    Object? startTime = null,
   }) {
     return _then(_$_Subject(
-      subjectName: subjectName == freezed
+      subjectName: null == subjectName
           ? _value.subjectName
           : subjectName // ignore: cast_nullable_to_non_nullable
               as String,
-      roomNo: roomNo == freezed
+      roomNo: freezed == roomNo
           ? _value.roomNo
           : roomNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      isElective: isElective == freezed ? _value.isElective : isElective,
-      electiveSubjectCode: electiveSubjectCode == freezed
+      isElective: freezed == isElective ? _value.isElective! : isElective,
+      electiveSubjectCode: freezed == electiveSubjectCode
           ? _value.electiveSubjectCode
           : electiveSubjectCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      teacherName: teacherName == freezed
+      teacherName: freezed == teacherName
           ? _value.teacherName
           : teacherName // ignore: cast_nullable_to_non_nullable
               as String?,
-      startTime: startTime == freezed
+      startTime: null == startTime
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
               as DayTime,
@@ -587,31 +599,33 @@ class _$_Subject implements _Subject {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Subject &&
-            const DeepCollectionEquality()
-                .equals(other.subjectName, subjectName) &&
-            const DeepCollectionEquality().equals(other.roomNo, roomNo) &&
+            (identical(other.subjectName, subjectName) ||
+                other.subjectName == subjectName) &&
+            (identical(other.roomNo, roomNo) || other.roomNo == roomNo) &&
             const DeepCollectionEquality()
                 .equals(other.isElective, isElective) &&
-            const DeepCollectionEquality()
-                .equals(other.electiveSubjectCode, electiveSubjectCode) &&
-            const DeepCollectionEquality()
-                .equals(other.teacherName, teacherName) &&
-            const DeepCollectionEquality().equals(other.startTime, startTime));
+            (identical(other.electiveSubjectCode, electiveSubjectCode) ||
+                other.electiveSubjectCode == electiveSubjectCode) &&
+            (identical(other.teacherName, teacherName) ||
+                other.teacherName == teacherName) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(subjectName),
-      const DeepCollectionEquality().hash(roomNo),
+      subjectName,
+      roomNo,
       const DeepCollectionEquality().hash(isElective),
-      const DeepCollectionEquality().hash(electiveSubjectCode),
-      const DeepCollectionEquality().hash(teacherName),
-      const DeepCollectionEquality().hash(startTime));
+      electiveSubjectCode,
+      teacherName,
+      startTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SubjectCopyWith<_$_Subject> get copyWith =>
       __$$_SubjectCopyWithImpl<_$_Subject>(this, _$identity);
 
@@ -669,33 +683,37 @@ mixin _$DayTime {
 /// @nodoc
 abstract class $DayTimeCopyWith<$Res> {
   factory $DayTimeCopyWith(DayTime value, $Res Function(DayTime) then) =
-      _$DayTimeCopyWithImpl<$Res>;
+      _$DayTimeCopyWithImpl<$Res, DayTime>;
+  @useResult
   $Res call({int hour, int minute});
 }
 
 /// @nodoc
-class _$DayTimeCopyWithImpl<$Res> implements $DayTimeCopyWith<$Res> {
+class _$DayTimeCopyWithImpl<$Res, $Val extends DayTime>
+    implements $DayTimeCopyWith<$Res> {
   _$DayTimeCopyWithImpl(this._value, this._then);
 
-  final DayTime _value;
   // ignore: unused_field
-  final $Res Function(DayTime) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? hour = freezed,
-    Object? minute = freezed,
+    Object? hour = null,
+    Object? minute = null,
   }) {
     return _then(_value.copyWith(
-      hour: hour == freezed
+      hour: null == hour
           ? _value.hour
           : hour // ignore: cast_nullable_to_non_nullable
               as int,
-      minute: minute == freezed
+      minute: null == minute
           ? _value.minute
           : minute // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -705,29 +723,29 @@ abstract class _$$_DayTimeCopyWith<$Res> implements $DayTimeCopyWith<$Res> {
           _$_DayTime value, $Res Function(_$_DayTime) then) =
       __$$_DayTimeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int hour, int minute});
 }
 
 /// @nodoc
-class __$$_DayTimeCopyWithImpl<$Res> extends _$DayTimeCopyWithImpl<$Res>
+class __$$_DayTimeCopyWithImpl<$Res>
+    extends _$DayTimeCopyWithImpl<$Res, _$_DayTime>
     implements _$$_DayTimeCopyWith<$Res> {
   __$$_DayTimeCopyWithImpl(_$_DayTime _value, $Res Function(_$_DayTime) _then)
-      : super(_value, (v) => _then(v as _$_DayTime));
+      : super(_value, _then);
 
-  @override
-  _$_DayTime get _value => super._value as _$_DayTime;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? hour = freezed,
-    Object? minute = freezed,
+    Object? hour = null,
+    Object? minute = null,
   }) {
     return _then(_$_DayTime(
-      hour: hour == freezed
+      hour: null == hour
           ? _value.hour
           : hour // ignore: cast_nullable_to_non_nullable
               as int,
-      minute: minute == freezed
+      minute: null == minute
           ? _value.minute
           : minute // ignore: cast_nullable_to_non_nullable
               as int,
@@ -758,19 +776,17 @@ class _$_DayTime implements _DayTime {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DayTime &&
-            const DeepCollectionEquality().equals(other.hour, hour) &&
-            const DeepCollectionEquality().equals(other.minute, minute));
+            (identical(other.hour, hour) || other.hour == hour) &&
+            (identical(other.minute, minute) || other.minute == minute));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(hour),
-      const DeepCollectionEquality().hash(minute));
+  int get hashCode => Object.hash(runtimeType, hour, minute);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DayTimeCopyWith<_$_DayTime> get copyWith =>
       __$$_DayTimeCopyWithImpl<_$_DayTime>(this, _$identity);
 

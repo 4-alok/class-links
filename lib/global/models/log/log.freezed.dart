@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'log.dart';
 
@@ -28,43 +28,47 @@ mixin _$LogData {
 /// @nodoc
 abstract class $LogDataCopyWith<$Res> {
   factory $LogDataCopyWith(LogData value, $Res Function(LogData) then) =
-      _$LogDataCopyWithImpl<$Res>;
+      _$LogDataCopyWithImpl<$Res, LogData>;
+  @useResult
   $Res call({String name, String email, String log, DateTime date});
 }
 
 /// @nodoc
-class _$LogDataCopyWithImpl<$Res> implements $LogDataCopyWith<$Res> {
+class _$LogDataCopyWithImpl<$Res, $Val extends LogData>
+    implements $LogDataCopyWith<$Res> {
   _$LogDataCopyWithImpl(this._value, this._then);
 
-  final LogData _value;
   // ignore: unused_field
-  final $Res Function(LogData) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? email = freezed,
-    Object? log = freezed,
-    Object? date = freezed,
+    Object? name = null,
+    Object? email = null,
+    Object? log = null,
+    Object? date = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      log: log == freezed
+      log: null == log
           ? _value.log
           : log // ignore: cast_nullable_to_non_nullable
               as String,
-      date: date == freezed
+      date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 }
 
@@ -74,39 +78,39 @@ abstract class _$$_LogDataCopyWith<$Res> implements $LogDataCopyWith<$Res> {
           _$_LogData value, $Res Function(_$_LogData) then) =
       __$$_LogDataCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, String email, String log, DateTime date});
 }
 
 /// @nodoc
-class __$$_LogDataCopyWithImpl<$Res> extends _$LogDataCopyWithImpl<$Res>
+class __$$_LogDataCopyWithImpl<$Res>
+    extends _$LogDataCopyWithImpl<$Res, _$_LogData>
     implements _$$_LogDataCopyWith<$Res> {
   __$$_LogDataCopyWithImpl(_$_LogData _value, $Res Function(_$_LogData) _then)
-      : super(_value, (v) => _then(v as _$_LogData));
+      : super(_value, _then);
 
-  @override
-  _$_LogData get _value => super._value as _$_LogData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? email = freezed,
-    Object? log = freezed,
-    Object? date = freezed,
+    Object? name = null,
+    Object? email = null,
+    Object? log = null,
+    Object? date = null,
   }) {
     return _then(_$_LogData(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      log: log == freezed
+      log: null == log
           ? _value.log
           : log // ignore: cast_nullable_to_non_nullable
               as String,
-      date: date == freezed
+      date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -142,22 +146,18 @@ class _$_LogData implements _LogData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LogData &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.log, log) &&
-            const DeepCollectionEquality().equals(other.date, date));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.log, log) || other.log == log) &&
+            (identical(other.date, date) || other.date == date));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(log),
-      const DeepCollectionEquality().hash(date));
+  int get hashCode => Object.hash(runtimeType, name, email, log, date);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LogDataCopyWith<_$_LogData> get copyWith =>
       __$$_LogDataCopyWithImpl<_$_LogData>(this, _$identity);
 }

@@ -240,9 +240,7 @@ class ProfileView extends GetView<ProfileController> {
         leading: Hero(
           tag: "back",
           child: IconButton(
-            icon: const FaIcon(
-              FontAwesomeIcons.arrowLeft,
-            ),
+            icon: const FaIcon(FontAwesomeIcons.arrowLeft),
             onPressed: () => Get.back(),
           ),
         ),
@@ -254,8 +252,10 @@ class ProfileView extends GetView<ProfileController> {
                   ),
               icon: const FaIcon(FontAwesomeIcons.shareNodes)),
           IconButton(
-              onPressed: () => controller.getAppVersion.then(
-                  (value) => AppInfoBox.showAppAboutDialog(context, value)),
+              onPressed: () => controller.getAppVersion.then((value) =>
+                  showDialog(
+                      context: context,
+                      builder: (x) => AppInfoDialog(appVersion: value))),
               icon: const FaIcon(FontAwesomeIcons.info)),
         ],
       );

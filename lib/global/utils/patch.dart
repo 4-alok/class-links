@@ -16,7 +16,7 @@ class Patch {
 
     // Delete user info if user.date is has passed this Date 22-June-2023]
     if (user?.date.isBefore(DateTime(2023, 6, 22)) ?? false) {
-      await hiveDatabase.clearBoxes;
+      await hiveDatabase.cacheBoxDataSources.clearAllCache();
       // await firestoreService.userInfoDatasources.firestore
       //     .collection(userCollectionKey)
       //     .where('id', isEqualTo: user?.id)

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../services/gsheet/datasources/resources_datasources.dart';
 import '../../../../services/gsheet/repository/gsheet_service.dart';
-import '../widget/common_widget.dart';
+import '../widget/test_widgets.dart';
 
 class ResourcesTest extends StatefulWidget {
   const ResourcesTest({super.key});
@@ -12,7 +12,7 @@ class ResourcesTest extends StatefulWidget {
   State<ResourcesTest> createState() => _ResourcesTestState();
 }
 
-class _ResourcesTestState extends State<ResourcesTest> with TestWidget {
+class _ResourcesTestState extends State<ResourcesTest> with TestWidgets {
   GSheetService get gs => Get.find<GSheetService>();
 
   ResourcesDatasources get rds => gs.resourcesDatasources;

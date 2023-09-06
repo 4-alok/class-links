@@ -1,43 +1,44 @@
+import 'dart:async';
+
 import 'package:class_link/global/utils/get_snackbar.dart';
 import 'package:class_link/services/gsheet/datasources/teacher_info_datasources.dart';
 import 'package:get/get.dart';
 import 'package:gsheets/gsheets.dart';
 
 import '../../../global/const/app_credentials.dart';
+import '../datasources/elective_datasource.dart';
 import '../datasources/ghseet_user_info_datasources.dart';
 import '../datasources/resources_datasources.dart';
 import '../datasources/sheet_timetable_datasources.dart';
-import '../usecase/sheet_usecase.dart';
 
-class GSheetService extends GetxService implements SheetUsecase {
+class GSheetService extends GetxService {
   late final ResourcesDatasources resourcesDatasources;
   late final GSheetUserInfoDatasources gSheetUserInfoDatasources;
+  late final ElectiveDatasources electiveDatasources;
   late final SheetTimetableDatasources sheetTimetableDatasources;
   late final TeacherInfoDatasource teacherInfoDatasource;
   final gsheets = GSheets(credentials);
-  final spreadsheetLoaded = false.obs;
-  Spreadsheet? spreadsheet;
+  final spreadsheet = Completer<Spreadsheet?>();
 
   @override
   void onInit() {
     resourcesDatasources = ResourcesDatasources(gSheetService: this);
     gSheetUserInfoDatasources = GSheetUserInfoDatasources(gSheetService: this);
     sheetTimetableDatasources = SheetTimetableDatasources(gSheetService: this);
+    electiveDatasources = ElectiveDatasources();
     teacherInfoDatasource = TeacherInfoDatasource(gSheetService: this);
+    loadSpreadSheet;
     super.onInit();
   }
 
-  @override
-  Future<void> get loadSpreadSheet async =>
-      await gsheets.spreadsheet(getGSheetsId).then((value) {
-        spreadsheet = value;
-        spreadsheetLoaded.value = true;
-      }).onError((error, stackTrace) {
-        Message("Error while loading spreadsheet", error.toString());
-        spreadsheetLoaded.value = true;
-      });
+  Future<void> get loadSpreadSheet async {
+    try {
+      spreadsheet.complete(await gsheets.spreadsheet(getGSheetsId));
+    } catch (e) {
+      Message("Error while loading spreadsheet", e.toString());
+    }
+  }
 
-  @override
   String get getGSheetsId =>
       sheetURL.contains("/") ? sheetURL.split("/")[5] : sheetURL;
 

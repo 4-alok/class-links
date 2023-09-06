@@ -10,6 +10,9 @@ extension GetAppUserType on User? {
     if (email == null) {
       // If the email is null, return AppUserType.none
       return AppUserType.none; // This is a non-KIITian
+    } else if (_exceptions(email)) {
+      // If the email is an exception, return AppUserType.appUser
+      return AppUserType.appUser; // This is a non-KIITian
     } else if (email.endsWith("kiit.ac.in")) {
       // If the email ends with "kiit.ac.in", it is a KIITian
       final rollNo = int.tryParse(email.split("@")[0]) ??
@@ -19,9 +22,6 @@ extension GetAppUserType on User? {
         return AppUserType.appUser;
       }
       return AppUserType.kiitian; // Otherwise, return AppUserType.kiitian
-    } else if (_exceptions(email)) {
-      // If the email is an exception, return AppUserType.appUser
-      return AppUserType.appUser; // This is a non-KIITian
     } else {
       // Otherwise, return AppUserType.none
       return AppUserType.none;

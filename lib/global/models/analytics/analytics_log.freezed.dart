@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'analytics_log.dart';
 
@@ -38,7 +38,8 @@ mixin _$AnalyticsLog {
 abstract class $AnalyticsLogCopyWith<$Res> {
   factory $AnalyticsLogCopyWith(
           AnalyticsLog value, $Res Function(AnalyticsLog) then) =
-      _$AnalyticsLogCopyWithImpl<$Res>;
+      _$AnalyticsLogCopyWithImpl<$Res, AnalyticsLog>;
+  @useResult
   $Res call(
       {String? refId,
       String id,
@@ -50,53 +51,56 @@ abstract class $AnalyticsLogCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AnalyticsLogCopyWithImpl<$Res> implements $AnalyticsLogCopyWith<$Res> {
+class _$AnalyticsLogCopyWithImpl<$Res, $Val extends AnalyticsLog>
+    implements $AnalyticsLogCopyWith<$Res> {
   _$AnalyticsLogCopyWithImpl(this._value, this._then);
 
-  final AnalyticsLog _value;
   // ignore: unused_field
-  final $Res Function(AnalyticsLog) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? refId = freezed,
-    Object? id = freezed,
-    Object? slot = freezed,
-    Object? batch = freezed,
-    Object? stream = freezed,
-    Object? year = freezed,
-    Object? date = freezed,
+    Object? id = null,
+    Object? slot = null,
+    Object? batch = null,
+    Object? stream = null,
+    Object? year = null,
+    Object? date = null,
   }) {
     return _then(_value.copyWith(
-      refId: refId == freezed
+      refId: freezed == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      slot: slot == freezed
+      slot: null == slot
           ? _value.slot
           : slot // ignore: cast_nullable_to_non_nullable
               as int,
-      batch: batch == freezed
+      batch: null == batch
           ? _value.batch
           : batch // ignore: cast_nullable_to_non_nullable
               as String,
-      stream: stream == freezed
+      stream: null == stream
           ? _value.stream
           : stream // ignore: cast_nullable_to_non_nullable
               as String,
-      year: year == freezed
+      year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
               as int,
-      date: date == freezed
+      date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
+    ) as $Val);
   }
 }
 
@@ -107,6 +111,7 @@ abstract class _$$_AnalyticsLogCopyWith<$Res>
           _$_AnalyticsLog value, $Res Function(_$_AnalyticsLog) then) =
       __$$_AnalyticsLogCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? refId,
       String id,
@@ -119,51 +124,49 @@ abstract class _$$_AnalyticsLogCopyWith<$Res>
 
 /// @nodoc
 class __$$_AnalyticsLogCopyWithImpl<$Res>
-    extends _$AnalyticsLogCopyWithImpl<$Res>
+    extends _$AnalyticsLogCopyWithImpl<$Res, _$_AnalyticsLog>
     implements _$$_AnalyticsLogCopyWith<$Res> {
   __$$_AnalyticsLogCopyWithImpl(
       _$_AnalyticsLog _value, $Res Function(_$_AnalyticsLog) _then)
-      : super(_value, (v) => _then(v as _$_AnalyticsLog));
+      : super(_value, _then);
 
-  @override
-  _$_AnalyticsLog get _value => super._value as _$_AnalyticsLog;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? refId = freezed,
-    Object? id = freezed,
-    Object? slot = freezed,
-    Object? batch = freezed,
-    Object? stream = freezed,
-    Object? year = freezed,
-    Object? date = freezed,
+    Object? id = null,
+    Object? slot = null,
+    Object? batch = null,
+    Object? stream = null,
+    Object? year = null,
+    Object? date = null,
   }) {
     return _then(_$_AnalyticsLog(
-      refId: refId == freezed
+      refId: freezed == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      slot: slot == freezed
+      slot: null == slot
           ? _value.slot
           : slot // ignore: cast_nullable_to_non_nullable
               as int,
-      batch: batch == freezed
+      batch: null == batch
           ? _value.batch
           : batch // ignore: cast_nullable_to_non_nullable
               as String,
-      stream: stream == freezed
+      stream: null == stream
           ? _value.stream
           : stream // ignore: cast_nullable_to_non_nullable
               as String,
-      year: year == freezed
+      year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
               as int,
-      date: date == freezed
+      date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
@@ -213,29 +216,23 @@ class _$_AnalyticsLog implements _AnalyticsLog {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AnalyticsLog &&
-            const DeepCollectionEquality().equals(other.refId, refId) &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.slot, slot) &&
-            const DeepCollectionEquality().equals(other.batch, batch) &&
-            const DeepCollectionEquality().equals(other.stream, stream) &&
-            const DeepCollectionEquality().equals(other.year, year) &&
-            const DeepCollectionEquality().equals(other.date, date));
+            (identical(other.refId, refId) || other.refId == refId) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.slot, slot) || other.slot == slot) &&
+            (identical(other.batch, batch) || other.batch == batch) &&
+            (identical(other.stream, stream) || other.stream == stream) &&
+            (identical(other.year, year) || other.year == year) &&
+            (identical(other.date, date) || other.date == date));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(refId),
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(slot),
-      const DeepCollectionEquality().hash(batch),
-      const DeepCollectionEquality().hash(stream),
-      const DeepCollectionEquality().hash(year),
-      const DeepCollectionEquality().hash(date));
+  int get hashCode =>
+      Object.hash(runtimeType, refId, id, slot, batch, stream, year, date);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AnalyticsLogCopyWith<_$_AnalyticsLog> get copyWith =>
       __$$_AnalyticsLogCopyWithImpl<_$_AnalyticsLog>(this, _$identity);
 
@@ -300,39 +297,42 @@ mixin _$ThemeUsageLog {
 abstract class $ThemeUsageLogCopyWith<$Res> {
   factory $ThemeUsageLogCopyWith(
           ThemeUsageLog value, $Res Function(ThemeUsageLog) then) =
-      _$ThemeUsageLogCopyWithImpl<$Res>;
+      _$ThemeUsageLogCopyWithImpl<$Res, ThemeUsageLog>;
+  @useResult
   $Res call({bool? isBlack, bool? themeModeLight, String themeName});
 }
 
 /// @nodoc
-class _$ThemeUsageLogCopyWithImpl<$Res>
+class _$ThemeUsageLogCopyWithImpl<$Res, $Val extends ThemeUsageLog>
     implements $ThemeUsageLogCopyWith<$Res> {
   _$ThemeUsageLogCopyWithImpl(this._value, this._then);
 
-  final ThemeUsageLog _value;
   // ignore: unused_field
-  final $Res Function(ThemeUsageLog) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? isBlack = freezed,
     Object? themeModeLight = freezed,
-    Object? themeName = freezed,
+    Object? themeName = null,
   }) {
     return _then(_value.copyWith(
-      isBlack: isBlack == freezed
+      isBlack: freezed == isBlack
           ? _value.isBlack
           : isBlack // ignore: cast_nullable_to_non_nullable
               as bool?,
-      themeModeLight: themeModeLight == freezed
+      themeModeLight: freezed == themeModeLight
           ? _value.themeModeLight
           : themeModeLight // ignore: cast_nullable_to_non_nullable
               as bool?,
-      themeName: themeName == freezed
+      themeName: null == themeName
           ? _value.themeName
           : themeName // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -343,36 +343,35 @@ abstract class _$$_ThemeUsageLogCopyWith<$Res>
           _$_ThemeUsageLog value, $Res Function(_$_ThemeUsageLog) then) =
       __$$_ThemeUsageLogCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({bool? isBlack, bool? themeModeLight, String themeName});
 }
 
 /// @nodoc
 class __$$_ThemeUsageLogCopyWithImpl<$Res>
-    extends _$ThemeUsageLogCopyWithImpl<$Res>
+    extends _$ThemeUsageLogCopyWithImpl<$Res, _$_ThemeUsageLog>
     implements _$$_ThemeUsageLogCopyWith<$Res> {
   __$$_ThemeUsageLogCopyWithImpl(
       _$_ThemeUsageLog _value, $Res Function(_$_ThemeUsageLog) _then)
-      : super(_value, (v) => _then(v as _$_ThemeUsageLog));
+      : super(_value, _then);
 
-  @override
-  _$_ThemeUsageLog get _value => super._value as _$_ThemeUsageLog;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? isBlack = freezed,
     Object? themeModeLight = freezed,
-    Object? themeName = freezed,
+    Object? themeName = null,
   }) {
     return _then(_$_ThemeUsageLog(
-      isBlack: isBlack == freezed
+      isBlack: freezed == isBlack
           ? _value.isBlack
           : isBlack // ignore: cast_nullable_to_non_nullable
               as bool?,
-      themeModeLight: themeModeLight == freezed
+      themeModeLight: freezed == themeModeLight
           ? _value.themeModeLight
           : themeModeLight // ignore: cast_nullable_to_non_nullable
               as bool?,
-      themeName: themeName == freezed
+      themeName: null == themeName
           ? _value.themeName
           : themeName // ignore: cast_nullable_to_non_nullable
               as String,
@@ -410,22 +409,21 @@ class _$_ThemeUsageLog implements _ThemeUsageLog {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ThemeUsageLog &&
-            const DeepCollectionEquality().equals(other.isBlack, isBlack) &&
-            const DeepCollectionEquality()
-                .equals(other.themeModeLight, themeModeLight) &&
-            const DeepCollectionEquality().equals(other.themeName, themeName));
+            (identical(other.isBlack, isBlack) || other.isBlack == isBlack) &&
+            (identical(other.themeModeLight, themeModeLight) ||
+                other.themeModeLight == themeModeLight) &&
+            (identical(other.themeName, themeName) ||
+                other.themeName == themeName));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(isBlack),
-      const DeepCollectionEquality().hash(themeModeLight),
-      const DeepCollectionEquality().hash(themeName));
+  int get hashCode =>
+      Object.hash(runtimeType, isBlack, themeModeLight, themeName);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ThemeUsageLogCopyWith<_$_ThemeUsageLog> get copyWith =>
       __$$_ThemeUsageLogCopyWithImpl<_$_ThemeUsageLog>(this, _$identity);
 

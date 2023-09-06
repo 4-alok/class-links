@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'report.dart';
 
@@ -37,7 +37,8 @@ mixin _$Report {
 /// @nodoc
 abstract class $ReportCopyWith<$Res> {
   factory $ReportCopyWith(Report value, $Res Function(Report) then) =
-      _$ReportCopyWithImpl<$Res>;
+      _$ReportCopyWithImpl<$Res, Report>;
+  @useResult
   $Res call(
       {String? docId,
       String id,
@@ -50,58 +51,61 @@ abstract class $ReportCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ReportCopyWithImpl<$Res> implements $ReportCopyWith<$Res> {
+class _$ReportCopyWithImpl<$Res, $Val extends Report>
+    implements $ReportCopyWith<$Res> {
   _$ReportCopyWithImpl(this._value, this._then);
 
-  final Report _value;
   // ignore: unused_field
-  final $Res Function(Report) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? docId = freezed,
-    Object? id = freezed,
-    Object? userId = freezed,
-    Object? reportType = freezed,
-    Object? description = freezed,
-    Object? dateTime = freezed,
+    Object? id = null,
+    Object? userId = null,
+    Object? reportType = null,
+    Object? description = null,
+    Object? dateTime = null,
     Object? attatchmentUrl = freezed,
     Object? reply = freezed,
   }) {
     return _then(_value.copyWith(
-      docId: docId == freezed
+      docId: freezed == docId
           ? _value.docId
           : docId // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      userId: userId == freezed
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      reportType: reportType == freezed
+      reportType: null == reportType
           ? _value.reportType
           : reportType // ignore: cast_nullable_to_non_nullable
               as ReportType,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      dateTime: dateTime == freezed
+      dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      attatchmentUrl: attatchmentUrl == freezed
+      attatchmentUrl: freezed == attatchmentUrl
           ? _value.attatchmentUrl
           : attatchmentUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      reply: reply == freezed
+      reply: freezed == reply
           ? _value.reply
           : reply // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -110,6 +114,7 @@ abstract class _$$_ReportCopyWith<$Res> implements $ReportCopyWith<$Res> {
   factory _$$_ReportCopyWith(_$_Report value, $Res Function(_$_Report) then) =
       __$$_ReportCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? docId,
       String id,
@@ -122,55 +127,54 @@ abstract class _$$_ReportCopyWith<$Res> implements $ReportCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ReportCopyWithImpl<$Res> extends _$ReportCopyWithImpl<$Res>
+class __$$_ReportCopyWithImpl<$Res>
+    extends _$ReportCopyWithImpl<$Res, _$_Report>
     implements _$$_ReportCopyWith<$Res> {
   __$$_ReportCopyWithImpl(_$_Report _value, $Res Function(_$_Report) _then)
-      : super(_value, (v) => _then(v as _$_Report));
+      : super(_value, _then);
 
-  @override
-  _$_Report get _value => super._value as _$_Report;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? docId = freezed,
-    Object? id = freezed,
-    Object? userId = freezed,
-    Object? reportType = freezed,
-    Object? description = freezed,
-    Object? dateTime = freezed,
+    Object? id = null,
+    Object? userId = null,
+    Object? reportType = null,
+    Object? description = null,
+    Object? dateTime = null,
     Object? attatchmentUrl = freezed,
     Object? reply = freezed,
   }) {
     return _then(_$_Report(
-      docId: docId == freezed
+      docId: freezed == docId
           ? _value.docId
           : docId // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      userId: userId == freezed
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      reportType: reportType == freezed
+      reportType: null == reportType
           ? _value.reportType
           : reportType // ignore: cast_nullable_to_non_nullable
               as ReportType,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      dateTime: dateTime == freezed
+      dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      attatchmentUrl: attatchmentUrl == freezed
+      attatchmentUrl: freezed == attatchmentUrl
           ? _value.attatchmentUrl
           : attatchmentUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      reply: reply == freezed
+      reply: freezed == reply
           ? _value.reply
           : reply // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -224,34 +228,28 @@ class _$_Report implements _Report {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Report &&
-            const DeepCollectionEquality().equals(other.docId, docId) &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.userId, userId) &&
-            const DeepCollectionEquality()
-                .equals(other.reportType, reportType) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
-            const DeepCollectionEquality()
-                .equals(other.attatchmentUrl, attatchmentUrl) &&
-            const DeepCollectionEquality().equals(other.reply, reply));
+            (identical(other.docId, docId) || other.docId == docId) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.reportType, reportType) ||
+                other.reportType == reportType) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime) &&
+            (identical(other.attatchmentUrl, attatchmentUrl) ||
+                other.attatchmentUrl == attatchmentUrl) &&
+            (identical(other.reply, reply) || other.reply == reply));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(docId),
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(userId),
-      const DeepCollectionEquality().hash(reportType),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(dateTime),
-      const DeepCollectionEquality().hash(attatchmentUrl),
-      const DeepCollectionEquality().hash(reply));
+  int get hashCode => Object.hash(runtimeType, docId, id, userId, reportType,
+      description, dateTime, attatchmentUrl, reply);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ReportCopyWith<_$_Report> get copyWith =>
       __$$_ReportCopyWithImpl<_$_Report>(this, _$identity);
 

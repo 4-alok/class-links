@@ -15,10 +15,7 @@ const TEST_MODE = false;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await di.init.then((_) => runApp(
-        const ClassLink(),
-      ));
+  await di.init.then((_) => runApp(const ClassLink()));
 }
 
 class ClassLink extends StatelessWidget {

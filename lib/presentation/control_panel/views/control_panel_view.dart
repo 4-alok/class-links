@@ -31,10 +31,10 @@ class ControlPanel extends GetView<ControlPanelController> {
               const SizedBox(height: 20),
               const ResetUser(),
               const SizedBox(height: 20),
-              testButtons(context),
-              thirdYearAsViewer,
-              delete2ndYear,
-              get3rdYearBlankRoom,
+              // testButtons(context),
+              // thirdYearAsViewer,
+              // delete2ndYear,
+              // get3rdYearBlankRoom,
             ],
           ),
         ),
@@ -47,10 +47,10 @@ class ControlPanel extends GetView<ControlPanelController> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           tileColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
           title: const Text('Reports'),
-          leading: IconButton(
-            onPressed: () => controller.submitTestReport,
-            icon: const Icon(Icons.report),
-          ),
+          // leading: IconButton(
+          //   onPressed: () => controller.submitTestReport,
+          //   icon: const Icon(Icons.report),
+          // ),
           onTap: () => Get.toNamed(Routes.ADMIN_REPORT_PAGE),
         ),
       );
@@ -62,10 +62,10 @@ class ControlPanel extends GetView<ControlPanelController> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           tileColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
           title: const Text('Notification Control'),
-          leading: IconButton(
-            onPressed: () => controller.submitTestReport,
-            icon: const Icon(Icons.notification_add),
-          ),
+          // leading: IconButton(
+          //   onPressed: () => controller.submitTestReport,
+          //   icon: const Icon(Icons.notification_add),
+          // ),
           onTap: () => Get.toNamed(Routes.NOTIFICATION_CONTROL),
         ),
       );

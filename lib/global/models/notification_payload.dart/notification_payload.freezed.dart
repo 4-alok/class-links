@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'notification_payload.dart';
 
@@ -38,7 +38,8 @@ mixin _$NotificationPayload {
 abstract class $NotificationPayloadCopyWith<$Res> {
   factory $NotificationPayloadCopyWith(
           NotificationPayload value, $Res Function(NotificationPayload) then) =
-      _$NotificationPayloadCopyWithImpl<$Res>;
+      _$NotificationPayloadCopyWithImpl<$Res, NotificationPayload>;
+  @useResult
   $Res call(
       {String title,
       String body,
@@ -53,71 +54,75 @@ abstract class $NotificationPayloadCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$NotificationPayloadCopyWithImpl<$Res>
+class _$NotificationPayloadCopyWithImpl<$Res, $Val extends NotificationPayload>
     implements $NotificationPayloadCopyWith<$Res> {
   _$NotificationPayloadCopyWithImpl(this._value, this._then);
 
-  final NotificationPayload _value;
   // ignore: unused_field
-  final $Res Function(NotificationPayload) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = freezed,
-    Object? body = freezed,
-    Object? currentWeek = freezed,
+    Object? title = null,
+    Object? body = null,
+    Object? currentWeek = null,
     Object? type = freezed,
-    Object? time = freezed,
+    Object? time = null,
     Object? roomNo = freezed,
     Object? subject = freezed,
   }) {
     return _then(_value.copyWith(
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      body: body == freezed
+      body: null == body
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
-      currentWeek: currentWeek == freezed
+      currentWeek: null == currentWeek
           ? _value.currentWeek
           : currentWeek // ignore: cast_nullable_to_non_nullable
               as int,
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as LinkType?,
-      time: time == freezed
+      time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as DayTime,
-      roomNo: roomNo == freezed
+      roomNo: freezed == roomNo
           ? _value.roomNo
           : roomNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      subject: subject == freezed
+      subject: freezed == subject
           ? _value.subject
           : subject // ignore: cast_nullable_to_non_nullable
               as Subject?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $DayTimeCopyWith<$Res> get time {
     return $DayTimeCopyWith<$Res>(_value.time, (value) {
-      return _then(_value.copyWith(time: value));
+      return _then(_value.copyWith(time: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SubjectCopyWith<$Res>? get subject {
     if (_value.subject == null) {
       return null;
     }
 
     return $SubjectCopyWith<$Res>(_value.subject!, (value) {
-      return _then(_value.copyWith(subject: value));
+      return _then(_value.copyWith(subject: value) as $Val);
     });
   }
 }
@@ -129,6 +134,7 @@ abstract class _$$_NotificationPayloadCopyWith<$Res>
           $Res Function(_$_NotificationPayload) then) =
       __$$_NotificationPayloadCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String title,
       String body,
@@ -146,51 +152,49 @@ abstract class _$$_NotificationPayloadCopyWith<$Res>
 
 /// @nodoc
 class __$$_NotificationPayloadCopyWithImpl<$Res>
-    extends _$NotificationPayloadCopyWithImpl<$Res>
+    extends _$NotificationPayloadCopyWithImpl<$Res, _$_NotificationPayload>
     implements _$$_NotificationPayloadCopyWith<$Res> {
   __$$_NotificationPayloadCopyWithImpl(_$_NotificationPayload _value,
       $Res Function(_$_NotificationPayload) _then)
-      : super(_value, (v) => _then(v as _$_NotificationPayload));
+      : super(_value, _then);
 
-  @override
-  _$_NotificationPayload get _value => super._value as _$_NotificationPayload;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = freezed,
-    Object? body = freezed,
-    Object? currentWeek = freezed,
+    Object? title = null,
+    Object? body = null,
+    Object? currentWeek = null,
     Object? type = freezed,
-    Object? time = freezed,
+    Object? time = null,
     Object? roomNo = freezed,
     Object? subject = freezed,
   }) {
     return _then(_$_NotificationPayload(
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      body: body == freezed
+      body: null == body
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
-      currentWeek: currentWeek == freezed
+      currentWeek: null == currentWeek
           ? _value.currentWeek
           : currentWeek // ignore: cast_nullable_to_non_nullable
               as int,
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as LinkType?,
-      time: time == freezed
+      time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as DayTime,
-      roomNo: roomNo == freezed
+      roomNo: freezed == roomNo
           ? _value.roomNo
           : roomNo // ignore: cast_nullable_to_non_nullable
               as String?,
-      subject: subject == freezed
+      subject: freezed == subject
           ? _value.subject
           : subject // ignore: cast_nullable_to_non_nullable
               as Subject?,
@@ -241,30 +245,24 @@ class _$_NotificationPayload implements _NotificationPayload {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_NotificationPayload &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.body, body) &&
-            const DeepCollectionEquality()
-                .equals(other.currentWeek, currentWeek) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.time, time) &&
-            const DeepCollectionEquality().equals(other.roomNo, roomNo) &&
-            const DeepCollectionEquality().equals(other.subject, subject));
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.body, body) || other.body == body) &&
+            (identical(other.currentWeek, currentWeek) ||
+                other.currentWeek == currentWeek) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.time, time) || other.time == time) &&
+            (identical(other.roomNo, roomNo) || other.roomNo == roomNo) &&
+            (identical(other.subject, subject) || other.subject == subject));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(body),
-      const DeepCollectionEquality().hash(currentWeek),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(time),
-      const DeepCollectionEquality().hash(roomNo),
-      const DeepCollectionEquality().hash(subject));
+      runtimeType, title, body, currentWeek, type, time, roomNo, subject);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_NotificationPayloadCopyWith<_$_NotificationPayload> get copyWith =>
       __$$_NotificationPayloadCopyWithImpl<_$_NotificationPayload>(
           this, _$identity);
