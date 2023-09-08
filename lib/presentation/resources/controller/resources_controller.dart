@@ -57,7 +57,7 @@ bool _isListSame(Map<String, List<List<String>>> data) {
 }
 
 class ResourcesController extends GetxController {
-  final hasData = ValueNotifier<bool>(false);
+  final hasData = false.obs;
   final processing = ValueNotifier<bool>(false);
   final data = Rx<List<List<String>>?>(null);
   final currentEntity = ValueNotifier<List<IndexEntity>>([]);
@@ -68,9 +68,7 @@ class ResourcesController extends GetxController {
 
   @override
   void onReady() async {
-    data.value = (await resourcesReop.getResourcesListCache)?.rowList;
-    if (data.value != null) hasData.value = true;
-    final newList = (await resourcesReop.getResourcesList).rowList;
+    final newList = (await resourcesReop.getResourcesList)?.rowList ?? [];
     if (await compute(
         _isListSame, {"list1": data.value ?? [], "list2": newList})) {
       data.value = newList;
@@ -113,9 +111,10 @@ class ResourcesController extends GetxController {
 
   bool get backButtonController {
     if (currentPath.value != baseFolder) {
-      final k =
+      final parentFolder =
           currentPath.value.substring(0, currentPath.value.lastIndexOf('/'));
-      currentPath.value = "${k.substring(0, k.lastIndexOf('/'))}/";
+      currentPath.value =
+          "${parentFolder.substring(0, parentFolder.lastIndexOf('/'))}/";
       return false;
     } else {
       return true;
@@ -136,7 +135,6 @@ class ResourcesController extends GetxController {
 
   @override
   void dispose() {
-    hasData.dispose();
     processing.dispose();
     currentPath.dispose();
     data.close();

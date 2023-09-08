@@ -1,5 +1,6 @@
 name: class_link
 description: A new Flutter project.
+publish_to: none
 
 version: 0.1.32+34
 
@@ -42,15 +43,20 @@ dependencies:
   sticky_grouped_list: ^3.1.0
   hidable: ^1.0.4
   grouped_list: ^5.1.2
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
+  hive: ^2.2.3
 
 dev_dependencies:
-  freezed: ^2.4.1
+  freezed: ^2.4.2
   flutter_native_splash: ^2.3.1
 
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  json_serializable: ^6.7.1
+  build_runner: ^2.4.6
 
 flutter:
   uses-material-design: true

@@ -14,15 +14,22 @@ class LoadingDatabaseIcon extends StatelessWidget {
   Widget build(BuildContext context) => Center(
           child: Tooltip(
         message: 'Updating Database',
-        child: Obx(
-          () => AnimatedSwitcher(
+        child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
-            child: gSheetServece.spreadsheetLoaded.value
-                ? icon ?? const SizedBox()
-                : loadingWidget(context),
+            // child: gSheetServece.spreadsheetLoaded.value
+            //     ? icon ?? const SizedBox()
+            //     : loadingWidget(context),
+
+            child: FutureBuilder(
+              future: gSheetServece.spreadsheet.future,
+              builder: (context, snapshot) =>
+                  snapshot.connectionState == ConnectionState.done
+                      ? icon ?? const SizedBox()
+                      : loadingWidget(context),
+            ),
           ),
         ),
-      ));
+      );
 
   Stack loadingWidget(BuildContext context) => Stack(
         children: [

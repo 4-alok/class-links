@@ -4,6 +4,7 @@ targets:
       freezed:
         options:
           makeCollectionsUnmodifiable: false
+          copy_with: true
       json_serializable:
         options:
           explicit_to_json: true

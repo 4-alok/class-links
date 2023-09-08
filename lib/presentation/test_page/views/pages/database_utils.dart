@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../controller/database_utils.dart';
-import '../widget/common_widget.dart';
+import '../widget/test_widgets.dart';
 
 class DatabaseUtils extends StatefulWidget {
   const DatabaseUtils({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class DatabaseUtils extends StatefulWidget {
   State<DatabaseUtils> createState() => _DatabaseUtilsState();
 }
 
-class _DatabaseUtilsState extends State<DatabaseUtils> with TestWidget {
+class _DatabaseUtilsState extends State<DatabaseUtils> with TestWidgets {
   final controller = DatabaseUtilsController();
 
   @override
@@ -21,37 +22,76 @@ class _DatabaseUtilsState extends State<DatabaseUtils> with TestWidget {
             child: Wrap(
               spacing: 5,
               children: [
+                logs(),
                 ElevatedButton(
-                  onPressed: () => controller.deleteMeFromFirestore,
-                  child: const Text("Delete me from firestore"),
+                  onPressed: () => controller.clearUserInfo(),
+                  child: const Text("Clear"),
                 ),
                 ElevatedButton(
-                  onPressed: () => controller.test(),
-                  child: const Text("print build number"),
+                  onPressed: () => controller.fetchUserInfo(),
+                  child: const Text("Fetch UserInfo Firestore"),
                 ),
                 ElevatedButton(
-                  onPressed: () => controller.test2(),
-                  child: const Text("Set Build Number"),
+                  onPressed: () => controller.fetchHUserInfo(),
+                  child: const Text("Fetch UserInfo Hive"),
                 ),
                 ElevatedButton(
-                  onPressed: () => controller.test3(),
-                  child: const Text("Clear Build Number"),
+                  onPressed: () => controller.saveUserInfo(),
+                  child: const Text("Save UserInfo Hive"),
                 ),
                 ElevatedButton(
-                  onPressed: () => controller.test4(),
-                  child: const Text("Is Lateral"),
+                  onPressed: () => controller.clearCache(),
+                  child: const Text("Clear cache"),
                 ),
                 ElevatedButton(
-                  onPressed: () => controller.test5(),
-                  child: const Text("Test 5"),
+                  onPressed: () => controller.ui(),
+                  child: const Text("User instance"),
                 ),
                 ElevatedButton(
-                  onPressed: () => controller.test6(),
-                  child: const Text("Test 6"),
+                  onPressed: () => controller.updateUserInfoInCache(),
+                  child: const Text("Update User info in cache"),
+                ),
+                const Divider(),
+                timetableLog(),
+                ElevatedButton(
+                  onPressed: () => controller.streamTimetable(),
+                  child: const Text("Start Streaming"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.timeTableText.value = "",
+                  child: const Text("Clear text"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.cacheExpiryTime(),
+                  child: const Text("Expiry time"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.deleteTimetableFromCache(),
+                  child: const Text("Delete TimeTable "),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.clearAllCache(),
+                  child: const Text("Clear All Cache"),
                 ),
               ],
             ),
           ),
         ],
+      );
+
+  Widget logs() => Obx(
+        () => logText([
+          Text("UserInfo: ${controller.userInfo.value ?? "No Data"}",
+              style: const TextStyle(color: Colors.white)),
+        ]),
+      );
+
+  Widget timetableLog() => Obx(
+        () => logText([
+          Text(
+            controller.timeTableText.value,
+            maxLines: 25,
+          ),
+        ]),
       );
 }

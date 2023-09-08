@@ -4,11 +4,10 @@ class AppInfo {
   AppInfo._();
 
   static const String appName = "Class Link";
-  static const String applicationLegalese =
-      "Copyright (c) 2024 Class Link" "\nMIT License";
+  static const String applicationLegalese = "Copyright (c) 2024\nMIT License";
   static const String supportMail = "app.classlink@gmail.com";
   static const String appInfo =
-      "View the current class with just one click. Get holidays list, Resources(notes and PYQs) and more.\n\n";
+      "View the current class with just one click. Get holidays list, Resources(notes and PYQs) and more.";
   static const String appUrl =
       "https://play.google.com/store/apps/details?id=com.application.class_link";
   static const String linkedInURL = "https://www.linkedin.com/in/4-alok";

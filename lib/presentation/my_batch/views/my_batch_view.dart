@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../../../../services/firebase/repository/firestore_service.dart';
-import '../../../../services/hive/repository/hive_database.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../controllers/my_batch_controller.dart';
 
@@ -16,7 +14,7 @@ class MyBatchView extends GetView<MyBatchController> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text(
-            Get.find<HiveDatabase>().userBoxDatasources.userInfo?.batch ?? "",
+            controller.hiveDatabase.userBoxDatasources.userInfo?.batch ?? "",
             style: Get.textTheme.headlineMedium,
           ),
           centerTitle: true,
@@ -31,16 +29,16 @@ class MyBatchView extends GetView<MyBatchController> {
         body: listWithEmail,
       );
 
-  Widget get listWithEmail => FutureBuilder<List<UserInfo>>(
-        future: Get.find<FirestoreService>().userInfoDatasources.myBatch(false),
+  Widget get listWithEmail => FutureBuilder<UserInfoList?>(
+        future: controller.getUserInfoList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasData) {
-            if (snapshot.data?.isEmpty ?? true) {
+            if (snapshot.data?.list.isEmpty ?? true) {
               return const Center(child: Text("No Data"));
             } else {
-              final users = snapshot.data ?? [];
+              final users = snapshot.data?.list ?? [];
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.symmetric(vertical: 5),
@@ -50,7 +48,7 @@ class MyBatchView extends GetView<MyBatchController> {
               );
             }
           } else if (snapshot.hasError) {
-            return const Center(child: Text("Error"));
+            return Center(child: Text("Error: ${snapshot.error}"));
           }
           return Container();
         },

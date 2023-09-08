@@ -1,80 +1,108 @@
+import 'package:class_link/global/models/time_table/time_table.dart';
 import 'package:class_link/global/utils/get_snackbar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:class_link/services/hive/utils/cache_key.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
-import '../../../services/auth/repository/auth_service_repo.dart';
-import '../../../services/firebase/datasource/userinfo_datasource.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
 import '../../../services/gsheet/repository/gsheet_service.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../../../services/hive/repository/hive_database.dart';
 
 class DatabaseUtilsController {
-  GSheetService get gsheetService => Get.find<GSheetService>();
   HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
   FirestoreService get firestoreService => Get.find<FirestoreService>();
 
-  Future<void> get deleteMeFromFirestore async =>
-      await firestoreService.userInfoDatasources.firestore
-          .collection('userv2')
-          .where('id', isEqualTo: Get.find<AuthService>().getUser!.email)
-          .limit(1)
-          .get()
-          .then((users) => users.docs.first.reference.delete())
-          .then((_) => Message("Deleted", "Deleted from firestore"));
+  final userInfo = Rx<UserInfo?>(null);
+  final timeTableText = Rx<String>("");
 
-  void test() async {
-    hiveDatabase.settingBoxDatasources.buildNo;
+  void clearUserInfo() async => userInfo.value = null;
+
+  void fetchUserInfo() async {
+    userInfo.value = await firestoreService.userInfoDatasources.getUserInfo();
   }
 
-  void test2() async {
-    hiveDatabase.settingBoxDatasources.setBuildNo();
-  }
-
-  void test3() async {
-    // hiveDatabase.settingBoxDatasources.clearBuldNo();
-  }
-
-  void test4() async {
-    // final k = await Patch().isLateral(21053059);
-  }
-
-  test6() async {
-    // final k = await Patch.isRollNoInUserList(2005847);
-    // print(k);
-  }
-
-  void test5() async {
-    // final rolls = await Patch().getR() ?? [];
-    // final allUserInfo = await firestoreService.userInfoDatasources.firestore
-    // .collection(userCollectionKey)
-    // .get();
-    // for (var element in allUserInfo.docs) {
-    // final userInfo = UserInfo.fromJson(element.data());
-    // final roll = int.tryParse(userInfo.id.split('@').first) ?? 0;
-    // if (rolls.contains(roll)) {
-    // await element.reference.delete();
-    // }
-    // }
-  }
-
-  Future<void> deleteUserWhereRollNoStartWith22() async {
-    final FirebaseFirestore f = firestoreService.userInfoDatasources.firestore;
-    final res = await f.collection(userCollectionKey).get();
-    List k = [];
-    for (var element in res.docs) {
-      try {
-        final userInfo = UserInfo.fromJson(element.data());
-        final roll = int.tryParse(userInfo.id.split('@').first) ?? 0;
-        if (roll.toString().startsWith('22')) {
-          k.add(roll);
-          // await element.reference.delete();
-        }
-      } catch (e) {
-        // delete this user
-        print(element.data());
-        await element.reference.delete();
-      }
+  void fetchHUserInfo() async {
+    final res = await hiveDatabase.cacheBoxDataSources
+        .getCache<UserInfo>(CacheKey.USER_INFO);
+    if (res != null) {
+      userInfo.value = res;
+    } else {
+      Message("No Data", "No Data in Hive");
     }
+  }
+
+  Future saveUserInfo() async {
+    await hiveDatabase.cacheBoxDataSources
+        .saveCache<UserInfo>(userInfo.value!, CacheKey.USER_INFO);
+  }
+
+  Future clearCache() async {
+    await hiveDatabase.cacheBoxDataSources
+        .deleteCache<UserInfo>(CacheKey.USER_INFO);
+    userInfo.value = null;
+  }
+
+  void ui() => userInfo.value = hiveDatabase.userBoxDatasources.userInfo;
+
+  Future<void> updateUserInfoInCache() async {
+    // get user info from cache
+    final userInfo = await hiveDatabase.cacheBoxDataSources
+        .getCache<UserInfo>(CacheKey.USER_INFO);
+
+    if (userInfo != null) {
+      await hiveDatabase.cacheBoxDataSources.saveCache<UserInfo>(
+          userInfo.copyWith(batch: 'CSE-2'), CacheKey.USER_INFO);
+    }
+  }
+
+  Future<void> streamTimetable() async {
+    hiveDatabase
+        .streamCachedDataOrFetch<TimeTable>(
+            key: CacheKey.TIME_TABLE,
+            duration: const Duration(minutes: 5),
+            
+            fetchData: Get.find<GSheetService>()
+                .sheetTimetableDatasources
+                .getMyTimetable)
+        .listen((event) {
+      if (event == null) {
+        timeTableText.value = "No Data";
+      } else {}
+    });
+  }
+
+  // void printTimetable(List<TimeTable> timetables) async {
+  //   print("=============Printing Timetable=============");
+  //   for (var t in timetables) {
+  //     print(t.batch);
+  //     for (var d in t.week) {
+  //       print(d.day);
+  //       print(d.subjects
+  //           .map((e) => "${e.subjectName},${e.roomNo},${e.startTime.hour}||")
+  //           .toList());
+  //     }
+  //     print("\n\n");
+  //   }
+  //   print("=============Printing Timetable=============");
+  // }
+
+  Future<void> cacheExpiryTime() async {
+    final time = await hiveDatabase.cacheBoxDataSources
+        .getCacheTime<TimeTable>(CacheKey.TIME_TABLE);
+    debugPrint(time.toString());
+  }
+
+  Future<void> deleteTimetableFromCache() async {
+    await hiveDatabase.cacheBoxDataSources
+        .deleteCache<TimeTable>(CacheKey.TIME_TABLE);
+  }
+
+  void clearAllCache() async =>
+      hiveDatabase.cacheBoxDataSources.clearAllCache();
+
+  dispose() {
+    userInfo.close();
+    timeTableText.close();
   }
 }

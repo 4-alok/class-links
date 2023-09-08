@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'sheet_data.dart';
 
@@ -31,28 +31,32 @@ mixin _$SheetData {
 /// @nodoc
 abstract class $SheetDataCopyWith<$Res> {
   factory $SheetDataCopyWith(SheetData value, $Res Function(SheetData) then) =
-      _$SheetDataCopyWithImpl<$Res>;
+      _$SheetDataCopyWithImpl<$Res, SheetData>;
+  @useResult
   $Res call({List<List<String>> rowList});
 }
 
 /// @nodoc
-class _$SheetDataCopyWithImpl<$Res> implements $SheetDataCopyWith<$Res> {
+class _$SheetDataCopyWithImpl<$Res, $Val extends SheetData>
+    implements $SheetDataCopyWith<$Res> {
   _$SheetDataCopyWithImpl(this._value, this._then);
 
-  final SheetData _value;
   // ignore: unused_field
-  final $Res Function(SheetData) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? rowList = freezed,
+    Object? rowList = null,
   }) {
     return _then(_value.copyWith(
-      rowList: rowList == freezed
+      rowList: null == rowList
           ? _value.rowList
           : rowList // ignore: cast_nullable_to_non_nullable
               as List<List<String>>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -62,25 +66,25 @@ abstract class _$$_SheetDataCopyWith<$Res> implements $SheetDataCopyWith<$Res> {
           _$_SheetData value, $Res Function(_$_SheetData) then) =
       __$$_SheetDataCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<List<String>> rowList});
 }
 
 /// @nodoc
-class __$$_SheetDataCopyWithImpl<$Res> extends _$SheetDataCopyWithImpl<$Res>
+class __$$_SheetDataCopyWithImpl<$Res>
+    extends _$SheetDataCopyWithImpl<$Res, _$_SheetData>
     implements _$$_SheetDataCopyWith<$Res> {
   __$$_SheetDataCopyWithImpl(
       _$_SheetData _value, $Res Function(_$_SheetData) _then)
-      : super(_value, (v) => _then(v as _$_SheetData));
+      : super(_value, _then);
 
-  @override
-  _$_SheetData get _value => super._value as _$_SheetData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? rowList = freezed,
+    Object? rowList = null,
   }) {
     return _then(_$_SheetData(
-      rowList: rowList == freezed
+      rowList: null == rowList
           ? _value._rowList
           : rowList // ignore: cast_nullable_to_non_nullable
               as List<List<String>>,
@@ -100,6 +104,7 @@ class _$_SheetData implements _SheetData {
   final List<List<String>> _rowList;
   @override
   List<List<String>> get rowList {
+    if (_rowList is EqualUnmodifiableListView) return _rowList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_rowList);
   }
@@ -124,6 +129,7 @@ class _$_SheetData implements _SheetData {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SheetDataCopyWith<_$_SheetData> get copyWith =>
       __$$_SheetDataCopyWithImpl<_$_SheetData>(this, _$identity);
 

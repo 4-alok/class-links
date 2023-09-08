@@ -4,8 +4,7 @@ import 'package:get/get.dart';
 import '../../../../services/firebase/repository/firestore_service.dart';
 import '../../../../services/gsheet/repository/gsheet_service.dart';
 import '../../../../services/hive/repository/hive_database.dart';
-import '../../controller/database_utils.dart';
-import '../widget/common_widget.dart';
+import '../widget/test_widgets.dart';
 
 class SheetTest extends StatefulWidget {
   const SheetTest({Key? key}) : super(key: key);
@@ -14,7 +13,7 @@ class SheetTest extends StatefulWidget {
   State<SheetTest> createState() => _SheetTestState();
 }
 
-class _SheetTestState extends State<SheetTest> with TestWidget {
+class _SheetTestState extends State<SheetTest> with TestWidgets {
   GSheetService get gsheetService => Get.find<GSheetService>();
   HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
   FirestoreService get firestoreService => Get.find<FirestoreService>();
@@ -68,8 +67,10 @@ class _SheetTestState extends State<SheetTest> with TestWidget {
               spacing: 10,
               children: [
                 ElevatedButton(
-                  onPressed: () => DatabaseUtilsController()
-                      .deleteUserWhereRollNoStartWith22(),
+                  onPressed: () {
+                    // DatabaseUtilsController()
+                    //   .deleteUserWhereRollNoStartWith22();
+                  },
                   child: const Text("Delete 22*"),
                 ),
                 // ElevatedButton(

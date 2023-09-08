@@ -1,3 +1,4 @@
+import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
 import 'package:get/get.dart';
 
 import '../../../../routes/app_pages.dart';
@@ -25,7 +26,7 @@ const _streamToEnumMap = {
   "CSCE": CurrentStream.CSCE,
 };
 
-class UserBatchController extends GetxController {
+class BatchSelectionController extends GetxController {
   // 1, 2, 3, 4
   final currentYear = Rx<int?>(null);
   // 1, 2, 3, 4, 5, 6, 7, 8
@@ -44,18 +45,18 @@ class UserBatchController extends GetxController {
   final showSectionSelectionForm = Rx<bool>(false);
 
   FirestoreService get firestoreService => Get.find<FirestoreService>();
-
+  GSheetService get gSheetService => Get.find<GSheetService>();
   HiveDatabase get hivedatabaseServices => Get.find<HiveDatabase>();
 
   @override
   void onInit() {
-    clearUserInfo;
     email = Get.find<AuthService>().getUser?.email ?? "";
     super.onInit();
   }
 
   @override
   void onReady() async {
+    await hivedatabaseServices.cacheBoxDataSources.clearAllCache();
     if (email.startsWith("21")) {
       currentYear.value = 3;
       currentSemester.value = 5;
@@ -84,11 +85,12 @@ class UserBatchController extends GetxController {
     }
   }
 
-  Future<void> get clearUserInfo async =>
-      await hivedatabaseServices.userBoxDatasources.clearUserInfo;
+  // Future<void> get clearUserInfo async =>
+  //     await hivedatabaseServices.userBoxDatasources.clearUserInfo;
 
+  // Getting the list of sections from the gsheet (assets)
   Future<Map<String, String>> get getSectionListWithTeacherName async =>
-      await firestoreService.electiveDatasources.getSectionListWithTeacherName;
+      await gSheetService.electiveDatasources.getSectionListWithTeacherName;
 
   List<String> get getStreamList {
     if (currentYear.value == 3 || currentYear.value == 2) {
@@ -121,7 +123,8 @@ class UserBatchController extends GetxController {
 
   Future<void> submit() async {
     loading.value = true; // Set the loading state to true
-    await Future.delayed(const Duration(milliseconds: 500)); // Wait for 500 milliseconds
+    await Future.delayed(
+        const Duration(milliseconds: 500)); // Wait for 500 milliseconds
 
     final user = Get.find<AuthService>().getUser!; // Get the user object
 
@@ -132,6 +135,7 @@ class UserBatchController extends GetxController {
       year: currentYear.value!,
       batch: currentBatch.value!,
       stream: currentStreamString,
+      semester: currentSemester.value!,
       date: DateTime.now(),
       role: 'viewer',
     );

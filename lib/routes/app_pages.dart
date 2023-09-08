@@ -5,6 +5,8 @@ import '../presentation/app_users/binding/app_user_binding.dart';
 import '../presentation/app_users/view/app_user_view.dart';
 import '../presentation/auth/bindings/auth_binding.dart';
 import '../presentation/auth/views/auth_view.dart';
+import '../presentation/batch_selection/bindings/user_batch_binding.dart';
+import '../presentation/batch_selection/views/user_batch_view.dart';
 import '../presentation/control_panel/bindings/control_panel_binding.dart';
 import '../presentation/control_panel/views/control_panel_view.dart';
 import '../presentation/control_panel/views/pages/notification_page.dart';
@@ -24,10 +26,7 @@ import '../presentation/resources/bindings/resources_binding.dart';
 import '../presentation/resources/view/resources_view.dart';
 import '../presentation/subject_info/views/subject_info_view.dart';
 import '../presentation/test_page/views/test_page.dart';
-import '../presentation/user_batch/bindings/user_batch_binding.dart';
-import '../presentation/user_batch/views/user_batch_view.dart';
 import '../services/auth/repository/auth_service_repo.dart';
-import '../services/hive/repository/hive_database.dart';
 
 // ignore_for_file: non_constant_identifier_names
 part 'app_routes.dart';
@@ -64,7 +63,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.BATCH_SELECTION,
-      page: () => const UserBatchView(),
+      page: () => const BatchSelectionPage(),
       binding: UserBatchBinding(),
     ),
     GetPage(

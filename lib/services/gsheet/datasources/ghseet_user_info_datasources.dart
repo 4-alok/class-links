@@ -15,9 +15,9 @@ class GSheetUserInfoDatasources
   @override
   Future<bool> addUserInfo(UserInfo user) async {
     try {
-      return gSheetService.spreadsheetLoaded.value
+      return gSheetService.spreadsheet.isCompleted
           ? await _addUserInfo(user)
-          : await gSheetService.loadSpreadSheet
+          : await gSheetService.spreadsheet.future
               .then<bool>((value) async => await _addUserInfo(user));
     } catch (e) {
       return Future.error(e);
@@ -25,7 +25,7 @@ class GSheetUserInfoDatasources
   }
 
   Future<bool> _addUserInfo(UserInfo user) async {
-    final spreadsheet = gSheetService.spreadsheet;
+    final spreadsheet = await gSheetService.spreadsheet.future;
     if (spreadsheet != null) {
       final workSheet = spreadsheet.worksheetByTitle(sheetName);
       if (workSheet != null) {
@@ -40,7 +40,7 @@ class GSheetUserInfoDatasources
   }
 
   Future<void> addUsersList(List<UserInfo> users) async {
-    final spreadsheet = gSheetService.spreadsheet;
+    final spreadsheet = await gSheetService.spreadsheet.future;
     if (spreadsheet != null) {
       final workSheet = spreadsheet.worksheetByTitle(sheetName);
       if (workSheet != null) {
@@ -58,9 +58,9 @@ class GSheetUserInfoDatasources
   @override
   Future<List<UserInfo>> get getAllUserList async {
     try {
-      return gSheetService.spreadsheetLoaded.value
+      return gSheetService.spreadsheet.isCompleted
           ? _getAllUserList
-          : await gSheetService.loadSpreadSheet
+          : await gSheetService.spreadsheet.future
               .then<Future<List<UserInfo>>>((value) => _getAllUserList);
     } catch (e) {
       return Future.error(e);
@@ -68,7 +68,7 @@ class GSheetUserInfoDatasources
   }
 
   Future<List<UserInfo>> get _getAllUserList async {
-    final spreadsheet = gSheetService.spreadsheet;
+    final spreadsheet = await gSheetService.spreadsheet.future;
     if (spreadsheet != null) {
       final sheetData = spreadsheet.worksheetByTitle(sheetName);
       if (sheetData != null) {

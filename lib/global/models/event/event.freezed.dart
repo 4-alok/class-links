@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'event.dart';
 
@@ -41,7 +41,8 @@ mixin _$Event {
 /// @nodoc
 abstract class $EventCopyWith<$Res> {
   factory $EventCopyWith(Event value, $Res Function(Event) then) =
-      _$EventCopyWithImpl<$Res>;
+      _$EventCopyWithImpl<$Res, Event>;
+  @useResult
   $Res call(
       {String refId,
       String title,
@@ -58,78 +59,81 @@ abstract class $EventCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
+class _$EventCopyWithImpl<$Res, $Val extends Event>
+    implements $EventCopyWith<$Res> {
   _$EventCopyWithImpl(this._value, this._then);
 
-  final Event _value;
   // ignore: unused_field
-  final $Res Function(Event) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? refId = freezed,
-    Object? title = freezed,
-    Object? description = freezed,
-    Object? creatorId = freezed,
-    Object? creatorName = freezed,
-    Object? imgUrl = freezed,
-    Object? dateTime = freezed,
-    Object? createdAt = freezed,
+    Object? refId = null,
+    Object? title = null,
+    Object? description = null,
+    Object? creatorId = null,
+    Object? creatorName = null,
+    Object? imgUrl = null,
+    Object? dateTime = null,
+    Object? createdAt = null,
     Object? logoUrl = freezed,
-    Object? interested = freezed,
-    Object? verified = freezed,
+    Object? interested = null,
+    Object? verified = null,
     Object? launchURL = freezed,
   }) {
     return _then(_value.copyWith(
-      refId: refId == freezed
+      refId: null == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
               as String,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      creatorId: creatorId == freezed
+      creatorId: null == creatorId
           ? _value.creatorId
           : creatorId // ignore: cast_nullable_to_non_nullable
               as String,
-      creatorName: creatorName == freezed
+      creatorName: null == creatorName
           ? _value.creatorName
           : creatorName // ignore: cast_nullable_to_non_nullable
               as String,
-      imgUrl: imgUrl == freezed
+      imgUrl: null == imgUrl
           ? _value.imgUrl
           : imgUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      dateTime: dateTime == freezed
+      dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      logoUrl: logoUrl == freezed
+      logoUrl: freezed == logoUrl
           ? _value.logoUrl
           : logoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      interested: interested == freezed
+      interested: null == interested
           ? _value.interested
           : interested // ignore: cast_nullable_to_non_nullable
               as List<int>,
-      verified: verified == freezed
+      verified: null == verified
           ? _value.verified
           : verified // ignore: cast_nullable_to_non_nullable
               as bool,
-      launchURL: launchURL == freezed
+      launchURL: freezed == launchURL
           ? _value.launchURL
           : launchURL // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -138,6 +142,7 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
   factory _$$_EventCopyWith(_$_Event value, $Res Function(_$_Event) then) =
       __$$_EventCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String refId,
       String title,
@@ -154,75 +159,73 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
+class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
     implements _$$_EventCopyWith<$Res> {
   __$$_EventCopyWithImpl(_$_Event _value, $Res Function(_$_Event) _then)
-      : super(_value, (v) => _then(v as _$_Event));
+      : super(_value, _then);
 
-  @override
-  _$_Event get _value => super._value as _$_Event;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? refId = freezed,
-    Object? title = freezed,
-    Object? description = freezed,
-    Object? creatorId = freezed,
-    Object? creatorName = freezed,
-    Object? imgUrl = freezed,
-    Object? dateTime = freezed,
-    Object? createdAt = freezed,
+    Object? refId = null,
+    Object? title = null,
+    Object? description = null,
+    Object? creatorId = null,
+    Object? creatorName = null,
+    Object? imgUrl = null,
+    Object? dateTime = null,
+    Object? createdAt = null,
     Object? logoUrl = freezed,
-    Object? interested = freezed,
-    Object? verified = freezed,
+    Object? interested = null,
+    Object? verified = null,
     Object? launchURL = freezed,
   }) {
     return _then(_$_Event(
-      refId: refId == freezed
+      refId: null == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
               as String,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      creatorId: creatorId == freezed
+      creatorId: null == creatorId
           ? _value.creatorId
           : creatorId // ignore: cast_nullable_to_non_nullable
               as String,
-      creatorName: creatorName == freezed
+      creatorName: null == creatorName
           ? _value.creatorName
           : creatorName // ignore: cast_nullable_to_non_nullable
               as String,
-      imgUrl: imgUrl == freezed
+      imgUrl: null == imgUrl
           ? _value.imgUrl
           : imgUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      dateTime: dateTime == freezed
+      dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      createdAt: createdAt == freezed
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      logoUrl: logoUrl == freezed
+      logoUrl: freezed == logoUrl
           ? _value.logoUrl
           : logoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      interested: interested == freezed
+      interested: null == interested
           ? _value._interested
           : interested // ignore: cast_nullable_to_non_nullable
               as List<int>,
-      verified: verified == freezed
+      verified: null == verified
           ? _value.verified
           : verified // ignore: cast_nullable_to_non_nullable
               as bool,
-      launchURL: launchURL == freezed
+      launchURL: freezed == launchURL
           ? _value.launchURL
           : launchURL // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -275,6 +278,7 @@ class _$_Event implements _Event {
   @override
   @JsonKey()
   List<int> get interested {
+    if (_interested is EqualUnmodifiableListView) return _interested;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_interested);
   }
@@ -296,42 +300,48 @@ class _$_Event implements _Event {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Event &&
-            const DeepCollectionEquality().equals(other.refId, refId) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.creatorId, creatorId) &&
-            const DeepCollectionEquality()
-                .equals(other.creatorName, creatorName) &&
-            const DeepCollectionEquality().equals(other.imgUrl, imgUrl) &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
-            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            const DeepCollectionEquality().equals(other.logoUrl, logoUrl) &&
+            (identical(other.refId, refId) || other.refId == refId) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.creatorId, creatorId) ||
+                other.creatorId == creatorId) &&
+            (identical(other.creatorName, creatorName) ||
+                other.creatorName == creatorName) &&
+            (identical(other.imgUrl, imgUrl) || other.imgUrl == imgUrl) &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl) &&
             const DeepCollectionEquality()
                 .equals(other._interested, _interested) &&
-            const DeepCollectionEquality().equals(other.verified, verified) &&
-            const DeepCollectionEquality().equals(other.launchURL, launchURL));
+            (identical(other.verified, verified) ||
+                other.verified == verified) &&
+            (identical(other.launchURL, launchURL) ||
+                other.launchURL == launchURL));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(refId),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(creatorId),
-      const DeepCollectionEquality().hash(creatorName),
-      const DeepCollectionEquality().hash(imgUrl),
-      const DeepCollectionEquality().hash(dateTime),
-      const DeepCollectionEquality().hash(createdAt),
-      const DeepCollectionEquality().hash(logoUrl),
+      refId,
+      title,
+      description,
+      creatorId,
+      creatorName,
+      imgUrl,
+      dateTime,
+      createdAt,
+      logoUrl,
       const DeepCollectionEquality().hash(_interested),
-      const DeepCollectionEquality().hash(verified),
-      const DeepCollectionEquality().hash(launchURL));
+      verified,
+      launchURL);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_EventCopyWith<_$_Event> get copyWith =>
       __$$_EventCopyWithImpl<_$_Event>(this, _$identity);
 

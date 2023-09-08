@@ -8,8 +8,8 @@ import '../../../global/widget/frost_card.dart';
 import '../controllers/user_batch_controller.dart';
 import 'no_timetable_view.dart';
 
-class UserBatchView extends GetView<UserBatchController> {
-  const UserBatchView({Key? key}) : super(key: key);
+class BatchSelectionPage extends GetView<BatchSelectionController> {
+  const BatchSelectionPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Obx(

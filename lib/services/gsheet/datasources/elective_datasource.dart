@@ -1,57 +1,28 @@
+
+
 import 'package:class_link/global/models/time_table/time_table.dart';
 import 'package:class_link/global/utils/csv_utils.dart';
-import 'package:class_link/services/auth/repository/auth_service_repo.dart';
 import 'package:class_link/services/firebase/models/my_elective_list.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import '../../../global/const/elective_teachers.dart';
-import '../../hive/repository/hive_database.dart';
-import '../models/user_elective_section.dart';
-import '../usecase/elective_usecase.dart';
+import '../../firebase/models/user_elective_section.dart';
 
 const String userElectiveSection = 'user_elective_section';
 const String thirdYearSection = '3rd_year_section';
 const String thirdYeatElectiveTimetable = '3rd_year_elective_timetable';
 
-class ElectiveDatasources implements ElectiveUsecase {
-  final FirebaseFirestore firestore;
-  ElectiveDatasources({required this.firestore});
+class ElectiveDatasources {
+  // final FirebaseFirestore firestore;
+  // ElectiveDatasources({required this.firestore});
 
-  HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
+  // HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
 
-  @override
-  Future<UserElectiveSection?> getUserElectiveSection(int rollNo) async {
-    try {
-      final res1 = await hiveDatabase.cacheBoxDataSources
-          .getRequest(userElectiveSection);
-      print(res1);
-      if (res1 != null) {
-      return UserElectiveSection.fromMap(res1);
-      } else {
-        final res2 = await firestore
-            .collection(userElectiveSection)
-            .where("rollNo", isEqualTo: rollNo)
-            .limit(1)
-            .get();
-
-        return UserElectiveSection.fromMap(res2.docs.first.data());
-      }
-    } catch (e) {
-      print(e);
-      rethrow;
-    }
-  }
-
-  @override
-  Future<List<MyElectiveSubjects>> get getElectiveTimeTable async {
+  Future<List<MyElectiveSubjects>> getElectiveTimeTable(
+      UserElectiveSection? electiveSection) async {
+        
     final result = await CsvUtils.readCSVFile(
         'assets/database/3rd_year/5th_sem_elective_time_table.csv');
-
-    final rollStr =
-        Get.find<AuthService>().getUser?.email!.split('@').first ?? "";
-    final electiveSection =
-        await getUserElectiveSection(int.tryParse(rollStr) ?? 0);
 
     if (electiveSection != null) {
       final mySectionListRow = result
@@ -146,14 +117,6 @@ class ElectiveDatasources implements ElectiveUsecase {
     return subjectList;
   }
 
-  @override
-  Future<void> addUserElectiveSection(UserElectiveSection section) async {
-    await hiveDatabase.cacheBoxDataSources
-        .saveRequest(userElectiveSection, section.toMap());
-    await firestore.collection(userElectiveSection).add(section.toMap());
-  }
-
-  @override
   Future<List<String>> get getSectionList async {
     final classList = await CsvUtils.readCSVFile(
         'assets/database/3rd_year/5th_sem_elective_time_table.csv');
@@ -163,7 +126,6 @@ class ElectiveDatasources implements ElectiveUsecase {
     return electiveSections;
   }
 
-  @override
   Future<Map<String, String>> get getSectionListWithTeacherName async {
     Map<String, String> sectionWithTeacherName = {};
     for (var element in await getSectionList) {
@@ -172,7 +134,6 @@ class ElectiveDatasources implements ElectiveUsecase {
     return sectionWithTeacherName;
   }
 
-  @override
-  bool get isElectiveAvailable =>
-      hiveDatabase.userBoxDatasources.userInfo?.semester == 5;
+  // bool get isElectiveAvailable =>
+  //     hiveDatabase.userBoxDatasources.userInfo?.semester == 5;
 }

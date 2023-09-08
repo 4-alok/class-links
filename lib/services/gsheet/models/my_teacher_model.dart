@@ -14,19 +14,19 @@ class MyTeachers {
         'teachers': teachers.map((x) => x.toMap()).toList()
       };
 
-  factory MyTeachers.fromMap(Map<String, dynamic> map) => MyTeachers(
-        batch: map['batch'] as String,
-        teachers: List<Teacher>.from(
-          (map['teachers'] as List<dynamic>).map<Teacher>(
-            (x) => Teacher.fromMap(x as Map<String, dynamic>),
-          ),
-        ),
-      );
+  // factory MyTeachers.fromMap(Map<String, dynamic> map) => MyTeachers(
+  //       batch: map['batch'] as String,
+  //       teachers: List<Teacher>.from(
+  //         (map['teachers'] as List<dynamic>).map<Teacher>(
+  //           (x) => Teacher.fromMap(x as Map<String, dynamic>),
+  //         ),
+  //       ),
+  //     );
 
-  String toJson() => json.encode(toMap());
+  // String toJson() => json.encode(toMap());
 
-  factory MyTeachers.fromJson(String source) =>
-      MyTeachers.fromMap(json.decode(source) as Map<String, dynamic>);
+  // factory MyTeachers.fromJson(String source) =>
+  //     MyTeachers.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'MyTeachers(batch: $batch, teachers: $teachers)';
@@ -41,32 +41,29 @@ class MyTeachers {
 }
 
 class Teacher {
-  final String name;
-  final String subject;
-  const Teacher({required this.name, required this.subject});
+  final String teacherName;
+  final String subjectName;
+  const Teacher({required this.teacherName, required this.subjectName});
 
-  Teacher copyWith({String? name, String? subject}) =>
-      Teacher(name: name ?? this.name, subject: subject ?? this.subject);
+  Teacher copyWith({String? teacherName, String? subjectName}) =>
+      Teacher(teacherName: teacherName ?? this.teacherName, subjectName: subjectName ?? this.subjectName);
 
   Map<String, dynamic> toMap() =>
-      <String, dynamic>{'name': name, 'subject': subject};
+      <String, dynamic>{'teacherName': teacherName, 'subjectName': subjectName};
 
-  factory Teacher.fromMap(Map<String, dynamic> map) =>
-      Teacher(name: map['name'] as String, subject: map['subject'] as String);
+
 
   String toJson() => json.encode(toMap());
 
-  factory Teacher.fromJson(String source) =>
-      Teacher.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Teacher(name: $name, subject: $subject)';
+  String toString() => 'Teacher(teacherName: $teacherName, subjectName: $subjectName)';
 
   @override
   bool operator ==(covariant Teacher other) => (identical(this, other))
       ? true
-      : other.name == name && other.subject == subject;
+      : other.teacherName == teacherName && other.subjectName == subjectName;
 
   @override
-  int get hashCode => name.hashCode ^ subject.hashCode;
+  int get hashCode => teacherName.hashCode ^ subjectName.hashCode;
 }

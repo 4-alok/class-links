@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'subject_info.dart';
 
@@ -28,41 +28,46 @@ mixin _$SubjectInfo {
 abstract class $SubjectInfoCopyWith<$Res> {
   factory $SubjectInfoCopyWith(
           SubjectInfo value, $Res Function(SubjectInfo) then) =
-      _$SubjectInfoCopyWithImpl<$Res>;
+      _$SubjectInfoCopyWithImpl<$Res, SubjectInfo>;
+  @useResult
   $Res call({Subject subject, int currentWeek});
 
   $SubjectCopyWith<$Res> get subject;
 }
 
 /// @nodoc
-class _$SubjectInfoCopyWithImpl<$Res> implements $SubjectInfoCopyWith<$Res> {
+class _$SubjectInfoCopyWithImpl<$Res, $Val extends SubjectInfo>
+    implements $SubjectInfoCopyWith<$Res> {
   _$SubjectInfoCopyWithImpl(this._value, this._then);
 
-  final SubjectInfo _value;
   // ignore: unused_field
-  final $Res Function(SubjectInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? subject = freezed,
-    Object? currentWeek = freezed,
+    Object? subject = null,
+    Object? currentWeek = null,
   }) {
     return _then(_value.copyWith(
-      subject: subject == freezed
+      subject: null == subject
           ? _value.subject
           : subject // ignore: cast_nullable_to_non_nullable
               as Subject,
-      currentWeek: currentWeek == freezed
+      currentWeek: null == currentWeek
           ? _value.currentWeek
           : currentWeek // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SubjectCopyWith<$Res> get subject {
     return $SubjectCopyWith<$Res>(_value.subject, (value) {
-      return _then(_value.copyWith(subject: value));
+      return _then(_value.copyWith(subject: value) as $Val);
     });
   }
 }
@@ -74,6 +79,7 @@ abstract class _$$_SubjectInfoCopyWith<$Res>
           _$_SubjectInfo value, $Res Function(_$_SubjectInfo) then) =
       __$$_SubjectInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({Subject subject, int currentWeek});
 
   @override
@@ -81,26 +87,25 @@ abstract class _$$_SubjectInfoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SubjectInfoCopyWithImpl<$Res> extends _$SubjectInfoCopyWithImpl<$Res>
+class __$$_SubjectInfoCopyWithImpl<$Res>
+    extends _$SubjectInfoCopyWithImpl<$Res, _$_SubjectInfo>
     implements _$$_SubjectInfoCopyWith<$Res> {
   __$$_SubjectInfoCopyWithImpl(
       _$_SubjectInfo _value, $Res Function(_$_SubjectInfo) _then)
-      : super(_value, (v) => _then(v as _$_SubjectInfo));
+      : super(_value, _then);
 
-  @override
-  _$_SubjectInfo get _value => super._value as _$_SubjectInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? subject = freezed,
-    Object? currentWeek = freezed,
+    Object? subject = null,
+    Object? currentWeek = null,
   }) {
     return _then(_$_SubjectInfo(
-      subject: subject == freezed
+      subject: null == subject
           ? _value.subject
           : subject // ignore: cast_nullable_to_non_nullable
               as Subject,
-      currentWeek: currentWeek == freezed
+      currentWeek: null == currentWeek
           ? _value.currentWeek
           : currentWeek // ignore: cast_nullable_to_non_nullable
               as int,
@@ -128,19 +133,17 @@ class _$_SubjectInfo implements _SubjectInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SubjectInfo &&
-            const DeepCollectionEquality().equals(other.subject, subject) &&
-            const DeepCollectionEquality()
-                .equals(other.currentWeek, currentWeek));
+            (identical(other.subject, subject) || other.subject == subject) &&
+            (identical(other.currentWeek, currentWeek) ||
+                other.currentWeek == currentWeek));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(subject),
-      const DeepCollectionEquality().hash(currentWeek));
+  int get hashCode => Object.hash(runtimeType, subject, currentWeek);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SubjectInfoCopyWith<_$_SubjectInfo> get copyWith =>
       __$$_SubjectInfoCopyWithImpl<_$_SubjectInfo>(this, _$identity);
 }

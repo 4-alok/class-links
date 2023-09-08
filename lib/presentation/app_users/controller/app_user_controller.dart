@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:class_link/global/utils/get_snackbar.dart';
 import 'package:class_link/presentation/app_users/controller/search_controller.dart';
 import 'package:class_link/services/firebase/repository/firestore_service.dart';
 import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
+import 'package:class_link/services/hive/repository/hive_database.dart';
+import 'package:class_link/services/hive/utils/cache_key.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -50,46 +51,54 @@ class AppUsersController extends GetxController {
     super.onReady();
   }
 
-  Future<void> deleteUser(UserInfo userInfo) async => firestoreService
-      .userInfoDatasources
-      .deleteUser(userInfo)
-      .then((value) => Message("Deleted", "User Deleted Successfully"))
-      .onError(
-          (error, stackTrace) => Message("Error", "Error while deleting user"));
+  // Future<void> deleteUser(UserInfo userInfo) async => firestoreService
+  //     .userInfoDatasources
+  //     .deleteUser(userInfo)
+  //     .then((value) => Message("Deleted", "User Deleted Successfully"))
+  //     .onError(
+  //         (error, stackTrace) => Message("Error", "Error while deleting user"));
 
-  Future<void> get syncGSheetUsers async {
-    final gsheetUserList = await Get.find<GSheetService>()
-        .gSheetUserInfoDatasources
-        .getAllUserList
-        .onError((error, stackTrace) {
-      Message("Error", error.toString());
-      return [];
-    });
+  // Future<void> get syncGSheetUsers async {
+  //   final gsheetUserList = await Get.find<GSheetService>()
+  //       .gSheetUserInfoDatasources
+  //       .getAllUserList
+  //       .onError((error, stackTrace) {
+  //     Message("Error", error.toString());
+  //     return [];
+  //   });
 
-    List<UserInfo> listToAddInGsheet = [];
-    for (UserInfo userInfo in allUsersList) {
-      if (gsheetUserList
-          .where((element) => element.id == userInfo.id)
-          .isEmpty) {
-        listToAddInGsheet.add(userInfo);
-      }
-    }
+  //   List<UserInfo> listToAddInGsheet = [];
+  //   for (UserInfo userInfo in allUsersList) {
+  //     if (gsheetUserList
+  //         .where((element) => element.id == userInfo.id)
+  //         .isEmpty) {
+  //       listToAddInGsheet.add(userInfo);
+  //     }
+  //   }
 
-    await Get.find<GSheetService>()
-        .gSheetUserInfoDatasources
-        .addUsersList(listToAddInGsheet);
+  //   await Get.find<GSheetService>()
+  //       .gSheetUserInfoDatasources
+  //       .addUsersList(listToAddInGsheet);
 
-    Message("Synced Successfully", "Added ${listToAddInGsheet.length} users");
-  }
+  //   Message("Synced Successfully", "Added ${listToAddInGsheet.length} users");
+  // }
+
+  Future<UserInfoList> _getAllUserList() async => UserInfoList(
+      list: await Get.find<GSheetService>()
+          .gSheetUserInfoDatasources
+          .getAllUserList);
 
   Future<void> get _getUsers async {
-    allUsersList = await Get.find<GSheetService>()
-        .gSheetUserInfoDatasources
-        .getAllUserList
-        .onError((error, stackTrace) {
-      Message("Error", error.toString());
-      return [];
-    });
+    allUsersList =
+        (await Get.find<HiveDatabase>().getFromCacheOrFetch<UserInfoList>(
+              checkExpired: true,
+              duration: const Duration(hours: 1),
+              key: CacheKey.ALL_USER_LIST,
+              fetchData: _getAllUserList,
+            ))
+                ?.list ??
+            [];
+
     _updateYearWiseUserCount;
     loading.value = false;
     update();
@@ -128,7 +137,6 @@ class AppUsersController extends GetxController {
     } else if (userSortType.value == UserSortType.date) {
       _filteredUsersList.sort((a, b) => b.date.compareTo(a.date));
     }
-    // print(_filteredUsersList.length);
     return _filteredUsersList;
   }
 

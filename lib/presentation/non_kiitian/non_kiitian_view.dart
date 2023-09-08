@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 import '../../routes/app_pages.dart';
 import '../../services/auth/repository/auth_service_repo.dart';
-import '../../services/hive/repository/hive_database.dart';
 
 class NonKiitianView extends StatelessWidget {
   const NonKiitianView({Key? key}) : super(key: key);
@@ -41,13 +40,10 @@ class NonKiitianView extends StatelessWidget {
                                 Colors.red[100])
                             .withOpacity(.8)
                         : Colors.red),
-                onPressed: () async =>
-                    Get.find<AuthService>().logout.then((value) async {
-                      await Get.find<HiveDatabase>()
-                          .userBoxDatasources
-                          .clearUserInfo;
-                      Get.offAllNamed(Routes.AUTH);
-                    }),
+                onPressed: () async {
+                  Get.find<AuthService>().logout;
+                  Get.offAllNamed(Routes.AUTH);
+                },
                 child: const Text("Logout"))),
       );
 }

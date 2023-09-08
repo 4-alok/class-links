@@ -41,11 +41,16 @@ class HomeView extends GetView<HomeController> {
                 ],
               );
             } else if (snapshot.hasError) {
-              return Center(child: Text(snapshot.error.toString()));
+              return Center(
+                  child: Text(
+                snapshot.error.toString(),
+                style: const TextStyle(color: Colors.red),
+              ));
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else {
-              return const Material(child: Center(child: Text('Loading...')));
+              return const Material(
+                  child: Center(child: Text('No data: Something went wrong')));
             }
           },
         ),

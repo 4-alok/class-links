@@ -2,24 +2,21 @@ import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-import '../../../global/utils/filter_user_by_id.dart';
 import '../../../global/utils/get_snackbar.dart';
 import '../../auth/repository/auth_service_repo.dart';
 import '../../hive/models/user_info.dart';
 import '../../hive/repository/hive_database.dart';
-import '../usecase/userinfo_usecase.dart';
 
 const allStudentKey = 'all_student';
 const myBatchKey = 'my_batch';
 const userCollectionKey = 'userv2';
 
-class UserInfoDatasources implements UserInfoUsecase {
+class UserInfoDatasources {
   final FirebaseFirestore firestore;
   UserInfoDatasources({required this.firestore});
 
   HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
 
-  @override
   Future<bool> addUserInfo(UserInfo user) async {
     try {
       final result = await firestore
@@ -44,7 +41,6 @@ class UserInfoDatasources implements UserInfoUsecase {
     }
   }
 
-  @override
   Future<void> resetUser(String userId) async {
     try {
       await firestore
@@ -71,8 +67,7 @@ class UserInfoDatasources implements UserInfoUsecase {
     }
   }
 
-  @override
-  Future<UserInfo?> get getUserInfo async {
+  Future<UserInfo?> getUserInfo() async {
     try {
       final result = await firestore
           .collection(userCollectionKey)
@@ -91,29 +86,23 @@ class UserInfoDatasources implements UserInfoUsecase {
     }
   }
 
-  @override
-  Future<List<UserInfo>> myBatch([bool filterById = true]) async {
-    final res = await hiveDatabase.cacheBoxDataSources.autoCacheQuerySnapshot(
-      querySnapshot: firestore
-          .collection(userCollectionKey)
-          .where("batch",
-              isEqualTo:
-                  hiveDatabase.userBoxDatasources.userInfo?.batch ?? "na")
-          .where('year',
-              isEqualTo: hiveDatabase.userBoxDatasources.userInfo?.year)
-          .get,
-      key: myBatchKey,
-    );
-    final userList = res.map((e) => UserInfo.fromJson(e)).toList();
-    if (filterById) {
-      return filterUserById(userList);
-    } else {
-      userList.sort((a, b) => a.userName.compareTo(b.userName));
-      return userList;
-    }
-  }
+  Future<UserInfoList> myBatch() async =>
+      UserInfoList(
+        list: 
+        (await firestore
+              .collection(userCollectionKey)
+              .where(
+                  "batch",
+                  isEqualTo:
+                      hiveDatabase.userBoxDatasources.userInfo?.batch ?? "na")
+              .where('year',
+                  isEqualTo: hiveDatabase.userBoxDatasources.userInfo?.year)
+              .limit(100)
+              .get())
+          .docs
+          .map((e) => UserInfo.fromJson(e.data()).copyWith(refId: e.id))
+          .toList());
 
-  @override
   Stream<List<UserInfo>> get streamAllUserList =>
       firestore.collection(userCollectionKey).snapshots().map(
             (event) => event.docs.map((e) {
@@ -121,7 +110,6 @@ class UserInfoDatasources implements UserInfoUsecase {
             }).toList(),
           );
 
-  @override
   Stream<List<UserInfo>> get streamUserList => firestore
       .collection(userCollectionKey)
       .where("batch",
@@ -133,7 +121,6 @@ class UserInfoDatasources implements UserInfoUsecase {
         }).toList(),
       );
 
-  @override
   Future<bool> updateUser(UserInfo user) async {
     try {
       await firestore
@@ -147,7 +134,6 @@ class UserInfoDatasources implements UserInfoUsecase {
     }
   }
 
-  @override
   Future<void> deleteUser(UserInfo userInfo) async {
     final res = await firestore.collection(userCollectionKey).get();
     for (final snapshot in res.docs) {
@@ -158,12 +144,12 @@ class UserInfoDatasources implements UserInfoUsecase {
     }
   }
 
-  @override
   Future<List<UserInfo>> get getAllUserList async {
-    final res = await hiveDatabase.cacheBoxDataSources.autoCacheQuerySnapshot(
-      querySnapshot: firestore.collection(userCollectionKey).get,
-      key: allStudentKey,
-    );
-    return res.map((e) => UserInfo.fromJson(e)).toList();
+    // final res = await hiveDatabase.cacheBoxDataSources.autoCacheQuerySnapshot(
+    //   querySnapshot: firestore.collection(userCollectionKey).get,
+    //   key: allStudentKey,
+    // );
+    // return res.map((e) => UserInfo.fromJson(e)).toList();
+    return [];
   }
 }

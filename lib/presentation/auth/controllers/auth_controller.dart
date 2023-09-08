@@ -52,7 +52,7 @@ class AuthController extends GetxController {
   Future<void> tryRetrieveAndSaveUserInfo() async {
     if (hiveDatabase.userBoxDatasources.userInfo == null) {
       final class_link_user.UserInfo? userInfo =
-          await Get.find<FirestoreService>().userInfoDatasources.getUserInfo;
+          await Get.find<FirestoreService>().userInfoDatasources.getUserInfo();
       if (userInfo != null) {
         await hiveDatabase.userBoxDatasources.setUserInfo(userInfo);
       }
