@@ -1,13 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
-import '../../services/hive/models/user_info.dart';
-import '../const/holiday_list.dart';
-import '../models/analytics/analytics_log.dart';
-import '../models/log/log.dart';
 import '../models/time_table/time_table.dart' as timetable;
-import 'gsheets_utils.dart';
 
 extension IsCurrentTime on timetable.DayTime {
   bool get isCurrentTime => DateTime.now().hour == hour;
@@ -43,62 +37,62 @@ extension ColorAlphaBlend on Color {
       );
 }
 
-extension ToSheetRowList on List<LogData> {
-  List<List<dynamic>> get toSheetRowList => map(
-        (e) => [GSheetUtils.dateToGsheetsDate(e.date), e.name, e.email, e.log],
-      ).toList();
-}
+// extension ToSheetRowList on List<LogData> {
+//   List<List<dynamic>> get toSheetRowList => map(
+//         (e) => [GSheetUtils.dateToGsheetsDate(e.date), e.name, e.email, e.log],
+//       ).toList();
+// }
 
-extension ToListLogData on List<List<dynamic>> {
-  Iterable<LogData> get toListLogData => map((e) => LogData(
-        date: GSheetUtils.gsheetsDateToDate(e[0]) ?? DateTime.now(),
-        name: e[1],
-        email: e[2],
-        log: e[3],
-      ));
-}
+// extension ToListLogData on List<List<dynamic>> {
+//   Iterable<LogData> get toListLogData => map((e) => LogData(
+//         date: GSheetUtils.gsheetsDateToDate(e[0]) ?? DateTime.now(),
+//         name: e[1],
+//         email: e[2],
+//         log: e[3],
+//       ));
+// }
 
-extension DayEquality on timetable.Day {
-  bool equals(timetable.Day day, [timetable.Day? day2]) =>
-      ((day2?.day ?? day) == day.day)
-          ? const ListEquality()
-              .equals(day2?.subjects ?? subjects, day.subjects)
-          : false;
-}
+// extension DayEquality on timetable.Day {
+//   bool equals(timetable.Day day, [timetable.Day? day2]) =>
+//       ((day2?.day ?? day) == day.day)
+//           ? const ListEquality()
+//               .equals(day2?.subjects ?? subjects, day.subjects)
+//           : false;
+// }
 
 // extension Range on num {
 //   bool isBetween(num from, num to) => from <= this && this <= to;
 // }
 
-extension ToDateTime on Holiday {
-  DateTime get toDateTime => DateTime(year, month, day);
-}
+// extension ToDateTime on Holiday {
+//   DateTime get toDateTime => DateTime(year, month, day);
+// }
 
-extension UserAnalyticsLog on UserInfo {
-  AnalyticsLog get toAnalyticsLog => AnalyticsLog(
-        id: id,
-        slot: slot,
-        batch: batch,
-        stream: stream,
-        year: year,
-        date: DateTime.now(),
-      );
-}
+// extension UserAnalyticsLog on UserInfo {
+//   AnalyticsLog get toAnalyticsLog => AnalyticsLog(
+//         id: id,
+//         slot: slot,
+//         batch: batch,
+//         stream: stream,
+//         year: year,
+//         date: DateTime.now(),
+//       );
+// }
 
-extension StringSplit on String {
-  Map<String, String> get splitString {
-    late final int breakPoint;
-    for (int i = 0; i < length; i++) {
-      final n = int.tryParse(this[i]);
-      if (n is int) {
-        breakPoint = i;
-        break;
-      }
-    }
-    final string = substring(0, breakPoint);
-    final num = substring(breakPoint);
-    return {
-      string: num,
-    };
-  }
-}
+// extension StringSplit on String {
+//   Map<String, String> get splitString {
+//     late final int breakPoint;
+//     for (int i = 0; i < length; i++) {
+//       final n = int.tryParse(this[i]);
+//       if (n is int) {
+//         breakPoint = i;
+//         break;
+//       }
+//     }
+//     final string = substring(0, breakPoint);
+//     final num = substring(breakPoint);
+//     return {
+//       string: num,
+//     };
+//   }
+// }

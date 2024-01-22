@@ -1,16 +1,14 @@
-
-
 import 'package:class_link/global/models/time_table/time_table.dart';
 import 'package:class_link/global/utils/csv_utils.dart';
 import 'package:class_link/services/firebase/models/my_elective_list.dart';
 import 'package:get/get.dart';
 
-import '../../../global/const/elective_teachers.dart';
+import '../../../global/data/elective_teachers.dart';
 import '../../firebase/models/user_elective_section.dart';
 
-const String userElectiveSection = 'user_elective_section';
-const String thirdYearSection = '3rd_year_section';
-const String thirdYeatElectiveTimetable = '3rd_year_elective_timetable';
+// const String userElectiveSection = 'user_elective_section';
+// const String thirdYearSection = '3rd_year_section';
+// const String thirdYearElectiveTimetable = '3rd_year_elective_timetable';
 
 class ElectiveDatasources {
   // final FirebaseFirestore firestore;
@@ -20,10 +18,11 @@ class ElectiveDatasources {
 
   Future<List<MyElectiveSubjects>> getElectiveTimeTable(
       UserElectiveSection? electiveSection) async {
-        
+    // List<List<dynamic>>
     final result = await CsvUtils.readCSVFile(
-        'assets/database/3rd_year/5th_sem_elective_time_table.csv');
+        'assets/database/3rd_year/6th_sem_elective_time_table.csv');
 
+    // Filter the result, keeping only the my elective section
     if (electiveSection != null) {
       final mySectionListRow = result
           .where((element) =>
@@ -32,20 +31,22 @@ class ElectiveDatasources {
           .toList();
 
       // [DAY,Section,ROOM1,11,ROOM2,12,ROOM3,13,ROOM4,15,ROOM5,16,ROOM6,17]
-      // [Monday, ML_CS-2,  C-LH-405, ML(DE), C-LH-405, ML(DE),  C-LH-405, ML(DE), C-LH-405, ML(DE), C-LH-405, ML(DE), C-LH-405, ML(DE)]
-      // [Monday, ML_CS-9, X, X, X, X, X, X, X, X, C-LH-401, ML(DE), X, X]
-      // [Tuesday, ML_CS-2, X, X, X, X, X, X, X, X, X, X, X, X]
-      // [Tuesday, ML_CS-9, X, X, X, X, X, X, X, X, X, X, X, X]
-      // [Wednesday, ML_CS-2, X, X, C-LH-405, ML(DE), X, X, X, X, X, X, X, X]
-      // [Wednesday, ML_CS-9, X, X, X, X, X, X, X, X, X, X, X, X]
-      // [Thursday, ML_CS-2, X, X, X, X, X, X, X, X, C-LH-405, ML(DE), X, X]
-      // [Thursday, ML_CS-9, X, X, X, X, X, X, C-LH-401, ML(DE), X, X, X, X]
-      // [Friday, ML_CS-2, X, X, X, X, X, X, X, X, X, X, X, X]
-      // [Friday, ML_CS-9, X, X, C-LH-401, ML(DE), X, X, X, X, X, X, X, X]
+      // [Monday, ML CS-2,  C-LH-405, ML(DE), C-LH-405, ML(DE),  C-LH-405, ML(DE), C-LH-405, ML(DE), C-LH-405, ML(DE), C-LH-405, ML(DE)]
+      // [Monday, ML CS-9, X, X, X, X, X, X, X, X, C-LH-401, ML(DE), X, X]
+      // [Tuesday, ML CS-2, X, X, X, X, X, X, X, X, X, X, X, X]
+      // [Tuesday, ML CS-9, X, X, X, X, X, X, X, X, X, X, X, X]
+      // [Wednesday, ML CS-2, X, X, C-LH-405, ML(DE), X, X, X, X, X, X, X, X]
+      // [Wednesday, ML CS-9, X, X, X, X, X, X, X, X, X, X, X, X]
+      // [Thursday, ML CS-2, X, X, X, X, X, X, X, X, C-LH-405, ML(DE), X, X]
+      // [Thursday, ML CS-9, X, X, X, X, X, X, C-LH-401, ML(DE), X, X, X, X]
+      // [Friday, ML CS-2, X, X, X, X, X, X, X, X, X, X, X, X]
+      // [Friday, ML CS-9, X, X, C-LH-401, ML(DE), X, X, X, X, X, X, X, X]
 
       final myElectiveSubjectsList = <MyElectiveSubjects>[];
 
       for (int i = 0; i < mySectionListRow.length; i++) {
+
+        // if myElectiveSubjectsList is empty, add the first element
         if (myElectiveSubjectsList.firstWhereOrNull(
                 (element) => element.day == mySectionListRow[i][0]) ==
             null) {
@@ -84,8 +85,16 @@ class ElectiveDatasources {
     }
   }
 
+  // bool _isDayPresent(List<MyElectiveSubjects> myElectiveSubjectsList,
+  //         List<List<dynamic>> mySectionListRow, int i) =>
+  //     myElectiveSubjectsList.isEmpty
+  //         ? false
+  //         : myElectiveSubjectsList.firstWhereOrNull(
+  //                 (element) => element.day == mySectionListRow[i][0]) ==
+  //             null;
+
   // [DAY   | Section| ROOM1   | 11      |ROOM2    | 12    |ROOM3    | 13    | ROOM4   | 15    | ROOM5   | 16    | ROOM6   | 17    ]
-  // [Monday| ML_CS-2| C-LH-405| ML(DE)  | C-LH-405| ML(DE)| C-LH-405| ML(DE)| C-LH-405| ML(DE)| C-LH-405| ML(DE)| C-LH-405| ML(DE)]
+  // [Monday| ML CS-2| C-LH-405| ML(DE)  | C-LH-405| ML(DE)| C-LH-405| ML(DE)| C-LH-405| ML(DE)| C-LH-405| ML(DE)| C-LH-405| ML(DE)]
   // Subject(subjectName, roomNo, startTime)
   List<Subject> _getSubjectList(List<dynamic> row) {
     final subjectList = <Subject>[];
@@ -119,7 +128,7 @@ class ElectiveDatasources {
 
   Future<List<String>> get getSectionList async {
     final classList = await CsvUtils.readCSVFile(
-        'assets/database/3rd_year/5th_sem_elective_time_table.csv');
+        'assets/database/3rd_year/6th_sem_elective_time_table.csv');
     final electiveSections = {
       for (int i = 1; i < classList.length; i++) classList[i][1] as String
     }.toList();
@@ -135,5 +144,5 @@ class ElectiveDatasources {
   }
 
   // bool get isElectiveAvailable =>
-  //     hiveDatabase.userBoxDatasources.userInfo?.semester == 5;
+  //     hiveDatabase.userBoxDatasources.userInfo.value?.semester == 5;
 }

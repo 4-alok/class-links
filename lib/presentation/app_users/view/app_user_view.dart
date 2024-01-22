@@ -10,7 +10,7 @@ import 'widgets/search_page.dart';
 import 'widgets/user_details_tile.dart';
 
 class AppUserView extends GetView<AppUsersController> {
-  const AppUserView({Key? key}) : super(key: key);
+  const AppUserView({super.key});
 
   RoundedRectangleBorder get shape =>
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(0));
@@ -31,9 +31,7 @@ class AppUserView extends GetView<AppUsersController> {
             title: const Text("App Users"),
             actions: [
               IconButton(
-                onPressed: () {
-                  Get.to(SearchPage(controller: controller));
-                },
+                onPressed: () => Get.to(SearchPage(controller: controller)),
                 // onPressed: () => controller.searchController.searchPage.value =
                 //     !controller.searchController.searchPage.value,
                 icon: const FaIcon(FontAwesomeIcons.magnifyingGlass),
@@ -52,32 +50,33 @@ class AppUserView extends GetView<AppUsersController> {
                     children: [
                       TextButton(
                         style: TextButton.styleFrom(
-                          backgroundColor: controller.selectedYear.value == null
+                          backgroundColor: controller.selectedSemester.value ==
+                                  null
                               ? Theme.of(context).primaryColor
                               : Theme.of(context).primaryColor.withOpacity(.2),
                         ),
                         onPressed: () {
                           controller.selectedBatch.value = null;
-                          controller.selectedYear.value = null;
+                          controller.selectedSemester.value = null;
                         },
                         child: Text(
                           "All",
                           style: TextStyle(
-                            color: controller.selectedYear.value == null
+                            color: controller.selectedSemester.value == null
                                 ? Theme.of(context).colorScheme.onPrimary
                                 : null,
                           ),
                         ),
                       ),
                       const SizedBox(width: 2),
-                      ...List.generate(
-                        4,
-                        (index) => Padding(
+                      ...[2, 4, 6, 8].map((e) => e - 1).map((index) {
+                        final semester = index + 1;
+                        return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 2),
                           child: TextButton(
                             style: TextButton.styleFrom(
                               backgroundColor:
-                                  controller.selectedYear.value == index + 1
+                                  controller.selectedSemester.value == semester
                                       ? Theme.of(context).primaryColor
                                       : Theme.of(context)
                                           .primaryColor
@@ -85,18 +84,45 @@ class AppUserView extends GetView<AppUsersController> {
                             ),
                             onPressed: () {
                               controller.selectedBatch.value = null;
-                              controller.selectedYear.value = index + 1;
+                              controller.selectedSemester.value = semester;
                             },
-                            child: Text("${index + 1} Year",
+                            child: Text("$semester Semester",
                                 style: TextStyle(
-                                  color: controller.selectedYear.value ==
-                                          index + 1
+                                  color: controller.selectedSemester.value ==
+                                          semester
                                       ? Theme.of(context).colorScheme.onPrimary
                                       : null,
                                 )),
                           ),
-                        ),
-                      )
+                        );
+                      }),
+                      // ...List.generate(
+                      //   4,
+                      //   (index) => Padding(
+                      //     padding: const EdgeInsets.symmetric(horizontal: 2),
+                      //     child: TextButton(
+                      //       style: TextButton.styleFrom(
+                      //         backgroundColor:
+                      //             controller.selectedSemester.value == index + 2
+                      //                 ? Theme.of(context).primaryColor
+                      //                 : Theme.of(context)
+                      //                     .primaryColor
+                      //                     .withOpacity(.2),
+                      //       ),
+                      //       onPressed: () {
+                      //         controller.selectedBatch.value = null;
+                      //         controller.selectedSemester.value = index + 2;
+                      //       },
+                      //       child: Text("${index + 2} Semester",
+                      //           style: TextStyle(
+                      //             color: controller.selectedSemester.value ==
+                      //                     index + 2
+                      //                 ? Theme.of(context).colorScheme.onPrimary
+                      //                 : null,
+                      //           )),
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),
@@ -133,7 +159,7 @@ class AppUserView extends GetView<AppUsersController> {
 
   Hidable bottomBar(BuildContext context) => Hidable(
         controller: controller.scrollController,
-        wOpacity: false,
+        // wOpacity: false,
         child: GetBuilder<AppUsersController>(
             builder: (_) => Container(
                   height: AppBar().preferredSize.height,
@@ -188,18 +214,18 @@ class AppUserView extends GetView<AppUsersController> {
             children: [
               TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: controller.selectedYear.value == null
+                  backgroundColor: controller.selectedSemester.value == null
                       ? Theme.of(context).primaryColor
                       : Theme.of(context).primaryColor.withOpacity(.2),
                 ),
                 onPressed: () {
                   controller.selectedBatch.value = null;
-                  controller.selectedYear.value = null;
+                  controller.selectedSemester.value = null;
                 },
                 child: Text(
                   "All",
                   style: TextStyle(
-                    color: controller.selectedYear.value == null
+                    color: controller.selectedSemester.value == null
                         ? Theme.of(context).colorScheme.onPrimary
                         : null,
                   ),
@@ -213,17 +239,17 @@ class AppUserView extends GetView<AppUsersController> {
                   child: TextButton(
                     style: TextButton.styleFrom(
                       backgroundColor:
-                          controller.selectedYear.value == index + 1
+                          controller.selectedSemester.value == index + 1
                               ? Theme.of(context).primaryColor
                               : Theme.of(context).primaryColor.withOpacity(.2),
                     ),
                     onPressed: () {
                       controller.selectedBatch.value = null;
-                      controller.selectedYear.value = index + 1;
+                      controller.selectedSemester.value = index + 1;
                     },
-                    child: Text("${index + 1} Year",
+                    child: Text("${index + 1} Semester",
                         style: TextStyle(
-                          color: controller.selectedYear.value == index + 1
+                          color: controller.selectedSemester.value == index + 1
                               ? Theme.of(context).colorScheme.onPrimary
                               : null,
                         )),
@@ -261,7 +287,7 @@ class AppUserView extends GetView<AppUsersController> {
         configuration: const FadeScaleTransitionConfiguration(
           transitionDuration: Duration(milliseconds: 300),
         ),
-        builder: (BuildContext context) => AlertDiaglogUi(batches: batches),
+        builder: (BuildContext context) => AlertDialogUi(batches: batches),
       );
 
   Future<void> showFilterDialog(BuildContext context) async =>
@@ -290,18 +316,18 @@ class AppUserView extends GetView<AppUsersController> {
       );
 }
 
-class AlertDiaglogUi extends StatefulWidget {
+class AlertDialogUi extends StatefulWidget {
   final List<BatchInfo> batches;
-  const AlertDiaglogUi({
+  const AlertDialogUi({
     required this.batches,
     super.key,
   });
 
   @override
-  State<AlertDiaglogUi> createState() => _AlertDiaglogUiState();
+  State<AlertDialogUi> createState() => _AlertDialogUiState();
 }
 
-class _AlertDiaglogUiState extends State<AlertDiaglogUi> {
+class _AlertDialogUiState extends State<AlertDialogUi> {
   @override
   Widget build(BuildContext context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -320,7 +346,7 @@ class _AlertDiaglogUiState extends State<AlertDiaglogUi> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 2, horizontal: 30),
                   child: Text(
-                    '$groupValue Year',
+                    '${groupValue}th Semester',
                     // textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),

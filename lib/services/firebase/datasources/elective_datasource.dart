@@ -15,7 +15,8 @@ class ElectiveDatasources {
 
   Future<UserElectiveSection?> getUserElectiveSection() async {
     try {
-      final email = Get.find<HiveDatabase>().userBoxDatasources.userInfo?.id;
+      final email =
+          Get.find<HiveDatabase>().userBoxDatasources.userInfo.value?.id;
       final rollNo = email?.substring(0, email.indexOf('@'));
 
       final res = await firestore

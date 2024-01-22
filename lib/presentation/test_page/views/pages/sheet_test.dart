@@ -29,7 +29,7 @@ class _SheetTestState extends State<SheetTest> with TestWidgets {
           //       ElevatedButton(
           //         onPressed: () =>
           //             gsheetService.gSheetUserInfoDatasources.addUserInfo(
-          //           hiveDatabase.userBoxDatasources.userInfo!,
+          //           hiveDatabase.userBoxDatasources.userInfo.value!,
           //         ),
           //         child: const Text("Add User Test"),
           //       ),
@@ -68,10 +68,9 @@ class _SheetTestState extends State<SheetTest> with TestWidgets {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    // DatabaseUtilsController()
-                    //   .deleteUserWhereRollNoStartWith22();
+                    // gsheetService.sheetTimetableDatasources.getData2;
                   },
-                  child: const Text("Delete 22*"),
+                  child: const Text("Read 6 sem with new algo"),
                 ),
                 // ElevatedButton(
                 //   onPressed: () {

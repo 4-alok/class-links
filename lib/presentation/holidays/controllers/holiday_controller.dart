@@ -1,7 +1,7 @@
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../../../global/const/const.dart';
-import '../../../global/const/holiday_list.dart';
+import '../../../global/data/holiday_list.dart';
 
 /// It checks if the date is a holiday
 class HolidayController extends GetxController {

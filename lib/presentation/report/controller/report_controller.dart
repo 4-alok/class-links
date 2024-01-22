@@ -25,7 +25,7 @@ class ReportController extends GetxController {
 
   Future<void> get submitReport async {
     submitting.value = true;
-    final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo;
+    final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo.value;
     final report = Report(
         id: userInfo?.id ?? "",
         userId: userInfo?.userName ?? "",

@@ -1,5 +1,6 @@
 import 'package:class_link/presentation/test_page/views/pages/auth_test.dart';
 import 'package:class_link/presentation/test_page/views/pages/database_utils.dart';
+import 'package:class_link/presentation/test_page/views/pages/sheet_test.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +27,7 @@ class TestPage extends StatelessWidget {
               // ResourcesTest(),
               DatabaseUtils(),
               // CacheTest(),
-              // SheetTest(),
+              SheetTest(),
             ],
           ),
         ),

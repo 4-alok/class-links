@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,10 +6,13 @@ import 'package:get/get.dart';
 
 import '../../../../global/gen/assets.gen.dart';
 import '../../../../global/widget/app_title.dart';
+import '../../../global/widget/batch_selection/batch_selection_dialog_box.dart';
+import '../../../routes/app_pages.dart';
+import '../../../services/hive/models/user_info.dart';
 import '../controllers/auth_controller.dart';
 
 class AuthView extends GetView<AuthController> {
-  const AuthView({Key? key}) : super(key: key);
+  const AuthView({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -42,13 +46,13 @@ class AuthView extends GetView<AuthController> {
               bottom: 10,
               left: 0,
               right: 0,
-              child: loginButton(),
+              child: loginButton(context),
             ),
           ],
         ),
       );
 
-  Widget loginButton() => Padding(
+  Widget loginButton(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Obx(
           () => Column(
@@ -57,7 +61,27 @@ class AuthView extends GetView<AuthController> {
               ElevatedButton(
                 onPressed: controller.loading.value
                     ? null
-                    : () => controller.handleLogin(),
+                    : () async {
+                        final showBatchSelectionDialog =
+                            await controller.handleLogin();
+
+                        if (showBatchSelectionDialog) {
+                          // ignore: use_build_context_synchronously
+                          final userInfo = await showModal<UserInfo?>(
+                            context: context,
+                            configuration:
+                                const FadeScaleTransitionConfiguration(
+                              barrierDismissible: true,
+                              transitionDuration: Duration(milliseconds: 300),
+                            ),
+                            builder: (context) =>
+                                const BatchSelectionDialogBox(),
+                          );
+                          if (userInfo != null) {
+                            Get.toNamed(Routes.HOME);
+                          }
+                        }
+                      },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(0),

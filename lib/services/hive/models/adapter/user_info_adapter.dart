@@ -39,40 +39,38 @@ class UserInfoAdapter extends TypeAdapter<UserInfo> {
     return UserInfo(
       refId: fields[0] as String?,
       id: fields[1] as String,
-      slot: fields[2] as int,
-      batch: fields[3] as String,
+      userName: fields[2] as String,
+      semester: fields[3] as int,
       stream: fields[4] as String,
-      year: fields[5] as int,
-      date: fields[6] as DateTime,
-      userName: fields[7] as String,
-      role: fields[8] as String,
-      semester: fields[9] as int?,
+      batch: fields[5] as String,
+      electiveSections: (fields[6] as List).cast<String>(),
+      role: fields[7] as String,
+      joiningDate: fields[8] as DateTime,
+      lastUpdated: fields[9] as DateTime?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, UserInfo obj) {
-    writer
+  void write(BinaryWriter writer, UserInfo obj) => writer
       ..writeByte(10)
       ..writeByte(0)
       ..write(obj.refId)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
-      ..write(obj.slot)
+      ..write(obj.userName)
       ..writeByte(3)
-      ..write(obj.batch)
+      ..write(obj.semester)
       ..writeByte(4)
       ..write(obj.stream)
       ..writeByte(5)
-      ..write(obj.year)
+      ..write(obj.batch)
       ..writeByte(6)
-      ..write(obj.date)
+      ..write(obj.electiveSections)
       ..writeByte(7)
-      ..write(obj.userName)
-      ..writeByte(8)
       ..write(obj.role)
+      ..writeByte(8)
+      ..write(obj.joiningDate)
       ..writeByte(9)
-      ..write(obj.semester);
-  }
+      ..write(obj.lastUpdated);
 }

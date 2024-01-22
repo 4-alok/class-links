@@ -11,7 +11,7 @@ import 'components/parallex_page_view.dart';
 import 'components/time_table_page.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(

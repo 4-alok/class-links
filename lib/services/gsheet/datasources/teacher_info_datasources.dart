@@ -14,7 +14,7 @@ class TeacherInfoDatasource {
 
   HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
 
-  UserInfo? get userInfo => hiveDatabase.userBoxDatasources.userInfo;
+  UserInfo? get userInfo => hiveDatabase.userBoxDatasources.userInfo.value;
 
   // @override
   // Future<MyTeachers?> get getMyTeachersCached async {
@@ -29,9 +29,10 @@ class TeacherInfoDatasource {
     final spreadsheet = await gSheetService.spreadsheet.future;
     if (spreadsheet != null) {
       final workSheet =
-          spreadsheet.worksheetByTitle("${userInfo?.year}-$sheetName");
+          spreadsheet.worksheetByTitle("${userInfo?.semester}-$sheetName");
       if (workSheet != null) {
-        final myResult = (await workSheet.values.allRows())
+        final r = await workSheet.values.allRows();
+        final myResult = r
             .where((e) => e.first == userInfo?.batch)
             .first;
         final myTeachers = MyTeachers(

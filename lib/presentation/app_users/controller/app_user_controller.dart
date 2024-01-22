@@ -25,7 +25,7 @@ class BatchInfo {
 class AppUsersController extends GetxController {
   final RxList<int> yearWiseUserCount = RxList<int>([0, 0, 0]);
   final Rx<UserSortType> userSortType = Rx<UserSortType>(UserSortType.date);
-  final Rx<int?> selectedYear = Rx<int?>(null);
+  final Rx<int?> selectedSemester = Rx<int?>(null);
   final Rx<String?> selectedBatch = Rx<String?>(null);
   final firestoreService = Get.find<FirestoreService>();
   List<UserInfo> allUsersList = [];
@@ -45,7 +45,7 @@ class AppUsersController extends GetxController {
   @override
   void onReady() {
     _getUsers;
-    selectedYear.listen((_) => update());
+    selectedSemester.listen((_) => update());
     userSortType.listen((_) => update());
     selectedBatch.listen((_) => update());
     super.onReady();
@@ -84,9 +84,10 @@ class AppUsersController extends GetxController {
   // }
 
   Future<UserInfoList> _getAllUserList() async => UserInfoList(
-      list: await Get.find<GSheetService>()
-          .gSheetUserInfoDatasources
-          .getAllUserList);
+        list: await Get.find<GSheetService>()
+            .gSheetUserInfoDatasources
+            .getAllUserList(),
+      );
 
   Future<void> get _getUsers async {
     allUsersList =
@@ -99,7 +100,7 @@ class AppUsersController extends GetxController {
                 ?.list ??
             [];
 
-    _updateYearWiseUserCount;
+    _updateSemesterWiseUserCount;
     loading.value = false;
     update();
   }
@@ -111,17 +112,20 @@ class AppUsersController extends GetxController {
   //   update();
   // }
 
-  void get _updateYearWiseUserCount => yearWiseUserCount.value = [
-        allUsersList.where((element) => element.year == 1).length,
-        allUsersList.where((element) => element.year == 2).length,
-        allUsersList.where((element) => element.year == 3).length
+  void get _updateSemesterWiseUserCount => yearWiseUserCount.value = [
+        ...List.generate(
+          6,
+          (index) =>
+              allUsersList.where((element) => element.semester == index).length,
+          growable: false,
+        ),
       ];
 
   List<UserInfo> get getUserList {
     _filteredUsersList = allUsersList
-        .where((element) => selectedYear.value == null
+        .where((element) => selectedSemester.value == null
             ? true
-            : element.year == selectedYear.value)
+            : element.semester == selectedSemester.value)
         .toList();
 
     if (selectedBatch.value != null) {
@@ -135,7 +139,7 @@ class AppUsersController extends GetxController {
     } else if (userSortType.value == UserSortType.id) {
       _filteredUsersList.sort((a, b) => a.id.compareTo(b.id));
     } else if (userSortType.value == UserSortType.date) {
-      _filteredUsersList.sort((a, b) => b.date.compareTo(a.date));
+      _filteredUsersList.sort((a, b) => b.joiningDate.compareTo(a.joiningDate));
     }
     return _filteredUsersList;
   }
@@ -161,8 +165,9 @@ class AppUsersController extends GetxController {
     for (final user in users) {
       // check if batch is already present in list
       final batchInfo = batches.firstWhere(
-          (element) => element.year == user.year && element.batch == user.batch,
-          orElse: () => BatchInfo(user.year, user.batch, 0));
+          (element) =>
+              element.year == user.semester && element.batch == user.batch,
+          orElse: () => BatchInfo(user.semester, user.batch, 0));
       // if batch is not present then add it to list
       batches.remove(batchInfo);
       batches
@@ -174,10 +179,10 @@ class AppUsersController extends GetxController {
 
   String get bottomBarText {
     if (selectedBatch.value == null) {
-      if (selectedYear.value == null) {
+      if (selectedSemester.value == null) {
         return 'All Years (${getUserList.length})';
       } else {
-        return 'Year ${selectedYear.value} (${getUserList.length})';
+        return 'Year ${selectedSemester.value} (${getUserList.length})';
       }
     } else {
       return '${selectedBatch.value ?? "All Batches"} (${getUserList.length})';

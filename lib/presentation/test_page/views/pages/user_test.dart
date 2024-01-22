@@ -52,7 +52,7 @@ class _SheetTestState extends State<UserTestPage> with TestWidgets {
   //           children: [
   //             // Obx(
   //             //   () => Text(
-  //             //       "userInfo : ${hiveDatabase.userBoxDatasources.userInfo.value ? "No Data" : controller.isEmpty.value! ? "Empty" : "Not Empty"}",
+  //             //       "userInfo : ${hiveDatabase.userBoxDatasources.userInfo.value.value ? "No Data" : controller.isEmpty.value! ? "Empty" : "Not Empty"}",
   //             //       style: const TextStyle(color: Colors.white)),
   //             // ),
   //           ],

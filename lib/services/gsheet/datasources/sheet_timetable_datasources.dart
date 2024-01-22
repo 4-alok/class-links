@@ -20,7 +20,9 @@ class SheetTimetableDatasources
 
   HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
 
-  int? get year => hiveDatabase.userBoxDatasources.userInfo?.year;
+  // int? get year => hiveDatabase.userBoxDatasources.userInfo.value?.year;
+  int? get semester =>
+      hiveDatabase.userBoxDatasources.userInfo.value?.semester;
 
   /// Fetching the timetable of the user./// A annotation.
   @override
@@ -33,11 +35,15 @@ class SheetTimetableDatasources
       final sheetHeaderIndex = getSheetHeaderIndex(timetableData.first);
 
       /// Getting the batch of the user from the hive database.
-      final myBatch = hiveDatabase.userBoxDatasources.userInfo?.batch ?? "";
+      final myBatch =
+          hiveDatabase.userBoxDatasources.userInfo.value?.batch ?? "";
 
       List<TimeTable> timeTableL = List.empty(growable: true);
 
       for (int i = 1; i < timetableData.length; i++) {
+        // if the row is empty then skip the row.
+        if (timetableData[i].isEmpty) continue;
+
         if (timetableData[i][sheetHeaderIndex.sec] == myBatch) {
           timeTableL.isEmpty
               ? timeTableL.add(TimeTable(
@@ -139,18 +145,16 @@ class SheetTimetableDatasources
           : await gSheetService.spreadsheet.future
               .then<SheetData>((value) async => await getData);
     } catch (e) {
-      print("11111111111111111");
-      print(e);
-      print("11111111111111111");
       rethrow;
     }
   }
 
   Future<SheetData> get getData async {
     final spreadsheet = await gSheetService.spreadsheet.future;
-    if (year == null) throw Exception("UserInfo is not saved");
+    // if (year == null) throw Exception("UserInfo is not saved");
     if (spreadsheet != null) {
-      final sheetData = spreadsheet.worksheetByTitle("$year-year-$sheetName");
+      // final sheetData = spreadsheet.worksheetByTitle("$year-year-$sheetName");
+      final sheetData = spreadsheet.worksheetByTitle("6-semester");
       if (sheetData != null) {
         final data = await sheetData.values.allRows();
         return SheetData(rowList: data);
@@ -161,6 +165,22 @@ class SheetTimetableDatasources
       throw Exception("Error while fetching spreadsheet");
     }
   }
+
+  // Future<SheetData> get getData2 async {
+  //   final spreadsheet = await gSheetService.spreadsheet.future;
+  //   if (year == null) throw Exception("UserInfo is not saved");
+  //   if (spreadsheet != null) {
+  //     final sheetData = spreadsheet.worksheetByTitle("6-semester");
+  //     if (sheetData != null) {
+  //       final data = await sheetData.values.allRows();
+  //       return SheetData(rowList: data);
+  //     } else {
+  //       throw Exception("Error while fetching worksheet data");
+  //     }
+  //   } else {
+  //     throw Exception("Error while fetching spreadsheet");
+  //   }
+  // }
 
   // Create a function to change string SAT to Saturday and so on.
   String toFullDayString(String shortDay) {

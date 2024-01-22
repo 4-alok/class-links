@@ -17,7 +17,7 @@ class CacheBoxDataSources implements CacheBoxUsecase {
     await cacheBox.put("${cacheKey}_time", DateTime.now());
 
     if (T == UserInfo) {
-      hiveDatabase.userBoxDatasources.userInfo = data as UserInfo;
+      hiveDatabase.userBoxDatasources.userInfo.value = data as UserInfo;
     }
   }
 

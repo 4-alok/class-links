@@ -73,6 +73,18 @@ class _DatabaseUtilsState extends State<DatabaseUtils> with TestWidgets {
                   onPressed: () => controller.clearAllCache(),
                   child: const Text("Clear All Cache"),
                 ),
+                ElevatedButton(
+                  onPressed: () => controller.getIndex(),
+                  child: const Text("Get User Index"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.addUserInfo(),
+                  child: const Text("Add Users"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.getUserList(),
+                  child: const Text("GetUserList"),
+                ),
               ],
             ),
           ),

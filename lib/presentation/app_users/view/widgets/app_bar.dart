@@ -32,8 +32,7 @@ class AppUserAppBar {
                   const SizedBox(width: 10)
                 ],
               )
-            : 
-            AppBar(
+            : AppBar(
                 leading: Hero(
                   tag: "back",
                   child: IconButton(
@@ -41,7 +40,7 @@ class AppUserAppBar {
                       onPressed: () => Get.back()),
                 ),
                 actions: [
-                  // Get.find<HiveDatabase>().userBoxDatasources.userInfo?.role ==
+                  // Get.find<HiveDatabase>().userBoxDatasources.userInfo.value?.role ==
                   //             "admin" ||
                   //         Get.find<AuthService>().user.value?.email ==
                   //             "2005847@kiit.ac.in"
@@ -72,7 +71,7 @@ class AppUserAppBar {
                           TextButton(
                             style: TextButton.styleFrom(
                               backgroundColor:
-                                  controller.selectedYear.value == null
+                                  controller.selectedSemester.value == null
                                       ? Theme.of(context).primaryColor
                                       : Theme.of(context)
                                           .primaryColor
@@ -80,12 +79,12 @@ class AppUserAppBar {
                             ),
                             onPressed: () {
                               controller.selectedBatch.value = null;
-                              controller.selectedYear.value = null;
+                              controller.selectedSemester.value = null;
                             },
                             child: Text(
                               "All",
                               style: TextStyle(
-                                color: controller.selectedYear.value == null
+                                color: controller.selectedSemester.value == null
                                     ? Theme.of(context).colorScheme.onPrimary
                                     : null,
                               ),
@@ -100,7 +99,8 @@ class AppUserAppBar {
                               child: TextButton(
                                 style: TextButton.styleFrom(
                                   backgroundColor:
-                                      controller.selectedYear.value == index + 1
+                                      controller.selectedSemester.value ==
+                                              index + 1
                                           ? Theme.of(context).primaryColor
                                           : Theme.of(context)
                                               .primaryColor
@@ -108,16 +108,17 @@ class AppUserAppBar {
                                 ),
                                 onPressed: () {
                                   controller.selectedBatch.value = null;
-                                  controller.selectedYear.value = index + 1;
+                                  controller.selectedSemester.value = index + 1;
                                 },
-                                child: Text("${index + 1} Year",
+                                child: Text("${index + 1} Semester",
                                     style: TextStyle(
-                                      color: controller.selectedYear.value ==
-                                              index + 1
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .onPrimary
-                                          : null,
+                                      color:
+                                          controller.selectedSemester.value ==
+                                                  index + 1
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimary
+                                              : null,
                                     )),
                               ),
                             ),

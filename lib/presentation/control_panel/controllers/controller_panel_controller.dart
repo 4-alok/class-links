@@ -22,7 +22,7 @@ class ControlPanelController extends GetxController {
 
   /// Submits a test report to Firestore for the current user.
   // Future<void> get submitTestReport async {
-  //   final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo!;
+  //   final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo.value!;
   //   final report = Report(
   //     id: userInfo.id,
   //     userId: userInfo.userName,

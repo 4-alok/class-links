@@ -11,7 +11,6 @@ import '../../../../services/firebase/repository/firestore_service.dart';
 import '../../../../services/hive/repository/hive_database.dart';
 import '../../../global/const/const.dart';
 import '../../../global/models/time_table/time_table.dart';
-import '../../../global/utils/patch.dart';
 import '../../../services/gsheet/datasources/sheet_timetable_datasources.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../../subject_info/controllers/subject_info_controller.dart';
@@ -48,7 +47,7 @@ class HomeController extends GetxController
   FirestoreService get firestoreService => Get.find<FirestoreService>();
   HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
   GSheetService get gSheetService => Get.find<GSheetService>();
-  // --------------------------------------------------------
+  // ---------------------------------------------------------
 
   /// > We create a TabController, a StreamSubscription, and set the defaultDays variable
   @override
@@ -85,10 +84,18 @@ class HomeController extends GetxController
   void onReady() {
     fetchAndProcessTimetable();
     AndroidAppUpdate.update;
-    Patch().init;
+    // Patch().init;
     analyticsEvent();
+
+    // Refreshing the timetable when the user section change changes
+    refreshTimetable();
+    
     super.onReady();
   }
+
+  // Refreshing the timetable when the user section change changes
+  void refreshTimetable() => hiveDatabase.userBoxDatasources.userInfo
+        .listen((user) async => await fetchAndProcessTimetable());
 
   Future<void> fetchAndProcessTimetable() async {
     final timeTaskUtils = TimetableTaskUtils();
@@ -117,7 +124,10 @@ class HomeController extends GetxController
   Future<UserInfo?> get getUserInfo async =>
       await hiveDatabase.getFromCacheOrFetch<UserInfo>(
         key: CacheKey.USER_INFO,
-        fetchData: firestoreService.userInfoDatasources.getUserInfo,
+        checkExpired: true,
+        duration: const Duration(days: 1),
+        // Need to change it to firebase
+        fetchData: gSheetService.gSheetUserInfoDatasources.getUserInfo,
       );
 
   /// It cancels all subscriptions, disposes all streams, and deletes the SubjectInfoController

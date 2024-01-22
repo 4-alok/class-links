@@ -9,7 +9,7 @@ import '../../hive/repository/hive_database.dart';
 
 const allStudentKey = 'all_student';
 const myBatchKey = 'my_batch';
-const userCollectionKey = 'userv2';
+const userCollectionKey = 'users_v4';
 
 class UserInfoDatasources {
   final FirebaseFirestore firestore;
@@ -29,10 +29,10 @@ class UserInfoDatasources {
         await Get.find<GSheetService>()
             .gSheetUserInfoDatasources
             .addUserInfo(user);
-        await firestore.collection(userCollectionKey).add(user.toJson());
+        await firestore.collection(userCollectionKey).add(user.toMap());
       } else {
         await result.docs.first.reference.delete();
-        await firestore.collection(userCollectionKey).add(user.toJson());
+        await firestore.collection(userCollectionKey).add(user.toMap());
       }
       return true;
     } catch (e) {
@@ -78,7 +78,7 @@ class UserInfoDatasources {
       if (result.docs.isEmpty) {
         return null;
       } else {
-        return UserInfo.fromJson(result.docs.first.data());
+        return UserInfo.fromMap(result.docs.first.data());
       }
     } catch (e) {
       Message("unable to fetch user info", e.toString());
@@ -86,47 +86,47 @@ class UserInfoDatasources {
     }
   }
 
-  Future<UserInfoList> myBatch() async =>
-      UserInfoList(
-        list: 
-        (await firestore
+  Future<UserInfoList> myBatch() async => UserInfoList(
+      list: (await firestore
               .collection(userCollectionKey)
-              .where(
-                  "batch",
+              .where("batch",
                   isEqualTo:
-                      hiveDatabase.userBoxDatasources.userInfo?.batch ?? "na")
-              .where('year',
-                  isEqualTo: hiveDatabase.userBoxDatasources.userInfo?.year)
+                      hiveDatabase.userBoxDatasources.userInfo.value?.batch ??
+                          "na")
+              .where('semester',
+                  isEqualTo:
+                      hiveDatabase.userBoxDatasources.userInfo.value?.semester)
               .limit(100)
               .get())
           .docs
-          .map((e) => UserInfo.fromJson(e.data()).copyWith(refId: e.id))
+          .map((e) => UserInfo.fromMap(e.data()).copyWith(refId: e.id))
           .toList());
 
   Stream<List<UserInfo>> get streamAllUserList =>
       firestore.collection(userCollectionKey).snapshots().map(
             (event) => event.docs.map((e) {
-              return UserInfo.fromJson(e.data()).copyWith(refId: e.id);
+              return UserInfo.fromMap(e.data()).copyWith(refId: e.id);
             }).toList(),
           );
 
   Stream<List<UserInfo>> get streamUserList => firestore
       .collection(userCollectionKey)
       .where("batch",
-          isEqualTo: hiveDatabase.userBoxDatasources.userInfo?.batch ?? "na")
+          isEqualTo:
+              hiveDatabase.userBoxDatasources.userInfo.value?.batch ?? "na")
       .snapshots()
       .map(
         (event) => event.docs.map((e) {
-          return UserInfo.fromJson(e.data()).copyWith(refId: e.id);
+          return UserInfo.fromMap(e.data()).copyWith(refId: e.id);
         }).toList(),
       );
 
-  Future<bool> updateUser(UserInfo user) async {
+  Future<bool> updateUserInfo(UserInfo user) async {
     try {
       await firestore
           .collection(userCollectionKey)
           .doc(user.refId)
-          .update(user.toJson());
+          .update(user.toMap());
       return true;
     } catch (e) {
       Message("Error", "Unable to add user : $e");
@@ -137,7 +137,7 @@ class UserInfoDatasources {
   Future<void> deleteUser(UserInfo userInfo) async {
     final res = await firestore.collection(userCollectionKey).get();
     for (final snapshot in res.docs) {
-      final user = UserInfo.fromJson(snapshot.data());
+      final user = UserInfo.fromMap(snapshot.data());
       if (user == userInfo) {
         await snapshot.reference.delete();
       }
@@ -149,7 +149,7 @@ class UserInfoDatasources {
     //   querySnapshot: firestore.collection(userCollectionKey).get,
     //   key: allStudentKey,
     // );
-    // return res.map((e) => UserInfo.fromJson(e)).toList();
+    // return res.map((e) => UserInfo.fromMap(e)).toList();
     return [];
   }
 }

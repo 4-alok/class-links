@@ -12,6 +12,7 @@ import '../../../services/hive/repository/hive_database.dart';
 class DatabaseUtilsController {
   HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
   FirestoreService get firestoreService => Get.find<FirestoreService>();
+  GSheetService get gSheetService => Get.find<GSheetService>();
 
   final userInfo = Rx<UserInfo?>(null);
   final timeTableText = Rx<String>("");
@@ -43,7 +44,7 @@ class DatabaseUtilsController {
     userInfo.value = null;
   }
 
-  void ui() => userInfo.value = hiveDatabase.userBoxDatasources.userInfo;
+  void ui() => userInfo.value = hiveDatabase.userBoxDatasources.userInfo.value;
 
   Future<void> updateUserInfoInCache() async {
     // get user info from cache
@@ -61,7 +62,6 @@ class DatabaseUtilsController {
         .streamCachedDataOrFetch<TimeTable>(
             key: CacheKey.TIME_TABLE,
             duration: const Duration(minutes: 5),
-            
             fetchData: Get.find<GSheetService>()
                 .sheetTimetableDatasources
                 .getMyTimetable)
@@ -86,6 +86,41 @@ class DatabaseUtilsController {
   //   }
   //   print("=============Printing Timetable=============");
   // }
+
+  getIndex() async {
+    final userInfo = UserInfo(
+      id: "21051370@kiit.ac.in",
+      userName: "Rahul",
+      semester: 6,
+      stream: "CSE",
+      batch: "CSE-2",
+      electiveSections: [],
+      role: "",
+      joiningDate: DateTime.now(),
+    );
+    final index =
+        await gSheetService.gSheetUserInfoDatasources.updateUserInfo(userInfo);
+    print(index);
+  }
+
+  Future<void> addUserInfo() async {
+    await gSheetService.gSheetUserInfoDatasources.addUserInfo(
+      UserInfo(
+          id: "21051390@kiit.ac.in",
+          userName: "Rahul",
+          semester: 6,
+          stream: "CSE",
+          batch: "CSE-2",
+          electiveSections: [],
+          role: "user",
+          joiningDate: DateTime.now()),
+    );
+  }
+
+  Future getUserList() async {
+    final users = await gSheetService.gSheetUserInfoDatasources.getAllUserList;
+    print(users);
+  }
 
   Future<void> cacheExpiryTime() async {
     final time = await hiveDatabase.cacheBoxDataSources

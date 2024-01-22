@@ -12,7 +12,7 @@ class HiveDatabase extends GetxService {
   late final Box cacheBox;
 
   late final SettingBoxDatasources settingBoxDatasources;
-  late final UserBoxDatasourcse userBoxDatasources;
+  late final UserBoxDatasources userBoxDatasources;
   late final CacheBoxDataSources cacheBoxDataSources;
 
   /// Initializes the Hive database by opening three boxes: userInfo, settings, and cache.
@@ -30,7 +30,7 @@ class HiveDatabase extends GetxService {
     settingBoxDatasources = SettingBoxDatasources(settingsBox);
 
     /// Initializes the [userBoxDatasources] with the [userInfoBox] instance.
-    userBoxDatasources = UserBoxDatasourcse(cacheBox, this);
+    userBoxDatasources = UserBoxDatasources(cacheBox, this);
 
     /// Initializes the [cacheBoxDataSources] with the [cacheBox] instance.
     cacheBoxDataSources = CacheBoxDataSources(cacheBox, this);
@@ -46,6 +46,7 @@ class HiveDatabase extends GetxService {
     await settingsBox.close();
     await cacheBox.close();
     settingBoxDatasources.dispose;
+    userBoxDatasources.dispose;
     super.onClose();
   }
 
@@ -196,6 +197,10 @@ class HiveDatabase extends GetxService {
         throw Exception('fetchData function is null');
       }
     }
+  }
+
+  Future<void> updateCache<T>(T data, String key) async {
+    await cacheBoxDataSources.saveCache<T>(data, key);
   }
 
   String fT(DateTime d) => "${d.hour}:${d.minute} ${d.hour > 12 ? "pm" : "am"}";

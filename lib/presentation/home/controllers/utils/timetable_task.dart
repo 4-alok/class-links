@@ -10,26 +10,28 @@ import '../../../../services/gsheet/repository/gsheet_service.dart';
 import '../../../../services/hive/repository/hive_database.dart';
 
 class TimetableTaskUtils {
-  // Dependency Injection: GetX ------------------------------
+  // Dependency Injection: GetX ------------------------------//
   FirestoreService get firestoreService => Get.find<FirestoreService>();
   HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
   GSheetService get gSheetService => Get.find<GSheetService>();
-  // --------------------------------------------------------
+  // --------------------------------------------------------//
 
   Future<TimeTable> addElectiveSubjects(TimeTable timeTable) async {
-    if (hiveDatabase.userBoxDatasources.userInfo?.semester != 5) {
+    if (![6]
+        .contains(hiveDatabase.userBoxDatasources.userInfo.value?.semester)) {
       return timeTable;
     }
 
-    // getting the elective subjects from the assets
+    final UserElectiveSection electiveSection = UserElectiveSection(
+      rollNo: int.tryParse(hiveDatabase.userBoxDatasources.userInfo.value!.id) ?? 0,
+      elective1Section: hiveDatabase.userBoxDatasources.userInfo.value!.electiveSections.first,
+      elective2Section: hiveDatabase.userBoxDatasources.userInfo.value!.electiveSections.last,
+    );
+
     final List<MyElectiveSubjects> myElectiveTable =
         await gSheetService.electiveDatasources.getElectiveTimeTable(
-            await hiveDatabase.getFromCacheOrFetch<UserElectiveSection>(
-      key: CacheKey.USER_ELECTIVE_SECTION,
-      checkExpired: true,
-      duration: const Duration(days: 7),
-      fetchData: firestoreService.electiveDatasources.getUserElectiveSection,
-    ));
+      electiveSection,
+    );
 
     final week = _deepCopyWeek(timeTable.week);
 

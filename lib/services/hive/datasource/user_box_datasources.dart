@@ -1,30 +1,33 @@
 import 'package:class_link/services/hive/repository/hive_database.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../models/user_info.dart';
 import '../utils/cache_key.dart';
 
-class UserBoxDatasourcse {
+class UserBoxDatasources {
   final HiveDatabase hiveDatabase;
   final Box cacheBox;
-  UserBoxDatasourcse(this.cacheBox, this.hiveDatabase);
+  UserBoxDatasources(this.cacheBox, this.hiveDatabase);
 
-  UserInfo? userInfo;
+  final userInfo = Rx<UserInfo?>(null);
 
-  Future<void> get init async => userInfo = await getUserInfo;
+  Future<void> get init async => userInfo.value = await getUserInfo();
 
-  Future<UserInfo?> get getUserInfo async =>
+  Future<UserInfo?> getUserInfo() async =>
       await hiveDatabase.getFromCacheOrFetch<UserInfo>(onlyCache: true, key: CacheKey.USER_INFO);
 
   Future<void> setUserInfo(UserInfo userInfo) async =>
       await cacheBox.put(CacheKey.USER_INFO, userInfo).then((value) async {
         await cacheBox.put("${CacheKey.USER_INFO}_time", DateTime.now());
-        this.userInfo = userInfo;
+        this.userInfo.value = userInfo;
       });
 
   Future<void> get clearUserInfo async => await cacheBox
       .delete(CacheKey.USER_INFO)
-      .then((value) => userInfo = null);
+      .then((value) => userInfo.value = null);
+
+  void get dispose => userInfo.close();
 
   // /// Clear user info from the box and set it to null.
   // @override
