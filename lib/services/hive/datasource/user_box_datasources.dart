@@ -14,8 +14,8 @@ class UserBoxDatasources {
 
   Future<void> get init async => userInfo.value = await getUserInfo();
 
-  Future<UserInfo?> getUserInfo() async =>
-      await hiveDatabase.getFromCacheOrFetch<UserInfo>(onlyCache: true, key: CacheKey.USER_INFO);
+  Future<UserInfo?> getUserInfo() async => await hiveDatabase
+      .getFromCacheOrFetch<UserInfo>(onlyCache: true, key: CacheKey.USER_INFO);
 
   Future<void> setUserInfo(UserInfo userInfo) async =>
       await cacheBox.put(CacheKey.USER_INFO, userInfo).then((value) async {

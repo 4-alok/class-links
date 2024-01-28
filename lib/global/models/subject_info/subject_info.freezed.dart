@@ -73,11 +73,11 @@ class _$SubjectInfoCopyWithImpl<$Res, $Val extends SubjectInfo>
 }
 
 /// @nodoc
-abstract class _$$_SubjectInfoCopyWith<$Res>
+abstract class _$$SubjectInfoImplCopyWith<$Res>
     implements $SubjectInfoCopyWith<$Res> {
-  factory _$$_SubjectInfoCopyWith(
-          _$_SubjectInfo value, $Res Function(_$_SubjectInfo) then) =
-      __$$_SubjectInfoCopyWithImpl<$Res>;
+  factory _$$SubjectInfoImplCopyWith(
+          _$SubjectInfoImpl value, $Res Function(_$SubjectInfoImpl) then) =
+      __$$SubjectInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Subject subject, int currentWeek});
@@ -87,11 +87,11 @@ abstract class _$$_SubjectInfoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SubjectInfoCopyWithImpl<$Res>
-    extends _$SubjectInfoCopyWithImpl<$Res, _$_SubjectInfo>
-    implements _$$_SubjectInfoCopyWith<$Res> {
-  __$$_SubjectInfoCopyWithImpl(
-      _$_SubjectInfo _value, $Res Function(_$_SubjectInfo) _then)
+class __$$SubjectInfoImplCopyWithImpl<$Res>
+    extends _$SubjectInfoCopyWithImpl<$Res, _$SubjectInfoImpl>
+    implements _$$SubjectInfoImplCopyWith<$Res> {
+  __$$SubjectInfoImplCopyWithImpl(
+      _$SubjectInfoImpl _value, $Res Function(_$SubjectInfoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -100,7 +100,7 @@ class __$$_SubjectInfoCopyWithImpl<$Res>
     Object? subject = null,
     Object? currentWeek = null,
   }) {
-    return _then(_$_SubjectInfo(
+    return _then(_$SubjectInfoImpl(
       subject: null == subject
           ? _value.subject
           : subject // ignore: cast_nullable_to_non_nullable
@@ -115,8 +115,8 @@ class __$$_SubjectInfoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SubjectInfo implements _SubjectInfo {
-  const _$_SubjectInfo({required this.subject, required this.currentWeek});
+class _$SubjectInfoImpl implements _SubjectInfo {
+  const _$SubjectInfoImpl({required this.subject, required this.currentWeek});
 
   @override
   final Subject subject;
@@ -129,10 +129,10 @@ class _$_SubjectInfo implements _SubjectInfo {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SubjectInfo &&
+            other is _$SubjectInfoImpl &&
             (identical(other.subject, subject) || other.subject == subject) &&
             (identical(other.currentWeek, currentWeek) ||
                 other.currentWeek == currentWeek));
@@ -144,14 +144,14 @@ class _$_SubjectInfo implements _SubjectInfo {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SubjectInfoCopyWith<_$_SubjectInfo> get copyWith =>
-      __$$_SubjectInfoCopyWithImpl<_$_SubjectInfo>(this, _$identity);
+  _$$SubjectInfoImplCopyWith<_$SubjectInfoImpl> get copyWith =>
+      __$$SubjectInfoImplCopyWithImpl<_$SubjectInfoImpl>(this, _$identity);
 }
 
 abstract class _SubjectInfo implements SubjectInfo {
   const factory _SubjectInfo(
       {required final Subject subject,
-      required final int currentWeek}) = _$_SubjectInfo;
+      required final int currentWeek}) = _$SubjectInfoImpl;
 
   @override
   Subject get subject;
@@ -159,6 +159,6 @@ abstract class _SubjectInfo implements SubjectInfo {
   int get currentWeek;
   @override
   @JsonKey(ignore: true)
-  _$$_SubjectInfoCopyWith<_$_SubjectInfo> get copyWith =>
+  _$$SubjectInfoImplCopyWith<_$SubjectInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

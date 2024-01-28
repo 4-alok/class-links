@@ -1,7 +1,5 @@
-import 'package:class_link/global/models/time_table/time_table.dart';
 import 'package:class_link/global/utils/get_snackbar.dart';
 import 'package:class_link/services/hive/utils/cache_key.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../../services/firebase/repository/firestore_service.dart';
@@ -58,18 +56,20 @@ class DatabaseUtilsController {
   }
 
   Future<void> streamTimetable() async {
-    hiveDatabase
-        .streamCachedDataOrFetch<TimeTable>(
-            key: CacheKey.TIME_TABLE,
-            duration: const Duration(minutes: 5),
-            fetchData: Get.find<GSheetService>()
-                .sheetTimetableDatasources
-                .getMyTimetable)
-        .listen((event) {
-      if (event == null) {
-        timeTableText.value = "No Data";
-      } else {}
-    });
+    // hiveDatabase
+    //     .streamCachedDataOrFetch<TimeTables>(
+    //         key: CacheKey.TIME_TABLES,
+    //         duration: const Duration(minutes: 5),
+    //         fetchData: Get.find<GSheetService>()
+    //             .sheetTimetableDatasources
+    //             .getTimetableData)
+    //     .listen((event) {
+    //   if (event == null) {
+    //     timeTableText.value = "No Data";
+    //   } else {
+    //     printTimetable(event.t)
+    //   }
+    // });
   }
 
   // void printTimetable(List<TimeTable> timetables) async {
@@ -88,19 +88,19 @@ class DatabaseUtilsController {
   // }
 
   getIndex() async {
-    final userInfo = UserInfo(
-      id: "21051370@kiit.ac.in",
-      userName: "Rahul",
-      semester: 6,
-      stream: "CSE",
-      batch: "CSE-2",
-      electiveSections: [],
-      role: "",
-      joiningDate: DateTime.now(),
-    );
-    final index =
-        await gSheetService.gSheetUserInfoDatasources.updateUserInfo(userInfo);
-    print(index);
+    // final userInfo = UserInfo(
+    //   id: "21051370@kiit.ac.in",
+    //   userName: "Rahul",
+    //   semester: 6,
+    //   stream: "CSE",
+    //   batch: "CSE-2",
+    //   electiveSections: [],
+    //   role: "",
+    //   joiningDate: DateTime.now(),
+    // );
+    // final index =
+    //     await gSheetService.gSheetUserInfoDatasources.updateUserInfo(userInfo);
+    // print(index);
   }
 
   Future<void> addUserInfo() async {
@@ -118,19 +118,19 @@ class DatabaseUtilsController {
   }
 
   Future getUserList() async {
-    final users = await gSheetService.gSheetUserInfoDatasources.getAllUserList;
-    print(users);
+    // final users = await gSheetService.gSheetUserInfoDatasources.getAllUserList;
+    // print(users);
   }
 
   Future<void> cacheExpiryTime() async {
-    final time = await hiveDatabase.cacheBoxDataSources
-        .getCacheTime<TimeTable>(CacheKey.TIME_TABLE);
-    debugPrint(time.toString());
+    // final time = await hiveDatabase.cacheBoxDataSources
+    //     .getCacheTime<TimeTable>(CacheKey.TIME_TABLE);
+    // debugPrint(time.toString());
   }
 
   Future<void> deleteTimetableFromCache() async {
-    await hiveDatabase.cacheBoxDataSources
-        .deleteCache<TimeTable>(CacheKey.TIME_TABLE);
+    // await hiveDatabase.cacheBoxDataSources
+    // .deleteCache<TimeTable>(CacheKey.TIME_TABLE);
   }
 
   void clearAllCache() async =>

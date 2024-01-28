@@ -45,7 +45,6 @@ class ElectiveDatasources {
       final myElectiveSubjectsList = <MyElectiveSubjects>[];
 
       for (int i = 0; i < mySectionListRow.length; i++) {
-
         // if myElectiveSubjectsList is empty, add the first element
         if (myElectiveSubjectsList.firstWhereOrNull(
                 (element) => element.day == mySectionListRow[i][0]) ==

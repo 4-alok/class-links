@@ -73,20 +73,21 @@ class _$LogDataCopyWithImpl<$Res, $Val extends LogData>
 }
 
 /// @nodoc
-abstract class _$$_LogDataCopyWith<$Res> implements $LogDataCopyWith<$Res> {
-  factory _$$_LogDataCopyWith(
-          _$_LogData value, $Res Function(_$_LogData) then) =
-      __$$_LogDataCopyWithImpl<$Res>;
+abstract class _$$LogDataImplCopyWith<$Res> implements $LogDataCopyWith<$Res> {
+  factory _$$LogDataImplCopyWith(
+          _$LogDataImpl value, $Res Function(_$LogDataImpl) then) =
+      __$$LogDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String email, String log, DateTime date});
 }
 
 /// @nodoc
-class __$$_LogDataCopyWithImpl<$Res>
-    extends _$LogDataCopyWithImpl<$Res, _$_LogData>
-    implements _$$_LogDataCopyWith<$Res> {
-  __$$_LogDataCopyWithImpl(_$_LogData _value, $Res Function(_$_LogData) _then)
+class __$$LogDataImplCopyWithImpl<$Res>
+    extends _$LogDataCopyWithImpl<$Res, _$LogDataImpl>
+    implements _$$LogDataImplCopyWith<$Res> {
+  __$$LogDataImplCopyWithImpl(
+      _$LogDataImpl _value, $Res Function(_$LogDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -97,7 +98,7 @@ class __$$_LogDataCopyWithImpl<$Res>
     Object? log = null,
     Object? date = null,
   }) {
-    return _then(_$_LogData(
+    return _then(_$LogDataImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -120,8 +121,8 @@ class __$$_LogDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LogData implements _LogData {
-  const _$_LogData(
+class _$LogDataImpl implements _LogData {
+  const _$LogDataImpl(
       {required this.name,
       required this.email,
       required this.log,
@@ -142,10 +143,10 @@ class _$_LogData implements _LogData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LogData &&
+            other is _$LogDataImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.log, log) || other.log == log) &&
@@ -158,8 +159,8 @@ class _$_LogData implements _LogData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LogDataCopyWith<_$_LogData> get copyWith =>
-      __$$_LogDataCopyWithImpl<_$_LogData>(this, _$identity);
+  _$$LogDataImplCopyWith<_$LogDataImpl> get copyWith =>
+      __$$LogDataImplCopyWithImpl<_$LogDataImpl>(this, _$identity);
 }
 
 abstract class _LogData implements LogData {
@@ -167,7 +168,7 @@ abstract class _LogData implements LogData {
       {required final String name,
       required final String email,
       required final String log,
-      required final DateTime date}) = _$_LogData;
+      required final DateTime date}) = _$LogDataImpl;
 
   @override
   String get name;
@@ -179,6 +180,6 @@ abstract class _LogData implements LogData {
   DateTime get date;
   @override
   @JsonKey(ignore: true)
-  _$$_LogDataCopyWith<_$_LogData> get copyWith =>
+  _$$LogDataImplCopyWith<_$LogDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

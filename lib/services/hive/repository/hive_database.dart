@@ -50,6 +50,14 @@ class HiveDatabase extends GetxService {
     super.onClose();
   }
 
+  /// Fetches data from the cache if available, otherwise fetches it from the server and caches it for future use.
+  ///
+  /// The [key] parameter is used to identify the data in the cache.
+  /// The [duration] parameter specifies the duration for which the data should be considered valid.
+  /// The [fetchData] parameter is a function that fetches the data from the server.
+  /// The [preProcessTasks] parameter is an optional list of functions that perform pre-processing tasks on the fetched data.
+  ///
+  /// Returns a stream of the cached data or the fetched data.
   Stream<T?> streamCachedDataOrFetch<T>({
     required String key,
     required Duration duration,

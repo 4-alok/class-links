@@ -42,7 +42,7 @@ class AppPages {
               ? Routes.AUTH
               : Routes.HOME;
 
-  // static final INITIAL = Routes.TEST;
+  // static const INITIAL = Routes.TEST;
 
   static final routes = [
     GetPage(

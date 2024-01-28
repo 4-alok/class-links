@@ -2,6 +2,10 @@ import '../../../global/models/time_table/time_table.dart';
 import '../models/sheet_header_index_model.dart';
 
 mixin GsheetTimetableUtils {
+  /// Adds missing days (Saturday and Sunday) to the week of each [TimeTable] in the given list.
+  /// If a [TimeTable] already has Saturday in its week, it adds Sunday to the week.
+  /// Otherwise, it adds both Saturday and Sunday to the week.
+  /// Returns the updated list of [TimeTable].
   List<TimeTable> patch(List<TimeTable> timetables) {
     timetables
         .map((e) =>
@@ -45,7 +49,8 @@ mixin GsheetTimetableUtils {
 
   SheetHeaderIndex getSheetHeaderIndex(List<String> header) {
     final int day = header.indexOf('DAY');
-    final int sec = header.indexWhere((element) => element.toLowerCase().startsWith("sec"));
+    final int sec =
+        header.indexWhere((element) => element.toLowerCase().startsWith("sec"));
 
     final List<int> subjects = List.empty(growable: true);
     for (int i = 1; i < 24; i++) {
