@@ -1,4 +1,4 @@
-import 'package:class_link/services/hive/repository/hive_database.dart';
+import '../../../services/hive/repository/hive_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
@@ -63,12 +63,12 @@ class ResourcesController extends GetxController {
   final currentEntity = ValueNotifier<List<IndexEntity>>([]);
   final currentPath = ValueNotifier<String>(baseFolder);
 
-  ResourcesDatasources get resourcesReop =>
+  ResourcesDatasources get resourcesRepo =>
       Get.find<GSheetService>().resourcesDatasources;
 
   @override
   void onReady() async {
-    final newList = (await resourcesReop.getResourcesList)?.rowList ?? [];
+    final newList = (await resourcesRepo.getResourcesList)?.rowList ?? [];
     if (await compute(
         _isListSame, {"list1": data.value ?? [], "list2": newList})) {
       data.value = newList;

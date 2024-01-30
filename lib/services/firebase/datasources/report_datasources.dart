@@ -1,5 +1,5 @@
-import 'package:class_link/services/firebase/models/report_models/report.dart';
-import 'package:class_link/services/hive/repository/hive_database.dart';
+import '../models/report_models/report.dart';
+import '../../hive/repository/hive_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
@@ -35,8 +35,11 @@ class ReportDatasources implements ReportUseecase {
     return (await firestore
             .collection(reportKey)
             .where('id',
-                isEqualTo:
-                    Get.find<HiveDatabase>().userBoxDatasources.userInfo?.id)
+                isEqualTo: Get.find<HiveDatabase>()
+                    .userBoxDatasources
+                    .userInfo
+                    .value
+                    ?.id)
             .get())
         .docs
         .map((doc) => Report.fromJson(doc.data()))

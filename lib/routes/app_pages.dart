@@ -1,12 +1,11 @@
-import 'package:class_link/main.dart';
 import 'package:get/get.dart';
 
 import '../presentation/app_users/binding/app_user_binding.dart';
 import '../presentation/app_users/view/app_user_view.dart';
 import '../presentation/auth/bindings/auth_binding.dart';
 import '../presentation/auth/views/auth_view.dart';
-import '../presentation/batch_selection/bindings/user_batch_binding.dart';
-import '../presentation/batch_selection/views/user_batch_view.dart';
+// import '../presentation/batch_selection/bindings/user_batch_binding.dart';
+// import '../presentation/batch_selection/views/user_batch_view.dart';
 import '../presentation/control_panel/bindings/control_panel_binding.dart';
 import '../presentation/control_panel/views/control_panel_view.dart';
 import '../presentation/control_panel/views/pages/notification_page.dart';
@@ -26,7 +25,9 @@ import '../presentation/resources/bindings/resources_binding.dart';
 import '../presentation/resources/view/resources_view.dart';
 import '../presentation/subject_info/views/subject_info_view.dart';
 import '../presentation/test_page/views/test_page.dart';
-import '../services/auth/repository/auth_service_repo.dart';
+import '../services/hive/repository/hive_database.dart';
+
+// import '../services/auth/repository/auth_service_repo.dart';
 
 // ignore_for_file: non_constant_identifier_names
 part 'app_routes.dart';
@@ -34,11 +35,14 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static final INITIAL = TEST_MODE
-      ? Routes.TEST
-      : Get.find<AuthService>().getUser == null
+  static final INITIAL =
+      Get.find<HiveDatabase>().userBoxDatasources.userInfo.value == null
           ? Routes.AUTH
-          : Routes.HOME;
+          : Get.find<HiveDatabase>().userBoxDatasources.userInfo.value == null
+              ? Routes.AUTH
+              : Routes.HOME;
+
+  // static const INITIAL = Routes.TEST;
 
   static final routes = [
     GetPage(
@@ -61,11 +65,11 @@ class AppPages {
       page: () => const ProfileView(),
       binding: ProfileBinding(),
     ),
-    GetPage(
-      name: _Paths.BATCH_SELECTION,
-      page: () => const BatchSelectionPage(),
-      binding: UserBatchBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.BATCH_SELECTION,
+    //   page: () => const BatchSelectionPage(),
+    //   binding: UserBatchBinding(),
+    // ),
     GetPage(
       name: _Paths.SUBJECT_INFO,
       page: () => SubjectInfoView(subjectInfo: Get.arguments),

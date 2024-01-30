@@ -5,25 +5,29 @@ const gsDateFactor = 86400000;
 
 mixin GSheetUtils {
   List userToSheetRow(UserInfo user) => [
+        user.refId ?? "",
         user.id,
-        user.slot,
-        user.batch,
-        user.stream,
-        user.year,
-        dateToGsheets(user.date),
         user.userName,
-        user.role
+        user.semester,
+        user.stream,
+        user.batch,
+        user.role,
+        dateToGsheets(user.joiningDate),
+        user.lastUpdated != null ? dateToGsheets(user.lastUpdated!) : "",
+        user.electiveSections.firstOrNull ?? "",
+        user.electiveSections.lastOrNull ?? "",
       ];
 
   UserInfo sheetRowToUser(List row) => UserInfo(
-        id: row[0],
-        slot: int.tryParse(row[1]) ?? -1,
-        batch: row[2],
-        stream: row[3],
-        year: int.tryParse(row[4]) ?? -1,
-        date: dateFromGsheets(row[5]) ?? DateTime.now(),
-        userName: row[6],
-        role: row[7],
+        id: row[1],
+        userName: row[2],
+        semester: int.parse(row[3]),
+        stream: row[4],
+        batch: row[5],
+        role: row[6],
+        joiningDate: dateFromGsheets(row[7]) ?? DateTime.now(),
+        lastUpdated: (row.length > 8) ? dateFromGsheets(row[8]) : null,
+        electiveSections: (row.length > 9) ? [row[9], row[10]] : [],
       );
 
   double dateToGsheets(DateTime dateTime, {bool localTime = true}) {

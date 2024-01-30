@@ -6,7 +6,7 @@ import 'package:paged_vertical_calendar/paged_vertical_calendar.dart';
 import '../controllers/holiday_controller.dart';
 
 class HolidaysView extends GetView<HolidayController> {
-  const HolidaysView({Key? key}) : super(key: key);
+  const HolidaysView({super.key});
   @override
   Widget build(BuildContext context) {
     final color = Color.alphaBlend(
@@ -20,16 +20,16 @@ class HolidaysView extends GetView<HolidayController> {
       appBar: appBar,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: pageVertivalCalendar(today, color),
+        child: pageVerticalCalendar(today, color),
       ),
     );
   }
 
-  PagedVerticalCalendar pageVertivalCalendar(DateTime today, Color color) =>
+  PagedVerticalCalendar pageVerticalCalendar(DateTime today, Color color) =>
       PagedVerticalCalendar(
         physics: const BouncingScrollPhysics(),
-        minDate: DateTime(2023, 01, 00),
-        maxDate: DateTime(2023, 12, 31),
+        minDate: DateTime(2024, 01, 00),
+        maxDate: DateTime(2024, 12, 31),
         initialDate: DateTime(today.year, today.month, today.day),
         monthBuilder: (context, month, year) =>
             monthsBuilder(month, year, context),

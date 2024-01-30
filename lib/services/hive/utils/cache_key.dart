@@ -9,7 +9,7 @@ abstract class CacheKey {
   static const String SHEET_DATA = 'resources_index';
   static const String MY_TEACHERS = 'my_teachers_key';
   static const String USER_ELECTIVE_SECTION = 'user_elective_section_key';
-    
-  static const String TIME_TABLE = 'timetable_key';
-  
+
+  // static const String TIME_TABLE = 'timetable_key';
+  static const String TIME_TABLES = 'timetables_key';
 }

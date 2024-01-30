@@ -8,13 +8,14 @@ import '../controllers/my_batch_controller.dart';
 final shape = RoundedRectangleBorder(borderRadius: BorderRadius.circular(0));
 
 class MyBatchView extends GetView<MyBatchController> {
-  const MyBatchView({Key? key}) : super(key: key);
+  const MyBatchView({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text(
-            controller.hiveDatabase.userBoxDatasources.userInfo?.batch ?? "",
+            controller.hiveDatabase.userBoxDatasources.userInfo.value?.batch ??
+                "",
             style: Get.textTheme.headlineMedium,
           ),
           centerTitle: true,

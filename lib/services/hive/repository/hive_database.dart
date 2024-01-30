@@ -12,7 +12,7 @@ class HiveDatabase extends GetxService {
   late final Box cacheBox;
 
   late final SettingBoxDatasources settingBoxDatasources;
-  late final UserBoxDatasourcse userBoxDatasources;
+  late final UserBoxDatasources userBoxDatasources;
   late final CacheBoxDataSources cacheBoxDataSources;
 
   /// Initializes the Hive database by opening three boxes: userInfo, settings, and cache.
@@ -30,7 +30,7 @@ class HiveDatabase extends GetxService {
     settingBoxDatasources = SettingBoxDatasources(settingsBox);
 
     /// Initializes the [userBoxDatasources] with the [userInfoBox] instance.
-    userBoxDatasources = UserBoxDatasourcse(cacheBox, this);
+    userBoxDatasources = UserBoxDatasources(cacheBox, this);
 
     /// Initializes the [cacheBoxDataSources] with the [cacheBox] instance.
     cacheBoxDataSources = CacheBoxDataSources(cacheBox, this);
@@ -46,9 +46,18 @@ class HiveDatabase extends GetxService {
     await settingsBox.close();
     await cacheBox.close();
     settingBoxDatasources.dispose;
+    userBoxDatasources.dispose;
     super.onClose();
   }
 
+  /// Fetches data from the cache if available, otherwise fetches it from the server and caches it for future use.
+  ///
+  /// The [key] parameter is used to identify the data in the cache.
+  /// The [duration] parameter specifies the duration for which the data should be considered valid.
+  /// The [fetchData] parameter is a function that fetches the data from the server.
+  /// The [preProcessTasks] parameter is an optional list of functions that perform pre-processing tasks on the fetched data.
+  ///
+  /// Returns a stream of the cached data or the fetched data.
   Stream<T?> streamCachedDataOrFetch<T>({
     required String key,
     required Duration duration,
@@ -196,6 +205,10 @@ class HiveDatabase extends GetxService {
         throw Exception('fetchData function is null');
       }
     }
+  }
+
+  Future<void> updateCache<T>(T data, String key) async {
+    await cacheBoxDataSources.saveCache<T>(data, key);
   }
 
   String fT(DateTime d) => "${d.hour}:${d.minute} ${d.hour > 12 ? "pm" : "am"}";

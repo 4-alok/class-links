@@ -12,9 +12,9 @@ class LoadingDatabaseIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
-          child: Tooltip(
-        message: 'Updating Database',
-        child: AnimatedSwitcher(
+        child: Tooltip(
+          message: 'Updating Database',
+          child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
             // child: gSheetServece.spreadsheetLoaded.value
             //     ? icon ?? const SizedBox()

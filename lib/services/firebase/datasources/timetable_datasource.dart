@@ -16,7 +16,7 @@
 //   final hiveDatabase = Get.find<HiveDatabase>();
 
 //   String get batchTimeTableKey =>
-//       'batch_timetable_${hiveDatabase.userBoxDatasources.userInfo?.year ?? -1}';
+//       'batch_timetable_${hiveDatabase.userBoxDatasources.userInfo.value?.year ?? -1}';
 
 //   /// It adds or updates the timetable of the batch.
 //   ///
@@ -27,11 +27,11 @@
 //     final result = await firestore
 //         .collection(batchTimeTableKey)
 //         .where("year",
-//             isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.year)
+//             isEqualTo: hiveDatabase.userBoxDatasources.userInfo.value!.year)
 //         .where("slot",
-//             isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.slot)
+//             isEqualTo: hiveDatabase.userBoxDatasources.userInfo.value!.slot)
 //         .where("batch",
-//             isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.batch)
+//             isEqualTo: hiveDatabase.userBoxDatasources.userInfo.value!.batch)
 //         .get();
 
 //     if (result.docs.isEmpty) {
@@ -74,11 +74,11 @@
 //   //     querySnapshot: firestore
 //   //         .collection(batchTimeTableKey)
 //   //         .where("year",
-//   //             isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.year)
+//   //             isEqualTo: hiveDatabase.userBoxDatasources.userInfo.value!.year)
 //   //         .where("slot",
-//   //             isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.slot)
+//   //             isEqualTo: hiveDatabase.userBoxDatasources.userInfo.value!.slot)
 //   //         .where("batch",
-//   //             isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.batch)
+//   //             isEqualTo: hiveDatabase.userBoxDatasources.userInfo.value!.batch)
 //   //         .get,
 //   //     key: batchTimeTableKey,
 //   //   );
@@ -94,11 +94,11 @@
 //     return firestore
 //         .collection(batchTimeTableKey)
 //         .where("year",
-//             isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.year)
+//             isEqualTo: hiveDatabase.userBoxDatasources.userInfo.value!.year)
 //         .where("slot",
-//             isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.slot)
+//             isEqualTo: hiveDatabase.userBoxDatasources.userInfo.value!.slot)
 //         .where("batch",
-//             isEqualTo: hiveDatabase.userBoxDatasources.userInfo!.batch)
+//             isEqualTo: hiveDatabase.userBoxDatasources.userInfo.value!.batch)
 //         .snapshots()
 //         .map((event) => event.docs.isEmpty
 //             ? defaultDays

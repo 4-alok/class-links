@@ -1,5 +1,5 @@
-import 'package:class_link/services/firebase/repository/firestore_service.dart';
-import 'package:class_link/services/hive/repository/hive_database.dart';
+import '../../../services/firebase/repository/firestore_service.dart';
+import '../../../services/hive/repository/hive_database.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +25,7 @@ class ReportController extends GetxController {
 
   Future<void> get submitReport async {
     submitting.value = true;
-    final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo;
+    final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo.value;
     final report = Report(
         id: userInfo?.id ?? "",
         userId: userInfo?.userName ?? "",

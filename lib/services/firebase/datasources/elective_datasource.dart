@@ -1,5 +1,5 @@
-import 'package:class_link/global/utils/get_snackbar.dart';
-import 'package:class_link/services/hive/repository/hive_database.dart';
+import '../../../global/utils/get_snackbar.dart';
+import '../../hive/repository/hive_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +15,8 @@ class ElectiveDatasources {
 
   Future<UserElectiveSection?> getUserElectiveSection() async {
     try {
-      final email = Get.find<HiveDatabase>().userBoxDatasources.userInfo?.id;
+      final email =
+          Get.find<HiveDatabase>().userBoxDatasources.userInfo.value?.id;
       final rollNo = email?.substring(0, email.indexOf('@'));
 
       final res = await firestore

@@ -17,9 +17,9 @@ class UserDetailsTile extends StatelessWidget {
         subtitle: Text(user.id),
         children: [
           ListTile(
-            title: const Text("Year"),
+            title: const Text("Semester"),
             trailing: Text(
-              user.year.toString(),
+              user.semester.toString(),
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
@@ -27,12 +27,6 @@ class UserDetailsTile extends StatelessWidget {
               title: const Text("Stream"),
               trailing: Text(
                 user.stream,
-                style: Theme.of(context).textTheme.headlineMedium,
-              )),
-          ListTile(
-              title: const Text("Scheme/Slot"),
-              trailing: Text(
-                user.slot.toString(),
                 style: Theme.of(context).textTheme.headlineMedium,
               )),
           ListTile(
@@ -45,7 +39,7 @@ class UserDetailsTile extends StatelessWidget {
           ListTile(
             title: const Text("Joined"),
             subtitle: Text(
-              Utils.formateDate(user.date, false, true),
+              Utils.formateDate(user.joiningDate, false, true),
               style: Theme.of(context)
                   .textTheme
                   .headlineMedium!

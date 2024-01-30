@@ -6,7 +6,8 @@ part of 'event_log.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_EventLog _$$_EventLogFromJson(Map<String, dynamic> json) => _$_EventLog(
+_$EventLogImpl _$$EventLogImplFromJson(Map<String, dynamic> json) =>
+    _$EventLogImpl(
       eventCount: json['eventCount'] as int,
       refIds: (json['refIds'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -14,7 +15,7 @@ _$_EventLog _$$_EventLogFromJson(Map<String, dynamic> json) => _$_EventLog(
           const [],
     );
 
-Map<String, dynamic> _$$_EventLogToJson(_$_EventLog instance) =>
+Map<String, dynamic> _$$EventLogImplToJson(_$EventLogImpl instance) =>
     <String, dynamic>{
       'eventCount': instance.eventCount,
       'refIds': instance.refIds,

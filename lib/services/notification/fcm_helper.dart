@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
+// import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:class_link/global/utils/get_snackbar.dart';
-import 'package:class_link/services/notification/notification_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../global/const/app_credentials.dart';
@@ -80,7 +78,7 @@ class FcmHelper {
 
       // background and foreground handlers
       // FirebaseMessaging.onMessage.listen(_fcmForegroundHandler);
-      FirebaseMessaging.onBackgroundMessage(_fcmBackgroundHandler);
+      // FirebaseMessaging.onBackgroundMessage(_fcmBackgroundHandler);
     } catch (error) {
       // if you are connected to firebase and still get error
       // check the todo up in the function else ignore the error
@@ -128,22 +126,22 @@ class FcmHelper {
   ///handle fcm notification when app is closed/terminated
   /// if you are wondering about this annotation read the following
   /// https://stackoverflow.com/a/67083337
-  @pragma('vm:entry-point')
-  static Future<void> _fcmBackgroundHandler(RemoteMessage message) async {
-    NotificationService.awesomeNotifications.createNotification(
-      content: NotificationContent(
-        id: 20,
-        channelKey: "",
-        color: Get.theme.primaryColor,
-        title: message.notification?.title ?? '',
-        body: message.notification?.body ?? '',
-        bigPicture:
-            "https://tecnoblog.net/wp-content/uploads/2019/09/emoji.jpg",
-        notificationLayout: NotificationLayout.BigPicture,
-        payload: {
-          "route": message.data['route'] ?? "",
-        },
-      ),
-    );
-  }
+  // @pragma('vm:entry-point')
+  // static Future<void> _fcmBackgroundHandler(RemoteMessage message) async {
+  //   NotificationService.awesomeNotifications.createNotification(
+  //     content: NotificationContent(
+  //       id: 20,
+  //       channelKey: "",
+  //       color: Get.theme.primaryColor,
+  //       title: message.notification?.title ?? '',
+  //       body: message.notification?.body ?? '',
+  //       bigPicture:
+  //           "https://tecnoblog.net/wp-content/uploads/2019/09/emoji.jpg",
+  //       notificationLayout: NotificationLayout.BigPicture,
+  //       payload: {
+  //         "route": message.data['route'] ?? "",
+  //       },
+  //     ),
+  //   );
+  // }
 }

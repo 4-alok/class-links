@@ -1,4 +1,4 @@
-import 'package:class_link/presentation/home/model/background_parameter.dart';
+import '../model/background_parameter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,7 +11,7 @@ import 'components/parallex_page_view.dart';
 import 'components/time_table_page.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(

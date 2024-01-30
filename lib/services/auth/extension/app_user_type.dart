@@ -1,3 +1,4 @@
+import '../../../global/data/students_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/user_type.dart';
@@ -17,7 +18,11 @@ extension GetAppUserType on User? {
       // If the email ends with "kiit.ac.in", it is a KIITian
       final rollNo = int.tryParse(email.split("@")[0]) ??
           -1; // Get the roll number from the email
-      if (await _isValidRollNo(rollNo)) {
+
+      if (sixthSemStudentRolls.contains(rollNo)) {
+        // If the roll number is in the sixthSemStudentRolls list, return AppUserType.appUser
+        return AppUserType.appUser;
+      } else if (await _isValidRollNo(rollNo)) {
         // If the roll number is valid, return AppUserType.appUser
         return AppUserType.appUser;
       }

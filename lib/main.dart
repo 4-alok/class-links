@@ -11,7 +11,8 @@ import 'routes/app_pages.dart';
 import 'services/hive/repository/hive_database.dart';
 
 // ignore: constant_identifier_names
-const TEST_MODE = false;
+// const TEST_MODE = false;
+// const TEST_MODE = true;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +20,7 @@ Future<void> main() async {
 }
 
 class ClassLink extends StatelessWidget {
-  const ClassLink({Key? key}) : super(key: key);
+  const ClassLink({super.key});
 
   @override
   Widget build(BuildContext context) {

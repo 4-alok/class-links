@@ -5,7 +5,7 @@ import '../../controller/database_utils.dart';
 import '../widget/test_widgets.dart';
 
 class DatabaseUtils extends StatefulWidget {
-  const DatabaseUtils({Key? key}) : super(key: key);
+  const DatabaseUtils({super.key});
 
   @override
   State<DatabaseUtils> createState() => _DatabaseUtilsState();
@@ -72,6 +72,18 @@ class _DatabaseUtilsState extends State<DatabaseUtils> with TestWidgets {
                 ElevatedButton(
                   onPressed: () => controller.clearAllCache(),
                   child: const Text("Clear All Cache"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.getIndex(),
+                  child: const Text("Get User Index"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.addUserInfo(),
+                  child: const Text("Add Users"),
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.getUserList(),
+                  child: const Text("GetUserList"),
                 ),
               ],
             ),

@@ -1,4 +1,3 @@
-import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
@@ -12,16 +11,16 @@ class UtilsDataSources {
 
   final count = Rx<int?>(null);
   final dCount = Rx<int?>(null);
-  final blakRoom = Rx<Map<String, dynamic>?>(null);
+  // final blakRoom = Rx<Map<String, dynamic>?>(null);
 
   Future<void> get all3rdYearAsViewer async {
     final res =
         await firestore.collection('user').where('year', isEqualTo: 3).get();
     for (int i = 0; i < res.docs.length; i++) {
-      final userInfo = UserInfo.fromJson(res.docs[i].data());
+      final userInfo = UserInfo.fromMap(res.docs[i].data());
       if (userInfo.role == 'user') {
         await firestore.collection('user').doc(res.docs[i].id).update(
-            userInfo.copyWith(role: 'viewer', refId: res.docs[i].id).toJson());
+            userInfo.copyWith(role: 'viewer', refId: res.docs[i].id).toMap());
       }
       count.value = i;
     }
@@ -41,17 +40,17 @@ class UtilsDataSources {
     dCount.value = null;
   }
 
-  Future<void> changeMyBatch(
-      {required String myBatch, required int year}) async {
-    final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo;
-    final res = await firestore
-        .collection('user')
-        .where('id', isEqualTo: userInfo?.id ?? '')
-        .get();
+  // Future<void> changeMyBatch(
+  //     {required String myBatch, required int year}) async {
+  //   final userInfo = Get.find<HiveDatabase>().userBoxDatasources.userInfo.value;
+  //   final res = await firestore
+  //       .collection('user')
+  //       .where('id', isEqualTo: userInfo?.id ?? '')
+  //       .get();
 
-    await res.docs.first.reference
-        .update(userInfo!.copyWith(batch: myBatch, year: year).toJson());
-  }
+  //   await res.docs.first.reference
+  //       .update(userInfo!.copyWith(batch: myBatch, year: year).toMap());
+  // }
 
   /*
   Future<void> get get3rdYearBlankRoom async {
@@ -120,6 +119,6 @@ class UtilsDataSources {
   void get dispose {
     count.close();
     dCount.close();
-    blakRoom.close();
+    // blakRoom.close();
   }
 }

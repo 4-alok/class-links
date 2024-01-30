@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide UserInfo;
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import '../../../../global/widget/user_icon.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../services/auth/repository/auth_service_repo.dart';
 import '../../../../services/hive/repository/hive_database.dart';
+import '../../../global/widget/batch_selection/batch_selection_dialog_box.dart';
 import '../../../global/widget/theme_selector.dart';
 import '../../../services/auth/models/user_type.dart';
 import '../../../services/hive/models/user_info.dart';
@@ -23,11 +25,11 @@ import 'component/app_info_dialog.dart';
 const bool testMode = false;
 
 class ProfileView extends GetView<ProfileController> {
-  const ProfileView({Key? key}) : super(key: key);
+  const ProfileView({super.key});
 
   User? get user => Get.find<AuthService>().getUser;
   UserInfo? get userInfo =>
-      Get.find<HiveDatabase>().userBoxDatasources.userInfo;
+      Get.find<HiveDatabase>().userBoxDatasources.userInfo.value;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -197,6 +199,7 @@ class ProfileView extends GetView<ProfileController> {
   Widget batch(BuildContext context) => Obx(
         () => controller.userType.value == AppUserType.appUser
             ? ListTile(
+                contentPadding: const EdgeInsets.only(left: 16, right: 10),
                 leading: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -204,9 +207,31 @@ class ProfileView extends GetView<ProfileController> {
                   ],
                 ),
                 title: const Text("My Batch"),
-                subtitle: Text(
-                  Get.find<HiveDatabase>().userBoxDatasources.userInfo?.batch ??
-                      "",
+                subtitle: Obx(
+                  () => Text(
+                    Get.find<HiveDatabase>()
+                            .userBoxDatasources
+                            .userInfo
+                            .value
+                            ?.batch ??
+                        "",
+                  ),
+                ),
+                trailing: ElevatedButton(
+                  onPressed: () async => await showModal<UserInfo?>(
+                    context: context,
+                    configuration: const FadeScaleTransitionConfiguration(
+                      barrierDismissible: true,
+                      transitionDuration: Duration(milliseconds: 300),
+                    ),
+                    builder: (context) => BatchSelectionDialogBox(
+                      initialUserInfo: Get.find<HiveDatabase>()
+                          .userBoxDatasources
+                          .userInfo
+                          .value,
+                    ),
+                  ),
+                  child: const Icon(Icons.edit),
                 ),
                 onTap: () => Get.toNamed(Routes.MY_BATCH),
               )

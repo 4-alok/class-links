@@ -7,10 +7,10 @@ import '../../services/auth/repository/auth_service_repo.dart';
 
 class UserIcon extends StatelessWidget {
   const UserIcon({
-    Key? key,
+    super.key,
     required this.radius,
     this.noUser = false,
-  }) : super(key: key);
+  });
   final double? radius;
   final bool noUser;
 

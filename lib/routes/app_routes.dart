@@ -11,7 +11,7 @@ abstract class Routes {
   static const String ADMIN = _Paths.ADMIN;
   static const String SETTINGS = _Paths.SETTINGS;
   static const String PROFILE = _Paths.PROFILE;
-  static const String BATCH_SELECTION = _Paths.BATCH_SELECTION;
+  // static const String BATCH_SELECTION = _Paths.BATCH_SELECTION;
   static const String LOG_PAGE = _Paths.LOG_PAGE;
   static const String SUBJECT_INFO = _Paths.SUBJECT_INFO;
   static const String MY_BATCH = _Paths.MY_BATCH;
@@ -34,7 +34,7 @@ abstract class _Paths {
   static const String ADMIN = '/admin';
   static const String SETTINGS = '/settings';
   static const String PROFILE = '/profile';
-  static const String BATCH_SELECTION = '/batch-selection';
+  // static const String BATCH_SELECTION = '/batch-selection';
   static const String LOG_PAGE = '/log-page';
   static const String SUBJECT_INFO = '/subject-info';
   static const String MY_BATCH = '/my-batch';
