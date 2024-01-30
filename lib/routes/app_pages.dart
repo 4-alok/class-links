@@ -4,8 +4,6 @@ import '../presentation/app_users/binding/app_user_binding.dart';
 import '../presentation/app_users/view/app_user_view.dart';
 import '../presentation/auth/bindings/auth_binding.dart';
 import '../presentation/auth/views/auth_view.dart';
-// import '../presentation/batch_selection/bindings/user_batch_binding.dart';
-// import '../presentation/batch_selection/views/user_batch_view.dart';
 import '../presentation/control_panel/bindings/control_panel_binding.dart';
 import '../presentation/control_panel/views/control_panel_view.dart';
 import '../presentation/control_panel/views/pages/notification_page.dart';
@@ -65,11 +63,6 @@ class AppPages {
       page: () => const ProfileView(),
       binding: ProfileBinding(),
     ),
-    // GetPage(
-    //   name: _Paths.BATCH_SELECTION,
-    //   page: () => const BatchSelectionPage(),
-    //   binding: UserBatchBinding(),
-    // ),
     GetPage(
       name: _Paths.SUBJECT_INFO,
       page: () => SubjectInfoView(subjectInfo: Get.arguments),

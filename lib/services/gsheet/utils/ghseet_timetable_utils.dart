@@ -67,7 +67,6 @@ mixin GsheetTimetableUtils {
     return '';
   }
 
-
   // TODO: !! ----------------- Optimizations needed ------------------- !!
 
   /// Retrieves the indices of various headers in the given [header] list.

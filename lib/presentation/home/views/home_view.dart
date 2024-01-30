@@ -49,8 +49,25 @@ class HomeView extends GetView<HomeController> {
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else {
-              return const Material(
-                  child: Center(child: Text('No data: Something went wrong')));
+              return Material(
+                  child: Center(
+                      child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('No data: Something went wrong'),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: controller.logout,
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                      child: Text("Logout"),
+                    ),
+                  ),
+                ],
+              )));
             }
           },
         ),

@@ -23,7 +23,7 @@ class ProfileController extends GetxController {
 
   @override
   void onReady() {
-    setAppUsetType;
+    setAppUserType;
     final appTheme = hiveDatabase.settingBoxDatasources.appTheme.value;
     final index = AppColor.schemes.indexWhere((element) => element == appTheme);
     if ((AppColor.schemes.length - index) >=
@@ -40,7 +40,7 @@ class ProfileController extends GetxController {
     super.onReady();
   }
 
-  Future<void> get setAppUsetType async =>
+  Future<void> get setAppUserType async =>
       userType.value = await Get.find<AuthService>().user.value.userType;
 
   /// It toggles the theme mode.

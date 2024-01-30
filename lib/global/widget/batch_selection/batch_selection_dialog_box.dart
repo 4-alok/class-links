@@ -29,6 +29,14 @@ class _BatchSelectionDialogBoxState extends State<BatchSelectionDialogBox> {
     super.initState();
   }
 
+  Future<void> _onSave() async {
+    final userInfo = await controller.save();
+    if (userInfo != null) {
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context, userInfo);
+    }
+  }
+
   @override
   void dispose() {
     Get.delete<BatchSelectionDialogController>();
@@ -74,21 +82,7 @@ class _BatchSelectionDialogBoxState extends State<BatchSelectionDialogBox> {
           ),
           const SizedBox(width: 10),
           ElevatedButton(
-            onPressed: () async {
-              // if (controller.currentStream.value == null ||
-              //     controller.currentBatch.value == null) {
-              //   Get.snackbar(
-              //     "Error",
-              //     "Please select stream and batch",
-              //     snackPosition: SnackPosition.BOTTOM,
-              //   );
-              // } else {
-              final userInfo = await controller.save();
-              if (userInfo != null) {
-                // ignore: use_build_context_synchronously
-                Navigator.pop(context, userInfo);
-              }
-            },
+            onPressed: _onSave,
             child: Obx(
               () => controller.savingInProcess.value
                   ? const SizedBox(

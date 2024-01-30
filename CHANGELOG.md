@@ -1,5 +1,12 @@
 # Change log
 
+## v0.1.33
+
+- only for 3rd year (CSE/IT/CSSE/CSCE)
+- updated TimeTable 6th semester
+- added option to change section
+- optimization and bug fixes
+
 ## v0.1.32
 
 - ClassLink Resourecs Web

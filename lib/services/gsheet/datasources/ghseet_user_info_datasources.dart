@@ -30,6 +30,14 @@ class GSheetUserInfoDatasources
     }
   }
 
+  /// Adds user information to the Google Sheets.
+  /// Returns `true` if the user information is successfully added, otherwise throws an exception.
+  ///
+  /// Parameters:
+  /// - `user`: The user information to be added.
+  ///
+  /// Throws:
+  /// - `Exception`: If there is an error while fetching the worksheet data or the spreadsheet.
   Future<bool> _addUserInfo(UserInfo user) async {
     final spreadsheet = await gSheetService.spreadsheet.future;
     if (spreadsheet != null) {
@@ -80,7 +88,6 @@ class GSheetUserInfoDatasources
   //   }
   // }
 
-  // TODO: FIX Twice read from gsheet for same data
   @override
   Future<List<UserInfo>> getAllUserList() async {
     try {
@@ -97,6 +104,10 @@ class GSheetUserInfoDatasources
       (await getAllUserList()).firstWhereOrNull((element) =>
           element.id == Get.find<AuthDatasources>().user.value?.email);
 
+  /// Retrieves a list of [UserInfo] objects by fetching data from a Google Sheets spreadsheet.
+  ///
+  /// Returns a [Future] that resolves to a list of [UserInfo] objects.
+  /// Throws an [Exception] if there is an error while fetching the worksheet data or the spreadsheet.
   Future<List<UserInfo>> get _getAllUserList async {
     final spreadsheet = await gSheetService.spreadsheet.future;
     if (spreadsheet != null) {
@@ -112,6 +123,13 @@ class GSheetUserInfoDatasources
     }
   }
 
+  /// Updates the user information in the Google Sheets.
+  ///
+  /// Returns `true` if the update is successful, otherwise throws an exception.
+  /// The user information is updated at the specified index in the worksheet.
+  /// If the update is successful, the cache is also updated with the new user information.
+  ///
+  /// Throws an exception if there is an error while fetching the worksheet data or the spreadsheet.
   Future<bool> updateUserInfo(UserInfo user) async {
     final users = await getAllUserList();
     final index = users.indexWhere((element) => element.id == user.id);
@@ -125,7 +143,7 @@ class GSheetUserInfoDatasources
         // updating cache if update is successful ---------//
         if (inserted) {
           _hdb.updateCache(
-              _bakeUsersCache(users, user), CacheKey.ALL_USER_LIST);
+              _updateUsersCache(users, user), CacheKey.ALL_USER_LIST);
         }
         // -----------------------------------------------//
         return true;
@@ -137,7 +155,10 @@ class GSheetUserInfoDatasources
     }
   }
 
-  List<UserInfo> _bakeUsersCache(List<UserInfo> list, UserInfo user) {
+  /// Updates the cache of user information by adding or replacing the specified user.
+  ///
+  /// Returns the updated list of user information.
+  List<UserInfo> _updateUsersCache(List<UserInfo> list, UserInfo user) {
     final index = list.indexWhere((element) => element.id == user.id);
     if (index != -1) {
       list[index] = user;

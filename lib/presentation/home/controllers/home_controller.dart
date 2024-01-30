@@ -8,15 +8,16 @@ import '../../../../services/hive/repository/hive_database.dart';
 import '../../../global/const/const.dart';
 import '../../../global/models/time_table/time_table.dart';
 import '../../../global/models/time_table/timetables.dart';
+import '../../../global/utils/app_update.dart';
+import '../../../routes/app_pages.dart';
 import '../../../services/analytics/analytics_service.dart';
+import '../../../services/auth/repository/auth_service_repo.dart';
 import '../../../services/gsheet/datasources/sheet_timetable_datasources.dart';
 import '../../../services/gsheet/repository/gsheet_service.dart';
 import '../../../services/hive/models/user_info.dart';
 import '../../../services/hive/utils/cache_key.dart';
 import '../../subject_info/controllers/subject_info_controller.dart';
 import 'utils/timetable_task.dart';
-
-const String session = "session";
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -30,9 +31,6 @@ class HomeController extends GetxController
 
   // // copy of originalList
   final week = Rx<List<Day>>([]);
-  // //  original list
-  // List<Day> originalList =
-  //     List.generate(7, (index) => Day(day: Days.days[index], subjects: []));
 
   /// value changes every hour, to rebuild [TimeTablePage] body
   final hourlyUpdate = ValueNotifier(DateTime.now().hour);
@@ -87,8 +85,7 @@ class HomeController extends GetxController
   @override
   void onReady() {
     fetchAndProcessTimetable();
-    // AndroidAppUpdate.update;
-    // Patch().init;
+    AndroidAppUpdate.update;
     analyticsEvent();
 
     // Refreshing the timetable when the user section change changes
@@ -98,10 +95,10 @@ class HomeController extends GetxController
   }
 
   // Refreshing the timetable when the user section change changes
-  void refreshTimetable() => _userInfoSubscription =
-          hiveDatabase.userBoxDatasources.userInfo.listen((user) async {
-        await fetchAndProcessTimetable();
-      });
+  void refreshTimetable() =>
+      _userInfoSubscription = hiveDatabase.userBoxDatasources.userInfo.listen(
+        (user) async => await fetchAndProcessTimetable(),
+      );
 
   /// It fetches the timetable from the server, processes it, and adds it to the [week] variable.
   Future<void> fetchAndProcessTimetable() async {
@@ -153,6 +150,12 @@ class HomeController extends GetxController
         // Need to change it to firebase
         fetchData: gSheetService.gSheetUserInfoDatasources.getUserInfo,
       );
+
+  // Logout the user, clear the caches and navigate to the AuthView
+  Future<void> logout() async {
+    await Get.find<AuthService>().logout;
+    await Get.offAllNamed(Routes.AUTH);
+  }
 
   /// It cancels all subscriptions, disposes all streams, and deletes the SubjectInfoController
   @override

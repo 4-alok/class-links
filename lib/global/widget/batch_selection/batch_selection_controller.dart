@@ -68,6 +68,7 @@ class BatchSelectionDialogController extends GetxController {
   Future<UserInfo?> save() async {
     savingInProcess.value = true;
 
+    // Check if user is logged in and form is validated
     if (firebaseUser != null && validate) {
       late final UserInfo userInfo;
       if (initialUserInfo == null) {
@@ -83,19 +84,27 @@ class BatchSelectionDialogController extends GetxController {
           ],
           role: "user",
           joiningDate: DateTime.now(),
+          lastUpdated: DateTime.now(),
         );
       } else {
-        userInfo = initialUserInfo!.copyWith(
-          userName: firebaseUser!.displayName ?? "",
-          semester: currentSemester.value!,
-          stream: currentStream.value!,
-          batch: currentBatch.value!,
-          lastUpdated: DateTime.now(),
-          electiveSections: [
-            currentElectiveSubject1.value ?? "",
-            currentElectiveSubject2.value ?? "",
-          ],
-        );
+        // if initialUserInfo Last updated is not null and is more than 1 day then update it
+
+        if (_shouldUpdate(initialUserInfo!.lastUpdated)) {
+          userInfo = initialUserInfo!.copyWith(
+            userName: firebaseUser!.displayName ?? "",
+            semester: currentSemester.value!,
+            stream: currentStream.value!,
+            batch: currentBatch.value!,
+            lastUpdated: DateTime.now(),
+            electiveSections: [
+              currentElectiveSubject1.value ?? "",
+              currentElectiveSubject2.value ?? "",
+            ],
+          );
+        } else {
+          errorText.value =
+              "Can't update your section, try later after 16 hours";
+        }
       }
 
       try {
@@ -119,6 +128,16 @@ class BatchSelectionDialogController extends GetxController {
     } else {
       savingInProcess.value = false;
       return null;
+    }
+  }
+
+  bool _shouldUpdate(DateTime? lastUpdated) {
+    // if last updated is not null and is more than 16 hours then update it
+    if (lastUpdated != null &&
+        lastUpdated.difference(DateTime.now()).inHours.abs() > 16) {
+      return true;
+    } else {
+      return false;
     }
   }
 

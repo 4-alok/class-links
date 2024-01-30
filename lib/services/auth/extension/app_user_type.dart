@@ -22,10 +22,11 @@ extension GetAppUserType on User? {
       if (sixthSemStudentRolls.contains(rollNo)) {
         // If the roll number is in the sixthSemStudentRolls list, return AppUserType.appUser
         return AppUserType.appUser;
-      } else if (await _isValidRollNo(rollNo)) {
-        // If the roll number is valid, return AppUserType.appUser
-        return AppUserType.appUser;
       }
+      // else if (await _isValidRollNo(rollNo)) {
+      //   // If the roll number is valid, return AppUserType.appUser
+      //   return AppUserType.appUser;
+      // }
       return AppUserType.kiitian; // Otherwise, return AppUserType.kiitian
     } else {
       // Otherwise, return AppUserType.none
@@ -40,19 +41,19 @@ extension GetAppUserType on User? {
             .map((e) => '$e@kiit.ac.in'),
       ].contains(email);
 
-  /// Checks if the given roll number is valid.
-  Future<bool> _isValidRollNo(int rollNo) async => _startWith(
-        rollNo.toString(),
-        const [
-          '2205', // 2022 CSE and IT
-          '2229', // 2022 CSCE
-          '2228', // 2022 CSSE
-          '2105', // 2021 CSE and IT
-          '2106', // 2021 CSE and IT
-          '2129', // 2021 CSCE
-          '2128', // 2021 CSSE
-        ],
-      );
+  // /// Checks if the given roll number is valid.
+  // Future<bool> _isValidRollNo(int rollNo) async => _startWith(
+  //       rollNo.toString(),
+  //       const [
+  //         '2205', // 2022 CSE and IT
+  //         '2229', // 2022 CSCE
+  //         '2228', // 2022 CSSE
+  //         '2105', // 2021 CSE and IT
+  //         '2106', // 2021 CSE and IT
+  //         '2129', // 2021 CSCE
+  //         '2128', // 2021 CSSE
+  //       ],
+  //     );
 
   /// Checks if the given string starts with any of the given arguments.
   bool _startWith(String string, List<String> args) {

@@ -16,18 +16,14 @@ class AuthController extends GetxController {
   final hiveDatabase = Get.find<HiveDatabase>();
   GSheetService get sheetService => Get.find<GSheetService>();
   FirestoreService get firestoreService => Get.find<FirestoreService>();
+  AuthService get authService => Get.find<AuthService>();
 
   Future<bool> handleLogin() async {
     loading.value = true;
 
-    // check firebaseUser already login or not
-    if (Get.find<AuthService>().user.value != null) {
-      loading.value = false;
-      return true;
-    }
-
     /// Calling the login method of AuthService class (Google Login).
-    final auth.User? firebaseUser = await Get.find<AuthService>().login;
+    final auth.User? firebaseUser =
+        authService.user.value ?? await authService.login;
 
     if (firebaseUser != null) {
       // Get the user type from the firebaseUser object
@@ -40,6 +36,7 @@ class AuthController extends GetxController {
           break;
         // If the user type is kiitian, navigate to the RESOURCES route
         case AppUserType.kiitian:
+          //
           Get.offNamed(Routes.RESOURCES);
           break;
         // If the user type is appUser, process the user data and navigate to the appropriate route
@@ -63,7 +60,7 @@ class AuthController extends GetxController {
     return false;
   }
 
-  /// Retrieves user info from Firestore and saves it to Hive database if it doesn't exist already.
+  /// Retrieves user info from Gsheet and saves it to Hive database if it doesn't exist already.
   Future<UserInfo?> tryRetrieve(String email) async {
     // First check if the user info exists in the Google Sheet
     final sheetUserInfo =
