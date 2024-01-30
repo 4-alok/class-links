@@ -1,6 +1,6 @@
 import 'package:animations/animations.dart';
-import 'package:class_link/global/utils/extension.dart';
-import 'package:class_link/global/widget/frost_card.dart';
+import '../../../../global/utils/extension.dart';
+import '../../../../global/widget/frost_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:flutter_svg/flutter_svg.dart';

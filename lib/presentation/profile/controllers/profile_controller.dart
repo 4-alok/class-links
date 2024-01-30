@@ -1,4 +1,4 @@
-import 'package:class_link/services/auth/extension/app_user_type.dart';
+import '../../../services/auth/extension/app_user_type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

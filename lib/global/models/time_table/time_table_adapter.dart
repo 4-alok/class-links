@@ -14,30 +14,21 @@ class TimetableAdapter extends TypeAdapter<TimeTable> {
     };
     return TimeTable(
       week: (fields[0] as List).cast<Day>(),
-      creatorId: fields[1] as String,
-      batch: fields[2] as String,
-      year: fields[3] as int,
-      slot: fields[4] as int,
-      date: fields[5] as DateTime,
+      batch: fields[1] as String,
+      semester: fields[2] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, TimeTable obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.week)
       ..writeByte(1)
-      ..write(obj.creatorId)
-      ..writeByte(2)
       ..write(obj.batch)
-      ..writeByte(3)
-      ..write(obj.year)
-      ..writeByte(4)
-      ..write(obj.slot)
-      ..writeByte(5)
-      ..write(obj.date);
+      ..writeByte(2)
+      ..write(obj.semester);
   }
 }
 

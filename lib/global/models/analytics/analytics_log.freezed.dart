@@ -105,11 +105,11 @@ class _$AnalyticsLogCopyWithImpl<$Res, $Val extends AnalyticsLog>
 }
 
 /// @nodoc
-abstract class _$$_AnalyticsLogCopyWith<$Res>
+abstract class _$$AnalyticsLogImplCopyWith<$Res>
     implements $AnalyticsLogCopyWith<$Res> {
-  factory _$$_AnalyticsLogCopyWith(
-          _$_AnalyticsLog value, $Res Function(_$_AnalyticsLog) then) =
-      __$$_AnalyticsLogCopyWithImpl<$Res>;
+  factory _$$AnalyticsLogImplCopyWith(
+          _$AnalyticsLogImpl value, $Res Function(_$AnalyticsLogImpl) then) =
+      __$$AnalyticsLogImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -123,11 +123,11 @@ abstract class _$$_AnalyticsLogCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AnalyticsLogCopyWithImpl<$Res>
-    extends _$AnalyticsLogCopyWithImpl<$Res, _$_AnalyticsLog>
-    implements _$$_AnalyticsLogCopyWith<$Res> {
-  __$$_AnalyticsLogCopyWithImpl(
-      _$_AnalyticsLog _value, $Res Function(_$_AnalyticsLog) _then)
+class __$$AnalyticsLogImplCopyWithImpl<$Res>
+    extends _$AnalyticsLogCopyWithImpl<$Res, _$AnalyticsLogImpl>
+    implements _$$AnalyticsLogImplCopyWith<$Res> {
+  __$$AnalyticsLogImplCopyWithImpl(
+      _$AnalyticsLogImpl _value, $Res Function(_$AnalyticsLogImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -141,7 +141,7 @@ class __$$_AnalyticsLogCopyWithImpl<$Res>
     Object? year = null,
     Object? date = null,
   }) {
-    return _then(_$_AnalyticsLog(
+    return _then(_$AnalyticsLogImpl(
       refId: freezed == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
@@ -176,8 +176,8 @@ class __$$_AnalyticsLogCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AnalyticsLog implements _AnalyticsLog {
-  const _$_AnalyticsLog(
+class _$AnalyticsLogImpl implements _AnalyticsLog {
+  const _$AnalyticsLogImpl(
       {this.refId = null,
       required this.id,
       this.slot = 1,
@@ -186,8 +186,8 @@ class _$_AnalyticsLog implements _AnalyticsLog {
       required this.year,
       required this.date});
 
-  factory _$_AnalyticsLog.fromJson(Map<String, dynamic> json) =>
-      _$$_AnalyticsLogFromJson(json);
+  factory _$AnalyticsLogImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AnalyticsLogImplFromJson(json);
 
   @override
   @JsonKey()
@@ -212,10 +212,10 @@ class _$_AnalyticsLog implements _AnalyticsLog {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AnalyticsLog &&
+            other is _$AnalyticsLogImpl &&
             (identical(other.refId, refId) || other.refId == refId) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.slot, slot) || other.slot == slot) &&
@@ -233,12 +233,12 @@ class _$_AnalyticsLog implements _AnalyticsLog {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AnalyticsLogCopyWith<_$_AnalyticsLog> get copyWith =>
-      __$$_AnalyticsLogCopyWithImpl<_$_AnalyticsLog>(this, _$identity);
+  _$$AnalyticsLogImplCopyWith<_$AnalyticsLogImpl> get copyWith =>
+      __$$AnalyticsLogImplCopyWithImpl<_$AnalyticsLogImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AnalyticsLogToJson(
+    return _$$AnalyticsLogImplToJson(
       this,
     );
   }
@@ -252,10 +252,10 @@ abstract class _AnalyticsLog implements AnalyticsLog {
       required final String batch,
       required final String stream,
       required final int year,
-      required final DateTime date}) = _$_AnalyticsLog;
+      required final DateTime date}) = _$AnalyticsLogImpl;
 
   factory _AnalyticsLog.fromJson(Map<String, dynamic> json) =
-      _$_AnalyticsLog.fromJson;
+      _$AnalyticsLogImpl.fromJson;
 
   @override
   String? get refId;
@@ -273,7 +273,7 @@ abstract class _AnalyticsLog implements AnalyticsLog {
   DateTime get date;
   @override
   @JsonKey(ignore: true)
-  _$$_AnalyticsLogCopyWith<_$_AnalyticsLog> get copyWith =>
+  _$$AnalyticsLogImplCopyWith<_$AnalyticsLogImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -337,22 +337,22 @@ class _$ThemeUsageLogCopyWithImpl<$Res, $Val extends ThemeUsageLog>
 }
 
 /// @nodoc
-abstract class _$$_ThemeUsageLogCopyWith<$Res>
+abstract class _$$ThemeUsageLogImplCopyWith<$Res>
     implements $ThemeUsageLogCopyWith<$Res> {
-  factory _$$_ThemeUsageLogCopyWith(
-          _$_ThemeUsageLog value, $Res Function(_$_ThemeUsageLog) then) =
-      __$$_ThemeUsageLogCopyWithImpl<$Res>;
+  factory _$$ThemeUsageLogImplCopyWith(
+          _$ThemeUsageLogImpl value, $Res Function(_$ThemeUsageLogImpl) then) =
+      __$$ThemeUsageLogImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool? isBlack, bool? themeModeLight, String themeName});
 }
 
 /// @nodoc
-class __$$_ThemeUsageLogCopyWithImpl<$Res>
-    extends _$ThemeUsageLogCopyWithImpl<$Res, _$_ThemeUsageLog>
-    implements _$$_ThemeUsageLogCopyWith<$Res> {
-  __$$_ThemeUsageLogCopyWithImpl(
-      _$_ThemeUsageLog _value, $Res Function(_$_ThemeUsageLog) _then)
+class __$$ThemeUsageLogImplCopyWithImpl<$Res>
+    extends _$ThemeUsageLogCopyWithImpl<$Res, _$ThemeUsageLogImpl>
+    implements _$$ThemeUsageLogImplCopyWith<$Res> {
+  __$$ThemeUsageLogImplCopyWithImpl(
+      _$ThemeUsageLogImpl _value, $Res Function(_$ThemeUsageLogImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -362,7 +362,7 @@ class __$$_ThemeUsageLogCopyWithImpl<$Res>
     Object? themeModeLight = freezed,
     Object? themeName = null,
   }) {
-    return _then(_$_ThemeUsageLog(
+    return _then(_$ThemeUsageLogImpl(
       isBlack: freezed == isBlack
           ? _value.isBlack
           : isBlack // ignore: cast_nullable_to_non_nullable
@@ -381,14 +381,14 @@ class __$$_ThemeUsageLogCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ThemeUsageLog implements _ThemeUsageLog {
-  const _$_ThemeUsageLog(
+class _$ThemeUsageLogImpl implements _ThemeUsageLog {
+  const _$ThemeUsageLogImpl(
       {this.isBlack = null,
       this.themeModeLight = null,
       required this.themeName});
 
-  factory _$_ThemeUsageLog.fromJson(Map<String, dynamic> json) =>
-      _$$_ThemeUsageLogFromJson(json);
+  factory _$ThemeUsageLogImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ThemeUsageLogImplFromJson(json);
 
   @override
   @JsonKey()
@@ -405,10 +405,10 @@ class _$_ThemeUsageLog implements _ThemeUsageLog {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ThemeUsageLog &&
+            other is _$ThemeUsageLogImpl &&
             (identical(other.isBlack, isBlack) || other.isBlack == isBlack) &&
             (identical(other.themeModeLight, themeModeLight) ||
                 other.themeModeLight == themeModeLight) &&
@@ -424,12 +424,12 @@ class _$_ThemeUsageLog implements _ThemeUsageLog {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ThemeUsageLogCopyWith<_$_ThemeUsageLog> get copyWith =>
-      __$$_ThemeUsageLogCopyWithImpl<_$_ThemeUsageLog>(this, _$identity);
+  _$$ThemeUsageLogImplCopyWith<_$ThemeUsageLogImpl> get copyWith =>
+      __$$ThemeUsageLogImplCopyWithImpl<_$ThemeUsageLogImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ThemeUsageLogToJson(
+    return _$$ThemeUsageLogImplToJson(
       this,
     );
   }
@@ -439,10 +439,10 @@ abstract class _ThemeUsageLog implements ThemeUsageLog {
   const factory _ThemeUsageLog(
       {final bool? isBlack,
       final bool? themeModeLight,
-      required final String themeName}) = _$_ThemeUsageLog;
+      required final String themeName}) = _$ThemeUsageLogImpl;
 
   factory _ThemeUsageLog.fromJson(Map<String, dynamic> json) =
-      _$_ThemeUsageLog.fromJson;
+      _$ThemeUsageLogImpl.fromJson;
 
   @override
   bool? get isBlack;
@@ -452,6 +452,6 @@ abstract class _ThemeUsageLog implements ThemeUsageLog {
   String get themeName;
   @override
   @JsonKey(ignore: true)
-  _$$_ThemeUsageLogCopyWith<_$_ThemeUsageLog> get copyWith =>
+  _$$ThemeUsageLogImplCopyWith<_$ThemeUsageLogImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

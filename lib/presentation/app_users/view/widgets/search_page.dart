@@ -1,4 +1,4 @@
-import 'package:class_link/presentation/app_users/controller/app_user_controller.dart';
+import '../../controller/app_user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';

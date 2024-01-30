@@ -1,15 +1,14 @@
-import 'package:class_link/presentation/control_panel/views/widget/reset_user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
-import '../../../services/hive/utils/in_app_rating.dart';
 import '../controllers/controller_panel_controller.dart';
 import 'widget/change_user_batch_widget.dart';
+import 'widget/reset_user.dart';
 
 class ControlPanel extends GetView<ControlPanelController> {
-  const ControlPanel({Key? key}) : super(key: key);
+  const ControlPanel({super.key});
 
   FirestoreService get firestoreServices => Get.find<FirestoreService>();
 
@@ -120,7 +119,7 @@ class ControlPanel extends GetView<ControlPanelController> {
             child: const Text("Pint User Batch"),
           ),
           ElevatedButton(
-            onPressed: () => InAppRating.checkIfUserHasRatedApp,
+            onPressed: () {},
             child: const Text("Test review"),
           ),
         ],

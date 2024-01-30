@@ -4,10 +4,11 @@ import 'package:get/get.dart';
 import '../../../../services/firebase/repository/firestore_service.dart';
 import '../../../../services/gsheet/repository/gsheet_service.dart';
 import '../../../../services/hive/repository/hive_database.dart';
+import '../../controller/sheet_test_controller.dart';
 import '../widget/test_widgets.dart';
 
 class SheetTest extends StatefulWidget {
-  const SheetTest({Key? key}) : super(key: key);
+  const SheetTest({super.key});
 
   @override
   State<SheetTest> createState() => _SheetTestState();
@@ -18,49 +19,27 @@ class _SheetTestState extends State<SheetTest> with TestWidgets {
   HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
   FirestoreService get firestoreService => Get.find<FirestoreService>();
 
+  final controller = SheetTestController();
+
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          // testCard(
-          //   testTitle: "Gsheet Test",
-          //   child: Wrap(
-          //     spacing: 5,
-          //     children: [
-          //       ElevatedButton(
-          //         onPressed: () =>
-          //             gsheetService.gSheetUserInfoDatasources.addUserInfo(
-          //           hiveDatabase.userBoxDatasources.userInfo.value!,
-          //         ),
-          //         child: const Text("Add User Test"),
-          //       ),
-          //       ElevatedButton(
-          //         onPressed: () async {
-          //           final users = await gsheetService
-          //               .gSheetUserInfoDatasources.getAllUserList;
-          //           for (var k in users) {
-          //             log(k.toString());
-          //           }
-          //         },
-          //         child: const Text("Get All User Test"),
-          //       ),
-          //       ElevatedButton(
-          //         onPressed: () async =>
-          //             gsheetService.sheetTimetableDatasources.getTimetableData,
-          //         child: const Text("Test Timetable List"),
-          //       ),
-          //       ElevatedButton(
-          //         onPressed: () async =>
-          //             gsheetService.sheetTimetableDatasources.getMyTimetable,
-          //         child: const Text("Test My Timetable"),
-          //       ),
-          //       ElevatedButton(
-          //         onPressed: () async => {},
-          //         child: const Text("Test Row List Json"),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // const SizedBox(height: 10),
+          testCard(
+            testTitle: "Gsheet Test",
+            child: Wrap(
+              spacing: 5,
+              children: [
+                ElevatedButton(
+                  onPressed: () => controller.streamTimetable(),
+                  // gsheetService.gSheetUserInfoDatasources.addUserInfo(
+                  // hiveDatabase.userBoxDatasources.userInfo.value!,
+
+                  child: const Text("Fetch Timetable"),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           testCard(
             testTitle: 'Elective',
             child: Wrap(

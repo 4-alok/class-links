@@ -1,5 +1,5 @@
-import 'package:class_link/services/firebase/repository/firestore_service.dart';
-import 'package:class_link/services/hive/repository/hive_database.dart';
+import '../../../services/firebase/repository/firestore_service.dart';
+import '../../../services/hive/repository/hive_database.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 

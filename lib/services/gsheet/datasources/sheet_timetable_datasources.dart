@@ -1,10 +1,11 @@
 import 'dart:async';
 
-import 'package:class_link/global/models/sheet_data/sheet_data.dart';
-import 'package:class_link/global/models/time_table/time_table.dart';
-import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:get/get.dart';
 
+import '../../../global/models/sheet_data/sheet_data.dart';
+import '../../../global/models/time_table/time_table.dart';
+import '../../../global/models/time_table/timetables.dart';
+import '../../hive/repository/hive_database.dart';
 import '../repository/gsheet_service.dart';
 import '../usecase/sheet_timetable.dart';
 import '../utils/ghseet_timetable_utils.dart';
@@ -20,71 +21,15 @@ class SheetTimetableDatasources
 
   HiveDatabase get hiveDatabase => Get.find<HiveDatabase>();
 
-  // int? get year => hiveDatabase.userBoxDatasources.userInfo.value?.year;
-  int? get semester =>
-      hiveDatabase.userBoxDatasources.userInfo.value?.semester;
-
-  /// Fetching the timetable of the user./// A annotation.
-  @override
-  Future<TimeTable?> getMyTimetable() async {
-    try {
-      /// Fetching the data from the google sheet.
-      final List<List<String>> timetableData = (await getSheetRowsList).rowList;
-
-      /// Getting the index of the header of the sheet.
-      final sheetHeaderIndex = getSheetHeaderIndex(timetableData.first);
-
-      /// Getting the batch of the user from the hive database.
-      final myBatch =
-          hiveDatabase.userBoxDatasources.userInfo.value?.batch ?? "";
-
-      List<TimeTable> timeTableL = List.empty(growable: true);
-
-      for (int i = 1; i < timetableData.length; i++) {
-        // if the row is empty then skip the row.
-        if (timetableData[i].isEmpty) continue;
-
-        if (timetableData[i][sheetHeaderIndex.sec] == myBatch) {
-          timeTableL.isEmpty
-              ? timeTableL.add(TimeTable(
-                  week: [
-                    Day(
-                      day: toFullDayString(
-                          timetableData[i][sheetHeaderIndex.day]),
-                      subjects: getSubject(timetableData[i], sheetHeaderIndex),
-                    )
-                  ],
-                  creatorId: '',
-                  batch: timetableData[i][sheetHeaderIndex.sec],
-                  year: 1,
-                  slot: 1,
-                  date: DateTime.now(),
-                ))
-              : timeTableL.first.week.add(
-                  Day(
-                    day:
-                        toFullDayString(timetableData[i][sheetHeaderIndex.day]),
-                    subjects: getSubject(timetableData[i], sheetHeaderIndex),
-                  ),
-                );
-        }
-      }
-      timeTableL = patch(timeTableL);
-      // await _saveTimetable(timeTableL.first);
-      return timeTableL.first;
-    } catch (e) {
-      rethrow;
-      // return null;
-    }
-  }
+  int? get semester => hiveDatabase.userBoxDatasources.userInfo.value?.semester;
 
   @override
-  Future<List<TimeTable>> get getTimetableData async {
+  Future<TimeTables> get getTimetableData async {
     final timetableData = (await getSheetRowsList).rowList;
     List<TimeTable> timeTableList = [];
     final sheetHeaderIndex = getSheetHeaderIndex(timetableData.first);
-
     for (var i = 1; i < timetableData.length; i++) {
+      if (timetableData[i].isEmpty) continue;
       final batch = timetableData[i][sheetHeaderIndex.sec];
       (timeTableList.where((element) => element.batch == batch).isEmpty)
           ? timeTableList.add(
@@ -95,11 +40,8 @@ class SheetTimetableDatasources
                     subjects: getSubject(timetableData[i], sheetHeaderIndex),
                   )
                 ],
-                creatorId: '2005847@kiit.ac.in',
                 batch: batch,
-                year: 1,
-                slot: 1,
-                date: DateTime.now(),
+                semester: semester ?? -1,
               ),
             )
           : timeTableList[timeTableList.indexWhere((element) =>
@@ -113,8 +55,7 @@ class SheetTimetableDatasources
               );
     }
     patch(timeTableList);
-    // printTimetable(timeTableList);
-    return timeTableList;
+    return TimeTables(timeTableList);
   }
 
   // void printTimetable(List<TimeTable> timetables) async {
@@ -138,8 +79,6 @@ class SheetTimetableDatasources
   @override
   Future<SheetData> get getSheetRowsList async {
     try {
-      // final res = gSheetService.spreadsheet.isCompleted;
-      // print("Is Spreadsheet Loaded: $res");
       return gSheetService.spreadsheet.isCompleted
           ? await getData
           : await gSheetService.spreadsheet.future
@@ -151,10 +90,8 @@ class SheetTimetableDatasources
 
   Future<SheetData> get getData async {
     final spreadsheet = await gSheetService.spreadsheet.future;
-    // if (year == null) throw Exception("UserInfo is not saved");
     if (spreadsheet != null) {
-      // final sheetData = spreadsheet.worksheetByTitle("$year-year-$sheetName");
-      final sheetData = spreadsheet.worksheetByTitle("6-semester");
+      final sheetData = spreadsheet.worksheetByTitle("$semester-semester");
       if (sheetData != null) {
         final data = await sheetData.values.allRows();
         return SheetData(rowList: data);
@@ -165,22 +102,6 @@ class SheetTimetableDatasources
       throw Exception("Error while fetching spreadsheet");
     }
   }
-
-  // Future<SheetData> get getData2 async {
-  //   final spreadsheet = await gSheetService.spreadsheet.future;
-  //   if (year == null) throw Exception("UserInfo is not saved");
-  //   if (spreadsheet != null) {
-  //     final sheetData = spreadsheet.worksheetByTitle("6-semester");
-  //     if (sheetData != null) {
-  //       final data = await sheetData.values.allRows();
-  //       return SheetData(rowList: data);
-  //     } else {
-  //       throw Exception("Error while fetching worksheet data");
-  //     }
-  //   } else {
-  //     throw Exception("Error while fetching spreadsheet");
-  //   }
-  // }
 
   // Create a function to change string SAT to Saturday and so on.
   String toFullDayString(String shortDay) {

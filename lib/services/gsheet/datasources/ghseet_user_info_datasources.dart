@@ -1,6 +1,6 @@
-import 'package:class_link/services/auth/datasources/auth_datasources.dart';
-import 'package:class_link/services/hive/models/user_info.dart';
-import 'package:class_link/services/hive/repository/hive_database.dart';
+import '../../auth/datasources/auth_datasources.dart';
+import '../../hive/models/user_info.dart';
+import '../../hive/repository/hive_database.dart';
 import 'package:get/get.dart';
 
 import '../../hive/utils/cache_key.dart';

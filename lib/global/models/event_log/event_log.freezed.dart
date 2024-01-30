@@ -67,21 +67,22 @@ class _$EventLogCopyWithImpl<$Res, $Val extends EventLog>
 }
 
 /// @nodoc
-abstract class _$$_EventLogCopyWith<$Res> implements $EventLogCopyWith<$Res> {
-  factory _$$_EventLogCopyWith(
-          _$_EventLog value, $Res Function(_$_EventLog) then) =
-      __$$_EventLogCopyWithImpl<$Res>;
+abstract class _$$EventLogImplCopyWith<$Res>
+    implements $EventLogCopyWith<$Res> {
+  factory _$$EventLogImplCopyWith(
+          _$EventLogImpl value, $Res Function(_$EventLogImpl) then) =
+      __$$EventLogImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int eventCount, List<String> refIds});
 }
 
 /// @nodoc
-class __$$_EventLogCopyWithImpl<$Res>
-    extends _$EventLogCopyWithImpl<$Res, _$_EventLog>
-    implements _$$_EventLogCopyWith<$Res> {
-  __$$_EventLogCopyWithImpl(
-      _$_EventLog _value, $Res Function(_$_EventLog) _then)
+class __$$EventLogImplCopyWithImpl<$Res>
+    extends _$EventLogCopyWithImpl<$Res, _$EventLogImpl>
+    implements _$$EventLogImplCopyWith<$Res> {
+  __$$EventLogImplCopyWithImpl(
+      _$EventLogImpl _value, $Res Function(_$EventLogImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -90,7 +91,7 @@ class __$$_EventLogCopyWithImpl<$Res>
     Object? eventCount = null,
     Object? refIds = null,
   }) {
-    return _then(_$_EventLog(
+    return _then(_$EventLogImpl(
       eventCount: null == eventCount
           ? _value.eventCount
           : eventCount // ignore: cast_nullable_to_non_nullable
@@ -105,13 +106,13 @@ class __$$_EventLogCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_EventLog implements _EventLog {
-  const _$_EventLog(
+class _$EventLogImpl implements _EventLog {
+  const _$EventLogImpl(
       {required this.eventCount, final List<String> refIds = const []})
       : _refIds = refIds;
 
-  factory _$_EventLog.fromJson(Map<String, dynamic> json) =>
-      _$$_EventLogFromJson(json);
+  factory _$EventLogImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EventLogImplFromJson(json);
 
   @override
   final int eventCount;
@@ -130,10 +131,10 @@ class _$_EventLog implements _EventLog {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_EventLog &&
+            other is _$EventLogImpl &&
             (identical(other.eventCount, eventCount) ||
                 other.eventCount == eventCount) &&
             const DeepCollectionEquality().equals(other._refIds, _refIds));
@@ -147,12 +148,12 @@ class _$_EventLog implements _EventLog {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EventLogCopyWith<_$_EventLog> get copyWith =>
-      __$$_EventLogCopyWithImpl<_$_EventLog>(this, _$identity);
+  _$$EventLogImplCopyWith<_$EventLogImpl> get copyWith =>
+      __$$EventLogImplCopyWithImpl<_$EventLogImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_EventLogToJson(
+    return _$$EventLogImplToJson(
       this,
     );
   }
@@ -160,9 +161,11 @@ class _$_EventLog implements _EventLog {
 
 abstract class _EventLog implements EventLog {
   const factory _EventLog(
-      {required final int eventCount, final List<String> refIds}) = _$_EventLog;
+      {required final int eventCount,
+      final List<String> refIds}) = _$EventLogImpl;
 
-  factory _EventLog.fromJson(Map<String, dynamic> json) = _$_EventLog.fromJson;
+  factory _EventLog.fromJson(Map<String, dynamic> json) =
+      _$EventLogImpl.fromJson;
 
   @override
   int get eventCount;
@@ -170,6 +173,6 @@ abstract class _EventLog implements EventLog {
   List<String> get refIds;
   @override
   @JsonKey(ignore: true)
-  _$$_EventLogCopyWith<_$_EventLog> get copyWith =>
+  _$$EventLogImplCopyWith<_$EventLogImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -110,9 +110,10 @@ class _$ReportCopyWithImpl<$Res, $Val extends Report>
 }
 
 /// @nodoc
-abstract class _$$_ReportCopyWith<$Res> implements $ReportCopyWith<$Res> {
-  factory _$$_ReportCopyWith(_$_Report value, $Res Function(_$_Report) then) =
-      __$$_ReportCopyWithImpl<$Res>;
+abstract class _$$ReportImplCopyWith<$Res> implements $ReportCopyWith<$Res> {
+  factory _$$ReportImplCopyWith(
+          _$ReportImpl value, $Res Function(_$ReportImpl) then) =
+      __$$ReportImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -127,10 +128,11 @@ abstract class _$$_ReportCopyWith<$Res> implements $ReportCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ReportCopyWithImpl<$Res>
-    extends _$ReportCopyWithImpl<$Res, _$_Report>
-    implements _$$_ReportCopyWith<$Res> {
-  __$$_ReportCopyWithImpl(_$_Report _value, $Res Function(_$_Report) _then)
+class __$$ReportImplCopyWithImpl<$Res>
+    extends _$ReportCopyWithImpl<$Res, _$ReportImpl>
+    implements _$$ReportImplCopyWith<$Res> {
+  __$$ReportImplCopyWithImpl(
+      _$ReportImpl _value, $Res Function(_$ReportImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -145,7 +147,7 @@ class __$$_ReportCopyWithImpl<$Res>
     Object? attatchmentUrl = freezed,
     Object? reply = freezed,
   }) {
-    return _then(_$_Report(
+    return _then(_$ReportImpl(
       docId: freezed == docId
           ? _value.docId
           : docId // ignore: cast_nullable_to_non_nullable
@@ -184,8 +186,8 @@ class __$$_ReportCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Report implements _Report {
-  const _$_Report(
+class _$ReportImpl implements _Report {
+  const _$ReportImpl(
       {this.docId = null,
       required this.id,
       required this.userId,
@@ -195,8 +197,8 @@ class _$_Report implements _Report {
       this.attatchmentUrl = null,
       this.reply = null});
 
-  factory _$_Report.fromJson(Map<String, dynamic> json) =>
-      _$$_ReportFromJson(json);
+  factory _$ReportImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ReportImplFromJson(json);
 
   @override
   @JsonKey()
@@ -224,10 +226,10 @@ class _$_Report implements _Report {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Report &&
+            other is _$ReportImpl &&
             (identical(other.docId, docId) || other.docId == docId) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
@@ -250,12 +252,12 @@ class _$_Report implements _Report {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReportCopyWith<_$_Report> get copyWith =>
-      __$$_ReportCopyWithImpl<_$_Report>(this, _$identity);
+  _$$ReportImplCopyWith<_$ReportImpl> get copyWith =>
+      __$$ReportImplCopyWithImpl<_$ReportImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReportToJson(
+    return _$$ReportImplToJson(
       this,
     );
   }
@@ -270,9 +272,9 @@ abstract class _Report implements Report {
       required final String description,
       required final DateTime dateTime,
       final String? attatchmentUrl,
-      final String? reply}) = _$_Report;
+      final String? reply}) = _$ReportImpl;
 
-  factory _Report.fromJson(Map<String, dynamic> json) = _$_Report.fromJson;
+  factory _Report.fromJson(Map<String, dynamic> json) = _$ReportImpl.fromJson;
 
   @override
   String? get docId;
@@ -292,6 +294,6 @@ abstract class _Report implements Report {
   String? get reply;
   @override
   @JsonKey(ignore: true)
-  _$$_ReportCopyWith<_$_Report> get copyWith =>
+  _$$ReportImplCopyWith<_$ReportImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

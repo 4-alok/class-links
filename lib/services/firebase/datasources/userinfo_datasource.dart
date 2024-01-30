@@ -1,4 +1,4 @@
-import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
+import '../../gsheet/repository/gsheet_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 

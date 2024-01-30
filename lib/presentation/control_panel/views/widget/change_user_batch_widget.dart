@@ -1,4 +1,4 @@
-import 'package:class_link/services/hive/repository/hive_database.dart';
+import '../../../../services/hive/repository/hive_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -7,8 +7,7 @@ import 'timetable_list_widget.dart';
 
 class TimeTablePage extends StatelessWidget {
   final HomeController homeController;
-  const TimeTablePage({Key? key, required this.homeController})
-      : super(key: key);
+  const TimeTablePage({super.key, required this.homeController});
 
   @override
   Widget build(BuildContext context) => DefaultTabController(

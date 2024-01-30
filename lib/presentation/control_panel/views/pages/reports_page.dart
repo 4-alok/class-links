@@ -1,4 +1,4 @@
-import 'package:class_link/services/firebase/repository/firestore_service.dart';
+import '../../../../services/firebase/repository/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

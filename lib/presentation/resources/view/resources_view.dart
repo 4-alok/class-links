@@ -1,5 +1,5 @@
-import 'package:class_link/global/widget/launcher.dart';
-import 'package:class_link/presentation/resources/controller/resources_controller.dart';
+import '../../../global/widget/launcher.dart';
+import '../controller/resources_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:flutter_svg/svg.dart';

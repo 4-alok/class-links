@@ -3,10 +3,8 @@ import 'dart:io';
 
 // import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:class_link/global/utils/get_snackbar.dart';
-import 'package:class_link/services/notification/notification_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../global/const/app_credentials.dart';

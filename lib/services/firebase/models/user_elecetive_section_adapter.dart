@@ -1,4 +1,4 @@
-import 'package:class_link/services/firebase/models/user_elective_section.dart';
+import 'user_elective_section.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class UserElectiveSectionAdapter extends TypeAdapter<UserElectiveSection> {

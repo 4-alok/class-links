@@ -21,11 +21,8 @@ TimeTable _$TimeTableFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TimeTable {
   List<Day> get week => throw _privateConstructorUsedError;
-  String get creatorId => throw _privateConstructorUsedError;
   String get batch => throw _privateConstructorUsedError;
-  int get year => throw _privateConstructorUsedError;
-  int get slot => throw _privateConstructorUsedError;
-  DateTime get date => throw _privateConstructorUsedError;
+  int get semester => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,13 +35,7 @@ abstract class $TimeTableCopyWith<$Res> {
   factory $TimeTableCopyWith(TimeTable value, $Res Function(TimeTable) then) =
       _$TimeTableCopyWithImpl<$Res, TimeTable>;
   @useResult
-  $Res call(
-      {List<Day> week,
-      String creatorId,
-      String batch,
-      int year,
-      int slot,
-      DateTime date});
+  $Res call({List<Day> week, String batch, int semester});
 }
 
 /// @nodoc
@@ -61,170 +52,115 @@ class _$TimeTableCopyWithImpl<$Res, $Val extends TimeTable>
   @override
   $Res call({
     Object? week = null,
-    Object? creatorId = null,
     Object? batch = null,
-    Object? year = null,
-    Object? slot = null,
-    Object? date = null,
+    Object? semester = null,
   }) {
     return _then(_value.copyWith(
       week: null == week
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as List<Day>,
-      creatorId: null == creatorId
-          ? _value.creatorId
-          : creatorId // ignore: cast_nullable_to_non_nullable
-              as String,
       batch: null == batch
           ? _value.batch
           : batch // ignore: cast_nullable_to_non_nullable
               as String,
-      year: null == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
+      semester: null == semester
+          ? _value.semester
+          : semester // ignore: cast_nullable_to_non_nullable
               as int,
-      slot: null == slot
-          ? _value.slot
-          : slot // ignore: cast_nullable_to_non_nullable
-              as int,
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_TimeTableCopyWith<$Res> implements $TimeTableCopyWith<$Res> {
-  factory _$$_TimeTableCopyWith(
-          _$_TimeTable value, $Res Function(_$_TimeTable) then) =
-      __$$_TimeTableCopyWithImpl<$Res>;
+abstract class _$$TimeTableImplCopyWith<$Res>
+    implements $TimeTableCopyWith<$Res> {
+  factory _$$TimeTableImplCopyWith(
+          _$TimeTableImpl value, $Res Function(_$TimeTableImpl) then) =
+      __$$TimeTableImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<Day> week,
-      String creatorId,
-      String batch,
-      int year,
-      int slot,
-      DateTime date});
+  $Res call({List<Day> week, String batch, int semester});
 }
 
 /// @nodoc
-class __$$_TimeTableCopyWithImpl<$Res>
-    extends _$TimeTableCopyWithImpl<$Res, _$_TimeTable>
-    implements _$$_TimeTableCopyWith<$Res> {
-  __$$_TimeTableCopyWithImpl(
-      _$_TimeTable _value, $Res Function(_$_TimeTable) _then)
+class __$$TimeTableImplCopyWithImpl<$Res>
+    extends _$TimeTableCopyWithImpl<$Res, _$TimeTableImpl>
+    implements _$$TimeTableImplCopyWith<$Res> {
+  __$$TimeTableImplCopyWithImpl(
+      _$TimeTableImpl _value, $Res Function(_$TimeTableImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? week = null,
-    Object? creatorId = null,
     Object? batch = null,
-    Object? year = null,
-    Object? slot = null,
-    Object? date = null,
+    Object? semester = null,
   }) {
-    return _then(_$_TimeTable(
+    return _then(_$TimeTableImpl(
       week: null == week
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as List<Day>,
-      creatorId: null == creatorId
-          ? _value.creatorId
-          : creatorId // ignore: cast_nullable_to_non_nullable
-              as String,
       batch: null == batch
           ? _value.batch
           : batch // ignore: cast_nullable_to_non_nullable
               as String,
-      year: null == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
+      semester: null == semester
+          ? _value.semester
+          : semester // ignore: cast_nullable_to_non_nullable
               as int,
-      slot: null == slot
-          ? _value.slot
-          : slot // ignore: cast_nullable_to_non_nullable
-              as int,
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_TimeTable implements _TimeTable {
-  const _$_TimeTable(
-      {required this.week,
-      required this.creatorId,
-      required this.batch,
-      required this.year,
-      required this.slot,
-      required this.date});
+class _$TimeTableImpl implements _TimeTable {
+  const _$TimeTableImpl(
+      {required this.week, required this.batch, required this.semester});
 
-  factory _$_TimeTable.fromJson(Map<String, dynamic> json) =>
-      _$$_TimeTableFromJson(json);
+  factory _$TimeTableImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TimeTableImplFromJson(json);
 
   @override
   final List<Day> week;
   @override
-  final String creatorId;
-  @override
   final String batch;
   @override
-  final int year;
-  @override
-  final int slot;
-  @override
-  final DateTime date;
+  final int semester;
 
   @override
   String toString() {
-    return 'TimeTable(week: $week, creatorId: $creatorId, batch: $batch, year: $year, slot: $slot, date: $date)';
+    return 'TimeTable(week: $week, batch: $batch, semester: $semester)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TimeTable &&
+            other is _$TimeTableImpl &&
             const DeepCollectionEquality().equals(other.week, week) &&
-            (identical(other.creatorId, creatorId) ||
-                other.creatorId == creatorId) &&
             (identical(other.batch, batch) || other.batch == batch) &&
-            (identical(other.year, year) || other.year == year) &&
-            (identical(other.slot, slot) || other.slot == slot) &&
-            (identical(other.date, date) || other.date == date));
+            (identical(other.semester, semester) ||
+                other.semester == semester));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(week),
-      creatorId,
-      batch,
-      year,
-      slot,
-      date);
+      runtimeType, const DeepCollectionEquality().hash(week), batch, semester);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TimeTableCopyWith<_$_TimeTable> get copyWith =>
-      __$$_TimeTableCopyWithImpl<_$_TimeTable>(this, _$identity);
+  _$$TimeTableImplCopyWith<_$TimeTableImpl> get copyWith =>
+      __$$TimeTableImplCopyWithImpl<_$TimeTableImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TimeTableToJson(
+    return _$$TimeTableImplToJson(
       this,
     );
   }
@@ -233,30 +169,21 @@ class _$_TimeTable implements _TimeTable {
 abstract class _TimeTable implements TimeTable {
   const factory _TimeTable(
       {required final List<Day> week,
-      required final String creatorId,
       required final String batch,
-      required final int year,
-      required final int slot,
-      required final DateTime date}) = _$_TimeTable;
+      required final int semester}) = _$TimeTableImpl;
 
   factory _TimeTable.fromJson(Map<String, dynamic> json) =
-      _$_TimeTable.fromJson;
+      _$TimeTableImpl.fromJson;
 
   @override
   List<Day> get week;
   @override
-  String get creatorId;
-  @override
   String get batch;
   @override
-  int get year;
-  @override
-  int get slot;
-  @override
-  DateTime get date;
+  int get semester;
   @override
   @JsonKey(ignore: true)
-  _$$_TimeTableCopyWith<_$_TimeTable> get copyWith =>
+  _$$TimeTableImplCopyWith<_$TimeTableImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -311,18 +238,18 @@ class _$DayCopyWithImpl<$Res, $Val extends Day> implements $DayCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$_DayCopyWith<$Res> implements $DayCopyWith<$Res> {
-  factory _$$_DayCopyWith(_$_Day value, $Res Function(_$_Day) then) =
-      __$$_DayCopyWithImpl<$Res>;
+abstract class _$$DayImplCopyWith<$Res> implements $DayCopyWith<$Res> {
+  factory _$$DayImplCopyWith(_$DayImpl value, $Res Function(_$DayImpl) then) =
+      __$$DayImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String day, List<Subject> subjects});
 }
 
 /// @nodoc
-class __$$_DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$_Day>
-    implements _$$_DayCopyWith<$Res> {
-  __$$_DayCopyWithImpl(_$_Day _value, $Res Function(_$_Day) _then)
+class __$$DayImplCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$DayImpl>
+    implements _$$DayImplCopyWith<$Res> {
+  __$$DayImplCopyWithImpl(_$DayImpl _value, $Res Function(_$DayImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -331,7 +258,7 @@ class __$$_DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$_Day>
     Object? day = null,
     Object? subjects = null,
   }) {
-    return _then(_$_Day(
+    return _then(_$DayImpl(
       day: null == day
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
@@ -346,10 +273,11 @@ class __$$_DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$_Day>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Day implements _Day {
-  const _$_Day({required this.day, required this.subjects});
+class _$DayImpl implements _Day {
+  const _$DayImpl({required this.day, required this.subjects});
 
-  factory _$_Day.fromJson(Map<String, dynamic> json) => _$$_DayFromJson(json);
+  factory _$DayImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DayImplFromJson(json);
 
   @override
   final String day;
@@ -362,10 +290,10 @@ class _$_Day implements _Day {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Day &&
+            other is _$DayImpl &&
             (identical(other.day, day) || other.day == day) &&
             const DeepCollectionEquality().equals(other.subjects, subjects));
   }
@@ -378,12 +306,12 @@ class _$_Day implements _Day {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DayCopyWith<_$_Day> get copyWith =>
-      __$$_DayCopyWithImpl<_$_Day>(this, _$identity);
+  _$$DayImplCopyWith<_$DayImpl> get copyWith =>
+      __$$DayImplCopyWithImpl<_$DayImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DayToJson(
+    return _$$DayImplToJson(
       this,
     );
   }
@@ -392,9 +320,9 @@ class _$_Day implements _Day {
 abstract class _Day implements Day {
   const factory _Day(
       {required final String day,
-      required final List<Subject> subjects}) = _$_Day;
+      required final List<Subject> subjects}) = _$DayImpl;
 
-  factory _Day.fromJson(Map<String, dynamic> json) = _$_Day.fromJson;
+  factory _Day.fromJson(Map<String, dynamic> json) = _$DayImpl.fromJson;
 
   @override
   String get day;
@@ -402,7 +330,8 @@ abstract class _Day implements Day {
   List<Subject> get subjects;
   @override
   @JsonKey(ignore: true)
-  _$$_DayCopyWith<_$_Day> get copyWith => throw _privateConstructorUsedError;
+  _$$DayImplCopyWith<_$DayImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 Subject _$SubjectFromJson(Map<String, dynamic> json) {
@@ -497,10 +426,10 @@ class _$SubjectCopyWithImpl<$Res, $Val extends Subject>
 }
 
 /// @nodoc
-abstract class _$$_SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
-  factory _$$_SubjectCopyWith(
-          _$_Subject value, $Res Function(_$_Subject) then) =
-      __$$_SubjectCopyWithImpl<$Res>;
+abstract class _$$SubjectImplCopyWith<$Res> implements $SubjectCopyWith<$Res> {
+  factory _$$SubjectImplCopyWith(
+          _$SubjectImpl value, $Res Function(_$SubjectImpl) then) =
+      __$$SubjectImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -516,10 +445,11 @@ abstract class _$$_SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SubjectCopyWithImpl<$Res>
-    extends _$SubjectCopyWithImpl<$Res, _$_Subject>
-    implements _$$_SubjectCopyWith<$Res> {
-  __$$_SubjectCopyWithImpl(_$_Subject _value, $Res Function(_$_Subject) _then)
+class __$$SubjectImplCopyWithImpl<$Res>
+    extends _$SubjectCopyWithImpl<$Res, _$SubjectImpl>
+    implements _$$SubjectImplCopyWith<$Res> {
+  __$$SubjectImplCopyWithImpl(
+      _$SubjectImpl _value, $Res Function(_$SubjectImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -532,7 +462,7 @@ class __$$_SubjectCopyWithImpl<$Res>
     Object? teacherName = freezed,
     Object? startTime = null,
   }) {
-    return _then(_$_Subject(
+    return _then(_$SubjectImpl(
       subjectName: null == subjectName
           ? _value.subjectName
           : subjectName // ignore: cast_nullable_to_non_nullable
@@ -560,8 +490,8 @@ class __$$_SubjectCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Subject implements _Subject {
-  const _$_Subject(
+class _$SubjectImpl implements _Subject {
+  const _$SubjectImpl(
       {required this.subjectName,
       this.roomNo = null,
       this.isElective = false,
@@ -569,8 +499,8 @@ class _$_Subject implements _Subject {
       this.teacherName = null,
       required this.startTime});
 
-  factory _$_Subject.fromJson(Map<String, dynamic> json) =>
-      _$$_SubjectFromJson(json);
+  factory _$SubjectImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SubjectImplFromJson(json);
 
   @override
   final String subjectName;
@@ -595,10 +525,10 @@ class _$_Subject implements _Subject {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Subject &&
+            other is _$SubjectImpl &&
             (identical(other.subjectName, subjectName) ||
                 other.subjectName == subjectName) &&
             (identical(other.roomNo, roomNo) || other.roomNo == roomNo) &&
@@ -626,12 +556,12 @@ class _$_Subject implements _Subject {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SubjectCopyWith<_$_Subject> get copyWith =>
-      __$$_SubjectCopyWithImpl<_$_Subject>(this, _$identity);
+  _$$SubjectImplCopyWith<_$SubjectImpl> get copyWith =>
+      __$$SubjectImplCopyWithImpl<_$SubjectImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SubjectToJson(
+    return _$$SubjectImplToJson(
       this,
     );
   }
@@ -644,9 +574,9 @@ abstract class _Subject implements Subject {
       final dynamic isElective,
       final String? electiveSubjectCode,
       final String? teacherName,
-      required final DayTime startTime}) = _$_Subject;
+      required final DayTime startTime}) = _$SubjectImpl;
 
-  factory _Subject.fromJson(Map<String, dynamic> json) = _$_Subject.fromJson;
+  factory _Subject.fromJson(Map<String, dynamic> json) = _$SubjectImpl.fromJson;
 
   @override
   String get subjectName;
@@ -662,7 +592,7 @@ abstract class _Subject implements Subject {
   DayTime get startTime;
   @override
   @JsonKey(ignore: true)
-  _$$_SubjectCopyWith<_$_Subject> get copyWith =>
+  _$$SubjectImplCopyWith<_$SubjectImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -718,20 +648,21 @@ class _$DayTimeCopyWithImpl<$Res, $Val extends DayTime>
 }
 
 /// @nodoc
-abstract class _$$_DayTimeCopyWith<$Res> implements $DayTimeCopyWith<$Res> {
-  factory _$$_DayTimeCopyWith(
-          _$_DayTime value, $Res Function(_$_DayTime) then) =
-      __$$_DayTimeCopyWithImpl<$Res>;
+abstract class _$$DayTimeImplCopyWith<$Res> implements $DayTimeCopyWith<$Res> {
+  factory _$$DayTimeImplCopyWith(
+          _$DayTimeImpl value, $Res Function(_$DayTimeImpl) then) =
+      __$$DayTimeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int hour, int minute});
 }
 
 /// @nodoc
-class __$$_DayTimeCopyWithImpl<$Res>
-    extends _$DayTimeCopyWithImpl<$Res, _$_DayTime>
-    implements _$$_DayTimeCopyWith<$Res> {
-  __$$_DayTimeCopyWithImpl(_$_DayTime _value, $Res Function(_$_DayTime) _then)
+class __$$DayTimeImplCopyWithImpl<$Res>
+    extends _$DayTimeCopyWithImpl<$Res, _$DayTimeImpl>
+    implements _$$DayTimeImplCopyWith<$Res> {
+  __$$DayTimeImplCopyWithImpl(
+      _$DayTimeImpl _value, $Res Function(_$DayTimeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -740,7 +671,7 @@ class __$$_DayTimeCopyWithImpl<$Res>
     Object? hour = null,
     Object? minute = null,
   }) {
-    return _then(_$_DayTime(
+    return _then(_$DayTimeImpl(
       hour: null == hour
           ? _value.hour
           : hour // ignore: cast_nullable_to_non_nullable
@@ -755,11 +686,11 @@ class __$$_DayTimeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DayTime implements _DayTime {
-  const _$_DayTime({required this.hour, required this.minute});
+class _$DayTimeImpl implements _DayTime {
+  const _$DayTimeImpl({required this.hour, required this.minute});
 
-  factory _$_DayTime.fromJson(Map<String, dynamic> json) =>
-      _$$_DayTimeFromJson(json);
+  factory _$DayTimeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DayTimeImplFromJson(json);
 
   @override
   final int hour;
@@ -772,10 +703,10 @@ class _$_DayTime implements _DayTime {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DayTime &&
+            other is _$DayTimeImpl &&
             (identical(other.hour, hour) || other.hour == hour) &&
             (identical(other.minute, minute) || other.minute == minute));
   }
@@ -787,12 +718,12 @@ class _$_DayTime implements _DayTime {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DayTimeCopyWith<_$_DayTime> get copyWith =>
-      __$$_DayTimeCopyWithImpl<_$_DayTime>(this, _$identity);
+  _$$DayTimeImplCopyWith<_$DayTimeImpl> get copyWith =>
+      __$$DayTimeImplCopyWithImpl<_$DayTimeImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DayTimeToJson(
+    return _$$DayTimeImplToJson(
       this,
     );
   }
@@ -800,9 +731,9 @@ class _$_DayTime implements _DayTime {
 
 abstract class _DayTime implements DayTime {
   const factory _DayTime({required final int hour, required final int minute}) =
-      _$_DayTime;
+      _$DayTimeImpl;
 
-  factory _DayTime.fromJson(Map<String, dynamic> json) = _$_DayTime.fromJson;
+  factory _DayTime.fromJson(Map<String, dynamic> json) = _$DayTimeImpl.fromJson;
 
   @override
   int get hour;
@@ -810,6 +741,6 @@ abstract class _DayTime implements DayTime {
   int get minute;
   @override
   @JsonKey(ignore: true)
-  _$$_DayTimeCopyWith<_$_DayTime> get copyWith =>
+  _$$DayTimeImplCopyWith<_$DayTimeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

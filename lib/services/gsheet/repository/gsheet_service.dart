@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:class_link/global/utils/get_snackbar.dart';
-import 'package:class_link/services/gsheet/datasources/teacher_info_datasources.dart';
+import '../../../global/utils/get_snackbar.dart';
+import '../datasources/teacher_info_datasources.dart';
 import 'package:get/get.dart';
 import 'package:gsheets/gsheets.dart';
 

@@ -6,9 +6,9 @@ part of 'notification_payload.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_NotificationPayload _$$_NotificationPayloadFromJson(
+_$NotificationPayloadImpl _$$NotificationPayloadImplFromJson(
         Map<String, dynamic> json) =>
-    _$_NotificationPayload(
+    _$NotificationPayloadImpl(
       title: json['title'] as String,
       body: json['body'] as String,
       currentWeek: json['currentWeek'] as int,
@@ -20,8 +20,8 @@ _$_NotificationPayload _$$_NotificationPayloadFromJson(
           : Subject.fromJson(json['subject'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_NotificationPayloadToJson(
-        _$_NotificationPayload instance) =>
+Map<String, dynamic> _$$NotificationPayloadImplToJson(
+        _$NotificationPayloadImpl instance) =>
     <String, dynamic>{
       'title': instance.title,
       'body': instance.body,
