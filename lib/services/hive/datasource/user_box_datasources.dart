@@ -1,4 +1,4 @@
-import 'package:class_link/services/hive/repository/hive_database.dart';
+import '../repository/hive_database.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -14,8 +14,8 @@ class UserBoxDatasources {
 
   Future<void> get init async => userInfo.value = await getUserInfo();
 
-  Future<UserInfo?> getUserInfo() async =>
-      await hiveDatabase.getFromCacheOrFetch<UserInfo>(onlyCache: true, key: CacheKey.USER_INFO);
+  Future<UserInfo?> getUserInfo() async => await hiveDatabase
+      .getFromCacheOrFetch<UserInfo>(onlyCache: true, key: CacheKey.USER_INFO);
 
   Future<void> setUserInfo(UserInfo userInfo) async =>
       await cacheBox.put(CacheKey.USER_INFO, userInfo).then((value) async {

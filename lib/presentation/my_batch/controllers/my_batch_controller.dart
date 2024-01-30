@@ -1,10 +1,9 @@
-import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
-import 'package:class_link/services/hive/repository/hive_database.dart';
-import 'package:class_link/services/hive/utils/cache_key.dart';
 import 'package:get/get.dart';
 
-import '../../../services/firebase/repository/firestore_service.dart';
+import '../../../services/gsheet/repository/gsheet_service.dart';
 import '../../../services/hive/models/user_info.dart';
+import '../../../services/hive/repository/hive_database.dart';
+import '../../../services/hive/utils/cache_key.dart';
 
 /// > A class that contains methods that are used to determine if the user is in the 3rd year or if the
 /// user is viewing his/her own profile

@@ -5,7 +5,7 @@ import '../../controller/database_utils.dart';
 import '../widget/test_widgets.dart';
 
 class DatabaseUtils extends StatefulWidget {
-  const DatabaseUtils({Key? key}) : super(key: key);
+  const DatabaseUtils({super.key});
 
   @override
   State<DatabaseUtils> createState() => _DatabaseUtilsState();

@@ -1,4 +1,4 @@
-import 'package:class_link/services/hive/utils/cache_key.dart';
+import '../../hive/utils/cache_key.dart';
 import 'package:get/get.dart';
 
 import '../../../global/models/sheet_data/sheet_data.dart';

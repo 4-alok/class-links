@@ -6,7 +6,7 @@ part of 'report.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Report _$$_ReportFromJson(Map<String, dynamic> json) => _$_Report(
+_$ReportImpl _$$ReportImplFromJson(Map<String, dynamic> json) => _$ReportImpl(
       docId: json['docId'] as String? ?? null,
       id: json['id'] as String,
       userId: json['userId'] as String,
@@ -17,7 +17,8 @@ _$_Report _$$_ReportFromJson(Map<String, dynamic> json) => _$_Report(
       reply: json['reply'] as String? ?? null,
     );
 
-Map<String, dynamic> _$$_ReportToJson(_$_Report instance) => <String, dynamic>{
+Map<String, dynamic> _$$ReportImplToJson(_$ReportImpl instance) =>
+    <String, dynamic>{
       'docId': instance.docId,
       'id': instance.id,
       'userId': instance.userId,

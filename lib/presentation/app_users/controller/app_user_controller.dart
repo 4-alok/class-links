@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:class_link/presentation/app_users/controller/search_controller.dart';
-import 'package:class_link/services/firebase/repository/firestore_service.dart';
-import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
-import 'package:class_link/services/hive/repository/hive_database.dart';
-import 'package:class_link/services/hive/utils/cache_key.dart';
+import 'search_controller.dart';
+import '../../../services/firebase/repository/firestore_service.dart';
+import '../../../services/gsheet/repository/gsheet_service.dart';
+import '../../../services/hive/repository/hive_database.dart';
+import '../../../services/hive/utils/cache_key.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 

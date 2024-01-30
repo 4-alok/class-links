@@ -1,4 +1,4 @@
-import 'package:class_link/global/utils/extension.dart';
+import '../../../../global/utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

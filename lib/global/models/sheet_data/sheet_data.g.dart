@@ -6,13 +6,14 @@ part of 'sheet_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SheetData _$$_SheetDataFromJson(Map<String, dynamic> json) => _$_SheetData(
+_$SheetDataImpl _$$SheetDataImplFromJson(Map<String, dynamic> json) =>
+    _$SheetDataImpl(
       rowList: (json['rowList'] as List<dynamic>)
           .map((e) => (e as List<dynamic>).map((e) => e as String).toList())
           .toList(),
     );
 
-Map<String, dynamic> _$$_SheetDataToJson(_$_SheetData instance) =>
+Map<String, dynamic> _$$SheetDataImplToJson(_$SheetDataImpl instance) =>
     <String, dynamic>{
       'rowList': instance.rowList,
     };

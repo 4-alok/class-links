@@ -7,11 +7,8 @@ part 'time_table.g.dart';
 class TimeTable with _$TimeTable {
   const factory TimeTable({
     required List<Day> week,
-    required String creatorId,
     required String batch,
-    required int year,
-    required int slot,
-    required DateTime date,
+    required int semester,
   }) = _TimeTable;
 
   factory TimeTable.fromJson(Map<String, dynamic> json) =>

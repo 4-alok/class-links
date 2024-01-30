@@ -1,5 +1,3 @@
-import 'package:class_link/main.dart';
-import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:get/get.dart';
 
 import '../presentation/app_users/binding/app_user_binding.dart';
@@ -27,6 +25,8 @@ import '../presentation/resources/bindings/resources_binding.dart';
 import '../presentation/resources/view/resources_view.dart';
 import '../presentation/subject_info/views/subject_info_view.dart';
 import '../presentation/test_page/views/test_page.dart';
+import '../services/hive/repository/hive_database.dart';
+
 // import '../services/auth/repository/auth_service_repo.dart';
 
 // ignore_for_file: non_constant_identifier_names
@@ -42,7 +42,7 @@ class AppPages {
               ? Routes.AUTH
               : Routes.HOME;
 
-  // static final INITIAL = Routes.TEST;
+  // static const INITIAL = Routes.TEST;
 
   static final routes = [
     GetPage(

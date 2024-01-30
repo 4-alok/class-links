@@ -1,4 +1,4 @@
-import 'package:class_link/services/notification/fcm_helper.dart';
+import '../../../services/notification/fcm_helper.dart';
 import 'package:get/get.dart';
 
 class NotificationControlController {

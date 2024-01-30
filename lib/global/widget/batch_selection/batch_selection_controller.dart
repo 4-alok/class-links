@@ -1,8 +1,7 @@
-import 'package:class_link/global/utils/get_snackbar.dart';
-import 'package:class_link/services/auth/repository/auth_service_repo.dart';
+import '../../utils/get_snackbar.dart';
+import '../../../services/auth/repository/auth_service_repo.dart';
 import 'package:get/get.dart';
 
-import '../../../presentation/batch_selection/controllers/user_batch_list.dart';
 import '../../../services/firebase/repository/firestore_service.dart';
 import '../../../services/gsheet/repository/gsheet_service.dart';
 import '../../../services/hive/models/user_info.dart';
@@ -60,8 +59,7 @@ class BatchSelectionDialogController extends GetxController {
   List<String> get batchList =>
       (currentSemester.value == null || currentStream.value == null)
           ? <String>[]
-          : UserBatchList.yearStreamMap[currentSemester.value]
-                  ?[currentStream.value] ??
+          : _yearStreamMap[currentSemester.value]?[currentStream.value] ??
               <String>[];
 
   Future<Map<String, String>> get getSectionListWithTeacherName async =>
@@ -145,4 +143,19 @@ class BatchSelectionDialogController extends GetxController {
       return true;
     }
   }
+
+  static Map<int, Map<String, List<String>>> get _yearStreamMap => {
+        4: {
+          "CSE": List.generate(39, (index) => "CSE-${index + 1}"),
+          "IT": List.generate(4, (index) => "IT-${index + 1}"),
+          "CSSE": List.generate(2, (index) => "CSSE-${index + 1}"),
+          "CSCE": List.generate(2, (index) => "CSCE-${index + 1}"),
+        },
+        6: {
+          "CSE": List.generate(55, (index) => "CSE-${index + 1}"),
+          "IT": List.generate(5, (index) => "IT-${index + 1}"),
+          "CSSE": List.generate(3, (index) => "CSSE-${index + 1}"),
+          "CSCE": List.generate(2, (index) => "CSCE-${index + 1}"),
+        },
+      };
 }

@@ -32,9 +32,7 @@ class TeacherInfoDatasource {
           spreadsheet.worksheetByTitle("${userInfo?.semester}-$sheetName");
       if (workSheet != null) {
         final r = await workSheet.values.allRows();
-        final myResult = r
-            .where((e) => e.first == userInfo?.batch)
-            .first;
+        final myResult = r.where((e) => e.first == userInfo?.batch).first;
         final myTeachers = MyTeachers(
           batch: myResult.first,
           teachers: <Teacher>[

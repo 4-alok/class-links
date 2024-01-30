@@ -51,7 +51,6 @@ class UserInfo {
     this.electiveSections = const [],
   });
 
-
   UserInfo copyWith({
     String? refId,
     String? id,
@@ -101,16 +100,21 @@ class UserInfo {
       semester: map['semester'] as int,
       stream: map['stream'] as String,
       batch: map['batch'] as String,
-      electiveSections: List<String>.from((map['electiveSections'] as List<String>)),
+      electiveSections:
+          List<String>.from((map['electiveSections'] as List<String>)),
       role: map['role'] as String,
-      joiningDate: DateTime.fromMillisecondsSinceEpoch(map['joiningDate'] as int),
-      lastUpdated: map['lastUpdated'] != null ? DateTime.fromMillisecondsSinceEpoch(map['lastUpdated'] as int) : null,
+      joiningDate:
+          DateTime.fromMillisecondsSinceEpoch(map['joiningDate'] as int),
+      lastUpdated: map['lastUpdated'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['lastUpdated'] as int)
+          : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory UserInfo.fromJson(String source) => UserInfo.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory UserInfo.fromJson(String source) =>
+      UserInfo.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -120,32 +124,31 @@ class UserInfo {
   @override
   bool operator ==(covariant UserInfo other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.refId == refId &&
-      other.id == id &&
-      other.userName == userName &&
-      other.semester == semester &&
-      other.stream == stream &&
-      other.batch == batch &&
-      listEquals(other.electiveSections, electiveSections) &&
-      other.role == role &&
-      other.joiningDate == joiningDate &&
-      other.lastUpdated == lastUpdated;
+
+    return other.refId == refId &&
+        other.id == id &&
+        other.userName == userName &&
+        other.semester == semester &&
+        other.stream == stream &&
+        other.batch == batch &&
+        listEquals(other.electiveSections, electiveSections) &&
+        other.role == role &&
+        other.joiningDate == joiningDate &&
+        other.lastUpdated == lastUpdated;
   }
 
   @override
   int get hashCode {
     return refId.hashCode ^
-      id.hashCode ^
-      userName.hashCode ^
-      semester.hashCode ^
-      stream.hashCode ^
-      batch.hashCode ^
-      electiveSections.hashCode ^
-      role.hashCode ^
-      joiningDate.hashCode ^
-      lastUpdated.hashCode;
+        id.hashCode ^
+        userName.hashCode ^
+        semester.hashCode ^
+        stream.hashCode ^
+        batch.hashCode ^
+        electiveSections.hashCode ^
+        role.hashCode ^
+        joiningDate.hashCode ^
+        lastUpdated.hashCode;
   }
 }
 

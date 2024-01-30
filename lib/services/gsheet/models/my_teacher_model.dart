@@ -45,19 +45,18 @@ class Teacher {
   final String subjectName;
   const Teacher({required this.teacherName, required this.subjectName});
 
-  Teacher copyWith({String? teacherName, String? subjectName}) =>
-      Teacher(teacherName: teacherName ?? this.teacherName, subjectName: subjectName ?? this.subjectName);
+  Teacher copyWith({String? teacherName, String? subjectName}) => Teacher(
+      teacherName: teacherName ?? this.teacherName,
+      subjectName: subjectName ?? this.subjectName);
 
   Map<String, dynamic> toMap() =>
       <String, dynamic>{'teacherName': teacherName, 'subjectName': subjectName};
 
-
-
   String toJson() => json.encode(toMap());
 
-
   @override
-  String toString() => 'Teacher(teacherName: $teacherName, subjectName: $subjectName)';
+  String toString() =>
+      'Teacher(teacherName: $teacherName, subjectName: $subjectName)';
 
   @override
   bool operator ==(covariant Teacher other) => (identical(this, other))

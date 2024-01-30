@@ -1,4 +1,4 @@
-import 'package:class_link/global/const/app_info.dart';
+import '../../../global/const/app_info.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -218,21 +218,19 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                 ),
                 trailing: ElevatedButton(
-                  onPressed: () async {
-                    final res = await showModal<UserInfo?>(
-                      context: context,
-                      configuration: const FadeScaleTransitionConfiguration(
-                        barrierDismissible: true,
-                        transitionDuration: Duration(milliseconds: 300),
-                      ),
-                      builder: (context) => BatchSelectionDialogBox(
-                        initialUserInfo: Get.find<HiveDatabase>()
-                            .userBoxDatasources
-                            .userInfo
-                            .value,
-                      ),
-                    );
-                  },
+                  onPressed: () async => await showModal<UserInfo?>(
+                    context: context,
+                    configuration: const FadeScaleTransitionConfiguration(
+                      barrierDismissible: true,
+                      transitionDuration: Duration(milliseconds: 300),
+                    ),
+                    builder: (context) => BatchSelectionDialogBox(
+                      initialUserInfo: Get.find<HiveDatabase>()
+                          .userBoxDatasources
+                          .userInfo
+                          .value,
+                    ),
+                  ),
                   child: const Icon(Icons.edit),
                 ),
                 onTap: () => Get.toNamed(Routes.MY_BATCH),

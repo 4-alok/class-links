@@ -6,40 +6,36 @@ part of 'time_table.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TimeTable _$$_TimeTableFromJson(Map<String, dynamic> json) => _$_TimeTable(
+_$TimeTableImpl _$$TimeTableImplFromJson(Map<String, dynamic> json) =>
+    _$TimeTableImpl(
       week: (json['week'] as List<dynamic>)
           .map((e) => Day.fromJson(e as Map<String, dynamic>))
           .toList(),
-      creatorId: json['creatorId'] as String,
       batch: json['batch'] as String,
-      year: json['year'] as int,
-      slot: json['slot'] as int,
-      date: DateTime.parse(json['date'] as String),
+      semester: json['semester'] as int,
     );
 
-Map<String, dynamic> _$$_TimeTableToJson(_$_TimeTable instance) =>
+Map<String, dynamic> _$$TimeTableImplToJson(_$TimeTableImpl instance) =>
     <String, dynamic>{
       'week': instance.week.map((e) => e.toJson()).toList(),
-      'creatorId': instance.creatorId,
       'batch': instance.batch,
-      'year': instance.year,
-      'slot': instance.slot,
-      'date': instance.date.toIso8601String(),
+      'semester': instance.semester,
     };
 
-_$_Day _$$_DayFromJson(Map<String, dynamic> json) => _$_Day(
+_$DayImpl _$$DayImplFromJson(Map<String, dynamic> json) => _$DayImpl(
       day: json['day'] as String,
       subjects: (json['subjects'] as List<dynamic>)
           .map((e) => Subject.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$_DayToJson(_$_Day instance) => <String, dynamic>{
+Map<String, dynamic> _$$DayImplToJson(_$DayImpl instance) => <String, dynamic>{
       'day': instance.day,
       'subjects': instance.subjects.map((e) => e.toJson()).toList(),
     };
 
-_$_Subject _$$_SubjectFromJson(Map<String, dynamic> json) => _$_Subject(
+_$SubjectImpl _$$SubjectImplFromJson(Map<String, dynamic> json) =>
+    _$SubjectImpl(
       subjectName: json['subjectName'] as String,
       roomNo: json['roomNo'] as String? ?? null,
       isElective: json['isElective'] ?? false,
@@ -48,7 +44,7 @@ _$_Subject _$$_SubjectFromJson(Map<String, dynamic> json) => _$_Subject(
       startTime: DayTime.fromJson(json['startTime'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_SubjectToJson(_$_Subject instance) =>
+Map<String, dynamic> _$$SubjectImplToJson(_$SubjectImpl instance) =>
     <String, dynamic>{
       'subjectName': instance.subjectName,
       'roomNo': instance.roomNo,
@@ -58,12 +54,13 @@ Map<String, dynamic> _$$_SubjectToJson(_$_Subject instance) =>
       'startTime': instance.startTime.toJson(),
     };
 
-_$_DayTime _$$_DayTimeFromJson(Map<String, dynamic> json) => _$_DayTime(
+_$DayTimeImpl _$$DayTimeImplFromJson(Map<String, dynamic> json) =>
+    _$DayTimeImpl(
       hour: json['hour'] as int,
       minute: json['minute'] as int,
     );
 
-Map<String, dynamic> _$$_DayTimeToJson(_$_DayTime instance) =>
+Map<String, dynamic> _$$DayTimeImplToJson(_$DayTimeImpl instance) =>
     <String, dynamic>{
       'hour': instance.hour,
       'minute': instance.minute,

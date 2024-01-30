@@ -6,7 +6,7 @@ part of 'event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
+_$EventImpl _$$EventImplFromJson(Map<String, dynamic> json) => _$EventImpl(
       refId: json['refId'] as String? ?? "",
       title: json['title'] as String,
       description: json['description'] as String,
@@ -24,7 +24,8 @@ _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
       launchURL: json['launchURL'] as String? ?? null,
     );
 
-Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
+Map<String, dynamic> _$$EventImplToJson(_$EventImpl instance) =>
+    <String, dynamic>{
       'refId': instance.refId,
       'title': instance.title,
       'description': instance.description,

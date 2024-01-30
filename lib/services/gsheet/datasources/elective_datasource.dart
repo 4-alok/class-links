@@ -1,6 +1,6 @@
-import 'package:class_link/global/models/time_table/time_table.dart';
-import 'package:class_link/global/utils/csv_utils.dart';
-import 'package:class_link/services/firebase/models/my_elective_list.dart';
+import '../../../global/models/time_table/time_table.dart';
+import '../../../global/utils/csv_utils.dart';
+import '../../firebase/models/my_elective_list.dart';
 import 'package:get/get.dart';
 
 import '../../../global/data/elective_teachers.dart';
@@ -45,7 +45,6 @@ class ElectiveDatasources {
       final myElectiveSubjectsList = <MyElectiveSubjects>[];
 
       for (int i = 0; i < mySectionListRow.length; i++) {
-
         // if myElectiveSubjectsList is empty, add the first element
         if (myElectiveSubjectsList.firstWhereOrNull(
                 (element) => element.day == mySectionListRow[i][0]) ==

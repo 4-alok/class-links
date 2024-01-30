@@ -1,6 +1,6 @@
-import 'package:class_link/services/auth/extension/app_user_type.dart';
-import 'package:class_link/services/gsheet/repository/gsheet_service.dart';
-import 'package:class_link/services/hive/models/user_info.dart';
+import '../../../services/auth/extension/app_user_type.dart';
+import '../../../services/gsheet/repository/gsheet_service.dart';
+import '../../../services/hive/models/user_info.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:get/get.dart';
 

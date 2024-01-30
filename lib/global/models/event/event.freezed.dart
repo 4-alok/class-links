@@ -138,9 +138,10 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
 }
 
 /// @nodoc
-abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
-  factory _$$_EventCopyWith(_$_Event value, $Res Function(_$_Event) then) =
-      __$$_EventCopyWithImpl<$Res>;
+abstract class _$$EventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
+  factory _$$EventImplCopyWith(
+          _$EventImpl value, $Res Function(_$EventImpl) then) =
+      __$$EventImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -159,9 +160,11 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
-    implements _$$_EventCopyWith<$Res> {
-  __$$_EventCopyWithImpl(_$_Event _value, $Res Function(_$_Event) _then)
+class __$$EventImplCopyWithImpl<$Res>
+    extends _$EventCopyWithImpl<$Res, _$EventImpl>
+    implements _$$EventImplCopyWith<$Res> {
+  __$$EventImplCopyWithImpl(
+      _$EventImpl _value, $Res Function(_$EventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -180,7 +183,7 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
     Object? verified = null,
     Object? launchURL = freezed,
   }) {
-    return _then(_$_Event(
+    return _then(_$EventImpl(
       refId: null == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
@@ -235,8 +238,8 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Event implements _Event {
-  const _$_Event(
+class _$EventImpl implements _Event {
+  const _$EventImpl(
       {this.refId = "",
       required this.title,
       required this.description,
@@ -251,8 +254,8 @@ class _$_Event implements _Event {
       this.launchURL = null})
       : _interested = interested;
 
-  factory _$_Event.fromJson(Map<String, dynamic> json) =>
-      _$$_EventFromJson(json);
+  factory _$EventImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EventImplFromJson(json);
 
   @override
   @JsonKey()
@@ -296,10 +299,10 @@ class _$_Event implements _Event {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Event &&
+            other is _$EventImpl &&
             (identical(other.refId, refId) || other.refId == refId) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
@@ -342,12 +345,12 @@ class _$_Event implements _Event {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EventCopyWith<_$_Event> get copyWith =>
-      __$$_EventCopyWithImpl<_$_Event>(this, _$identity);
+  _$$EventImplCopyWith<_$EventImpl> get copyWith =>
+      __$$EventImplCopyWithImpl<_$EventImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_EventToJson(
+    return _$$EventImplToJson(
       this,
     );
   }
@@ -366,9 +369,9 @@ abstract class _Event implements Event {
       final String? logoUrl,
       final List<int> interested,
       final bool verified,
-      final String? launchURL}) = _$_Event;
+      final String? launchURL}) = _$EventImpl;
 
-  factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
+  factory _Event.fromJson(Map<String, dynamic> json) = _$EventImpl.fromJson;
 
   @override
   String get refId;
@@ -396,6 +399,6 @@ abstract class _Event implements Event {
   String? get launchURL;
   @override
   @JsonKey(ignore: true)
-  _$$_EventCopyWith<_$_Event> get copyWith =>
+  _$$EventImplCopyWith<_$EventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

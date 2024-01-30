@@ -1,4 +1,4 @@
-import 'package:class_link/global/data/students_list.dart';
+import '../../../global/data/students_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/user_type.dart';

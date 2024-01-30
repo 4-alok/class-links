@@ -1,4 +1,3 @@
-import 'package:class_link/services/hive/repository/hive_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 

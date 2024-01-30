@@ -61,21 +61,22 @@ class _$SheetDataCopyWithImpl<$Res, $Val extends SheetData>
 }
 
 /// @nodoc
-abstract class _$$_SheetDataCopyWith<$Res> implements $SheetDataCopyWith<$Res> {
-  factory _$$_SheetDataCopyWith(
-          _$_SheetData value, $Res Function(_$_SheetData) then) =
-      __$$_SheetDataCopyWithImpl<$Res>;
+abstract class _$$SheetDataImplCopyWith<$Res>
+    implements $SheetDataCopyWith<$Res> {
+  factory _$$SheetDataImplCopyWith(
+          _$SheetDataImpl value, $Res Function(_$SheetDataImpl) then) =
+      __$$SheetDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<List<String>> rowList});
 }
 
 /// @nodoc
-class __$$_SheetDataCopyWithImpl<$Res>
-    extends _$SheetDataCopyWithImpl<$Res, _$_SheetData>
-    implements _$$_SheetDataCopyWith<$Res> {
-  __$$_SheetDataCopyWithImpl(
-      _$_SheetData _value, $Res Function(_$_SheetData) _then)
+class __$$SheetDataImplCopyWithImpl<$Res>
+    extends _$SheetDataCopyWithImpl<$Res, _$SheetDataImpl>
+    implements _$$SheetDataImplCopyWith<$Res> {
+  __$$SheetDataImplCopyWithImpl(
+      _$SheetDataImpl _value, $Res Function(_$SheetDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -83,7 +84,7 @@ class __$$_SheetDataCopyWithImpl<$Res>
   $Res call({
     Object? rowList = null,
   }) {
-    return _then(_$_SheetData(
+    return _then(_$SheetDataImpl(
       rowList: null == rowList
           ? _value._rowList
           : rowList // ignore: cast_nullable_to_non_nullable
@@ -94,12 +95,12 @@ class __$$_SheetDataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SheetData implements _SheetData {
-  const _$_SheetData({required final List<List<String>> rowList})
+class _$SheetDataImpl implements _SheetData {
+  const _$SheetDataImpl({required final List<List<String>> rowList})
       : _rowList = rowList;
 
-  factory _$_SheetData.fromJson(Map<String, dynamic> json) =>
-      _$$_SheetDataFromJson(json);
+  factory _$SheetDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SheetDataImplFromJson(json);
 
   final List<List<String>> _rowList;
   @override
@@ -115,10 +116,10 @@ class _$_SheetData implements _SheetData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SheetData &&
+            other is _$SheetDataImpl &&
             const DeepCollectionEquality().equals(other._rowList, _rowList));
   }
 
@@ -130,12 +131,12 @@ class _$_SheetData implements _SheetData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SheetDataCopyWith<_$_SheetData> get copyWith =>
-      __$$_SheetDataCopyWithImpl<_$_SheetData>(this, _$identity);
+  _$$SheetDataImplCopyWith<_$SheetDataImpl> get copyWith =>
+      __$$SheetDataImplCopyWithImpl<_$SheetDataImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SheetDataToJson(
+    return _$$SheetDataImplToJson(
       this,
     );
   }
@@ -143,15 +144,15 @@ class _$_SheetData implements _SheetData {
 
 abstract class _SheetData implements SheetData {
   const factory _SheetData({required final List<List<String>> rowList}) =
-      _$_SheetData;
+      _$SheetDataImpl;
 
   factory _SheetData.fromJson(Map<String, dynamic> json) =
-      _$_SheetData.fromJson;
+      _$SheetDataImpl.fromJson;
 
   @override
   List<List<String>> get rowList;
   @override
   @JsonKey(ignore: true)
-  _$$_SheetDataCopyWith<_$_SheetData> get copyWith =>
+  _$$SheetDataImplCopyWith<_$SheetDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
